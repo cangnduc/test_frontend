@@ -1,0 +1,83 @@
+model Test {
+  id          String        @id @default(uuid())
+  
+  title       String
+  description String?
+  status      PublishStatus    @default(PUBLISHED)
+  tokenRequired Int        @default(0) // Number of tokens required to take this test (for gamification)
+  tags        String[]      @default([])
+  difficulty  DifficultyLevel @default(DL_1)
+  
+  // Cover image - only 1 allowed per test
+  coverMediaId String?
+  coverMedia   Media?        @relation(fields: [coverMediaId], references: [id], onDelete: SetNull)
+
+  subjectId   String
+  subject     Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  createdById Int
+  createdBy   User          @relation("UserCreatedTests", fields: [createdById], references: [id])
+
+  attempts    TestAttempt[] // Who took this test?
+  sections    TestSection[]
+  setting     TestSetting?
+  progress    UserTestProgress[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model TestSetting {
+  id                   String   @id @default(uuid())
+ 
+  availableFrom        DateTime? @default(now())
+  availableTo          DateTime?
+  duration             Int?     // Total test duration (minutes)
+  
+  // PROFESSIONAL SETTINGS
+  maxAttempts          Int?      @default(-1) // -1 = unlimited
+  shuffleQuestions     Boolean?  @default(false) // Randomize order?
+  showResultImmediately Boolean? @default(true)  // or wait for manual publish?
+  requirePassword      String?  // For proctored exams
+  ipRestriction        String?  // Anti-cheat (optional)
+  strictMode             Boolean?  @default(false) // block copy-paste, switch tabs, etc.
+  forwardOnly            Boolean?  @default(false) // if true, use must finish section 1 before going to section 2, and can't go back to previous sections
+  passingPercentage      Int?      @default(50) // Percentage of passage to show
+  resultView ResultViewType? @default(IMMEDIATE) // Instant or AfterTest 
+  
+  testId               String   @unique
+  test                 Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+}
+
+model TestSection {
+  id          String         @id @default(uuid())
+  type SectionType
+  title       String         // e.g., "Section 1: Calculating, Reading, Listening"
+  order       Int
+  description String?        // instructions for this specific section
+  timeLimit   Int?           @default(-1)  // in minutes (-1 = no limit)
+  questionSelectionMode SelectionMode @default(ALL_REQUIRED)
+  questionToSelect Int? @default(-1) // Number of questions to select (-1 = all)
+
+  questions   TestQuestion[] // The "Link" table. Allows reusing questions in multiple tests.
+  attemptSections AttemptSection[] // Sections in attempts
+  testId      String
+  test        Test           @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  passageId   String?
+  passage     Passage?       @relation(fields: [passageId], references: [id])
+}
+// The "Link" table. Allows reusing questions in multiple tests.
+model TestQuestion {
+  id          String      @id @default(uuid())
+  sectionId   String
+  section     TestSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  attemptQuestions AttemptQuestion[]
+  questionId  String
+  question    Question    @relation(fields: [questionId], references: [id])
+  
+  order       Int
+  point       Int         @default(1) // Can override base points
+  
+  @@unique([sectionId, questionId])
+  @@index([sectionId])
+}

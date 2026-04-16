@@ -1,0 +1,112 @@
+enum UserRole {
+  USER
+  ADMIN
+  TEACHER
+  MOD
+  PARENT
+}
+
+// ===== enums =====
+
+enum DifficultyLevel {
+  DL_1
+  DL_2
+  DL_3
+  DL_4
+  DL_5
+  DL_6
+  DL_7
+  DL_8
+  DL_9
+  DL_10
+}
+
+enum PublishStatus {
+  DRAFT // Teacher is still writing it
+  PUBLISHED // Visible to students
+  ARCHIVED // Old test, hidden
+  PRIVATE // Visible to use for other
+}
+
+enum AttemptStatus {
+  STARTED
+  IN_PROGRESS
+  SUBMITTED // Student finished, waiting for auto-grade
+  COMPLETED // Graded
+  EXPIRED // Time limit exceeded
+}
+
+enum PassageType {
+  READING
+  LISTENING
+
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  SINGLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_THE_BLANK
+  MATCHING
+  ORDERING
+  OPEN_ENDED
+  ESSAY
+  CODING
+}
+
+enum SubjectType {
+  MATH
+  ENGLISH
+  SCIENCE
+  HISTORY
+  GEOGRAPHY
+  ART
+  MUSIC
+  PHYSICAL_EDUCATION
+  GENERAL_KNOWLEDGE
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum ResultViewType {
+  IMMEDIATE //show score + answers + explanations
+  SCORE_ONLY //show score only
+  MANUAL_GRADING //show "Pending Grading" 
+  NEVER // hide result
+}
+
+enum SectionType {
+  STANDALONE
+  PASSAGE_BASED
+}
+
+enum MediaType {
+  IMAGE
+  AUDIO
+  VIDEO
+  PDF
+  DOCUMENT
+  YOUTUBE
+}
+
+enum SelectionMode {
+  ALL_REQUIRED // Show all, must answer all (default)
+  CHOOSE_N // Show all, user can answer up to N
+  RANDOM_N // Randomly show N, must answer all shown
+}
+
+enum SectionStatus {
+  LOCKED
+  ACTIVE
+  COMPLETED
+}
+
+enum TokenTransactionReason {
+  TEST_ATTEMPT
+  TEST_REFUND
+  REWARD
+  ADMIN_ADJUSTMENT
+}

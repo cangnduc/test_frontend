@@ -1,0 +1,19 @@
+model SystemLog {
+  id        String   @id @default(uuid())
+  level     String   // "INFO", "WARN", "ERROR"
+  message   String
+  stack     String?  @db.Text
+  context   Json?    // Store input args, path, etc.
+  traceId   String?  @map("trace_id") // ID to trace a single request flow
+  
+  // Link to User
+  userId    Int?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([level])
+  @@index([userId]) 
+  @@index([traceId])
+  @@index([createdAt])
+}

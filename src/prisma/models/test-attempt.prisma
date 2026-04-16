@@ -1,0 +1,99 @@
+model TestAttempt {
+  id String @id @default(uuid())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  testId String
+  test   Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  status        AttemptStatus @default(IN_PROGRESS)
+  attemptNumber Int
+
+  startedAt   DateTime  @default(now())
+  submittedAt DateTime?
+  completedAt DateTime?
+
+  globalEndAt DateTime?
+
+  currentSectionId String?
+  currentSection   AttemptSection? @relation("CurrentSection", fields: [currentSectionId], references: [id], onDelete: SetNull)
+
+  totalScore Float?   @default(0)
+  maxScore   Float?
+  percentage Float?
+  passed     Boolean?
+
+  configSnapshot    Json
+  sessionToken      String?
+  clientFingerprint String?
+  ipAddress         String?
+
+  sections  AttemptSection[]  @relation("AttemptSections")
+  questions AttemptQuestion[]
+  answers   AttemptAnswer[]
+
+  @@unique([userId, testId, attemptNumber])
+  @@index([userId, testId, status])
+}
+
+model AttemptSection {
+  id                  String        @id @default(uuid())
+  attemptId           String
+  
+  sectionId           String
+  section             TestSection   @relation(fields: [sectionId], references: [id])
+  order               Int
+  title               String
+  timeLimit           Int?
+  selectionMode       SelectionMode? // ALL_REQUIRED, CHOOSE_N, RANDOM_N
+  requiredAnswerCount Int?
+  status              SectionStatus @default(LOCKED)
+  startedAt           DateTime?
+  sectionEndAt        DateTime?
+  completedAt         DateTime?
+  
+  attempt             TestAttempt   @relation("AttemptSections", fields: [attemptId], references: [id], onDelete: Cascade)
+  currentAttempts TestAttempt[]     @relation("CurrentSection")
+  questions       AttemptQuestion[]
+    
+  @@unique([attemptId, sectionId])
+  @@index([attemptId, order])
+}
+
+model AttemptQuestion {
+  id               String          @id @default(uuid())
+  attemptId        String
+  attempt          TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  attemptSectionId String
+  attemptSection   AttemptSection  @relation(fields: [attemptSectionId], references: [id], onDelete: Cascade)
+  questionId       String
+  question         Question        @relation(fields: [questionId], references: [id])
+  displayOrder     Int
+  point            Int             @default(1)
+  isRequired       Boolean         @default(true)
+  answers          AttemptAnswer[]
+  testQuestion     TestQuestion?   @relation(fields: [testQuestionId], references: [id])
+  testQuestionId   String?
+
+  @@unique([attemptId, questionId])
+  @@index([attemptId, attemptSectionId, displayOrder])
+}
+
+model AttemptAnswer {
+  id                String          @id @default(uuid())
+  attemptId         String
+  attempt           TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  attemptQuestionId String
+  attemptQuestion   AttemptQuestion @relation(fields: [attemptQuestionId], references: [id], onDelete: Cascade)
+  questionId        String
+  question          Question        @relation(fields: [questionId], references: [id])
+  response          Json
+  version           Int             @default(1)
+  isCorrect         Boolean?
+  pointsAwarded     Float           @default(0)
+  savedAt           DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@unique([attemptId, attemptQuestionId])
+}

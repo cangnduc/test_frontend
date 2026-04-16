@@ -1,0 +1,14 @@
+model Media {
+  id      String    @id @default(cuid())
+  type    MediaType
+  url     String    @db.Text
+  ownerId Int
+  User    User      @relation("UserCreatedMedia", fields: [ownerId], references: [id])
+
+  questions Question[]
+  passages  Passage[]
+  tests     Test[] // For test cover images (1:1 relationship)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

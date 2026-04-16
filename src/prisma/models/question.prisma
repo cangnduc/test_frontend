@@ -1,0 +1,72 @@
+model Subject {
+  id          String     @id @default(uuid())
+  code        String     @unique // e.g., MATH, ENG, SCI
+  name        String
+  description String?
+  questions   Question[]
+  passages    Passage[]
+  tests       Test[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Question {
+  id         String          @id @default(uuid())
+  type       QuestionType
+  difficulty DifficultyLevel @default(DL_1)
+
+  tags  String[]
+  text  String   @db.Text // e.g., calculate the sum of 2 and 3 (support LaTeX/Markdown)
+  media Media[]
+
+  data        Json? // e.g., { "options": [...], "correctAnswer": ... }
+  explanation String? @db.Text // e.g., explanation for the answer (support LaTeX/Markdown)
+
+  isDeleted    Boolean    @default(false)
+  defaultPoint Int        @default(1)
+  visibility   Visibility @default(PUBLIC)
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  createdById Int?
+  createdBy   User? @relation("UserCreatedQuestions", fields: [createdById], references: [id])
+
+  // For Reading Comprehension or Listening Comprehension (IELTS, TOEFL)
+  passageId String?
+  passage   Passage? @relation(fields: [passageId], references: [id], onDelete: Cascade)
+
+  tests            TestQuestion[] // In which tests does this question appear?
+  attemptQuestions AttemptQuestion[]
+  attemptAnswers   AttemptAnswer[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([subjectId, type])
+  @@index([createdById])
+  // @@index([tags], type: Gin)
+}
+
+model Passage {
+  id      String      @id @default(uuid())
+  type    PassageType
+  title   String
+  content String      @db.Text
+  media   Media[]
+
+  difficulty  DifficultyLevel @default(DL_1)
+  visibility  Visibility      @default(PUBLIC)
+  tags        String[]
+  explanation String?         @db.Text
+  isDeleted   Boolean         @default(false)
+  subjectId   String          @default("9")
+  subject     Subject         @relation(fields: [subjectId], references: [id])
+
+  questions    Question[]
+  testSections TestSection[]
+  createdById  Int?
+  createdBy    User?         @relation("UserCreatedPassages", fields: [createdById], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}

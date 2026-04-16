@@ -1,0 +1,140 @@
+model Account {
+id            Int       @id @default(autoincrement())
+accountId             String
+providerId            String
+userId                Int
+user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+accessToken           String?
+refreshToken          String?
+idToken               String?
+accessTokenExpiresAt  DateTime?
+refreshTokenExpiresAt DateTime?
+scope                 String?
+password              String?
+createdAt             DateTime  @default(now())
+updatedAt             DateTime  @updatedAt
+
+@@index([userId])
+@@map("account")
+}
+
+model Session {
+id        String   @id @default(uuid())
+expiresAt DateTime
+token     String
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+ipAddress String?
+userAgent String?
+userId    Int
+user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+@@unique([token])
+@@index([userId])
+@@map("session")
+}
+
+model User {
+id            Int       @id @default(autoincrement())
+name          String?
+email         String
+emailVerified Boolean   @default(false)
+image         String?
+banned        Boolean   @default(false)
+role          UserRole  @default(USER)
+createdAt     DateTime  @default(now())
+updatedAt     DateTime  @updatedAt
+sessions      Session[]
+accounts      Account[]
+stats         UserStats?
+tests     Test[]     @relation("UserCreatedTests")
+questions Question[] @relation("UserCreatedQuestions")
+passages  Passage[]  @relation("UserCreatedPassages")
+media     Media[]    @relation("UserCreatedMedia")
+profile   Profile?
+tokenHistory  TokenTransaction[]
+
+systemLogs SystemLog[]
+testAttempts TestAttempt[]
+testProgress UserTestProgress[]
+
+@@unique([email])
+@@map("user")
+}
+
+model Verification {
+id         String   @id @default(uuid())
+identifier String
+value      String
+expiresAt  DateTime
+createdAt  DateTime @default(now())
+updatedAt  DateTime @updatedAt
+
+@@index([identifier])
+@@map("verification")
+}
+
+model Profile {
+id     String  @id @default(uuid())
+bio    String?
+userId Int     @unique
+User   User    @relation(fields: [userId], references: [id])
+}
+model UserStats {
+id        String   @id @default(uuid())
+userId    Int      @unique
+user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+// Gamification
+tokens    Int      @default(0)
+xp        Int      @default(0)
+level     Int      @default(1)
+streak    Int      @default(0)
+
+// Progress summary
+testsTaken     Int @default(0)
+testsCompleted Int @default(0)
+testsPassed    Int @default(0)
+
+lastActiveAt DateTime @default(now())
+createdAt    DateTime @default(now())
+updatedAt    DateTime @updatedAt
+}
+
+model TokenTransaction {
+id        String   @id @default(uuid())
+
+userId    Int
+user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+amount    Int      // +10 reward, -5 test attempt
+balanceAfter Int   // snapshot after transaction (important!)
+reason    TokenTransactionReason
+
+testId    String?  // context (optional)
+attemptId String?  // context (optional)
+
+createdAt DateTime @default(now())
+
+@@index([userId, createdAt])
+}
+model UserTestProgress {
+id        String   @id @default(uuid())
+
+userId    Int
+user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+testId    String
+test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+status     AttemptStatus
+score      Float?
+maxScore   Float?
+percentage Float?
+
+lastAttemptId  String?
+lastActivityAt DateTime @updatedAt
+
+@@unique([userId, testId])
+@@index([userId, status])
+}
