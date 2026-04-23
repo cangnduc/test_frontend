@@ -32,6 +32,7 @@ model TestAttempt {
   sections  AttemptSection[]  @relation("AttemptSections")
   questions AttemptQuestion[]
   answers   AttemptAnswer[]
+  progress  UserTestProgress[]
 
   @@unique([userId, testId, attemptNumber])
   @@index([userId, testId, status])
@@ -95,5 +96,21 @@ model AttemptAnswer {
   savedAt           DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 
+  manualGrade ManualGrade?
+
   @@unique([attemptId, attemptQuestionId])
+}
+
+model ManualGrade {
+  id              String        @id @default(uuid())
+  attemptAnswerId String        @unique
+  attemptAnswer   AttemptAnswer @relation(fields: [attemptAnswerId], references: [id], onDelete: Cascade)
+
+  gradedById    Int
+  gradedBy      User     @relation("GradedBy", fields: [gradedById], references: [id])
+  pointsAwarded Float
+  feedback      String?  @db.Text
+
+  gradedAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

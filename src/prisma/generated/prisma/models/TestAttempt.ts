@@ -338,6 +338,7 @@ export type TestAttemptWhereInput = {
   sections?: Prisma.AttemptSectionListRelationFilter
   questions?: Prisma.AttemptQuestionListRelationFilter
   answers?: Prisma.AttemptAnswerListRelationFilter
+  progress?: Prisma.UserTestProgressListRelationFilter
 }
 
 export type TestAttemptOrderByWithRelationInput = {
@@ -365,6 +366,7 @@ export type TestAttemptOrderByWithRelationInput = {
   sections?: Prisma.AttemptSectionOrderByRelationAggregateInput
   questions?: Prisma.AttemptQuestionOrderByRelationAggregateInput
   answers?: Prisma.AttemptAnswerOrderByRelationAggregateInput
+  progress?: Prisma.UserTestProgressOrderByRelationAggregateInput
 }
 
 export type TestAttemptWhereUniqueInput = Prisma.AtLeast<{
@@ -396,6 +398,7 @@ export type TestAttemptWhereUniqueInput = Prisma.AtLeast<{
   sections?: Prisma.AttemptSectionListRelationFilter
   questions?: Prisma.AttemptQuestionListRelationFilter
   answers?: Prisma.AttemptAnswerListRelationFilter
+  progress?: Prisma.UserTestProgressListRelationFilter
 }, "id" | "userId_testId_attemptNumber">
 
 export type TestAttemptOrderByWithAggregationInput = {
@@ -470,6 +473,7 @@ export type TestAttemptCreateInput = {
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUncheckedCreateInput = {
@@ -494,6 +498,7 @@ export type TestAttemptUncheckedCreateInput = {
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUpdateInput = {
@@ -518,6 +523,7 @@ export type TestAttemptUpdateInput = {
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateInput = {
@@ -542,6 +548,7 @@ export type TestAttemptUncheckedUpdateInput = {
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptCreateManyInput = {
@@ -702,12 +709,13 @@ export type TestAttemptOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type EnumAttemptStatusFieldUpdateOperationsInput = {
-  set?: $Enums.AttemptStatus
+export type TestAttemptNullableScalarRelationFilter = {
+  is?: Prisma.TestAttemptWhereInput | null
+  isNot?: Prisma.TestAttemptWhereInput | null
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type EnumAttemptStatusFieldUpdateOperationsInput = {
+  set?: $Enums.AttemptStatus
 }
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -890,6 +898,22 @@ export type TestAttemptUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.TestAttemptScalarWhereInput | Prisma.TestAttemptScalarWhereInput[]
 }
 
+export type TestAttemptCreateNestedOneWithoutProgressInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutProgressInput, Prisma.TestAttemptUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutProgressInput
+  connect?: Prisma.TestAttemptWhereUniqueInput
+}
+
+export type TestAttemptUpdateOneWithoutProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutProgressInput, Prisma.TestAttemptUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutProgressInput
+  upsert?: Prisma.TestAttemptUpsertWithoutProgressInput
+  disconnect?: Prisma.TestAttemptWhereInput | boolean
+  delete?: Prisma.TestAttemptWhereInput | boolean
+  connect?: Prisma.TestAttemptWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TestAttemptUpdateToOneWithWhereWithoutProgressInput, Prisma.TestAttemptUpdateWithoutProgressInput>, Prisma.TestAttemptUncheckedUpdateWithoutProgressInput>
+}
+
 export type TestAttemptCreateWithoutSectionsInput = {
   id?: string
   status?: $Enums.AttemptStatus
@@ -911,6 +935,7 @@ export type TestAttemptCreateWithoutSectionsInput = {
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutSectionsInput = {
@@ -934,6 +959,7 @@ export type TestAttemptUncheckedCreateWithoutSectionsInput = {
   ipAddress?: string | null
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutSectionsInput = {
@@ -962,6 +988,7 @@ export type TestAttemptCreateWithoutCurrentSectionInput = {
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutCurrentSectionInput = {
@@ -985,6 +1012,7 @@ export type TestAttemptUncheckedCreateWithoutCurrentSectionInput = {
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutCurrentSectionInput = {
@@ -1029,6 +1057,7 @@ export type TestAttemptUpdateWithoutSectionsInput = {
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutSectionsInput = {
@@ -1052,6 +1081,7 @@ export type TestAttemptUncheckedUpdateWithoutSectionsInput = {
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUpsertWithWhereUniqueWithoutCurrentSectionInput = {
@@ -1115,6 +1145,7 @@ export type TestAttemptCreateWithoutQuestionsInput = {
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutQuestionsInput = {
@@ -1138,6 +1169,7 @@ export type TestAttemptUncheckedCreateWithoutQuestionsInput = {
   ipAddress?: string | null
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutQuestionsInput = {
@@ -1177,6 +1209,7 @@ export type TestAttemptUpdateWithoutQuestionsInput = {
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutQuestionsInput = {
@@ -1200,6 +1233,7 @@ export type TestAttemptUncheckedUpdateWithoutQuestionsInput = {
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptCreateWithoutAnswersInput = {
@@ -1223,6 +1257,7 @@ export type TestAttemptCreateWithoutAnswersInput = {
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutAnswersInput = {
@@ -1246,6 +1281,7 @@ export type TestAttemptUncheckedCreateWithoutAnswersInput = {
   ipAddress?: string | null
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutAnswersInput = {
@@ -1285,6 +1321,7 @@ export type TestAttemptUpdateWithoutAnswersInput = {
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutAnswersInput = {
@@ -1308,6 +1345,7 @@ export type TestAttemptUncheckedUpdateWithoutAnswersInput = {
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptCreateWithoutTestInput = {
@@ -1331,6 +1369,7 @@ export type TestAttemptCreateWithoutTestInput = {
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutTestInput = {
@@ -1354,6 +1393,7 @@ export type TestAttemptUncheckedCreateWithoutTestInput = {
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutTestInput = {
@@ -1403,6 +1443,7 @@ export type TestAttemptCreateWithoutUserInput = {
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutUserInput = {
@@ -1426,6 +1467,7 @@ export type TestAttemptUncheckedCreateWithoutUserInput = {
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutUserInput = {
@@ -1452,6 +1494,118 @@ export type TestAttemptUpdateWithWhereUniqueWithoutUserInput = {
 export type TestAttemptUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.TestAttemptScalarWhereInput
   data: Prisma.XOR<Prisma.TestAttemptUpdateManyMutationInput, Prisma.TestAttemptUncheckedUpdateManyWithoutUserInput>
+}
+
+export type TestAttemptCreateWithoutProgressInput = {
+  id?: string
+  status?: $Enums.AttemptStatus
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  completedAt?: Date | string | null
+  globalEndAt?: Date | string | null
+  totalScore?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  passed?: boolean | null
+  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: string | null
+  clientFingerprint?: string | null
+  ipAddress?: string | null
+  user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
+  test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
+  sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
+  questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
+  answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+}
+
+export type TestAttemptUncheckedCreateWithoutProgressInput = {
+  id?: string
+  userId: number
+  testId: string
+  status?: $Enums.AttemptStatus
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  completedAt?: Date | string | null
+  globalEndAt?: Date | string | null
+  currentSectionId?: string | null
+  totalScore?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  passed?: boolean | null
+  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: string | null
+  clientFingerprint?: string | null
+  ipAddress?: string | null
+  sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
+  questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
+  answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+}
+
+export type TestAttemptCreateOrConnectWithoutProgressInput = {
+  where: Prisma.TestAttemptWhereUniqueInput
+  create: Prisma.XOR<Prisma.TestAttemptCreateWithoutProgressInput, Prisma.TestAttemptUncheckedCreateWithoutProgressInput>
+}
+
+export type TestAttemptUpsertWithoutProgressInput = {
+  update: Prisma.XOR<Prisma.TestAttemptUpdateWithoutProgressInput, Prisma.TestAttemptUncheckedUpdateWithoutProgressInput>
+  create: Prisma.XOR<Prisma.TestAttemptCreateWithoutProgressInput, Prisma.TestAttemptUncheckedCreateWithoutProgressInput>
+  where?: Prisma.TestAttemptWhereInput
+}
+
+export type TestAttemptUpdateToOneWithWhereWithoutProgressInput = {
+  where?: Prisma.TestAttemptWhereInput
+  data: Prisma.XOR<Prisma.TestAttemptUpdateWithoutProgressInput, Prisma.TestAttemptUncheckedUpdateWithoutProgressInput>
+}
+
+export type TestAttemptUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  globalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
+  test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
+  sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
+  questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
+  answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+}
+
+export type TestAttemptUncheckedUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  globalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
+  questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
+  answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptCreateManyCurrentSectionInput = {
@@ -1495,6 +1649,7 @@ export type TestAttemptUpdateWithoutCurrentSectionInput = {
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutCurrentSectionInput = {
@@ -1518,6 +1673,7 @@ export type TestAttemptUncheckedUpdateWithoutCurrentSectionInput = {
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateManyWithoutCurrentSectionInput = {
@@ -1581,6 +1737,7 @@ export type TestAttemptUpdateWithoutTestInput = {
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutTestInput = {
@@ -1604,6 +1761,7 @@ export type TestAttemptUncheckedUpdateWithoutTestInput = {
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateManyWithoutTestInput = {
@@ -1667,6 +1825,7 @@ export type TestAttemptUpdateWithoutUserInput = {
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutUserInput = {
@@ -1690,6 +1849,7 @@ export type TestAttemptUncheckedUpdateWithoutUserInput = {
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateManyWithoutUserInput = {
@@ -1721,12 +1881,14 @@ export type TestAttemptCountOutputType = {
   sections: number
   questions: number
   answers: number
+  progress: number
 }
 
 export type TestAttemptCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sections?: boolean | TestAttemptCountOutputTypeCountSectionsArgs
   questions?: boolean | TestAttemptCountOutputTypeCountQuestionsArgs
   answers?: boolean | TestAttemptCountOutputTypeCountAnswersArgs
+  progress?: boolean | TestAttemptCountOutputTypeCountProgressArgs
 }
 
 /**
@@ -1760,6 +1922,13 @@ export type TestAttemptCountOutputTypeCountAnswersArgs<ExtArgs extends runtime.T
   where?: Prisma.AttemptAnswerWhereInput
 }
 
+/**
+ * TestAttemptCountOutputType without action
+ */
+export type TestAttemptCountOutputTypeCountProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserTestProgressWhereInput
+}
+
 
 export type TestAttemptSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1786,6 +1955,7 @@ export type TestAttemptSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   sections?: boolean | Prisma.TestAttempt$sectionsArgs<ExtArgs>
   questions?: boolean | Prisma.TestAttempt$questionsArgs<ExtArgs>
   answers?: boolean | Prisma.TestAttempt$answersArgs<ExtArgs>
+  progress?: boolean | Prisma.TestAttempt$progressArgs<ExtArgs>
   _count?: boolean | Prisma.TestAttemptCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testAttempt"]>
 
@@ -1866,6 +2036,7 @@ export type TestAttemptInclude<ExtArgs extends runtime.Types.Extensions.Internal
   sections?: boolean | Prisma.TestAttempt$sectionsArgs<ExtArgs>
   questions?: boolean | Prisma.TestAttempt$questionsArgs<ExtArgs>
   answers?: boolean | Prisma.TestAttempt$answersArgs<ExtArgs>
+  progress?: boolean | Prisma.TestAttempt$progressArgs<ExtArgs>
   _count?: boolean | Prisma.TestAttemptCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TestAttemptIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1888,6 +2059,7 @@ export type $TestAttemptPayload<ExtArgs extends runtime.Types.Extensions.Interna
     sections: Prisma.$AttemptSectionPayload<ExtArgs>[]
     questions: Prisma.$AttemptQuestionPayload<ExtArgs>[]
     answers: Prisma.$AttemptAnswerPayload<ExtArgs>[]
+    progress: Prisma.$UserTestProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2308,6 +2480,7 @@ export interface Prisma__TestAttemptClient<T, Null = never, ExtArgs extends runt
   sections<T extends Prisma.TestAttempt$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptSectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questions<T extends Prisma.TestAttempt$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   answers<T extends Prisma.TestAttempt$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  progress<T extends Prisma.TestAttempt$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTestProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2844,6 +3017,30 @@ export type TestAttempt$answersArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.AttemptAnswerScalarFieldEnum | Prisma.AttemptAnswerScalarFieldEnum[]
+}
+
+/**
+ * TestAttempt.progress
+ */
+export type TestAttempt$progressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserTestProgress
+   */
+  select?: Prisma.UserTestProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserTestProgress
+   */
+  omit?: Prisma.UserTestProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserTestProgressInclude<ExtArgs> | null
+  where?: Prisma.UserTestProgressWhereInput
+  orderBy?: Prisma.UserTestProgressOrderByWithRelationInput | Prisma.UserTestProgressOrderByWithRelationInput[]
+  cursor?: Prisma.UserTestProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserTestProgressScalarFieldEnum | Prisma.UserTestProgressScalarFieldEnum[]
 }
 
 /**

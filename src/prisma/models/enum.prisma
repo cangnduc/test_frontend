@@ -110,3 +110,22 @@ enum TokenTransactionReason {
   REWARD
   ADMIN_ADJUSTMENT
 }
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+
+enum ClassRole {
+  STUDENT
+  AUDITOR
+}
+
+enum NotificationType {
+  GRADE_READY
+  TEST_ASSIGNED
+  ACHIEVEMENT_UNLOCKED
+  SYSTEM
+}

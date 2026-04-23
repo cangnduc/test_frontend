@@ -17,3 +17,19 @@ model SystemLog {
   @@index([traceId])
   @@index([createdAt])
 }
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    Int?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action     String   // e.g., "question.update", "test.publish"
+  resource   String   // table name
+  resourceId String   // affected record id
+  before     Json?
+  after      Json?
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  @@index([resource, resourceId])
+  @@index([actorId, createdAt])
+}

@@ -9,8 +9,8 @@ model Test {
   difficulty  DifficultyLevel @default(DL_1)
   
   // Cover image - only 1 allowed per test
-  coverMediaId String?
-  coverMedia   Media?        @relation(fields: [coverMediaId], references: [id], onDelete: SetNull)
+  coverMediaId String? @unique
+  coverMedia   Media?  @relation("TestCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
 
   subjectId   String
   subject     Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
@@ -18,12 +18,13 @@ model Test {
   createdById Int
   createdBy   User          @relation("UserCreatedTests", fields: [createdById], references: [id])
 
-  attempts    TestAttempt[] // Who took this test?
-  sections    TestSection[]
-  setting     TestSetting?
-  progress    UserTestProgress[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  attempts         TestAttempt[] // Who took this test?
+  sections         TestSection[]
+  setting          TestSetting?
+  progress         UserTestProgress[]
+  classAssignments ClassTestAssignment[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
 }
 
 model TestSetting {

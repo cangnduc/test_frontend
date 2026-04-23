@@ -18,10 +18,30 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model Class
+ * 
+ */
+export type Class = Prisma.ClassModel
+/**
+ * Model ClassEnrollment
+ * 
+ */
+export type ClassEnrollment = Prisma.ClassEnrollmentModel
+/**
+ * Model ClassTestAssignment
+ * 
+ */
+export type ClassTestAssignment = Prisma.ClassTestAssignmentModel
+/**
  * Model SystemLog
  * 
  */
 export type SystemLog = Prisma.SystemLogModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
 /**
  * Model Media
  * 
@@ -62,6 +82,11 @@ export type AttemptQuestion = Prisma.AttemptQuestionModel
  * 
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
+/**
+ * Model ManualGrade
+ * 
+ */
+export type ManualGrade = Prisma.ManualGradeModel
 /**
  * Model Test
  * 
@@ -107,6 +132,16 @@ export type Verification = Prisma.VerificationModel
  * 
  */
 export type Profile = Prisma.ProfileModel
+/**
+ * Model ParentStudentLink
+ * 
+ */
+export type ParentStudentLink = Prisma.ParentStudentLinkModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
 /**
  * Model UserStats
  * 

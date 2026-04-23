@@ -31,8 +31,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more SystemLogs
- * const systemLogs = await prisma.systemLog.findMany()
+ * // Fetch zero or more Classes
+ * const classes = await prisma.class.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -42,10 +42,30 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
+ * Model Class
+ * 
+ */
+export type Class = Prisma.ClassModel
+/**
+ * Model ClassEnrollment
+ * 
+ */
+export type ClassEnrollment = Prisma.ClassEnrollmentModel
+/**
+ * Model ClassTestAssignment
+ * 
+ */
+export type ClassTestAssignment = Prisma.ClassTestAssignmentModel
+/**
  * Model SystemLog
  * 
  */
 export type SystemLog = Prisma.SystemLogModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
 /**
  * Model Media
  * 
@@ -86,6 +106,11 @@ export type AttemptQuestion = Prisma.AttemptQuestionModel
  * 
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
+/**
+ * Model ManualGrade
+ * 
+ */
+export type ManualGrade = Prisma.ManualGradeModel
 /**
  * Model Test
  * 
@@ -131,6 +156,16 @@ export type Verification = Prisma.VerificationModel
  * 
  */
 export type Profile = Prisma.ProfileModel
+/**
+ * Model ParentStudentLink
+ * 
+ */
+export type ParentStudentLink = Prisma.ParentStudentLinkModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
 /**
  * Model UserStats
  * 

@@ -3,24 +3,24 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin } from "better-auth/plugins";
 import { createAuthMiddleware } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
-import { ac, roles } from "@/lib/auth/auth-permissions";
+import { ac, roles } from "@/auth/auth-permissions";
 import { prisma } from "@/lib/prisma";
 import { env } from "@/config/env";
 
-export const auth = betterAuth({
+export const authServer = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
   logger: {
     disabled: false,
     disableColors: false,
-    level: "error",
+    level: "debug",
     log: (level, message, ...args) => {
       // Custom logging implementation
       console.log(`[${level}] ${message}`, ...args);
     },
   },
-  baseURL: env.BETTER_AUTH_URL,
+  baseURL: env.BETTER_AUTH_SERVER_URL,
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
@@ -30,7 +30,18 @@ export const auth = betterAuth({
     "http://127.0.0.1:3001",
     env.BETTER_AUTH_URL,
   ],
-
+  databaseHooks: {
+    account: {
+      update: {
+        before: async (account, ctx) => {
+          console.log("--->>account", account);
+          return {
+            data: { account },
+          };
+        },
+      },
+    },
+  },
   advanced: {
     database: {
       generateId: "serial",
@@ -59,19 +70,6 @@ export const auth = betterAuth({
       // refreshCache: {
       //   updateAge: 60, // Refresh when 60 seconds remain before expiry
       // },
-    },
-  },
-  databaseHooks: {
-    account: {
-      update: {
-        before: async (account, ctx) => {
-          console.log("--->>account", account);
-          console.log("--->>ctx", ctx);
-          return {
-            data: { account },
-          };
-        },
-      },
     },
   },
   hooks: {

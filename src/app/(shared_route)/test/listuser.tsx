@@ -1,5 +1,5 @@
 "use client";
-import { authClient } from "@/lib/auth/auth-client";
+import { authClient } from "@/auth/auth-client";
 export async function ListUser() {
   const { data: users, error } = await authClient.admin.listUsers({
     query: {

@@ -1,4 +1,4 @@
-import { authClient } from "@/lib/auth/auth-client";
+import { authClient } from "@/auth/auth-client";
 
 export const SocialLogin = () => {
   return (
@@ -9,11 +9,11 @@ export const SocialLogin = () => {
             await authClient.signIn.social(
               {
                 provider: "google",
-                callbackURL: "http://localhost:3001/test",
+                callbackURL: "/",
               },
               {
                 onSuccess: () => {
-                  console.log("Sign-in success");
+                  window.location.href = "http://localhost:3001/";
                 },
                 onError: (error) => {
                   console.log("Sign-in error:", error);

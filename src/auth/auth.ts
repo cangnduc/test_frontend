@@ -3,24 +3,24 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin } from "better-auth/plugins";
 import { createAuthMiddleware } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
-import { ac, roles } from "@/lib/auth/auth-permissions";
+import { ac, roles } from "@/auth/auth-permissions";
 import { prisma } from "@/lib/prisma";
 import { env } from "@/config/env";
 
-export const authServer = betterAuth({
+export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
   logger: {
     disabled: false,
     disableColors: false,
-    level: "debug",
+    level: "error",
     log: (level, message, ...args) => {
       // Custom logging implementation
       console.log(`[${level}] ${message}`, ...args);
     },
   },
-  baseURL: env.BETTER_AUTH_SERVER_URL,
+  baseURL: env.BETTER_AUTH_URL,
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
@@ -30,18 +30,7 @@ export const authServer = betterAuth({
     "http://127.0.0.1:3001",
     env.BETTER_AUTH_URL,
   ],
-  databaseHooks: {
-    account: {
-      update: {
-        before: async (account, ctx) => {
-          console.log("--->>account", account);
-          return {
-            data: { account },
-          };
-        },
-      },
-    },
-  },
+
   advanced: {
     database: {
       generateId: "serial",
@@ -70,6 +59,19 @@ export const authServer = betterAuth({
       // refreshCache: {
       //   updateAge: 60, // Refresh when 60 seconds remain before expiry
       // },
+    },
+  },
+  databaseHooks: {
+    account: {
+      update: {
+        before: async (account, ctx) => {
+          console.log("--->>account", account);
+          console.log("--->>ctx", ctx);
+          return {
+            data: { account },
+          };
+        },
+      },
     },
   },
   hooks: {
@@ -137,3 +139,5 @@ function normalizeName(name: string) {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
 }
+export type Session = typeof auth.$Infer.Session;
+export type User = Session["user"];

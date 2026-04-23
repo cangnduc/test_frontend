@@ -5,4 +5,16 @@ generator client {
   provider   = "prisma-client"
   output     = "./generated/prisma"
   engineType = "binary"
+  
+}
+generator erd_plantuml {
+  provider   = "prisma-generator-plantuml-erd"
+  output = "./erd.puml"
+  exportPerTables      = false
+  showUniqueKeyLabel = false
+  isShowForeignKeyOnRelation = true
+  // markdownOutput       = "./example-tables.md"
+  // markdownIncludeERD      = true
+  // asciidocOutput       = "./example-tables.adoc"
+  // asciidocIncludeERD      = true
 }

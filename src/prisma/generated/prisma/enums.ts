@@ -159,3 +159,31 @@ export const TokenTransactionReason = {
 } as const
 
 export type TokenTransactionReason = (typeof TokenTransactionReason)[keyof typeof TokenTransactionReason]
+
+
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER',
+  PREFER_NOT_TO_SAY: 'PREFER_NOT_TO_SAY'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const ClassRole = {
+  STUDENT: 'STUDENT',
+  AUDITOR: 'AUDITOR'
+} as const
+
+export type ClassRole = (typeof ClassRole)[keyof typeof ClassRole]
+
+
+export const NotificationType = {
+  GRADE_READY: 'GRADE_READY',
+  TEST_ASSIGNED: 'TEST_ASSIGNED',
+  ACHIEVEMENT_UNLOCKED: 'ACHIEVEMENT_UNLOCKED',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

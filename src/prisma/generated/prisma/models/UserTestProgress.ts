@@ -262,6 +262,7 @@ export type UserTestProgressWhereInput = {
   lastActivityAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
+  lastAttempt?: Prisma.XOR<Prisma.TestAttemptNullableScalarRelationFilter, Prisma.TestAttemptWhereInput> | null
 }
 
 export type UserTestProgressOrderByWithRelationInput = {
@@ -276,6 +277,7 @@ export type UserTestProgressOrderByWithRelationInput = {
   lastActivityAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   test?: Prisma.TestOrderByWithRelationInput
+  lastAttempt?: Prisma.TestAttemptOrderByWithRelationInput
 }
 
 export type UserTestProgressWhereUniqueInput = Prisma.AtLeast<{
@@ -294,6 +296,7 @@ export type UserTestProgressWhereUniqueInput = Prisma.AtLeast<{
   lastActivityAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
+  lastAttempt?: Prisma.XOR<Prisma.TestAttemptNullableScalarRelationFilter, Prisma.TestAttemptWhereInput> | null
 }, "id" | "userId_testId">
 
 export type UserTestProgressOrderByWithAggregationInput = {
@@ -334,10 +337,10 @@ export type UserTestProgressCreateInput = {
   score?: number | null
   maxScore?: number | null
   percentage?: number | null
-  lastAttemptId?: string | null
   lastActivityAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestProgressInput
   test: Prisma.TestCreateNestedOneWithoutProgressInput
+  lastAttempt?: Prisma.TestAttemptCreateNestedOneWithoutProgressInput
 }
 
 export type UserTestProgressUncheckedCreateInput = {
@@ -358,10 +361,10 @@ export type UserTestProgressUpdateInput = {
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestProgressNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutProgressNestedInput
+  lastAttempt?: Prisma.TestAttemptUpdateOneWithoutProgressNestedInput
 }
 
 export type UserTestProgressUncheckedUpdateInput = {
@@ -394,7 +397,6 @@ export type UserTestProgressUpdateManyMutationInput = {
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -473,6 +475,48 @@ export type UserTestProgressSumOrderByAggregateInput = {
   score?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
   percentage?: Prisma.SortOrder
+}
+
+export type UserTestProgressCreateNestedManyWithoutLastAttemptInput = {
+  create?: Prisma.XOR<Prisma.UserTestProgressCreateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput> | Prisma.UserTestProgressCreateWithoutLastAttemptInput[] | Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput[]
+  connectOrCreate?: Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput | Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput[]
+  createMany?: Prisma.UserTestProgressCreateManyLastAttemptInputEnvelope
+  connect?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+}
+
+export type UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput = {
+  create?: Prisma.XOR<Prisma.UserTestProgressCreateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput> | Prisma.UserTestProgressCreateWithoutLastAttemptInput[] | Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput[]
+  connectOrCreate?: Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput | Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput[]
+  createMany?: Prisma.UserTestProgressCreateManyLastAttemptInputEnvelope
+  connect?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+}
+
+export type UserTestProgressUpdateManyWithoutLastAttemptNestedInput = {
+  create?: Prisma.XOR<Prisma.UserTestProgressCreateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput> | Prisma.UserTestProgressCreateWithoutLastAttemptInput[] | Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput[]
+  connectOrCreate?: Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput | Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput[]
+  upsert?: Prisma.UserTestProgressUpsertWithWhereUniqueWithoutLastAttemptInput | Prisma.UserTestProgressUpsertWithWhereUniqueWithoutLastAttemptInput[]
+  createMany?: Prisma.UserTestProgressCreateManyLastAttemptInputEnvelope
+  set?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  disconnect?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  delete?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  connect?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  update?: Prisma.UserTestProgressUpdateWithWhereUniqueWithoutLastAttemptInput | Prisma.UserTestProgressUpdateWithWhereUniqueWithoutLastAttemptInput[]
+  updateMany?: Prisma.UserTestProgressUpdateManyWithWhereWithoutLastAttemptInput | Prisma.UserTestProgressUpdateManyWithWhereWithoutLastAttemptInput[]
+  deleteMany?: Prisma.UserTestProgressScalarWhereInput | Prisma.UserTestProgressScalarWhereInput[]
+}
+
+export type UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput = {
+  create?: Prisma.XOR<Prisma.UserTestProgressCreateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput> | Prisma.UserTestProgressCreateWithoutLastAttemptInput[] | Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput[]
+  connectOrCreate?: Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput | Prisma.UserTestProgressCreateOrConnectWithoutLastAttemptInput[]
+  upsert?: Prisma.UserTestProgressUpsertWithWhereUniqueWithoutLastAttemptInput | Prisma.UserTestProgressUpsertWithWhereUniqueWithoutLastAttemptInput[]
+  createMany?: Prisma.UserTestProgressCreateManyLastAttemptInputEnvelope
+  set?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  disconnect?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  delete?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  connect?: Prisma.UserTestProgressWhereUniqueInput | Prisma.UserTestProgressWhereUniqueInput[]
+  update?: Prisma.UserTestProgressUpdateWithWhereUniqueWithoutLastAttemptInput | Prisma.UserTestProgressUpdateWithWhereUniqueWithoutLastAttemptInput[]
+  updateMany?: Prisma.UserTestProgressUpdateManyWithWhereWithoutLastAttemptInput | Prisma.UserTestProgressUpdateManyWithWhereWithoutLastAttemptInput[]
+  deleteMany?: Prisma.UserTestProgressScalarWhereInput | Prisma.UserTestProgressScalarWhereInput[]
 }
 
 export type UserTestProgressCreateNestedManyWithoutTestInput = {
@@ -559,15 +603,78 @@ export type UserTestProgressUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.UserTestProgressScalarWhereInput | Prisma.UserTestProgressScalarWhereInput[]
 }
 
+export type UserTestProgressCreateWithoutLastAttemptInput = {
+  id?: string
+  status: $Enums.AttemptStatus
+  score?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  lastActivityAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTestProgressInput
+  test: Prisma.TestCreateNestedOneWithoutProgressInput
+}
+
+export type UserTestProgressUncheckedCreateWithoutLastAttemptInput = {
+  id?: string
+  userId: number
+  testId: string
+  status: $Enums.AttemptStatus
+  score?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  lastActivityAt?: Date | string
+}
+
+export type UserTestProgressCreateOrConnectWithoutLastAttemptInput = {
+  where: Prisma.UserTestProgressWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserTestProgressCreateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput>
+}
+
+export type UserTestProgressCreateManyLastAttemptInputEnvelope = {
+  data: Prisma.UserTestProgressCreateManyLastAttemptInput | Prisma.UserTestProgressCreateManyLastAttemptInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserTestProgressUpsertWithWhereUniqueWithoutLastAttemptInput = {
+  where: Prisma.UserTestProgressWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserTestProgressUpdateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedUpdateWithoutLastAttemptInput>
+  create: Prisma.XOR<Prisma.UserTestProgressCreateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedCreateWithoutLastAttemptInput>
+}
+
+export type UserTestProgressUpdateWithWhereUniqueWithoutLastAttemptInput = {
+  where: Prisma.UserTestProgressWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserTestProgressUpdateWithoutLastAttemptInput, Prisma.UserTestProgressUncheckedUpdateWithoutLastAttemptInput>
+}
+
+export type UserTestProgressUpdateManyWithWhereWithoutLastAttemptInput = {
+  where: Prisma.UserTestProgressScalarWhereInput
+  data: Prisma.XOR<Prisma.UserTestProgressUpdateManyMutationInput, Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptInput>
+}
+
+export type UserTestProgressScalarWhereInput = {
+  AND?: Prisma.UserTestProgressScalarWhereInput | Prisma.UserTestProgressScalarWhereInput[]
+  OR?: Prisma.UserTestProgressScalarWhereInput[]
+  NOT?: Prisma.UserTestProgressScalarWhereInput | Prisma.UserTestProgressScalarWhereInput[]
+  id?: Prisma.StringFilter<"UserTestProgress"> | string
+  userId?: Prisma.IntFilter<"UserTestProgress"> | number
+  testId?: Prisma.StringFilter<"UserTestProgress"> | string
+  status?: Prisma.EnumAttemptStatusFilter<"UserTestProgress"> | $Enums.AttemptStatus
+  score?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
+  maxScore?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
+  percentage?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
+  lastAttemptId?: Prisma.StringNullableFilter<"UserTestProgress"> | string | null
+  lastActivityAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
+}
+
 export type UserTestProgressCreateWithoutTestInput = {
   id?: string
   status: $Enums.AttemptStatus
   score?: number | null
   maxScore?: number | null
   percentage?: number | null
-  lastAttemptId?: string | null
   lastActivityAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestProgressInput
+  lastAttempt?: Prisma.TestAttemptCreateNestedOneWithoutProgressInput
 }
 
 export type UserTestProgressUncheckedCreateWithoutTestInput = {
@@ -607,30 +714,15 @@ export type UserTestProgressUpdateManyWithWhereWithoutTestInput = {
   data: Prisma.XOR<Prisma.UserTestProgressUpdateManyMutationInput, Prisma.UserTestProgressUncheckedUpdateManyWithoutTestInput>
 }
 
-export type UserTestProgressScalarWhereInput = {
-  AND?: Prisma.UserTestProgressScalarWhereInput | Prisma.UserTestProgressScalarWhereInput[]
-  OR?: Prisma.UserTestProgressScalarWhereInput[]
-  NOT?: Prisma.UserTestProgressScalarWhereInput | Prisma.UserTestProgressScalarWhereInput[]
-  id?: Prisma.StringFilter<"UserTestProgress"> | string
-  userId?: Prisma.IntFilter<"UserTestProgress"> | number
-  testId?: Prisma.StringFilter<"UserTestProgress"> | string
-  status?: Prisma.EnumAttemptStatusFilter<"UserTestProgress"> | $Enums.AttemptStatus
-  score?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
-  maxScore?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
-  percentage?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
-  lastAttemptId?: Prisma.StringNullableFilter<"UserTestProgress"> | string | null
-  lastActivityAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
-}
-
 export type UserTestProgressCreateWithoutUserInput = {
   id?: string
   status: $Enums.AttemptStatus
   score?: number | null
   maxScore?: number | null
   percentage?: number | null
-  lastAttemptId?: string | null
   lastActivityAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutProgressInput
+  lastAttempt?: Prisma.TestAttemptCreateNestedOneWithoutProgressInput
 }
 
 export type UserTestProgressUncheckedCreateWithoutUserInput = {
@@ -670,6 +762,50 @@ export type UserTestProgressUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.UserTestProgressUpdateManyMutationInput, Prisma.UserTestProgressUncheckedUpdateManyWithoutUserInput>
 }
 
+export type UserTestProgressCreateManyLastAttemptInput = {
+  id?: string
+  userId: number
+  testId: string
+  status: $Enums.AttemptStatus
+  score?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  lastActivityAt?: Date | string
+}
+
+export type UserTestProgressUpdateWithoutLastAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTestProgressNestedInput
+  test?: Prisma.TestUpdateOneRequiredWithoutProgressNestedInput
+}
+
+export type UserTestProgressUncheckedUpdateWithoutLastAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type UserTestProgressUncheckedUpdateManyWithoutLastAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type UserTestProgressCreateManyTestInput = {
   id?: string
   userId: number
@@ -687,9 +823,9 @@ export type UserTestProgressUpdateWithoutTestInput = {
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestProgressNestedInput
+  lastAttempt?: Prisma.TestAttemptUpdateOneWithoutProgressNestedInput
 }
 
 export type UserTestProgressUncheckedUpdateWithoutTestInput = {
@@ -731,9 +867,9 @@ export type UserTestProgressUpdateWithoutUserInput = {
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutProgressNestedInput
+  lastAttempt?: Prisma.TestAttemptUpdateOneWithoutProgressNestedInput
 }
 
 export type UserTestProgressUncheckedUpdateWithoutUserInput = {
@@ -772,6 +908,7 @@ export type UserTestProgressSelect<ExtArgs extends runtime.Types.Extensions.Inte
   lastActivityAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
 }, ExtArgs["result"]["userTestProgress"]>
 
 export type UserTestProgressSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -786,6 +923,7 @@ export type UserTestProgressSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   lastActivityAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
 }, ExtArgs["result"]["userTestProgress"]>
 
 export type UserTestProgressSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -800,6 +938,7 @@ export type UserTestProgressSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   lastActivityAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
 }, ExtArgs["result"]["userTestProgress"]>
 
 export type UserTestProgressSelectScalar = {
@@ -818,14 +957,17 @@ export type UserTestProgressOmit<ExtArgs extends runtime.Types.Extensions.Intern
 export type UserTestProgressInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
 }
 export type UserTestProgressIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
 }
 export type UserTestProgressIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
 }
 
 export type $UserTestProgressPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -833,6 +975,7 @@ export type $UserTestProgressPayload<ExtArgs extends runtime.Types.Extensions.In
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     test: Prisma.$TestPayload<ExtArgs>
+    lastAttempt: Prisma.$TestAttemptPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1240,6 +1383,7 @@ export interface Prisma__UserTestProgressClient<T, Null = never, ExtArgs extends
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   test<T extends Prisma.TestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestDefaultArgs<ExtArgs>>): Prisma.Prisma__TestClient<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  lastAttempt<T extends Prisma.UserTestProgress$lastAttemptArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>>): Prisma.Prisma__TestAttemptClient<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1676,6 +1820,25 @@ export type UserTestProgressDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many UserTestProgresses to delete.
    */
   limit?: number
+}
+
+/**
+ * UserTestProgress.lastAttempt
+ */
+export type UserTestProgress$lastAttemptArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestAttempt
+   */
+  select?: Prisma.TestAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestAttempt
+   */
+  omit?: Prisma.TestAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestAttemptInclude<ExtArgs> | null
+  where?: Prisma.TestAttemptWhereInput
 }
 
 /**

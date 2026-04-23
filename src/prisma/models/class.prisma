@@ -1,0 +1,46 @@
+model Class {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  code        String   @unique // join code for students
+  isActive    Boolean  @default(true)
+
+  teacherId Int
+  teacher   User @relation("TeacherClasses", fields: [teacherId], references: [id])
+
+  enrollments ClassEnrollment[]
+  assignments ClassTestAssignment[]
+
+  subjectId String?
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ClassEnrollment {
+  id       String    @id @default(uuid())
+  classId  String
+  class    Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
+  userId   Int
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role     ClassRole @default(STUDENT)
+  joinedAt DateTime  @default(now())
+
+  @@unique([classId, userId])
+  @@index([userId])
+}
+
+model ClassTestAssignment {
+  id           String    @id @default(uuid())
+  classId      String
+  class        Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
+  testId       String
+  test         Test      @relation(fields: [testId], references: [id], onDelete: Cascade)
+  dueAt        DateTime?
+  assignedById Int
+  assignedBy   User      @relation("AssignedBy", fields: [assignedById], references: [id])
+  createdAt    DateTime  @default(now())
+
+  @@unique([classId, testId])
+}

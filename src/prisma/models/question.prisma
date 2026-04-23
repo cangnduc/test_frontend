@@ -3,9 +3,11 @@ model Subject {
   code        String     @unique // e.g., MATH, ENG, SCI
   name        String
   description String?
+  type        SubjectType?
   questions   Question[]
   passages    Passage[]
   tests       Test[]
+  classes     Class[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
@@ -60,7 +62,7 @@ model Passage {
   tags        String[]
   explanation String?         @db.Text
   isDeleted   Boolean         @default(false)
-  subjectId   String          @default("9")
+  subjectId   String
   subject     Subject         @relation(fields: [subjectId], references: [id])
 
   questions    Question[]

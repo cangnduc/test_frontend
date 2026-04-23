@@ -35,31 +35,42 @@ user      User     @relation(fields: [userId], references: [id], onDelete: Casca
 }
 
 model User {
-id            Int       @id @default(autoincrement())
-name          String?
-email         String
-emailVerified Boolean   @default(false)
-image         String?
-banned        Boolean   @default(false)
-role          UserRole  @default(USER)
-createdAt     DateTime  @default(now())
-updatedAt     DateTime  @updatedAt
-sessions      Session[]
-accounts      Account[]
-stats         UserStats?
-tests     Test[]     @relation("UserCreatedTests")
-questions Question[] @relation("UserCreatedQuestions")
-passages  Passage[]  @relation("UserCreatedPassages")
-media     Media[]    @relation("UserCreatedMedia")
-profile   Profile?
-tokenHistory  TokenTransaction[]
+  id            Int       @id @default(autoincrement())
+  name          String?
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  banned        Boolean   @default(false)
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  stats         UserStats?
+  tests         Test[]     @relation("UserCreatedTests")
+  questions     Question[] @relation("UserCreatedQuestions")
+  passages      Passage[]  @relation("UserCreatedPassages")
+  media         Media[]    @relation("UserCreatedMedia")
+  profile       Profile?
+  tokenHistory  TokenTransaction[]
 
-systemLogs SystemLog[]
-testAttempts TestAttempt[]
-testProgress UserTestProgress[]
+  systemLogs   SystemLog[]
+  testAttempts TestAttempt[]
+  testProgress UserTestProgress[]
 
-@@unique([email])
-@@map("user")
+  notifications Notification[]
+  auditLogs     AuditLog[]
+  manualGrades  ManualGrade[] @relation("GradedBy")
+
+  parentLinks  ParentStudentLink[] @relation("ParentLinks")
+  studentLinks ParentStudentLink[] @relation("StudentLinks")
+
+  classes          Class[]               @relation("TeacherClasses")
+  classEnrollments ClassEnrollment[]
+  classAssignments ClassTestAssignment[] @relation("AssignedBy")
+
+  @@unique([email])
+  @@map("user")
 }
 
 model Verification {
@@ -75,10 +86,44 @@ updatedAt  DateTime @updatedAt
 }
 
 model Profile {
-id     String  @id @default(uuid())
-bio    String?
-userId Int     @unique
-User   User    @relation(fields: [userId], references: [id])
+  id          String    @id @default(uuid())
+  bio         String?
+  displayName String?
+  avatarUrl   String?
+  dateOfBirth DateTime?
+  gender      Gender?
+  language    String?   @default("en")
+  timezone    String?   @default("UTC")
+
+  userId    Int      @unique
+  User      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ParentStudentLink {
+  id        String   @id @default(uuid())
+  parentId  Int
+  parent    User     @relation("ParentLinks", fields: [parentId], references: [id])
+  studentId Int
+  student   User     @relation("StudentLinks", fields: [studentId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([parentId, studentId])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    Int
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  title     String
+  body      String
+  isRead    Boolean          @default(false)
+  metadata  Json?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, isRead])
 }
 model UserStats {
 id        String   @id @default(uuid())
@@ -119,22 +164,23 @@ createdAt DateTime @default(now())
 @@index([userId, createdAt])
 }
 model UserTestProgress {
-id        String   @id @default(uuid())
+  id        String   @id @default(uuid())
 
-userId    Int
-user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-testId    String
-test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testId    String
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
 
-status     AttemptStatus
-score      Float?
-maxScore   Float?
-percentage Float?
+  status     AttemptStatus
+  score      Float?
+  maxScore   Float?
+  percentage Float?
 
-lastAttemptId  String?
-lastActivityAt DateTime @updatedAt
+  lastAttemptId  String?
+  lastAttempt    TestAttempt? @relation(fields: [lastAttemptId], references: [id])
+  lastActivityAt DateTime @updatedAt
 
-@@unique([userId, testId])
-@@index([userId, status])
+  @@unique([userId, testId])
+  @@index([userId, status])
 }

@@ -7,7 +7,12 @@ model Media {
 
   questions Question[]
   passages  Passage[]
-  tests     Test[] // For test cover images (1:1 relationship)
+  testCover Test?      @relation("TestCover")
+
+  isDeleted Boolean @default(false)
+  alt       String?
+  size      Int?
+  mimeType  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

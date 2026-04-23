@@ -36,11 +36,11 @@ The Next.js frontend operates as a **semi-fullstack** application. It can:
 
 To achieve this, we reuse the **exact same CASL permission definitions** from the backend. This guarantees that the frontend and backend always agree on what a user can or cannot do.
 
-| Concern | Tool | Where It Runs |
-|---|---|---|
-| **Identity** (who is this?) | Better-Auth | Server Components, Server Actions, Middleware |
-| **Permissions** (can they do this?) | CASL | Server Components, Server Actions, Client Components |
-| **Data access** | Prisma (direct) or fetch (via backend API) | Server Components, Server Actions |
+| Concern                             | Tool                                       | Where It Runs                                        |
+| ----------------------------------- | ------------------------------------------ | ---------------------------------------------------- |
+| **Identity** (who is this?)         | Better-Auth                                | Server Components, Server Actions, Middleware        |
+| **Permissions** (can they do this?) | CASL                                       | Server Components, Server Actions, Client Components |
+| **Data access**                     | Prisma (direct) or fetch (via backend API) | Server Components, Server Actions                    |
 
 ---
 
@@ -68,7 +68,7 @@ To achieve this, we reuse the **exact same CASL permission definitions** from th
 ```
 
 > [!IMPORTANT]
-> The CASL definitions live in `backend/src/auth/casl/`. The frontend imports them using a TypeScript path alias. This means **one source of truth** — if you update a permission rule in the backend, the frontend automatically picks it up.
+> The CASL definitions live in `backend/src/auth/casl/`. **one source of truth** — if you update a permission rule in the backend, you need to manually update it in the frontend as well in `frontend/src/auth/casl/`.
 
 ---
 
@@ -80,12 +80,12 @@ This section explains the caching and rendering model that affects how we implem
 
 Next.js 16 introduces **Cache Components** — a new opt-in caching model using the `use cache` directive. Key rules:
 
-| Concept | Behavior |
-|---|---|
-| **All pages are dynamic by default** | No need for `dynamic = "force-dynamic"` |
-| **Opt-in caching** with `"use cache"` | Add the directive at file, component, or function level |
-| **`cacheLife()`** for cache duration | Replaces `revalidate` config: `'hours'`, `'days'`, `'max'` etc. |
-| **`cacheTag()`** for invalidation | Tag cached entries, then call `revalidateTag()` or `updateTag()` |
+| Concept                               | Behavior                                                         |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| **All pages are dynamic by default**  | No need for `dynamic = "force-dynamic"`                          |
+| **Opt-in caching** with `"use cache"` | Add the directive at file, component, or function level          |
+| **`cacheLife()`** for cache duration  | Replaces `revalidate` config: `'hours'`, `'days'`, `'max'` etc.  |
+| **`cacheTag()`** for invalidation     | Tag cached entries, then call `revalidateTag()` or `updateTag()` |
 
 ### Runtime APIs and `<Suspense>`
 
@@ -109,6 +109,7 @@ export default function Page() {
 
 > [!IMPORTANT]
 > **Our `getSession()` calls `headers()`**, making it a runtime API. Any Server Component that calls `getSession()` or `getAbility()` is a **dynamic component** and must either:
+>
 > - Be wrapped in `<Suspense>` by a parent, **or**
 > - Be the page/layout itself (which is dynamic by default)
 
@@ -132,24 +133,24 @@ For our auth use case, `React.cache()` is still the right tool for `getSession()
 
 ### ✅ Already Done
 
-| Feature | File | Status |
-|---|---|---|
-| Better-Auth server config | `src/lib/auth/auth.ts` & `auth-server.ts` | ✅ Working |
-| Better-Auth client | `src/lib/auth/auth-client.ts` | ✅ Working |
-| Auth API route | `src/app/api/auth/[...all]/route.ts` | ✅ Working |
-| Session fetching (server-side) | `src/actions/getSession.ts` | ✅ Working (via fetch) |
-| Prisma client | `src/lib/prisma.ts` | ✅ Working |
+| Feature                        | File                                      | Status                 |
+| ------------------------------ | ----------------------------------------- | ---------------------- |
+| Better-Auth server config      | `src/lib/auth/auth.ts` & `auth-server.ts` | ✅ Working             |
+| Better-Auth client             | `src/lib/auth/auth-client.ts`             | ✅ Working             |
+| Auth API route                 | `src/app/api/auth/[...all]/route.ts`      | ✅ Working             |
+| Session fetching (server-side) | `src/actions/getSession.ts`               | ✅ Working (via fetch) |
+| Prisma client                  | `src/lib/prisma.ts`                       | ✅ Working             |
 
 ### ❌ Missing (What This Guide Covers)
 
-| Feature | Status |
-|---|---|
-| CASL integration (import from backend) | 🔧 To setup |
-| `getAbility()` helper for Server Components | 🔧 To create |
-| Conditional rendering with `ability.can()` | 🔧 To implement |
-| `useAbility` client hook (React Context) | 🔧 To create |
-| Next.js middleware route guards | 🔧 To create |
-| Server Actions with permission checks | 🔧 To implement |
+| Feature                                     | Status          |
+| ------------------------------------------- | --------------- |
+| CASL integration (import from backend)      | 🔧 To setup     |
+| `getAbility()` helper for Server Components | 🔧 To create    |
+| Conditional rendering with `ability.can()`  | 🔧 To implement |
+| `useAbility` client hook (React Context)    | 🔧 To create    |
+| Next.js middleware route guards             | 🔧 To create    |
+| Server Actions with permission checks       | 🔧 To implement |
 
 ---
 
@@ -162,23 +163,9 @@ cd frontend
 npm install @casl/ability
 ```
 
-### Step 2: Add Path Alias for Backend CASL
+### Step 2: add cache components
 
-We import the CASL definitions directly from the backend source. Add a TypeScript path alias in `tsconfig.json`:
-
-```jsonc
-// frontend/tsconfig.json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"],
-      "@casl-shared/*": ["../backend/src/auth/casl/*"]  // ← ADD THIS
-    }
-  }
-}
-```
-
-And the corresponding Next.js webpack alias in `next.config.ts`:
+Add cache components in `next.config.ts`:
 
 ```typescript
 // frontend/next.config.ts
@@ -188,21 +175,9 @@ import path from "path";
 const nextConfig: NextConfig = {
   // Enable Cache Components (Next.js 16)
   cacheComponents: true,
-
-  webpack: (config) => {
-    config.resolve.alias["@casl-shared"] = path.resolve(
-      __dirname,
-      "../backend/src/auth/casl",
-    );
-    return config;
-  },
 };
-
 export default nextConfig;
 ```
-
-> [!NOTE]
-> If you encounter issues with the cross-project import (e.g., the backend uses `@/prisma/generated/prisma/enums` in `types.ts`), you may need to create a thin re-export file in the frontend that maps the `UserRole` enum. See [Step 3](#step-3-handle-shared-enum-re-export) below.
 
 ### Step 3: Handle Shared Enum Re-Export
 
@@ -232,7 +207,7 @@ frontend/src/lib/casl/
 ```
 
 > [!WARNING]
-> If you copy instead of sharing, you must **manually keep them in sync**. Any permission change in the backend must be reflected in the frontend copy. The path alias approach avoids this duplication.
+> If you copy instead of sharing, you must **manually keep them in sync**. Any permission change in the backend must be reflected in the frontend copy.
 
 ---
 
@@ -262,11 +237,11 @@ export async function getSession() {
 }
 ```
 
-> [!TIP]
-> This replaces the manual fetch approach in `src/actions/getSession.ts`. The `auth.api.getSession()` call is local (no HTTP round-trip to the backend) because the frontend has its own Better-Auth instance sharing the same database.
+
 
 > [!IMPORTANT]
 > `getSession()` calls `headers()`, which is a **runtime API** in Next.js 16. This means:
+>
 > - It **cannot** be used inside a `"use cache"` scope
 > - Components calling it must be wrapped in `<Suspense>` or be in a dynamic context
 > - Use `import "server-only"` to prevent accidental client-side imports
@@ -329,12 +304,12 @@ export const getAbility = cache(async (): Promise<AppAbility> => {
 
 ### Why `React.cache()` and NOT `"use cache"`
 
-| | `React.cache()` | `"use cache"` directive |
-|---|---|---|
-| **Scope** | Per-request deduplication | Cross-request caching |
-| **Shares across components** | ✅ Same render pass | ❌ Isolated scope |
-| **Uses runtime APIs** | ✅ Yes (`headers()`, `cookies()`) | ❌ Cannot access runtime APIs |
-| **Right for auth?** | ✅ **Yes — per-user, per-request** | ❌ Would cache one user's data for all |
+|                              | `React.cache()`                    | `"use cache"` directive                |
+| ---------------------------- | ---------------------------------- | -------------------------------------- |
+| **Scope**                    | Per-request deduplication          | Cross-request caching                  |
+| **Shares across components** | ✅ Same render pass                | ❌ Isolated scope                      |
+| **Uses runtime APIs**        | ✅ Yes (`headers()`, `cookies()`)  | ❌ Cannot access runtime APIs          |
+| **Right for auth?**          | ✅ **Yes — per-user, per-request** | ❌ Would cache one user's data for all |
 
 > [!CAUTION]
 > **Never use `"use cache"` on `getSession()` or `getAbility()`.** These are per-user, per-request functions that depend on runtime cookies. Caching them would serve one user's session to another.
@@ -373,9 +348,7 @@ export default async function QuestionListPage() {
       )}
 
       {/* Only show admin panel link for users who can manage all */}
-      {ability.can("read", "SystemLog") && (
-        <a href="/admin">Admin Panel</a>
-      )}
+      {ability.can("read", "SystemLog") && <a href="/admin">Admin Panel</a>}
 
       {/* Everyone sees the list (guest can read public questions) */}
       <QuestionList />
@@ -423,9 +396,7 @@ async function QuestionToolbar() {
       {ability.can("create", "Question") && (
         <a href="/questions/new">+ New Question</a>
       )}
-      {ability.can("read", "AuditLog") && (
-        <a href="/admin">Admin Panel</a>
-      )}
+      {ability.can("read", "AuditLog") && <a href="/admin">Admin Panel</a>}
     </div>
   );
 }
@@ -552,11 +523,7 @@ export function AbilityProvider({ rules, children }: AbilityProviderProps) {
   // React 19 + React Compiler auto-memoizes this — no useMemo needed
   const ability = createMongoAbility<AppAbility>(rules);
 
-  return (
-    <AbilityContext value={ability}>
-      {children}
-    </AbilityContext>
-  );
+  return <AbilityContext value={ability}>{children}</AbilityContext>;
 }
 
 /**
@@ -609,11 +576,7 @@ async function AuthenticatedLayout({
 }) {
   const ability = await getAbility();
 
-  return (
-    <AbilityProvider rules={ability.rules}>
-      {children}
-    </AbilityProvider>
-  );
+  return <AbilityProvider rules={ability.rules}>{children}</AbilityProvider>;
 }
 ```
 
@@ -632,7 +595,11 @@ export function CreateQuestionButton() {
   }
 
   return (
-    <button onClick={() => { /* open create modal */ }}>
+    <button
+      onClick={() => {
+        /* open create modal */
+      }}
+    >
       + New Question
     </button>
   );
@@ -641,6 +608,7 @@ export function CreateQuestionButton() {
 
 > [!WARNING]
 > **Client-side permission checks are for UI convenience only.** They improve UX by hiding inaccessible UI, but the actual security enforcement must happen on:
+>
 > - **Server Actions** (for mutations)
 > - **API routes / Backend** (for data access)
 >
@@ -982,18 +950,42 @@ export async function MainNav() {
   const navItems = [
     // Always visible
     { href: "/", label: "Home", visible: true },
-    { href: "/questions", label: "Questions", visible: ability.can("read", "Question") },
+    {
+      href: "/questions",
+      label: "Questions",
+      visible: ability.can("read", "Question"),
+    },
 
     // Teacher+ only
-    { href: "/questions/new", label: "Create Question", visible: ability.can("create", "Question") },
-    { href: "/tests/new", label: "Create Test", visible: ability.can("create", "Test") },
-    { href: "/classes", label: "My Classes", visible: ability.can("create", "Class") },
+    {
+      href: "/questions/new",
+      label: "Create Question",
+      visible: ability.can("create", "Question"),
+    },
+    {
+      href: "/tests/new",
+      label: "Create Test",
+      visible: ability.can("create", "Test"),
+    },
+    {
+      href: "/classes",
+      label: "My Classes",
+      visible: ability.can("create", "Class"),
+    },
 
     // Moderator+ only
-    { href: "/moderation", label: "Moderation", visible: ability.can("ban", "User") },
+    {
+      href: "/moderation",
+      label: "Moderation",
+      visible: ability.can("ban", "User"),
+    },
 
     // Admin only
-    { href: "/admin", label: "Admin", visible: ability.can("read", "AuditLog") },
+    {
+      href: "/admin",
+      label: "Admin",
+      visible: ability.can("read", "AuditLog"),
+    },
   ];
 
   return (
@@ -1059,7 +1051,12 @@ interface CanProps {
  *     </Can>
  *   </Suspense>
  */
-export async function Can({ action, subject, children, fallback = null }: CanProps) {
+export async function Can({
+  action,
+  subject,
+  children,
+  fallback = null,
+}: CanProps) {
   const ability = await getAbility();
 
   if (ability.can(action, subject)) {
@@ -1086,7 +1083,12 @@ interface ClientCanProps {
   fallback?: React.ReactNode;
 }
 
-export function ClientCan({ action, subject, children, fallback = null }: ClientCanProps) {
+export function ClientCan({
+  action,
+  subject,
+  children,
+  fallback = null,
+}: ClientCanProps) {
   const ability = useAbility();
 
   if (ability.can(action, subject)) {
@@ -1099,14 +1101,14 @@ export function ClientCan({ action, subject, children, fallback = null }: Client
 
 ### 13.4 When to Use Frontend vs Backend
 
-| Scenario | Where to query | Why |
-|---|---|---|
-| List public questions for SSR | Frontend (Prisma + `"use cache"`) | Fastest — cached in static shell |
-| User-specific content | Frontend (Prisma, no cache) | Per-request, wrapped in `<Suspense>` |
-| Create/update/delete content | Server Action (frontend Prisma) | Keeps it simple with `revalidatePath` |
-| Complex business logic | Backend API (fetch) | Keep complex workflows in one place |
-| User session / auth state | Frontend (Better-Auth) | Always local — same DB |
-| Admin operations (ban, role change) | Backend API (Better-Auth admin plugin) | Admin plugin logic lives on backend |
+| Scenario                            | Where to query                         | Why                                   |
+| ----------------------------------- | -------------------------------------- | ------------------------------------- |
+| List public questions for SSR       | Frontend (Prisma + `"use cache"`)      | Fastest — cached in static shell      |
+| User-specific content               | Frontend (Prisma, no cache)            | Per-request, wrapped in `<Suspense>`  |
+| Create/update/delete content        | Server Action (frontend Prisma)        | Keeps it simple with `revalidatePath` |
+| Complex business logic              | Backend API (fetch)                    | Keep complex workflows in one place   |
+| User session / auth state           | Frontend (Better-Auth)                 | Always local — same DB                |
+| Admin operations (ban, role change) | Backend API (Better-Auth admin plugin) | Admin plugin logic lives on backend   |
 
 ---
 
@@ -1115,6 +1117,7 @@ export function ClientCan({ action, subject, children, fallback = null }: Client
 ### Q: Why share CASL definitions instead of using Better-Auth's `createAccessControl`?
 
 Better-Auth's `createAccessControl` (currently in `auth-permissions.ts`) is a simpler string-based system designed for the admin plugin. CASL provides:
+
 - **Condition-based rules** (e.g., `can("update", "Question", { createdById: user.id })`)
 - **Instance-level checks** (check against actual database records)
 - **Future `@casl/prisma` integration** (auto-generate Prisma WHERE clauses)
@@ -1132,18 +1135,19 @@ Use `auth.api.getSession()` (local call). The fetch-based approach in `src/actio
 ### Q: Do client-side permission checks provide security?
 
 **No.** Client-side `useAbility()` checks are for **UX only** — hiding buttons and menu items users can't use. The actual security boundary is:
+
 1. **Server Actions** — validate permissions before mutations
 2. **Server Components** — validate before rendering sensitive data
 3. **Backend API** — validate in Fastify middleware for backend-routed requests
 
 ### Q: When should I use `"use cache"` vs no cache?
 
-| Content type | Caching strategy |
-|---|---|
-| Public content (subjects, published tests) | `"use cache"` + `cacheLife("hours")` + `cacheTag("subjects")` |
-| User-specific content (dashboard, own questions) | **No cache** — per-request inside `<Suspense>` |
-| Static UI chrome (header, footer, layout markup) | Automatically prerendered — no directive needed |
-| Auth-dependent data (session, ability) | **Never cache** — use `React.cache()` for deduplication only |
+| Content type                                     | Caching strategy                                              |
+| ------------------------------------------------ | ------------------------------------------------------------- |
+| Public content (subjects, published tests)       | `"use cache"` + `cacheLife("hours")` + `cacheTag("subjects")` |
+| User-specific content (dashboard, own questions) | **No cache** — per-request inside `<Suspense>`                |
+| Static UI chrome (header, footer, layout markup) | Automatically prerendered — no directive needed               |
+| Auth-dependent data (session, ability)           | **Never cache** — use `React.cache()` for deduplication only  |
 
 ### Q: Can I use `"use cache"` on a component that renders differently per user?
 
@@ -1151,12 +1155,12 @@ Use `auth.api.getSession()` (local call). The fetch-based approach in `src/actio
 
 ### Q: How does `React.cache()` differ from `"use cache"`?
 
-| Feature | `React.cache()` | `"use cache"` |
-|---|---|---|
-| Purpose | Deduplicate calls within one request | Cache results across requests |
-| Persistence | Gone after request ends | Persists with configured `cacheLife` |
-| Can access `cookies()`/`headers()` | ✅ Yes | ❌ No |
-| Right for `getSession()` / `getAbility()` | ✅ Yes | ❌ Dangerous |
+| Feature                                   | `React.cache()`                      | `"use cache"`                        |
+| ----------------------------------------- | ------------------------------------ | ------------------------------------ |
+| Purpose                                   | Deduplicate calls within one request | Cache results across requests        |
+| Persistence                               | Gone after request ends              | Persists with configured `cacheLife` |
+| Can access `cookies()`/`headers()`        | ✅ Yes                               | ❌ No                                |
+| Right for `getSession()` / `getAbility()` | ✅ Yes                               | ❌ Dangerous                         |
 
 ### Q: How do I add a new permission to the frontend?
 

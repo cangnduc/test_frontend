@@ -1,12 +1,17 @@
-import Link from "next/link";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Hero } from "@/components/home/hero";
+import { TestSection } from "@/components/home/test-section";
+import { PracticeSection } from "@/components/home/practice-section";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <p>Wellcome to my app</p>
-      <Link href="/test">Test</Link>
-      <Link href="/login">Sign In</Link>
-      <Link href="/sign-up">Sign Up</Link>
-    </div>
+    <main className="relative flex min-h-screen flex-col overflow-x-hidden">
+      <Navbar />
+      <Hero />
+      <TestSection />
+      <PracticeSection />
+      <Footer />
+    </main>
   );
 }

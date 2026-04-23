@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import SignOut from "./signout";
-import { authServer } from "@/lib/auth/auth-server";
+import { authServer } from "@/auth/auth-server";
 
 export default async function Test() {
   const session = await authServer.api.getSession({

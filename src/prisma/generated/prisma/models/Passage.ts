@@ -381,7 +381,7 @@ export type PassageCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
-  subject?: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
   testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
@@ -397,7 +397,7 @@ export type PassageUncheckedCreateInput = {
   tags?: Prisma.PassageCreatetagsInput | string[]
   explanation?: string | null
   isDeleted?: boolean
-  subjectId?: string
+  subjectId: string
   createdById?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -454,7 +454,7 @@ export type PassageCreateManyInput = {
   tags?: Prisma.PassageCreatetagsInput | string[]
   explanation?: string | null
   isDeleted?: boolean
-  subjectId?: string
+  subjectId: string
   createdById?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -738,7 +738,7 @@ export type PassageCreateWithoutMediaInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  subject?: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
   testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
@@ -754,7 +754,7 @@ export type PassageUncheckedCreateWithoutMediaInput = {
   tags?: Prisma.PassageCreatetagsInput | string[]
   explanation?: string | null
   isDeleted?: boolean
-  subjectId?: string
+  subjectId: string
   createdById?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -877,7 +877,7 @@ export type PassageCreateWithoutQuestionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
-  subject?: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
   testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
 }
@@ -892,7 +892,7 @@ export type PassageUncheckedCreateWithoutQuestionsInput = {
   tags?: Prisma.PassageCreatetagsInput | string[]
   explanation?: string | null
   isDeleted?: boolean
-  subjectId?: string
+  subjectId: string
   createdById?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -965,7 +965,7 @@ export type PassageCreateWithoutTestSectionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
-  subject?: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
 }
@@ -980,7 +980,7 @@ export type PassageUncheckedCreateWithoutTestSectionsInput = {
   tags?: Prisma.PassageCreatetagsInput | string[]
   explanation?: string | null
   isDeleted?: boolean
-  subjectId?: string
+  subjectId: string
   createdById?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1053,7 +1053,7 @@ export type PassageCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
-  subject?: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
   testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
 }
@@ -1068,7 +1068,7 @@ export type PassageUncheckedCreateWithoutCreatedByInput = {
   tags?: Prisma.PassageCreatetagsInput | string[]
   explanation?: string | null
   isDeleted?: boolean
-  subjectId?: string
+  subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassagesInput
@@ -1230,7 +1230,7 @@ export type PassageCreateManyCreatedByInput = {
   tags?: Prisma.PassageCreatetagsInput | string[]
   explanation?: string | null
   isDeleted?: boolean
-  subjectId?: string
+  subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }

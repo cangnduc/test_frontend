@@ -1,12 +1,18 @@
-"use server";
-import { cookies } from "next/headers";
-export async function getSession() {
-  const cookieStore = await cookies();
-  const response = await fetch("http://localhost:3000/api/auth/get-session", {
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
+import "server-only";
+import { headers } from "next/headers";
+import { auth } from "@/auth/auth";
+import { cache } from "react";
+/**
+ * Get the current user's session in a Server Component or Server Action.
+ * Returns null if not authenticated.
+ *
+ * This calls headers() which is a runtime API.
+ * Components using this MUST be wrapped in <Suspense>
+ * or be in a dynamic (non-cached) context.
+ */
+export const getSession = cache(async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
   });
-  if (!response.ok) return null;
-  return response.json();
-}
+  return session;
+});

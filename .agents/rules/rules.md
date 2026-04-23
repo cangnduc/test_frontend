@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Frontend Agent Rules: Next.js 16 App Router
 
 ## 🚀 Next.js 16 Specific Rules
@@ -6,11 +10,10 @@
 - **Data Fetching:** Fetch in Server Components by default. Use `Suspense` for loading states.
 - **Server Actions:** Use `use server` for all mutations (forms, buttons). Place them in an `actions/` folder or within the component file if unique.
 
-## 🎨 UI & Styling (Vanilla CSS / Tailwind)
+## 🎨 UI & Styling (Tailwind, shadcn/ui)
 
-- **Glassmorphism & Rich Design:** Follow the prompt requirements for "WOW" factors—use gradients, smooth shadows, and micro-animations.
-- **Modern Layouts:** Use CSS Grid and Flexbox for responsiveness.
-- **Icons:** Prefer modern SVG-based icon libraries (Lucide-React or similar).
+-- **Design System:** Use shadcn/ui for all UI components. Do not invent new components if not necessary.
+-- **Rules:** Refer to [frontend/.agent/design.md](file:///d:/Web/FullStack_EnglishApp/frontend/.agent/design.md).
 
 ## 🧩 Component Standards
 
@@ -21,7 +24,7 @@
 
 ## 🛠️ State Management
 
-- **URL First:** Use search parameters for filter/search/sort state whenever possible.
+- **URL First:** Use search parameters for filter/search/sort state whenever possible and zustand for shared state management.
 - **Server State:** Use `useCache` or the built-in Next.js fetch cache where applicable.
 
 ## 📚 Documentation Requirement

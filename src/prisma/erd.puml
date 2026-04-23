@@ -1,0 +1,568 @@
+@startuml erd
+skinparam linetype ortho
+enum "UserRole" as UserRole {
+  USER
+  ADMIN
+  TEACHER
+  MOD
+  PARENT
+}
+enum "DifficultyLevel" as DifficultyLevel {
+  DL_1
+  DL_2
+  DL_3
+  DL_4
+  DL_5
+  DL_6
+  DL_7
+  DL_8
+  DL_9
+  DL_10
+}
+enum "PublishStatus" as PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+  PRIVATE
+}
+enum "AttemptStatus" as AttemptStatus {
+  STARTED
+  IN_PROGRESS
+  SUBMITTED
+  COMPLETED
+  EXPIRED
+}
+enum "PassageType" as PassageType {
+  READING
+  LISTENING
+}
+enum "QuestionType" as QuestionType {
+  MULTIPLE_CHOICE
+  SINGLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_THE_BLANK
+  MATCHING
+  ORDERING
+  OPEN_ENDED
+  ESSAY
+  CODING
+}
+enum "SubjectType" as SubjectType {
+  MATH
+  ENGLISH
+  SCIENCE
+  HISTORY
+  GEOGRAPHY
+  ART
+  MUSIC
+  PHYSICAL_EDUCATION
+  GENERAL_KNOWLEDGE
+}
+enum "Visibility" as Visibility {
+  PUBLIC
+  PRIVATE
+}
+enum "ResultViewType" as ResultViewType {
+  IMMEDIATE
+  SCORE_ONLY
+  MANUAL_GRADING
+  NEVER
+}
+enum "SectionType" as SectionType {
+  STANDALONE
+  PASSAGE_BASED
+}
+enum "MediaType" as MediaType {
+  IMAGE
+  AUDIO
+  VIDEO
+  PDF
+  DOCUMENT
+  YOUTUBE
+}
+enum "SelectionMode" as SelectionMode {
+  ALL_REQUIRED
+  CHOOSE_N
+  RANDOM_N
+}
+enum "SectionStatus" as SectionStatus {
+  LOCKED
+  ACTIVE
+  COMPLETED
+}
+enum "TokenTransactionReason" as TokenTransactionReason {
+  TEST_ATTEMPT
+  TEST_REFUND
+  REWARD
+  ADMIN_ADJUSTMENT
+}
+enum "Gender" as Gender {
+  MALE
+  FEMALE
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+enum "ClassRole" as ClassRole {
+  STUDENT
+  AUDITOR
+}
+enum "NotificationType" as NotificationType {
+  GRADE_READY
+  TEST_ASSIGNED
+  ACHIEVEMENT_UNLOCKED
+  SYSTEM
+}
+entity "Class" as Class {
++ id [PK] : String 
+--
+  * name : String
+  description : String
+  * code : String
+  * isActive : Boolean
+  # teacherId : [FK] User
+  # subjectId : [FK] Subject
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "ClassEnrollment" as ClassEnrollment {
++ id [PK] : String 
+--
+  # classId : [FK] Class
+  # userId : [FK] User
+  * role : ClassRole
+  * joinedAt : DateTime
+}
+
+entity "ClassTestAssignment" as ClassTestAssignment {
++ id [PK] : String 
+--
+  # classId : [FK] Class
+  # testId : [FK] Test
+  dueAt : DateTime
+  # assignedById : [FK] User
+  * createdAt : DateTime
+}
+
+entity "SystemLog" as SystemLog {
++ id [PK] : String 
+--
+  * level : String
+  * message : String
+  stack : String
+  context : Json
+  traceId : String
+  # userId : [FK] User
+  * createdAt : DateTime
+}
+
+entity "AuditLog" as AuditLog {
++ id [PK] : String 
+--
+  # actorId : [FK] User
+  * action : String
+  * resource : String
+  * resourceId : String
+  before : Json
+  after : Json
+  ip : String
+  * createdAt : DateTime
+}
+
+entity "Media" as Media {
++ id [PK] : String 
+--
+  * type : MediaType
+  * url : String
+  # ownerId : [FK] User
+  * isDeleted : Boolean
+  alt : String
+  size : Int
+  mimeType : String
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "Subject" as Subject {
++ id [PK] : String 
+--
+  * code : String
+  * name : String
+  description : String
+  type : SubjectType
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "Question" as Question {
++ id [PK] : String 
+--
+  * type : QuestionType
+  * difficulty : DifficultyLevel
+  * tags : String
+  * text : String
+  data : Json
+  explanation : String
+  * isDeleted : Boolean
+  * defaultPoint : Int
+  * visibility : Visibility
+  # subjectId : [FK] Subject
+  # createdById : [FK] User
+  # passageId : [FK] Passage
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "Passage" as Passage {
++ id [PK] : String 
+--
+  * type : PassageType
+  * title : String
+  * content : String
+  * difficulty : DifficultyLevel
+  * visibility : Visibility
+  * tags : String
+  explanation : String
+  * isDeleted : Boolean
+  # subjectId : [FK] Subject
+  # createdById : [FK] User
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "TestAttempt" as TestAttempt {
++ id [PK] : String 
+--
+  # userId : [FK] User
+  # testId : [FK] Test
+  * status : AttemptStatus
+  * attemptNumber : Int
+  * startedAt : DateTime
+  submittedAt : DateTime
+  completedAt : DateTime
+  globalEndAt : DateTime
+  # currentSectionId : [FK] AttemptSection
+  totalScore : Float
+  maxScore : Float
+  percentage : Float
+  passed : Boolean
+  * configSnapshot : Json
+  sessionToken : String
+  clientFingerprint : String
+  ipAddress : String
+}
+
+entity "AttemptSection" as AttemptSection {
++ id [PK] : String 
+--
+  # attemptId : [FK] TestAttempt
+  # sectionId : [FK] TestSection
+  * order : Int
+  * title : String
+  timeLimit : Int
+  selectionMode : SelectionMode
+  requiredAnswerCount : Int
+  * status : SectionStatus
+  startedAt : DateTime
+  sectionEndAt : DateTime
+  completedAt : DateTime
+}
+
+entity "AttemptQuestion" as AttemptQuestion {
++ id [PK] : String 
+--
+  # attemptId : [FK] TestAttempt
+  # attemptSectionId : [FK] AttemptSection
+  # questionId : [FK] Question
+  * displayOrder : Int
+  * point : Int
+  * isRequired : Boolean
+  # testQuestionId : [FK] TestQuestion
+}
+
+entity "AttemptAnswer" as AttemptAnswer {
++ id [PK] : String 
+--
+  # attemptId : [FK] TestAttempt
+  # attemptQuestionId : [FK] AttemptQuestion
+  # questionId : [FK] Question
+  * response : Json
+  * version : Int
+  isCorrect : Boolean
+  * pointsAwarded : Float
+  * savedAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "ManualGrade" as ManualGrade {
++ id [PK] : String 
+--
+  # attemptAnswerId : [FK] AttemptAnswer
+  # gradedById : [FK] User
+  * pointsAwarded : Float
+  feedback : String
+  * gradedAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "Test" as Test {
++ id [PK] : String 
+--
+  * title : String
+  description : String
+  * status : PublishStatus
+  * tokenRequired : Int
+  * tags : String
+  * difficulty : DifficultyLevel
+  # coverMediaId : [FK] Media
+  # subjectId : [FK] Subject
+  # createdById : [FK] User
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "TestSetting" as TestSetting {
++ id [PK] : String 
+--
+  availableFrom : DateTime
+  availableTo : DateTime
+  duration : Int
+  maxAttempts : Int
+  shuffleQuestions : Boolean
+  showResultImmediately : Boolean
+  requirePassword : String
+  ipRestriction : String
+  strictMode : Boolean
+  forwardOnly : Boolean
+  passingPercentage : Int
+  resultView : ResultViewType
+  # testId : [FK] Test
+}
+
+entity "TestSection" as TestSection {
++ id [PK] : String 
+--
+  * type : SectionType
+  * title : String
+  * order : Int
+  description : String
+  timeLimit : Int
+  * questionSelectionMode : SelectionMode
+  questionToSelect : Int
+  # testId : [FK] Test
+  # passageId : [FK] Passage
+}
+
+entity "TestQuestion" as TestQuestion {
++ id [PK] : String 
+--
+  # sectionId : [FK] TestSection
+  # questionId : [FK] Question
+  * order : Int
+  * point : Int
+}
+
+entity "Account" as Account {
++ id [PK] : Int 
+--
+  * accountId : String
+  * providerId : String
+  # userId : [FK] User
+  accessToken : String
+  refreshToken : String
+  idToken : String
+  accessTokenExpiresAt : DateTime
+  refreshTokenExpiresAt : DateTime
+  scope : String
+  password : String
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "Session" as Session {
++ id [PK] : String 
+--
+  * expiresAt : DateTime
+  * token : String
+  * createdAt : DateTime
+  * updatedAt : DateTime
+  ipAddress : String
+  userAgent : String
+  # userId : [FK] User
+}
+
+entity "User" as User {
++ id [PK] : Int 
+--
+  name : String
+  * email : String
+  * emailVerified : Boolean
+  image : String
+  * banned : Boolean
+  * role : UserRole
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "Verification" as Verification {
++ id [PK] : String 
+--
+  * identifier : String
+  * value : String
+  * expiresAt : DateTime
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "Profile" as Profile {
++ id [PK] : String 
+--
+  bio : String
+  displayName : String
+  avatarUrl : String
+  dateOfBirth : DateTime
+  gender : Gender
+  language : String
+  timezone : String
+  # userId : [FK] User
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "ParentStudentLink" as ParentStudentLink {
++ id [PK] : String 
+--
+  # parentId : [FK] User
+  # studentId : [FK] User
+  * createdAt : DateTime
+}
+
+entity "Notification" as Notification {
++ id [PK] : String 
+--
+  # userId : [FK] User
+  * type : NotificationType
+  * title : String
+  * body : String
+  * isRead : Boolean
+  metadata : Json
+  * createdAt : DateTime
+}
+
+entity "UserStats" as UserStats {
++ id [PK] : String 
+--
+  # userId : [FK] User
+  * tokens : Int
+  * xp : Int
+  * level : Int
+  * streak : Int
+  * testsTaken : Int
+  * testsCompleted : Int
+  * testsPassed : Int
+  * lastActiveAt : DateTime
+  * createdAt : DateTime
+  * updatedAt : DateTime
+}
+
+entity "TokenTransaction" as TokenTransaction {
++ id [PK] : String 
+--
+  # userId : [FK] User
+  * amount : Int
+  * balanceAfter : Int
+  * reason : TokenTransactionReason
+  testId : String
+  attemptId : String
+  * createdAt : DateTime
+}
+
+entity "UserTestProgress" as UserTestProgress {
++ id [PK] : String 
+--
+  # userId : [FK] User
+  # testId : [FK] Test
+  * status : AttemptStatus
+  score : Float
+  maxScore : Float
+  percentage : Float
+  # lastAttemptId : [FK] TestAttempt
+  * lastActivityAt : DateTime
+}
+
+' Relations
+Class }o--|| User: teacherId
+Class }o--o| Subject: subjectId
+ClassEnrollment }o--|| Class: classId
+ClassEnrollment }o--|| User: userId
+ClassTestAssignment }o--|| Class: classId
+ClassTestAssignment }o--|| Test: testId
+ClassTestAssignment }o--|| User: assignedById
+SystemLog }o--o| User: userId
+AuditLog }o--o| User: actorId
+Media }o--|| User: ownerId
+Question }o--|| Subject: subjectId
+Question }o--o| User: createdById
+Question }o--o| Passage: passageId
+Passage }o--|| Subject: subjectId
+Passage }o--o| User: createdById
+TestAttempt }o--|| User: userId
+TestAttempt }o--|| Test: testId
+TestAttempt }o--o| AttemptSection: currentSectionId
+AttemptSection }o--|| TestSection: sectionId
+AttemptSection }o--|| TestAttempt: attemptId
+AttemptQuestion }o--|| TestAttempt: attemptId
+AttemptQuestion }o--|| AttemptSection: attemptSectionId
+AttemptQuestion }o--|| Question: questionId
+AttemptQuestion }o--o| TestQuestion: testQuestionId
+AttemptAnswer }o--|| TestAttempt: attemptId
+AttemptAnswer }o--|| AttemptQuestion: attemptQuestionId
+AttemptAnswer }o--|| Question: questionId
+ManualGrade |o--|| AttemptAnswer: attemptAnswerId
+ManualGrade }o--|| User: gradedById
+Test |o--o| Media: coverMediaId
+Test }o--|| Subject: subjectId
+Test }o--|| User: createdById
+TestSetting |o--|| Test: testId
+TestSection }o--|| Test: testId
+TestSection }o--o| Passage: passageId
+TestQuestion }o--|| TestSection: sectionId
+TestQuestion }o--|| Question: questionId
+Account }o--|| User: userId
+Session }o--|| User: userId
+Profile |o--|| User: userId
+ParentStudentLink }o--|| User: parentId
+ParentStudentLink }o--|| User: studentId
+Notification }o--|| User: userId
+UserStats |o--|| User: userId
+TokenTransaction }o--|| User: userId
+UserTestProgress }o--|| User: userId
+UserTestProgress }o--|| Test: testId
+UserTestProgress }o--o| TestAttempt: lastAttemptId
+' ManyToMany Relations
+Media }o--o{ Question
+Media }o--o{ Passage
+' enum relations
+ClassEnrollment |o--|| ClassRole
+Media |o--|| MediaType
+Subject |o--|| SubjectType
+Question |o--|| QuestionType
+Question |o--|| DifficultyLevel
+Question |o--|| Visibility
+Passage |o--|| PassageType
+Passage |o--|| DifficultyLevel
+Passage |o--|| Visibility
+TestAttempt |o--|| AttemptStatus
+AttemptSection |o--|| SelectionMode
+AttemptSection |o--|| SectionStatus
+Test |o--|| PublishStatus
+Test |o--|| DifficultyLevel
+TestSetting |o--|| ResultViewType
+TestSection |o--|| SectionType
+TestSection |o--|| SelectionMode
+User |o--|| UserRole
+Profile |o--|| Gender
+Notification |o--|| NotificationType
+TokenTransaction |o--|| TokenTransactionReason
+UserTestProgress |o--|| AttemptStatus
+@enduml
