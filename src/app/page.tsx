@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-col overflow-x-hidden">
       <Navbar />
-      <Hero />
+      {/* <Hero />
       <TestSection />
       <PracticeSection />
-      <Footer />
+      <Footer /> */}
     </main>
   );
 }

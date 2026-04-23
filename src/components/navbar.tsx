@@ -1,18 +1,12 @@
 import Link from "next/link";
-import {
-  Search,
-  Book,
-  Activity,
-  SquareCheck,
-  LayoutDashboard,
-} from "lucide-react";
+import { Search } from "lucide-react";
 import { getSession } from "@/actions/getSession";
 import { NavbarContainer } from "./navbar/navbar-container";
 import { UserNav } from "./navbar/user-nav";
 import { MobileMenu } from "./navbar/mobile-menu";
 import { ThemeToggle } from "./theme-toggle";
 import type { Session } from "@/auth/auth";
-
+import { Suspense } from "react";
 const navLinks = [
   { href: "/courses", label: "Courses", iconName: "Book" },
   { href: "/practice", label: "Practice", iconName: "Activity" },
@@ -20,17 +14,7 @@ const navLinks = [
   { href: "/dashboard", label: "Dashboard", iconName: "LayoutDashboard" },
 ];
 
-export async function Navbar() {
-  const sessionData = await getSession();
-
-  // Create a plain object for serialization
-  const serializedSession = sessionData
-    ? {
-        user: { ...sessionData.user },
-        session: { ...sessionData.session },
-      }
-    : null;
-
+export function Navbar() {
   return (
     <NavbarContainer>
       {/* Logo - Server Side */}
@@ -65,12 +49,37 @@ export async function Navbar() {
 
         <ThemeToggle />
 
-        {/* Client side Profile/Sign-in Leaf */}
-        <UserNav initialSession={sessionData} />
-
-        {/* Client side Mobile Menu Leaf */}
-        <MobileMenu initialSession={sessionData} links={navLinks} />
+        {/* Dynamic actions wrapped in Suspense to isolate dynamic getSession() call */}
+        <Suspense fallback={<NavbarActionsFallback />}>
+          <NavbarActions />
+        </Suspense>
       </div>
     </NavbarContainer>
   );
 }
+
+async function NavbarActions() {
+  const sessionData: Session | null = await getSession();
+  
+  return (
+    <>
+      {/* Client side Profile/Sign-in Leaf */}
+      <UserNav initialSession={sessionData} />
+
+      {/* Client side Mobile Menu Leaf */}
+      <MobileMenu initialSession={sessionData} links={navLinks} />
+    </>
+  );
+}
+
+function NavbarActionsFallback() {
+  return (
+    <div className="flex items-center gap-4">
+      {/* UserNav Placeholder */}
+      <div className="h-6 w-6 rounded-full bg-muted animate-pulse" />
+      {/* MobileMenu Placeholder */}
+      <div className="h-5 w-5 rounded bg-muted animate-pulse md:hidden" />
+    </div>
+  );
+}
+
