@@ -40,33 +40,33 @@ export type AttemptQuestionMinAggregateOutputType = {
   id: string | null
   attemptId: string | null
   attemptSectionId: string | null
-  questionId: string | null
+  questionVersionId: string | null
+  testVersionQuestionId: string | null
   displayOrder: number | null
   point: number | null
   isRequired: boolean | null
-  testQuestionId: string | null
 }
 
 export type AttemptQuestionMaxAggregateOutputType = {
   id: string | null
   attemptId: string | null
   attemptSectionId: string | null
-  questionId: string | null
+  questionVersionId: string | null
+  testVersionQuestionId: string | null
   displayOrder: number | null
   point: number | null
   isRequired: boolean | null
-  testQuestionId: string | null
 }
 
 export type AttemptQuestionCountAggregateOutputType = {
   id: number
   attemptId: number
   attemptSectionId: number
-  questionId: number
+  questionVersionId: number
+  testVersionQuestionId: number
   displayOrder: number
   point: number
   isRequired: number
-  testQuestionId: number
   _all: number
 }
 
@@ -85,33 +85,33 @@ export type AttemptQuestionMinAggregateInputType = {
   id?: true
   attemptId?: true
   attemptSectionId?: true
-  questionId?: true
+  questionVersionId?: true
+  testVersionQuestionId?: true
   displayOrder?: true
   point?: true
   isRequired?: true
-  testQuestionId?: true
 }
 
 export type AttemptQuestionMaxAggregateInputType = {
   id?: true
   attemptId?: true
   attemptSectionId?: true
-  questionId?: true
+  questionVersionId?: true
+  testVersionQuestionId?: true
   displayOrder?: true
   point?: true
   isRequired?: true
-  testQuestionId?: true
 }
 
 export type AttemptQuestionCountAggregateInputType = {
   id?: true
   attemptId?: true
   attemptSectionId?: true
-  questionId?: true
+  questionVersionId?: true
+  testVersionQuestionId?: true
   displayOrder?: true
   point?: true
   isRequired?: true
-  testQuestionId?: true
   _all?: true
 }
 
@@ -205,11 +205,11 @@ export type AttemptQuestionGroupByOutputType = {
   id: string
   attemptId: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId: string | null
   displayOrder: number
   point: number
   isRequired: boolean
-  testQuestionId: string | null
   _count: AttemptQuestionCountAggregateOutputType | null
   _avg: AttemptQuestionAvgAggregateOutputType | null
   _sum: AttemptQuestionSumAggregateOutputType | null
@@ -239,63 +239,63 @@ export type AttemptQuestionWhereInput = {
   id?: Prisma.StringFilter<"AttemptQuestion"> | string
   attemptId?: Prisma.StringFilter<"AttemptQuestion"> | string
   attemptSectionId?: Prisma.StringFilter<"AttemptQuestion"> | string
-  questionId?: Prisma.StringFilter<"AttemptQuestion"> | string
+  questionVersionId?: Prisma.StringFilter<"AttemptQuestion"> | string
+  testVersionQuestionId?: Prisma.StringNullableFilter<"AttemptQuestion"> | string | null
   displayOrder?: Prisma.IntFilter<"AttemptQuestion"> | number
   point?: Prisma.IntFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolFilter<"AttemptQuestion"> | boolean
-  testQuestionId?: Prisma.StringNullableFilter<"AttemptQuestion"> | string | null
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   attemptSection?: Prisma.XOR<Prisma.AttemptSectionScalarRelationFilter, Prisma.AttemptSectionWhereInput>
-  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
+  questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
+  testVersionQuestion?: Prisma.XOR<Prisma.TestVersionQuestionNullableScalarRelationFilter, Prisma.TestVersionQuestionWhereInput> | null
   answers?: Prisma.AttemptAnswerListRelationFilter
-  testQuestion?: Prisma.XOR<Prisma.TestQuestionNullableScalarRelationFilter, Prisma.TestQuestionWhereInput> | null
 }
 
 export type AttemptQuestionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptSectionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
+  testVersionQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
-  testQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
   attempt?: Prisma.TestAttemptOrderByWithRelationInput
   attemptSection?: Prisma.AttemptSectionOrderByWithRelationInput
-  question?: Prisma.QuestionOrderByWithRelationInput
+  questionVersion?: Prisma.QuestionVersionOrderByWithRelationInput
+  testVersionQuestion?: Prisma.TestVersionQuestionOrderByWithRelationInput
   answers?: Prisma.AttemptAnswerOrderByRelationAggregateInput
-  testQuestion?: Prisma.TestQuestionOrderByWithRelationInput
 }
 
 export type AttemptQuestionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  attemptId_questionId?: Prisma.AttemptQuestionAttemptIdQuestionIdCompoundUniqueInput
+  attemptId_questionVersionId?: Prisma.AttemptQuestionAttemptIdQuestionVersionIdCompoundUniqueInput
   AND?: Prisma.AttemptQuestionWhereInput | Prisma.AttemptQuestionWhereInput[]
   OR?: Prisma.AttemptQuestionWhereInput[]
   NOT?: Prisma.AttemptQuestionWhereInput | Prisma.AttemptQuestionWhereInput[]
   attemptId?: Prisma.StringFilter<"AttemptQuestion"> | string
   attemptSectionId?: Prisma.StringFilter<"AttemptQuestion"> | string
-  questionId?: Prisma.StringFilter<"AttemptQuestion"> | string
+  questionVersionId?: Prisma.StringFilter<"AttemptQuestion"> | string
+  testVersionQuestionId?: Prisma.StringNullableFilter<"AttemptQuestion"> | string | null
   displayOrder?: Prisma.IntFilter<"AttemptQuestion"> | number
   point?: Prisma.IntFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolFilter<"AttemptQuestion"> | boolean
-  testQuestionId?: Prisma.StringNullableFilter<"AttemptQuestion"> | string | null
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   attemptSection?: Prisma.XOR<Prisma.AttemptSectionScalarRelationFilter, Prisma.AttemptSectionWhereInput>
-  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
+  questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
+  testVersionQuestion?: Prisma.XOR<Prisma.TestVersionQuestionNullableScalarRelationFilter, Prisma.TestVersionQuestionWhereInput> | null
   answers?: Prisma.AttemptAnswerListRelationFilter
-  testQuestion?: Prisma.XOR<Prisma.TestQuestionNullableScalarRelationFilter, Prisma.TestQuestionWhereInput> | null
-}, "id" | "attemptId_questionId">
+}, "id" | "attemptId_questionVersionId">
 
 export type AttemptQuestionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptSectionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
+  testVersionQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
-  testQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AttemptQuestionCountOrderByAggregateInput
   _avg?: Prisma.AttemptQuestionAvgOrderByAggregateInput
   _max?: Prisma.AttemptQuestionMaxOrderByAggregateInput
@@ -310,34 +310,34 @@ export type AttemptQuestionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"AttemptQuestion"> | string
   attemptId?: Prisma.StringWithAggregatesFilter<"AttemptQuestion"> | string
   attemptSectionId?: Prisma.StringWithAggregatesFilter<"AttemptQuestion"> | string
-  questionId?: Prisma.StringWithAggregatesFilter<"AttemptQuestion"> | string
+  questionVersionId?: Prisma.StringWithAggregatesFilter<"AttemptQuestion"> | string
+  testVersionQuestionId?: Prisma.StringNullableWithAggregatesFilter<"AttemptQuestion"> | string | null
   displayOrder?: Prisma.IntWithAggregatesFilter<"AttemptQuestion"> | number
   point?: Prisma.IntWithAggregatesFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolWithAggregatesFilter<"AttemptQuestion"> | boolean
-  testQuestionId?: Prisma.StringNullableWithAggregatesFilter<"AttemptQuestion"> | string | null
 }
 
 export type AttemptQuestionCreateInput = {
   id?: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptQuestionsInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
+  testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptQuestionInput
-  testQuestion?: Prisma.TestQuestionCreateNestedOneWithoutAttemptQuestionsInput
 }
 
 export type AttemptQuestionUncheckedCreateInput = {
   id?: string
   attemptId: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -348,20 +348,20 @@ export type AttemptQuestionUpdateInput = {
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptQuestionNestedInput
-  testQuestion?: Prisma.TestQuestionUpdateOneWithoutAttemptQuestionsNestedInput
 }
 
 export type AttemptQuestionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
@@ -369,11 +369,11 @@ export type AttemptQuestionCreateManyInput = {
   id?: string
   attemptId: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
 }
 
 export type AttemptQuestionUpdateManyMutationInput = {
@@ -387,11 +387,11 @@ export type AttemptQuestionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AttemptQuestionListRelationFilter = {
@@ -404,20 +404,20 @@ export type AttemptQuestionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type AttemptQuestionAttemptIdQuestionIdCompoundUniqueInput = {
+export type AttemptQuestionAttemptIdQuestionVersionIdCompoundUniqueInput = {
   attemptId: string
-  questionId: string
+  questionVersionId: string
 }
 
 export type AttemptQuestionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptSectionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
+  testVersionQuestionId?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
-  testQuestionId?: Prisma.SortOrder
 }
 
 export type AttemptQuestionAvgOrderByAggregateInput = {
@@ -429,22 +429,22 @@ export type AttemptQuestionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptSectionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
+  testVersionQuestionId?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
-  testQuestionId?: Prisma.SortOrder
 }
 
 export type AttemptQuestionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptSectionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
+  testVersionQuestionId?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
-  testQuestionId?: Prisma.SortOrder
 }
 
 export type AttemptQuestionSumOrderByAggregateInput = {
@@ -457,45 +457,45 @@ export type AttemptQuestionScalarRelationFilter = {
   isNot?: Prisma.AttemptQuestionWhereInput
 }
 
-export type AttemptQuestionCreateNestedManyWithoutQuestionInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput> | Prisma.AttemptQuestionCreateWithoutQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyQuestionInputEnvelope
+export type AttemptQuestionCreateNestedManyWithoutQuestionVersionInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptQuestionCreateWithoutQuestionVersionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyQuestionVersionInputEnvelope
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
 }
 
-export type AttemptQuestionUncheckedCreateNestedManyWithoutQuestionInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput> | Prisma.AttemptQuestionCreateWithoutQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyQuestionInputEnvelope
+export type AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptQuestionCreateWithoutQuestionVersionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyQuestionVersionInputEnvelope
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
 }
 
-export type AttemptQuestionUpdateManyWithoutQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput> | Prisma.AttemptQuestionCreateWithoutQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput[]
-  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyQuestionInputEnvelope
+export type AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptQuestionCreateWithoutQuestionVersionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput[]
+  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyQuestionVersionInputEnvelope
   set?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   disconnect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   delete?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
-  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionInput[]
-  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionInput[]
+  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionVersionInput[]
+  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionVersionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionVersionInput[]
   deleteMany?: Prisma.AttemptQuestionScalarWhereInput | Prisma.AttemptQuestionScalarWhereInput[]
 }
 
-export type AttemptQuestionUncheckedUpdateManyWithoutQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput> | Prisma.AttemptQuestionCreateWithoutQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionInput[]
-  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyQuestionInputEnvelope
+export type AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptQuestionCreateWithoutQuestionVersionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptQuestionCreateOrConnectWithoutQuestionVersionInput[]
+  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyQuestionVersionInputEnvelope
   set?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   disconnect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   delete?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
-  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionInput[]
-  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionInput[]
+  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutQuestionVersionInput[]
+  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionVersionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutQuestionVersionInput[]
   deleteMany?: Prisma.AttemptQuestionScalarWhereInput | Prisma.AttemptQuestionScalarWhereInput[]
 }
 
@@ -597,94 +597,94 @@ export type AttemptQuestionUpdateOneRequiredWithoutAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AttemptQuestionUpdateToOneWithWhereWithoutAnswersInput, Prisma.AttemptQuestionUpdateWithoutAnswersInput>, Prisma.AttemptQuestionUncheckedUpdateWithoutAnswersInput>
 }
 
-export type AttemptQuestionCreateNestedManyWithoutTestQuestionInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyTestQuestionInputEnvelope
+export type AttemptQuestionCreateNestedManyWithoutTestVersionQuestionInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyTestVersionQuestionInputEnvelope
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
 }
 
-export type AttemptQuestionUncheckedCreateNestedManyWithoutTestQuestionInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyTestQuestionInputEnvelope
+export type AttemptQuestionUncheckedCreateNestedManyWithoutTestVersionQuestionInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyTestVersionQuestionInputEnvelope
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
 }
 
-export type AttemptQuestionUpdateManyWithoutTestQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput[]
-  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestQuestionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyTestQuestionInputEnvelope
+export type AttemptQuestionUpdateManyWithoutTestVersionQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput[]
+  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestVersionQuestionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestVersionQuestionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyTestVersionQuestionInputEnvelope
   set?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   disconnect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   delete?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
-  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestQuestionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestQuestionInput[]
-  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestQuestionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestQuestionInput[]
+  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestVersionQuestionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestVersionQuestionInput[]
+  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestVersionQuestionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestVersionQuestionInput[]
   deleteMany?: Prisma.AttemptQuestionScalarWhereInput | Prisma.AttemptQuestionScalarWhereInput[]
 }
 
-export type AttemptQuestionUncheckedUpdateManyWithoutTestQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput[]
-  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestQuestionInput[]
-  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestQuestionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestQuestionInput[]
-  createMany?: Prisma.AttemptQuestionCreateManyTestQuestionInputEnvelope
+export type AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput> | Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput[] | Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput[]
+  connectOrCreate?: Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput | Prisma.AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput[]
+  upsert?: Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestVersionQuestionInput | Prisma.AttemptQuestionUpsertWithWhereUniqueWithoutTestVersionQuestionInput[]
+  createMany?: Prisma.AttemptQuestionCreateManyTestVersionQuestionInputEnvelope
   set?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   disconnect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   delete?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
   connect?: Prisma.AttemptQuestionWhereUniqueInput | Prisma.AttemptQuestionWhereUniqueInput[]
-  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestQuestionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestQuestionInput[]
-  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestQuestionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestQuestionInput[]
+  update?: Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestVersionQuestionInput | Prisma.AttemptQuestionUpdateWithWhereUniqueWithoutTestVersionQuestionInput[]
+  updateMany?: Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestVersionQuestionInput | Prisma.AttemptQuestionUpdateManyWithWhereWithoutTestVersionQuestionInput[]
   deleteMany?: Prisma.AttemptQuestionScalarWhereInput | Prisma.AttemptQuestionScalarWhereInput[]
 }
 
-export type AttemptQuestionCreateWithoutQuestionInput = {
+export type AttemptQuestionCreateWithoutQuestionVersionInput = {
   id?: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
+  testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptQuestionInput
-  testQuestion?: Prisma.TestQuestionCreateNestedOneWithoutAttemptQuestionsInput
 }
 
-export type AttemptQuestionUncheckedCreateWithoutQuestionInput = {
+export type AttemptQuestionUncheckedCreateWithoutQuestionVersionInput = {
   id?: string
   attemptId: string
   attemptSectionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
-export type AttemptQuestionCreateOrConnectWithoutQuestionInput = {
+export type AttemptQuestionCreateOrConnectWithoutQuestionVersionInput = {
   where: Prisma.AttemptQuestionWhereUniqueInput
-  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput>
+  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput>
 }
 
-export type AttemptQuestionCreateManyQuestionInputEnvelope = {
-  data: Prisma.AttemptQuestionCreateManyQuestionInput | Prisma.AttemptQuestionCreateManyQuestionInput[]
+export type AttemptQuestionCreateManyQuestionVersionInputEnvelope = {
+  data: Prisma.AttemptQuestionCreateManyQuestionVersionInput | Prisma.AttemptQuestionCreateManyQuestionVersionInput[]
   skipDuplicates?: boolean
 }
 
-export type AttemptQuestionUpsertWithWhereUniqueWithoutQuestionInput = {
+export type AttemptQuestionUpsertWithWhereUniqueWithoutQuestionVersionInput = {
   where: Prisma.AttemptQuestionWhereUniqueInput
-  update: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutQuestionInput>
-  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionInput>
+  update: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutQuestionVersionInput>
+  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedCreateWithoutQuestionVersionInput>
 }
 
-export type AttemptQuestionUpdateWithWhereUniqueWithoutQuestionInput = {
+export type AttemptQuestionUpdateWithWhereUniqueWithoutQuestionVersionInput = {
   where: Prisma.AttemptQuestionWhereUniqueInput
-  data: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutQuestionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutQuestionInput>
+  data: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutQuestionVersionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutQuestionVersionInput>
 }
 
-export type AttemptQuestionUpdateManyWithWhereWithoutQuestionInput = {
+export type AttemptQuestionUpdateManyWithWhereWithoutQuestionVersionInput = {
   where: Prisma.AttemptQuestionScalarWhereInput
-  data: Prisma.XOR<Prisma.AttemptQuestionUpdateManyMutationInput, Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionInput>
+  data: Prisma.XOR<Prisma.AttemptQuestionUpdateManyMutationInput, Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionInput>
 }
 
 export type AttemptQuestionScalarWhereInput = {
@@ -694,32 +694,32 @@ export type AttemptQuestionScalarWhereInput = {
   id?: Prisma.StringFilter<"AttemptQuestion"> | string
   attemptId?: Prisma.StringFilter<"AttemptQuestion"> | string
   attemptSectionId?: Prisma.StringFilter<"AttemptQuestion"> | string
-  questionId?: Prisma.StringFilter<"AttemptQuestion"> | string
+  questionVersionId?: Prisma.StringFilter<"AttemptQuestion"> | string
+  testVersionQuestionId?: Prisma.StringNullableFilter<"AttemptQuestion"> | string | null
   displayOrder?: Prisma.IntFilter<"AttemptQuestion"> | number
   point?: Prisma.IntFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolFilter<"AttemptQuestion"> | boolean
-  testQuestionId?: Prisma.StringNullableFilter<"AttemptQuestion"> | string | null
 }
 
 export type AttemptQuestionCreateWithoutAttemptInput = {
   id?: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptQuestionsInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
+  testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptQuestionInput
-  testQuestion?: Prisma.TestQuestionCreateNestedOneWithoutAttemptQuestionsInput
 }
 
 export type AttemptQuestionUncheckedCreateWithoutAttemptInput = {
   id?: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -752,22 +752,22 @@ export type AttemptQuestionUpdateManyWithWhereWithoutAttemptInput = {
 export type AttemptQuestionCreateWithoutAttemptSectionInput = {
   id?: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptQuestionsInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
+  testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptQuestionInput
-  testQuestion?: Prisma.TestQuestionCreateNestedOneWithoutAttemptQuestionsInput
 }
 
 export type AttemptQuestionUncheckedCreateWithoutAttemptSectionInput = {
   id?: string
   attemptId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -800,23 +800,23 @@ export type AttemptQuestionUpdateManyWithWhereWithoutAttemptSectionInput = {
 export type AttemptQuestionCreateWithoutAnswersInput = {
   id?: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptQuestionsInput
-  testQuestion?: Prisma.TestQuestionCreateNestedOneWithoutAttemptQuestionsInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
+  testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
 }
 
 export type AttemptQuestionUncheckedCreateWithoutAnswersInput = {
   id?: string
   attemptId: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
 }
 
 export type AttemptQuestionCreateOrConnectWithoutAnswersInput = {
@@ -842,119 +842,119 @@ export type AttemptQuestionUpdateWithoutAnswersInput = {
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
-  testQuestion?: Prisma.TestQuestionUpdateOneWithoutAttemptQuestionsNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
 }
 
 export type AttemptQuestionUncheckedUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type AttemptQuestionCreateWithoutTestQuestionInput = {
+export type AttemptQuestionCreateWithoutTestVersionQuestionInput = {
   id?: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptQuestionsInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptQuestionInput
 }
 
-export type AttemptQuestionUncheckedCreateWithoutTestQuestionInput = {
+export type AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput = {
   id?: string
   attemptId: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
-export type AttemptQuestionCreateOrConnectWithoutTestQuestionInput = {
+export type AttemptQuestionCreateOrConnectWithoutTestVersionQuestionInput = {
   where: Prisma.AttemptQuestionWhereUniqueInput
-  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput>
+  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput>
 }
 
-export type AttemptQuestionCreateManyTestQuestionInputEnvelope = {
-  data: Prisma.AttemptQuestionCreateManyTestQuestionInput | Prisma.AttemptQuestionCreateManyTestQuestionInput[]
+export type AttemptQuestionCreateManyTestVersionQuestionInputEnvelope = {
+  data: Prisma.AttemptQuestionCreateManyTestVersionQuestionInput | Prisma.AttemptQuestionCreateManyTestVersionQuestionInput[]
   skipDuplicates?: boolean
 }
 
-export type AttemptQuestionUpsertWithWhereUniqueWithoutTestQuestionInput = {
+export type AttemptQuestionUpsertWithWhereUniqueWithoutTestVersionQuestionInput = {
   where: Prisma.AttemptQuestionWhereUniqueInput
-  update: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutTestQuestionInput>
-  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestQuestionInput>
+  update: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutTestVersionQuestionInput>
+  create: Prisma.XOR<Prisma.AttemptQuestionCreateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput>
 }
 
-export type AttemptQuestionUpdateWithWhereUniqueWithoutTestQuestionInput = {
+export type AttemptQuestionUpdateWithWhereUniqueWithoutTestVersionQuestionInput = {
   where: Prisma.AttemptQuestionWhereUniqueInput
-  data: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutTestQuestionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutTestQuestionInput>
+  data: Prisma.XOR<Prisma.AttemptQuestionUpdateWithoutTestVersionQuestionInput, Prisma.AttemptQuestionUncheckedUpdateWithoutTestVersionQuestionInput>
 }
 
-export type AttemptQuestionUpdateManyWithWhereWithoutTestQuestionInput = {
+export type AttemptQuestionUpdateManyWithWhereWithoutTestVersionQuestionInput = {
   where: Prisma.AttemptQuestionScalarWhereInput
-  data: Prisma.XOR<Prisma.AttemptQuestionUpdateManyMutationInput, Prisma.AttemptQuestionUncheckedUpdateManyWithoutTestQuestionInput>
+  data: Prisma.XOR<Prisma.AttemptQuestionUpdateManyMutationInput, Prisma.AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionInput>
 }
 
-export type AttemptQuestionCreateManyQuestionInput = {
+export type AttemptQuestionCreateManyQuestionVersionInput = {
   id?: string
   attemptId: string
   attemptSectionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
 }
 
-export type AttemptQuestionUpdateWithoutQuestionInput = {
+export type AttemptQuestionUpdateWithoutQuestionVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
+  testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptQuestionNestedInput
-  testQuestion?: Prisma.TestQuestionUpdateOneWithoutAttemptQuestionsNestedInput
 }
 
-export type AttemptQuestionUncheckedUpdateWithoutQuestionInput = {
+export type AttemptQuestionUncheckedUpdateWithoutQuestionVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
-export type AttemptQuestionUncheckedUpdateManyWithoutQuestionInput = {
+export type AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AttemptQuestionCreateManyAttemptInput = {
   id?: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
 }
 
 export type AttemptQuestionUpdateWithoutAttemptInput = {
@@ -963,40 +963,40 @@ export type AttemptQuestionUpdateWithoutAttemptInput = {
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptQuestionNestedInput
-  testQuestion?: Prisma.TestQuestionUpdateOneWithoutAttemptQuestionsNestedInput
 }
 
 export type AttemptQuestionUncheckedUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
 export type AttemptQuestionUncheckedUpdateManyWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AttemptQuestionCreateManyAttemptSectionInput = {
   id?: string
   attemptId: string
-  questionId: string
+  questionVersionId: string
+  testVersionQuestionId?: string | null
   displayOrder: number
-  point?: number
-  isRequired?: boolean
-  testQuestionId?: string | null
+  point: number
+  isRequired: boolean
 }
 
 export type AttemptQuestionUpdateWithoutAttemptSectionInput = {
@@ -1005,69 +1005,69 @@ export type AttemptQuestionUpdateWithoutAttemptSectionInput = {
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptQuestionNestedInput
-  testQuestion?: Prisma.TestQuestionUpdateOneWithoutAttemptQuestionsNestedInput
 }
 
 export type AttemptQuestionUncheckedUpdateWithoutAttemptSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
 export type AttemptQuestionUncheckedUpdateManyWithoutAttemptSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  testQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type AttemptQuestionCreateManyTestQuestionInput = {
+export type AttemptQuestionCreateManyTestVersionQuestionInput = {
   id?: string
   attemptId: string
   attemptSectionId: string
-  questionId: string
+  questionVersionId: string
   displayOrder: number
-  point?: number
-  isRequired?: boolean
+  point: number
+  isRequired: boolean
 }
 
-export type AttemptQuestionUpdateWithoutTestQuestionInput = {
+export type AttemptQuestionUpdateWithoutTestVersionQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptQuestionNestedInput
 }
 
-export type AttemptQuestionUncheckedUpdateWithoutTestQuestionInput = {
+export type AttemptQuestionUncheckedUpdateWithoutTestVersionQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
-export type AttemptQuestionUncheckedUpdateManyWithoutTestQuestionInput = {
+export type AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1108,16 +1108,16 @@ export type AttemptQuestionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id?: boolean
   attemptId?: boolean
   attemptSectionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
+  testVersionQuestionId?: boolean
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
-  testQuestionId?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
+  testVersionQuestion?: boolean | Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs>
   answers?: boolean | Prisma.AttemptQuestion$answersArgs<ExtArgs>
-  testQuestion?: boolean | Prisma.AttemptQuestion$testQuestionArgs<ExtArgs>
   _count?: boolean | Prisma.AttemptQuestionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptQuestion"]>
 
@@ -1125,63 +1125,63 @@ export type AttemptQuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   id?: boolean
   attemptId?: boolean
   attemptSectionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
+  testVersionQuestionId?: boolean
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
-  testQuestionId?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  testQuestion?: boolean | Prisma.AttemptQuestion$testQuestionArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
+  testVersionQuestion?: boolean | Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs>
 }, ExtArgs["result"]["attemptQuestion"]>
 
 export type AttemptQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
   attemptSectionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
+  testVersionQuestionId?: boolean
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
-  testQuestionId?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  testQuestion?: boolean | Prisma.AttemptQuestion$testQuestionArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
+  testVersionQuestion?: boolean | Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs>
 }, ExtArgs["result"]["attemptQuestion"]>
 
 export type AttemptQuestionSelectScalar = {
   id?: boolean
   attemptId?: boolean
   attemptSectionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
+  testVersionQuestionId?: boolean
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
-  testQuestionId?: boolean
 }
 
-export type AttemptQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "attemptSectionId" | "questionId" | "displayOrder" | "point" | "isRequired" | "testQuestionId", ExtArgs["result"]["attemptQuestion"]>
+export type AttemptQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "attemptSectionId" | "questionVersionId" | "testVersionQuestionId" | "displayOrder" | "point" | "isRequired", ExtArgs["result"]["attemptQuestion"]>
 export type AttemptQuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
+  testVersionQuestion?: boolean | Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs>
   answers?: boolean | Prisma.AttemptQuestion$answersArgs<ExtArgs>
-  testQuestion?: boolean | Prisma.AttemptQuestion$testQuestionArgs<ExtArgs>
   _count?: boolean | Prisma.AttemptQuestionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AttemptQuestionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  testQuestion?: boolean | Prisma.AttemptQuestion$testQuestionArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
+  testVersionQuestion?: boolean | Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs>
 }
 export type AttemptQuestionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
-  testQuestion?: boolean | Prisma.AttemptQuestion$testQuestionArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
+  testVersionQuestion?: boolean | Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs>
 }
 
 export type $AttemptQuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1189,19 +1189,19 @@ export type $AttemptQuestionPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     attempt: Prisma.$TestAttemptPayload<ExtArgs>
     attemptSection: Prisma.$AttemptSectionPayload<ExtArgs>
-    question: Prisma.$QuestionPayload<ExtArgs>
+    questionVersion: Prisma.$QuestionVersionPayload<ExtArgs>
+    testVersionQuestion: Prisma.$TestVersionQuestionPayload<ExtArgs> | null
     answers: Prisma.$AttemptAnswerPayload<ExtArgs>[]
-    testQuestion: Prisma.$TestQuestionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     attemptId: string
     attemptSectionId: string
-    questionId: string
+    questionVersionId: string
+    testVersionQuestionId: string | null
     displayOrder: number
     point: number
     isRequired: boolean
-    testQuestionId: string | null
   }, ExtArgs["result"]["attemptQuestion"]>
   composites: {}
 }
@@ -1598,9 +1598,9 @@ export interface Prisma__AttemptQuestionClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   attempt<T extends Prisma.TestAttemptDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttemptDefaultArgs<ExtArgs>>): Prisma.Prisma__TestAttemptClient<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   attemptSection<T extends Prisma.AttemptSectionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptSectionDefaultArgs<ExtArgs>>): Prisma.Prisma__AttemptSectionClient<runtime.Types.Result.GetResult<Prisma.$AttemptSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  question<T extends Prisma.QuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__QuestionClient<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  questionVersion<T extends Prisma.QuestionVersionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersionDefaultArgs<ExtArgs>>): Prisma.Prisma__QuestionVersionClient<runtime.Types.Result.GetResult<Prisma.$QuestionVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  testVersionQuestion<T extends Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptQuestion$testVersionQuestionArgs<ExtArgs>>): Prisma.Prisma__TestVersionQuestionClient<runtime.Types.Result.GetResult<Prisma.$TestVersionQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   answers<T extends Prisma.AttemptQuestion$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptQuestion$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  testQuestion<T extends Prisma.AttemptQuestion$testQuestionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptQuestion$testQuestionArgs<ExtArgs>>): Prisma.Prisma__TestQuestionClient<runtime.Types.Result.GetResult<Prisma.$TestQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1633,11 +1633,11 @@ export interface AttemptQuestionFieldRefs {
   readonly id: Prisma.FieldRef<"AttemptQuestion", 'String'>
   readonly attemptId: Prisma.FieldRef<"AttemptQuestion", 'String'>
   readonly attemptSectionId: Prisma.FieldRef<"AttemptQuestion", 'String'>
-  readonly questionId: Prisma.FieldRef<"AttemptQuestion", 'String'>
+  readonly questionVersionId: Prisma.FieldRef<"AttemptQuestion", 'String'>
+  readonly testVersionQuestionId: Prisma.FieldRef<"AttemptQuestion", 'String'>
   readonly displayOrder: Prisma.FieldRef<"AttemptQuestion", 'Int'>
   readonly point: Prisma.FieldRef<"AttemptQuestion", 'Int'>
   readonly isRequired: Prisma.FieldRef<"AttemptQuestion", 'Boolean'>
-  readonly testQuestionId: Prisma.FieldRef<"AttemptQuestion", 'String'>
 }
     
 
@@ -2039,6 +2039,25 @@ export type AttemptQuestionDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
+ * AttemptQuestion.testVersionQuestion
+ */
+export type AttemptQuestion$testVersionQuestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestVersionQuestion
+   */
+  select?: Prisma.TestVersionQuestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestVersionQuestion
+   */
+  omit?: Prisma.TestVersionQuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestVersionQuestionInclude<ExtArgs> | null
+  where?: Prisma.TestVersionQuestionWhereInput
+}
+
+/**
  * AttemptQuestion.answers
  */
 export type AttemptQuestion$answersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2060,25 +2079,6 @@ export type AttemptQuestion$answersArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.AttemptAnswerScalarFieldEnum | Prisma.AttemptAnswerScalarFieldEnum[]
-}
-
-/**
- * AttemptQuestion.testQuestion
- */
-export type AttemptQuestion$testQuestionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TestQuestion
-   */
-  select?: Prisma.TestQuestionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TestQuestion
-   */
-  omit?: Prisma.TestQuestionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestQuestionInclude<ExtArgs> | null
-  where?: Prisma.TestQuestionWhereInput
 }
 
 /**

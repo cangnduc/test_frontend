@@ -8,10 +8,11 @@ import { ThemeToggle } from "./theme-toggle";
 import type { Session } from "@/auth/auth";
 import { Suspense } from "react";
 const navLinks = [
-  { href: "/courses", label: "Courses", iconName: "Book" },
-  { href: "/practice", label: "Practice", iconName: "Activity" },
+  { href: "/questions", label: "Questions", iconName: "Book" },
+  { href: "/class", label: "Class", iconName: "Activity" },
   { href: "/tests", label: "Tests", iconName: "SquareCheck" },
-  { href: "/dashboard", label: "Dashboard", iconName: "LayoutDashboard" },
+  { href: "/profile", label: "Profile", iconName: "User" },
+  { href: "/login", label: "Login", iconName: "LogIn" },
 ];
 
 export function Navbar() {
@@ -60,7 +61,7 @@ export function Navbar() {
 
 async function NavbarActions() {
   const sessionData: Session | null = await getSession();
-  
+
   return (
     <>
       {/* Client side Profile/Sign-in Leaf */}
@@ -82,4 +83,3 @@ function NavbarActionsFallback() {
     </div>
   );
 }
-

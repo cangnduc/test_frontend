@@ -1,5 +1,3 @@
-import { QuestionDataSchema } from "@/zod-schema/question";
-import { z } from "zod";
 import { getAbility } from "@/auth/casl/get-ability";
 import Link from "next/link";
 export default async function QuestionPage() {

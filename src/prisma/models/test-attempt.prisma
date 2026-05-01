@@ -1,33 +1,36 @@
 model TestAttempt {
   id String @id @default(uuid())
 
-  userId Int
+  userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  testId String
+  testId String @map("test_id")
   test   Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
 
+  testVersionId   String      @map("test_version_id") // ✅ immutable version taken
+  testVersion     TestVersion @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
+
   status        AttemptStatus @default(IN_PROGRESS)
-  attemptNumber Int
+  attemptNumber Int           @map("attempt_number")
 
-  startedAt   DateTime  @default(now())
-  submittedAt DateTime?
-  completedAt DateTime?
+  startedAt   DateTime  @default(now()) @map("started_at")
+  submittedAt DateTime? @map("submitted_at")
+  completedAt DateTime? @map("completed_at")
 
-  globalEndAt DateTime?
+  globalEndAt DateTime? @map("global_end_at")
 
-  currentSectionId String?
+  currentSectionId String?         @map("current_section_id")
   currentSection   AttemptSection? @relation("CurrentSection", fields: [currentSectionId], references: [id], onDelete: SetNull)
 
-  totalScore Float?   @default(0)
-  maxScore   Float?
+  totalScore Float?   @default(0) @map("total_score")
+  maxScore   Float?   @map("max_score")
   percentage Float?
   passed     Boolean?
 
-  configSnapshot    Json
-  sessionToken      String?
-  clientFingerprint String?
-  ipAddress         String?
+  configSnapshot    Json? @map("config_snapshot") // redundant but kept if requested, made optional
+  sessionToken      String? @map("session_token")
+  clientFingerprint String? @map("client_fingerprint")
+  ipAddress         String? @map("ip_address")
 
   sections  AttemptSection[]  @relation("AttemptSections")
   questions AttemptQuestion[]
@@ -36,81 +39,95 @@ model TestAttempt {
 
   @@unique([userId, testId, attemptNumber])
   @@index([userId, testId, status])
+  @@index([testVersionId])
+  @@map("test_attempt")
 }
 
 model AttemptSection {
-  id                  String        @id @default(uuid())
-  attemptId           String
+  id                    String           @id @default(uuid())
+  attemptId             String           @map("attempt_id")
+  attempt               TestAttempt      @relation("AttemptSections", fields: [attemptId], references: [id], onDelete: Cascade)
   
-  sectionId           String
-  section             TestSection   @relation(fields: [sectionId], references: [id])
+  testVersionSectionId  String           @map("test_version_section_id") // ✅ versioned section
+  testVersionSection    TestVersionSection @relation(fields: [testVersionSectionId], references: [id], onDelete: Cascade)
+  
   order               Int
   title               String
-  timeLimit           Int?
-  selectionMode       SelectionMode? // ALL_REQUIRED, CHOOSE_N, RANDOM_N
-  requiredAnswerCount Int?
-  status              SectionStatus @default(LOCKED)
-  startedAt           DateTime?
-  sectionEndAt        DateTime?
-  completedAt         DateTime?
+  timeLimit           Int?              @map("time_limit")
+  selectionMode       SelectionMode?    @map("selection_mode") // ALL_REQUIRED, CHOOSE_N, RANDOM_N
+  requiredAnswerCount Int?              @map("required_answer_count")
+  status              SectionStatus     @default(LOCKED)
+  startedAt           DateTime?         @map("started_at")
+  sectionEndAt        DateTime?         @map("section_end_at")
+  completedAt         DateTime?         @map("completed_at")
   
-  attempt             TestAttempt   @relation("AttemptSections", fields: [attemptId], references: [id], onDelete: Cascade)
   currentAttempts TestAttempt[]     @relation("CurrentSection")
   questions       AttemptQuestion[]
     
-  @@unique([attemptId, sectionId])
+  @@unique([attemptId, testVersionSectionId])
   @@index([attemptId, order])
+  @@map("attempt_section")
 }
 
 model AttemptQuestion {
-  id               String          @id @default(uuid())
-  attemptId        String
-  attempt          TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-  attemptSectionId String
-  attemptSection   AttemptSection  @relation(fields: [attemptSectionId], references: [id], onDelete: Cascade)
-  questionId       String
-  question         Question        @relation(fields: [questionId], references: [id])
-  displayOrder     Int
-  point            Int             @default(1)
-  isRequired       Boolean         @default(true)
-  answers          AttemptAnswer[]
-  testQuestion     TestQuestion?   @relation(fields: [testQuestionId], references: [id])
-  testQuestionId   String?
+  id                   String          @id @default(uuid())
+  attemptId            String          @map("attempt_id")
+  attempt              TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  attemptSectionId     String          @map("attempt_section_id")
+  attemptSection       AttemptSection  @relation(fields: [attemptSectionId], references: [id], onDelete: Cascade)
+  
+  questionVersionId    String          @map("question_version_id") // ✅ versioned question answered
+  questionVersion      QuestionVersion @relation(fields: [questionVersionId], references: [id], onDelete: Cascade)
+  
+  testVersionQuestionId String?        @map("test_version_question_id") // ✅ backlink to the test’s question definition
+  testVersionQuestion   TestVersionQuestion? @relation(fields: [testVersionQuestionId], references: [id], onDelete: SetNull)
+  
+  displayOrder         Int             @map("display_order")
+  point                Int
+  isRequired           Boolean         @map("is_required")
+  answers              AttemptAnswer[]
 
-  @@unique([attemptId, questionId])
+  @@unique([attemptId, questionVersionId])
   @@index([attemptId, attemptSectionId, displayOrder])
+  @@map("attempt_question")
 }
 
 model AttemptAnswer {
   id                String          @id @default(uuid())
-  attemptId         String
+  attemptId         String          @map("attempt_id")
   attempt           TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-  attemptQuestionId String
+  attemptQuestionId String          @map("attempt_question_id")
   attemptQuestion   AttemptQuestion @relation(fields: [attemptQuestionId], references: [id], onDelete: Cascade)
-  questionId        String
-  question          Question        @relation(fields: [questionId], references: [id])
+  
+  questionVersionId String          @map("question_version_id") // ✅ points to versioned question
+  questionVersion   QuestionVersion @relation(fields: [questionVersionId], references: [id], onDelete: Cascade)
+  
   response          Json
-  version           Int             @default(1)
-  isCorrect         Boolean?
-  pointsAwarded     Float           @default(0)
-  savedAt           DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  pointsAwarded     Float           @default(0) @map("points_awarded")
+  isCorrect         Boolean?        @map("is_correct")
+  savedAt           DateTime        @default(now()) @map("saved_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
 
   manualGrade ManualGrade?
 
   @@unique([attemptId, attemptQuestionId])
+  @@index([attemptId])
+  @@index([attemptQuestionId])
+  @@map("attempt_answer")
 }
 
 model ManualGrade {
   id              String        @id @default(uuid())
-  attemptAnswerId String        @unique
+  attemptAnswerId String        @unique @map("attempt_answer_id")
   attemptAnswer   AttemptAnswer @relation(fields: [attemptAnswerId], references: [id], onDelete: Cascade)
 
-  gradedById    Int
-  gradedBy      User     @relation("GradedBy", fields: [gradedById], references: [id])
-  pointsAwarded Float
-  feedback      String?  @db.Text
+  gradedById    Int             @map("graded_by_id")
+  gradedBy      User            @relation("GradedBy", fields: [gradedById], references: [id])
+  pointsAwarded Float           @map("points_awarded")
+  feedback      String?         @db.Text
 
-  gradedAt  DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  gradedAt  DateTime @default(now()) @map("graded_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("manual_grade")
 }

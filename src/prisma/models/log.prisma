@@ -7,29 +7,31 @@ model SystemLog {
   traceId   String?  @map("trace_id") // ID to trace a single request flow
   
   // Link to User
-  userId    Int?
+  userId    Int?     @map("user_id")
   user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@index([level])
   @@index([userId]) 
   @@index([traceId])
   @@index([createdAt])
+  @@map("system_log")
 }
 
 model AuditLog {
   id         String   @id @default(uuid())
-  actorId    Int?
+  actorId    Int?     @map("actor_id")
   actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
   action     String   // e.g., "question.update", "test.publish"
   resource   String   // table name
-  resourceId String   // affected record id
+  resourceId String   @map("resource_id") // affected record id
   before     Json?
   after      Json?
   ip         String?
-  createdAt  DateTime @default(now())
+  createdAt  DateTime @default(now()) @map("created_at")
 
   @@index([resource, resourceId])
   @@index([actorId, createdAt])
+  @@map("audit_log")
 }

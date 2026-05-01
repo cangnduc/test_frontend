@@ -38,6 +38,7 @@ export type ClassTestAssignmentMinAggregateOutputType = {
   id: string | null
   classId: string | null
   testId: string | null
+  testVersionId: string | null
   dueAt: Date | null
   assignedById: number | null
   createdAt: Date | null
@@ -47,6 +48,7 @@ export type ClassTestAssignmentMaxAggregateOutputType = {
   id: string | null
   classId: string | null
   testId: string | null
+  testVersionId: string | null
   dueAt: Date | null
   assignedById: number | null
   createdAt: Date | null
@@ -56,6 +58,7 @@ export type ClassTestAssignmentCountAggregateOutputType = {
   id: number
   classId: number
   testId: number
+  testVersionId: number
   dueAt: number
   assignedById: number
   createdAt: number
@@ -75,6 +78,7 @@ export type ClassTestAssignmentMinAggregateInputType = {
   id?: true
   classId?: true
   testId?: true
+  testVersionId?: true
   dueAt?: true
   assignedById?: true
   createdAt?: true
@@ -84,6 +88,7 @@ export type ClassTestAssignmentMaxAggregateInputType = {
   id?: true
   classId?: true
   testId?: true
+  testVersionId?: true
   dueAt?: true
   assignedById?: true
   createdAt?: true
@@ -93,6 +98,7 @@ export type ClassTestAssignmentCountAggregateInputType = {
   id?: true
   classId?: true
   testId?: true
+  testVersionId?: true
   dueAt?: true
   assignedById?: true
   createdAt?: true
@@ -189,6 +195,7 @@ export type ClassTestAssignmentGroupByOutputType = {
   id: string
   classId: string
   testId: string
+  testVersionId: string
   dueAt: Date | null
   assignedById: number
   createdAt: Date
@@ -221,11 +228,13 @@ export type ClassTestAssignmentWhereInput = {
   id?: Prisma.StringFilter<"ClassTestAssignment"> | string
   classId?: Prisma.StringFilter<"ClassTestAssignment"> | string
   testId?: Prisma.StringFilter<"ClassTestAssignment"> | string
+  testVersionId?: Prisma.StringFilter<"ClassTestAssignment"> | string
   dueAt?: Prisma.DateTimeNullableFilter<"ClassTestAssignment"> | Date | string | null
   assignedById?: Prisma.IntFilter<"ClassTestAssignment"> | number
   createdAt?: Prisma.DateTimeFilter<"ClassTestAssignment"> | Date | string
   class?: Prisma.XOR<Prisma.ClassScalarRelationFilter, Prisma.ClassWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
+  testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
   assignedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -233,34 +242,39 @@ export type ClassTestAssignmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   classId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   dueAt?: Prisma.SortOrderInput | Prisma.SortOrder
   assignedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   class?: Prisma.ClassOrderByWithRelationInput
   test?: Prisma.TestOrderByWithRelationInput
+  testVersion?: Prisma.TestVersionOrderByWithRelationInput
   assignedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ClassTestAssignmentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  classId_testId?: Prisma.ClassTestAssignmentClassIdTestIdCompoundUniqueInput
+  classId_testVersionId?: Prisma.ClassTestAssignmentClassIdTestVersionIdCompoundUniqueInput
   AND?: Prisma.ClassTestAssignmentWhereInput | Prisma.ClassTestAssignmentWhereInput[]
   OR?: Prisma.ClassTestAssignmentWhereInput[]
   NOT?: Prisma.ClassTestAssignmentWhereInput | Prisma.ClassTestAssignmentWhereInput[]
   classId?: Prisma.StringFilter<"ClassTestAssignment"> | string
   testId?: Prisma.StringFilter<"ClassTestAssignment"> | string
+  testVersionId?: Prisma.StringFilter<"ClassTestAssignment"> | string
   dueAt?: Prisma.DateTimeNullableFilter<"ClassTestAssignment"> | Date | string | null
   assignedById?: Prisma.IntFilter<"ClassTestAssignment"> | number
   createdAt?: Prisma.DateTimeFilter<"ClassTestAssignment"> | Date | string
   class?: Prisma.XOR<Prisma.ClassScalarRelationFilter, Prisma.ClassWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
+  testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
   assignedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "classId_testId">
+}, "id" | "classId_testVersionId">
 
 export type ClassTestAssignmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   classId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   dueAt?: Prisma.SortOrderInput | Prisma.SortOrder
   assignedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -278,6 +292,7 @@ export type ClassTestAssignmentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ClassTestAssignment"> | string
   classId?: Prisma.StringWithAggregatesFilter<"ClassTestAssignment"> | string
   testId?: Prisma.StringWithAggregatesFilter<"ClassTestAssignment"> | string
+  testVersionId?: Prisma.StringWithAggregatesFilter<"ClassTestAssignment"> | string
   dueAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClassTestAssignment"> | Date | string | null
   assignedById?: Prisma.IntWithAggregatesFilter<"ClassTestAssignment"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClassTestAssignment"> | Date | string
@@ -289,6 +304,7 @@ export type ClassTestAssignmentCreateInput = {
   createdAt?: Date | string
   class: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
   test: Prisma.TestCreateNestedOneWithoutClassAssignmentsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutClassAssignmentsInput
   assignedBy: Prisma.UserCreateNestedOneWithoutClassAssignmentsInput
 }
 
@@ -296,6 +312,7 @@ export type ClassTestAssignmentUncheckedCreateInput = {
   id?: string
   classId: string
   testId: string
+  testVersionId: string
   dueAt?: Date | string | null
   assignedById: number
   createdAt?: Date | string
@@ -307,6 +324,7 @@ export type ClassTestAssignmentUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   class?: Prisma.ClassUpdateOneRequiredWithoutAssignmentsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutClassAssignmentsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutClassAssignmentsNestedInput
   assignedBy?: Prisma.UserUpdateOneRequiredWithoutClassAssignmentsNestedInput
 }
 
@@ -314,6 +332,7 @@ export type ClassTestAssignmentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -323,6 +342,7 @@ export type ClassTestAssignmentCreateManyInput = {
   id?: string
   classId: string
   testId: string
+  testVersionId: string
   dueAt?: Date | string | null
   assignedById: number
   createdAt?: Date | string
@@ -338,6 +358,7 @@ export type ClassTestAssignmentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -353,15 +374,16 @@ export type ClassTestAssignmentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ClassTestAssignmentClassIdTestIdCompoundUniqueInput = {
+export type ClassTestAssignmentClassIdTestVersionIdCompoundUniqueInput = {
   classId: string
-  testId: string
+  testVersionId: string
 }
 
 export type ClassTestAssignmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   classId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   assignedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,6 +397,7 @@ export type ClassTestAssignmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   classId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   assignedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -384,6 +407,7 @@ export type ClassTestAssignmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   classId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   dueAt?: Prisma.SortOrder
   assignedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -481,6 +505,48 @@ export type ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput = {
   deleteMany?: Prisma.ClassTestAssignmentScalarWhereInput | Prisma.ClassTestAssignmentScalarWhereInput[]
 }
 
+export type ClassTestAssignmentCreateNestedManyWithoutTestVersionInput = {
+  create?: Prisma.XOR<Prisma.ClassTestAssignmentCreateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput> | Prisma.ClassTestAssignmentCreateWithoutTestVersionInput[] | Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput | Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput[]
+  createMany?: Prisma.ClassTestAssignmentCreateManyTestVersionInputEnvelope
+  connect?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+}
+
+export type ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput = {
+  create?: Prisma.XOR<Prisma.ClassTestAssignmentCreateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput> | Prisma.ClassTestAssignmentCreateWithoutTestVersionInput[] | Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput | Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput[]
+  createMany?: Prisma.ClassTestAssignmentCreateManyTestVersionInputEnvelope
+  connect?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+}
+
+export type ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.ClassTestAssignmentCreateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput> | Prisma.ClassTestAssignmentCreateWithoutTestVersionInput[] | Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput | Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput[]
+  upsert?: Prisma.ClassTestAssignmentUpsertWithWhereUniqueWithoutTestVersionInput | Prisma.ClassTestAssignmentUpsertWithWhereUniqueWithoutTestVersionInput[]
+  createMany?: Prisma.ClassTestAssignmentCreateManyTestVersionInputEnvelope
+  set?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  disconnect?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  delete?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  connect?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  update?: Prisma.ClassTestAssignmentUpdateWithWhereUniqueWithoutTestVersionInput | Prisma.ClassTestAssignmentUpdateWithWhereUniqueWithoutTestVersionInput[]
+  updateMany?: Prisma.ClassTestAssignmentUpdateManyWithWhereWithoutTestVersionInput | Prisma.ClassTestAssignmentUpdateManyWithWhereWithoutTestVersionInput[]
+  deleteMany?: Prisma.ClassTestAssignmentScalarWhereInput | Prisma.ClassTestAssignmentScalarWhereInput[]
+}
+
+export type ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.ClassTestAssignmentCreateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput> | Prisma.ClassTestAssignmentCreateWithoutTestVersionInput[] | Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput | Prisma.ClassTestAssignmentCreateOrConnectWithoutTestVersionInput[]
+  upsert?: Prisma.ClassTestAssignmentUpsertWithWhereUniqueWithoutTestVersionInput | Prisma.ClassTestAssignmentUpsertWithWhereUniqueWithoutTestVersionInput[]
+  createMany?: Prisma.ClassTestAssignmentCreateManyTestVersionInputEnvelope
+  set?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  disconnect?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  delete?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  connect?: Prisma.ClassTestAssignmentWhereUniqueInput | Prisma.ClassTestAssignmentWhereUniqueInput[]
+  update?: Prisma.ClassTestAssignmentUpdateWithWhereUniqueWithoutTestVersionInput | Prisma.ClassTestAssignmentUpdateWithWhereUniqueWithoutTestVersionInput[]
+  updateMany?: Prisma.ClassTestAssignmentUpdateManyWithWhereWithoutTestVersionInput | Prisma.ClassTestAssignmentUpdateManyWithWhereWithoutTestVersionInput[]
+  deleteMany?: Prisma.ClassTestAssignmentScalarWhereInput | Prisma.ClassTestAssignmentScalarWhereInput[]
+}
+
 export type ClassTestAssignmentCreateNestedManyWithoutAssignedByInput = {
   create?: Prisma.XOR<Prisma.ClassTestAssignmentCreateWithoutAssignedByInput, Prisma.ClassTestAssignmentUncheckedCreateWithoutAssignedByInput> | Prisma.ClassTestAssignmentCreateWithoutAssignedByInput[] | Prisma.ClassTestAssignmentUncheckedCreateWithoutAssignedByInput[]
   connectOrCreate?: Prisma.ClassTestAssignmentCreateOrConnectWithoutAssignedByInput | Prisma.ClassTestAssignmentCreateOrConnectWithoutAssignedByInput[]
@@ -528,12 +594,14 @@ export type ClassTestAssignmentCreateWithoutClassInput = {
   dueAt?: Date | string | null
   createdAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutClassAssignmentsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutClassAssignmentsInput
   assignedBy: Prisma.UserCreateNestedOneWithoutClassAssignmentsInput
 }
 
 export type ClassTestAssignmentUncheckedCreateWithoutClassInput = {
   id?: string
   testId: string
+  testVersionId: string
   dueAt?: Date | string | null
   assignedById: number
   createdAt?: Date | string
@@ -572,6 +640,7 @@ export type ClassTestAssignmentScalarWhereInput = {
   id?: Prisma.StringFilter<"ClassTestAssignment"> | string
   classId?: Prisma.StringFilter<"ClassTestAssignment"> | string
   testId?: Prisma.StringFilter<"ClassTestAssignment"> | string
+  testVersionId?: Prisma.StringFilter<"ClassTestAssignment"> | string
   dueAt?: Prisma.DateTimeNullableFilter<"ClassTestAssignment"> | Date | string | null
   assignedById?: Prisma.IntFilter<"ClassTestAssignment"> | number
   createdAt?: Prisma.DateTimeFilter<"ClassTestAssignment"> | Date | string
@@ -582,12 +651,14 @@ export type ClassTestAssignmentCreateWithoutTestInput = {
   dueAt?: Date | string | null
   createdAt?: Date | string
   class: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutClassAssignmentsInput
   assignedBy: Prisma.UserCreateNestedOneWithoutClassAssignmentsInput
 }
 
 export type ClassTestAssignmentUncheckedCreateWithoutTestInput = {
   id?: string
   classId: string
+  testVersionId: string
   dueAt?: Date | string | null
   assignedById: number
   createdAt?: Date | string
@@ -619,18 +690,64 @@ export type ClassTestAssignmentUpdateManyWithWhereWithoutTestInput = {
   data: Prisma.XOR<Prisma.ClassTestAssignmentUpdateManyMutationInput, Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestInput>
 }
 
+export type ClassTestAssignmentCreateWithoutTestVersionInput = {
+  id?: string
+  dueAt?: Date | string | null
+  createdAt?: Date | string
+  class: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
+  test: Prisma.TestCreateNestedOneWithoutClassAssignmentsInput
+  assignedBy: Prisma.UserCreateNestedOneWithoutClassAssignmentsInput
+}
+
+export type ClassTestAssignmentUncheckedCreateWithoutTestVersionInput = {
+  id?: string
+  classId: string
+  testId: string
+  dueAt?: Date | string | null
+  assignedById: number
+  createdAt?: Date | string
+}
+
+export type ClassTestAssignmentCreateOrConnectWithoutTestVersionInput = {
+  where: Prisma.ClassTestAssignmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClassTestAssignmentCreateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput>
+}
+
+export type ClassTestAssignmentCreateManyTestVersionInputEnvelope = {
+  data: Prisma.ClassTestAssignmentCreateManyTestVersionInput | Prisma.ClassTestAssignmentCreateManyTestVersionInput[]
+  skipDuplicates?: boolean
+}
+
+export type ClassTestAssignmentUpsertWithWhereUniqueWithoutTestVersionInput = {
+  where: Prisma.ClassTestAssignmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.ClassTestAssignmentUpdateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedUpdateWithoutTestVersionInput>
+  create: Prisma.XOR<Prisma.ClassTestAssignmentCreateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedCreateWithoutTestVersionInput>
+}
+
+export type ClassTestAssignmentUpdateWithWhereUniqueWithoutTestVersionInput = {
+  where: Prisma.ClassTestAssignmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.ClassTestAssignmentUpdateWithoutTestVersionInput, Prisma.ClassTestAssignmentUncheckedUpdateWithoutTestVersionInput>
+}
+
+export type ClassTestAssignmentUpdateManyWithWhereWithoutTestVersionInput = {
+  where: Prisma.ClassTestAssignmentScalarWhereInput
+  data: Prisma.XOR<Prisma.ClassTestAssignmentUpdateManyMutationInput, Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionInput>
+}
+
 export type ClassTestAssignmentCreateWithoutAssignedByInput = {
   id?: string
   dueAt?: Date | string | null
   createdAt?: Date | string
   class: Prisma.ClassCreateNestedOneWithoutAssignmentsInput
   test: Prisma.TestCreateNestedOneWithoutClassAssignmentsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutClassAssignmentsInput
 }
 
 export type ClassTestAssignmentUncheckedCreateWithoutAssignedByInput = {
   id?: string
   classId: string
   testId: string
+  testVersionId: string
   dueAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -664,6 +781,7 @@ export type ClassTestAssignmentUpdateManyWithWhereWithoutAssignedByInput = {
 export type ClassTestAssignmentCreateManyClassInput = {
   id?: string
   testId: string
+  testVersionId: string
   dueAt?: Date | string | null
   assignedById: number
   createdAt?: Date | string
@@ -674,12 +792,14 @@ export type ClassTestAssignmentUpdateWithoutClassInput = {
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutClassAssignmentsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutClassAssignmentsNestedInput
   assignedBy?: Prisma.UserUpdateOneRequiredWithoutClassAssignmentsNestedInput
 }
 
 export type ClassTestAssignmentUncheckedUpdateWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -688,6 +808,7 @@ export type ClassTestAssignmentUncheckedUpdateWithoutClassInput = {
 export type ClassTestAssignmentUncheckedUpdateManyWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -696,6 +817,7 @@ export type ClassTestAssignmentUncheckedUpdateManyWithoutClassInput = {
 export type ClassTestAssignmentCreateManyTestInput = {
   id?: string
   classId: string
+  testVersionId: string
   dueAt?: Date | string | null
   assignedById: number
   createdAt?: Date | string
@@ -706,12 +828,14 @@ export type ClassTestAssignmentUpdateWithoutTestInput = {
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   class?: Prisma.ClassUpdateOneRequiredWithoutAssignmentsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutClassAssignmentsNestedInput
   assignedBy?: Prisma.UserUpdateOneRequiredWithoutClassAssignmentsNestedInput
 }
 
 export type ClassTestAssignmentUncheckedUpdateWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -720,6 +844,43 @@ export type ClassTestAssignmentUncheckedUpdateWithoutTestInput = {
 export type ClassTestAssignmentUncheckedUpdateManyWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  assignedById?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ClassTestAssignmentCreateManyTestVersionInput = {
+  id?: string
+  classId: string
+  testId: string
+  dueAt?: Date | string | null
+  assignedById: number
+  createdAt?: Date | string
+}
+
+export type ClassTestAssignmentUpdateWithoutTestVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  class?: Prisma.ClassUpdateOneRequiredWithoutAssignmentsNestedInput
+  test?: Prisma.TestUpdateOneRequiredWithoutClassAssignmentsNestedInput
+  assignedBy?: Prisma.UserUpdateOneRequiredWithoutClassAssignmentsNestedInput
+}
+
+export type ClassTestAssignmentUncheckedUpdateWithoutTestVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  classId?: Prisma.StringFieldUpdateOperationsInput | string
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  assignedById?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  classId?: Prisma.StringFieldUpdateOperationsInput | string
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -729,6 +890,7 @@ export type ClassTestAssignmentCreateManyAssignedByInput = {
   id?: string
   classId: string
   testId: string
+  testVersionId: string
   dueAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -739,12 +901,14 @@ export type ClassTestAssignmentUpdateWithoutAssignedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   class?: Prisma.ClassUpdateOneRequiredWithoutAssignmentsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutClassAssignmentsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutClassAssignmentsNestedInput
 }
 
 export type ClassTestAssignmentUncheckedUpdateWithoutAssignedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -753,6 +917,7 @@ export type ClassTestAssignmentUncheckedUpdateManyWithoutAssignedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -763,11 +928,13 @@ export type ClassTestAssignmentSelect<ExtArgs extends runtime.Types.Extensions.I
   id?: boolean
   classId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   dueAt?: boolean
   assignedById?: boolean
   createdAt?: boolean
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   assignedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classTestAssignment"]>
 
@@ -775,11 +942,13 @@ export type ClassTestAssignmentSelectCreateManyAndReturn<ExtArgs extends runtime
   id?: boolean
   classId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   dueAt?: boolean
   assignedById?: boolean
   createdAt?: boolean
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   assignedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classTestAssignment"]>
 
@@ -787,11 +956,13 @@ export type ClassTestAssignmentSelectUpdateManyAndReturn<ExtArgs extends runtime
   id?: boolean
   classId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   dueAt?: boolean
   assignedById?: boolean
   createdAt?: boolean
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   assignedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classTestAssignment"]>
 
@@ -799,25 +970,29 @@ export type ClassTestAssignmentSelectScalar = {
   id?: boolean
   classId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   dueAt?: boolean
   assignedById?: boolean
   createdAt?: boolean
 }
 
-export type ClassTestAssignmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "classId" | "testId" | "dueAt" | "assignedById" | "createdAt", ExtArgs["result"]["classTestAssignment"]>
+export type ClassTestAssignmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "classId" | "testId" | "testVersionId" | "dueAt" | "assignedById" | "createdAt", ExtArgs["result"]["classTestAssignment"]>
 export type ClassTestAssignmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   assignedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ClassTestAssignmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   assignedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ClassTestAssignmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   assignedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
@@ -826,12 +1001,14 @@ export type $ClassTestAssignmentPayload<ExtArgs extends runtime.Types.Extensions
   objects: {
     class: Prisma.$ClassPayload<ExtArgs>
     test: Prisma.$TestPayload<ExtArgs>
+    testVersion: Prisma.$TestVersionPayload<ExtArgs>
     assignedBy: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     classId: string
     testId: string
+    testVersionId: string
     dueAt: Date | null
     assignedById: number
     createdAt: Date
@@ -1231,6 +1408,7 @@ export interface Prisma__ClassTestAssignmentClient<T, Null = never, ExtArgs exte
   readonly [Symbol.toStringTag]: "PrismaPromise"
   class<T extends Prisma.ClassDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassDefaultArgs<ExtArgs>>): Prisma.Prisma__ClassClient<runtime.Types.Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   test<T extends Prisma.TestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestDefaultArgs<ExtArgs>>): Prisma.Prisma__TestClient<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  testVersion<T extends Prisma.TestVersionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersionDefaultArgs<ExtArgs>>): Prisma.Prisma__TestVersionClient<runtime.Types.Result.GetResult<Prisma.$TestVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assignedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1264,6 +1442,7 @@ export interface ClassTestAssignmentFieldRefs {
   readonly id: Prisma.FieldRef<"ClassTestAssignment", 'String'>
   readonly classId: Prisma.FieldRef<"ClassTestAssignment", 'String'>
   readonly testId: Prisma.FieldRef<"ClassTestAssignment", 'String'>
+  readonly testVersionId: Prisma.FieldRef<"ClassTestAssignment", 'String'>
   readonly dueAt: Prisma.FieldRef<"ClassTestAssignment", 'DateTime'>
   readonly assignedById: Prisma.FieldRef<"ClassTestAssignment", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ClassTestAssignment", 'DateTime'>

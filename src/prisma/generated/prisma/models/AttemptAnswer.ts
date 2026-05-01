@@ -27,12 +27,10 @@ export type AggregateAttemptAnswer = {
 }
 
 export type AttemptAnswerAvgAggregateOutputType = {
-  version: number | null
   pointsAwarded: number | null
 }
 
 export type AttemptAnswerSumAggregateOutputType = {
-  version: number | null
   pointsAwarded: number | null
 }
 
@@ -40,10 +38,9 @@ export type AttemptAnswerMinAggregateOutputType = {
   id: string | null
   attemptId: string | null
   attemptQuestionId: string | null
-  questionId: string | null
-  version: number | null
-  isCorrect: boolean | null
+  questionVersionId: string | null
   pointsAwarded: number | null
+  isCorrect: boolean | null
   savedAt: Date | null
   updatedAt: Date | null
 }
@@ -52,10 +49,9 @@ export type AttemptAnswerMaxAggregateOutputType = {
   id: string | null
   attemptId: string | null
   attemptQuestionId: string | null
-  questionId: string | null
-  version: number | null
-  isCorrect: boolean | null
+  questionVersionId: string | null
   pointsAwarded: number | null
+  isCorrect: boolean | null
   savedAt: Date | null
   updatedAt: Date | null
 }
@@ -64,11 +60,10 @@ export type AttemptAnswerCountAggregateOutputType = {
   id: number
   attemptId: number
   attemptQuestionId: number
-  questionId: number
+  questionVersionId: number
   response: number
-  version: number
-  isCorrect: number
   pointsAwarded: number
+  isCorrect: number
   savedAt: number
   updatedAt: number
   _all: number
@@ -76,12 +71,10 @@ export type AttemptAnswerCountAggregateOutputType = {
 
 
 export type AttemptAnswerAvgAggregateInputType = {
-  version?: true
   pointsAwarded?: true
 }
 
 export type AttemptAnswerSumAggregateInputType = {
-  version?: true
   pointsAwarded?: true
 }
 
@@ -89,10 +82,9 @@ export type AttemptAnswerMinAggregateInputType = {
   id?: true
   attemptId?: true
   attemptQuestionId?: true
-  questionId?: true
-  version?: true
-  isCorrect?: true
+  questionVersionId?: true
   pointsAwarded?: true
+  isCorrect?: true
   savedAt?: true
   updatedAt?: true
 }
@@ -101,10 +93,9 @@ export type AttemptAnswerMaxAggregateInputType = {
   id?: true
   attemptId?: true
   attemptQuestionId?: true
-  questionId?: true
-  version?: true
-  isCorrect?: true
+  questionVersionId?: true
   pointsAwarded?: true
+  isCorrect?: true
   savedAt?: true
   updatedAt?: true
 }
@@ -113,11 +104,10 @@ export type AttemptAnswerCountAggregateInputType = {
   id?: true
   attemptId?: true
   attemptQuestionId?: true
-  questionId?: true
+  questionVersionId?: true
   response?: true
-  version?: true
-  isCorrect?: true
   pointsAwarded?: true
+  isCorrect?: true
   savedAt?: true
   updatedAt?: true
   _all?: true
@@ -213,11 +203,10 @@ export type AttemptAnswerGroupByOutputType = {
   id: string
   attemptId: string
   attemptQuestionId: string
-  questionId: string
+  questionVersionId: string
   response: runtime.JsonValue
-  version: number
-  isCorrect: boolean | null
   pointsAwarded: number
+  isCorrect: boolean | null
   savedAt: Date
   updatedAt: Date
   _count: AttemptAnswerCountAggregateOutputType | null
@@ -249,16 +238,15 @@ export type AttemptAnswerWhereInput = {
   id?: Prisma.StringFilter<"AttemptAnswer"> | string
   attemptId?: Prisma.StringFilter<"AttemptAnswer"> | string
   attemptQuestionId?: Prisma.StringFilter<"AttemptAnswer"> | string
-  questionId?: Prisma.StringFilter<"AttemptAnswer"> | string
+  questionVersionId?: Prisma.StringFilter<"AttemptAnswer"> | string
   response?: Prisma.JsonFilter<"AttemptAnswer">
-  version?: Prisma.IntFilter<"AttemptAnswer"> | number
-  isCorrect?: Prisma.BoolNullableFilter<"AttemptAnswer"> | boolean | null
   pointsAwarded?: Prisma.FloatFilter<"AttemptAnswer"> | number
+  isCorrect?: Prisma.BoolNullableFilter<"AttemptAnswer"> | boolean | null
   savedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   attemptQuestion?: Prisma.XOR<Prisma.AttemptQuestionScalarRelationFilter, Prisma.AttemptQuestionWhereInput>
-  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
+  questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
   manualGrade?: Prisma.XOR<Prisma.ManualGradeNullableScalarRelationFilter, Prisma.ManualGradeWhereInput> | null
 }
 
@@ -266,16 +254,15 @@ export type AttemptAnswerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptQuestionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
   response?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   savedAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   attempt?: Prisma.TestAttemptOrderByWithRelationInput
   attemptQuestion?: Prisma.AttemptQuestionOrderByWithRelationInput
-  question?: Prisma.QuestionOrderByWithRelationInput
+  questionVersion?: Prisma.QuestionVersionOrderByWithRelationInput
   manualGrade?: Prisma.ManualGradeOrderByWithRelationInput
 }
 
@@ -287,16 +274,15 @@ export type AttemptAnswerWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AttemptAnswerWhereInput | Prisma.AttemptAnswerWhereInput[]
   attemptId?: Prisma.StringFilter<"AttemptAnswer"> | string
   attemptQuestionId?: Prisma.StringFilter<"AttemptAnswer"> | string
-  questionId?: Prisma.StringFilter<"AttemptAnswer"> | string
+  questionVersionId?: Prisma.StringFilter<"AttemptAnswer"> | string
   response?: Prisma.JsonFilter<"AttemptAnswer">
-  version?: Prisma.IntFilter<"AttemptAnswer"> | number
-  isCorrect?: Prisma.BoolNullableFilter<"AttemptAnswer"> | boolean | null
   pointsAwarded?: Prisma.FloatFilter<"AttemptAnswer"> | number
+  isCorrect?: Prisma.BoolNullableFilter<"AttemptAnswer"> | boolean | null
   savedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   attemptQuestion?: Prisma.XOR<Prisma.AttemptQuestionScalarRelationFilter, Prisma.AttemptQuestionWhereInput>
-  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
+  questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
   manualGrade?: Prisma.XOR<Prisma.ManualGradeNullableScalarRelationFilter, Prisma.ManualGradeWhereInput> | null
 }, "id" | "attemptId_attemptQuestionId">
 
@@ -304,11 +290,10 @@ export type AttemptAnswerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptQuestionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
   response?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   savedAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.AttemptAnswerCountOrderByAggregateInput
@@ -325,11 +310,10 @@ export type AttemptAnswerScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"AttemptAnswer"> | string
   attemptId?: Prisma.StringWithAggregatesFilter<"AttemptAnswer"> | string
   attemptQuestionId?: Prisma.StringWithAggregatesFilter<"AttemptAnswer"> | string
-  questionId?: Prisma.StringWithAggregatesFilter<"AttemptAnswer"> | string
+  questionVersionId?: Prisma.StringWithAggregatesFilter<"AttemptAnswer"> | string
   response?: Prisma.JsonWithAggregatesFilter<"AttemptAnswer">
-  version?: Prisma.IntWithAggregatesFilter<"AttemptAnswer"> | number
-  isCorrect?: Prisma.BoolNullableWithAggregatesFilter<"AttemptAnswer"> | boolean | null
   pointsAwarded?: Prisma.FloatWithAggregatesFilter<"AttemptAnswer"> | number
+  isCorrect?: Prisma.BoolNullableWithAggregatesFilter<"AttemptAnswer"> | boolean | null
   savedAt?: Prisma.DateTimeWithAggregatesFilter<"AttemptAnswer"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AttemptAnswer"> | Date | string
 }
@@ -337,14 +321,13 @@ export type AttemptAnswerScalarWhereWithAggregatesInput = {
 export type AttemptAnswerCreateInput = {
   id?: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutAnswersInput
   attemptQuestion: Prisma.AttemptQuestionCreateNestedOneWithoutAnswersInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptAnswersInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptAnswersInput
   manualGrade?: Prisma.ManualGradeCreateNestedOneWithoutAttemptAnswerInput
 }
 
@@ -352,11 +335,10 @@ export type AttemptAnswerUncheckedCreateInput = {
   id?: string
   attemptId: string
   attemptQuestionId: string
-  questionId: string
+  questionVersionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   manualGrade?: Prisma.ManualGradeUncheckedCreateNestedOneWithoutAttemptAnswerInput
@@ -365,14 +347,13 @@ export type AttemptAnswerUncheckedCreateInput = {
 export type AttemptAnswerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutAnswersNestedInput
   attemptQuestion?: Prisma.AttemptQuestionUpdateOneRequiredWithoutAnswersNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptAnswersNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptAnswersNestedInput
   manualGrade?: Prisma.ManualGradeUpdateOneWithoutAttemptAnswerNestedInput
 }
 
@@ -380,11 +361,10 @@ export type AttemptAnswerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptQuestionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manualGrade?: Prisma.ManualGradeUncheckedUpdateOneWithoutAttemptAnswerNestedInput
@@ -394,11 +374,10 @@ export type AttemptAnswerCreateManyInput = {
   id?: string
   attemptId: string
   attemptQuestionId: string
-  questionId: string
+  questionVersionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
 }
@@ -406,9 +385,8 @@ export type AttemptAnswerCreateManyInput = {
 export type AttemptAnswerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -417,11 +395,10 @@ export type AttemptAnswerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptQuestionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -445,17 +422,15 @@ export type AttemptAnswerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptQuestionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
   response?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  isCorrect?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  isCorrect?: Prisma.SortOrder
   savedAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptAnswerAvgOrderByAggregateInput = {
-  version?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
 }
 
@@ -463,10 +438,9 @@ export type AttemptAnswerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptQuestionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  isCorrect?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  isCorrect?: Prisma.SortOrder
   savedAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -475,16 +449,14 @@ export type AttemptAnswerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   attemptQuestionId?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
-  version?: Prisma.SortOrder
-  isCorrect?: Prisma.SortOrder
+  questionVersionId?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  isCorrect?: Prisma.SortOrder
   savedAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptAnswerSumOrderByAggregateInput = {
-  version?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
 }
 
@@ -493,45 +465,45 @@ export type AttemptAnswerScalarRelationFilter = {
   isNot?: Prisma.AttemptAnswerWhereInput
 }
 
-export type AttemptAnswerCreateNestedManyWithoutQuestionInput = {
-  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput> | Prisma.AttemptAnswerCreateWithoutQuestionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput[]
-  createMany?: Prisma.AttemptAnswerCreateManyQuestionInputEnvelope
+export type AttemptAnswerCreateNestedManyWithoutQuestionVersionInput = {
+  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptAnswerCreateWithoutQuestionVersionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptAnswerCreateManyQuestionVersionInputEnvelope
   connect?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
 }
 
-export type AttemptAnswerUncheckedCreateNestedManyWithoutQuestionInput = {
-  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput> | Prisma.AttemptAnswerCreateWithoutQuestionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput[]
-  createMany?: Prisma.AttemptAnswerCreateManyQuestionInputEnvelope
+export type AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput = {
+  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptAnswerCreateWithoutQuestionVersionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptAnswerCreateManyQuestionVersionInputEnvelope
   connect?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
 }
 
-export type AttemptAnswerUpdateManyWithoutQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput> | Prisma.AttemptAnswerCreateWithoutQuestionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput[]
-  upsert?: Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionInput | Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionInput[]
-  createMany?: Prisma.AttemptAnswerCreateManyQuestionInputEnvelope
+export type AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptAnswerCreateWithoutQuestionVersionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput[]
+  upsert?: Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptAnswerCreateManyQuestionVersionInputEnvelope
   set?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
   disconnect?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
   delete?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
   connect?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
-  update?: Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionInput | Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionInput[]
-  updateMany?: Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionInput | Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionInput[]
+  update?: Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionVersionInput[]
+  updateMany?: Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionVersionInput | Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionVersionInput[]
   deleteMany?: Prisma.AttemptAnswerScalarWhereInput | Prisma.AttemptAnswerScalarWhereInput[]
 }
 
-export type AttemptAnswerUncheckedUpdateManyWithoutQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput> | Prisma.AttemptAnswerCreateWithoutQuestionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionInput[]
-  upsert?: Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionInput | Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionInput[]
-  createMany?: Prisma.AttemptAnswerCreateManyQuestionInputEnvelope
+export type AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput> | Prisma.AttemptAnswerCreateWithoutQuestionVersionInput[] | Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput[]
+  connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput | Prisma.AttemptAnswerCreateOrConnectWithoutQuestionVersionInput[]
+  upsert?: Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptAnswerUpsertWithWhereUniqueWithoutQuestionVersionInput[]
+  createMany?: Prisma.AttemptAnswerCreateManyQuestionVersionInputEnvelope
   set?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
   disconnect?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
   delete?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
   connect?: Prisma.AttemptAnswerWhereUniqueInput | Prisma.AttemptAnswerWhereUniqueInput[]
-  update?: Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionInput | Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionInput[]
-  updateMany?: Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionInput | Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionInput[]
+  update?: Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionVersionInput | Prisma.AttemptAnswerUpdateWithWhereUniqueWithoutQuestionVersionInput[]
+  updateMany?: Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionVersionInput | Prisma.AttemptAnswerUpdateManyWithWhereWithoutQuestionVersionInput[]
   deleteMany?: Prisma.AttemptAnswerScalarWhereInput | Prisma.AttemptAnswerScalarWhereInput[]
 }
 
@@ -641,12 +613,11 @@ export type AttemptAnswerUpdateOneRequiredWithoutManualGradeNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AttemptAnswerUpdateToOneWithWhereWithoutManualGradeInput, Prisma.AttemptAnswerUpdateWithoutManualGradeInput>, Prisma.AttemptAnswerUncheckedUpdateWithoutManualGradeInput>
 }
 
-export type AttemptAnswerCreateWithoutQuestionInput = {
+export type AttemptAnswerCreateWithoutQuestionVersionInput = {
   id?: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutAnswersInput
@@ -654,43 +625,42 @@ export type AttemptAnswerCreateWithoutQuestionInput = {
   manualGrade?: Prisma.ManualGradeCreateNestedOneWithoutAttemptAnswerInput
 }
 
-export type AttemptAnswerUncheckedCreateWithoutQuestionInput = {
+export type AttemptAnswerUncheckedCreateWithoutQuestionVersionInput = {
   id?: string
   attemptId: string
   attemptQuestionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   manualGrade?: Prisma.ManualGradeUncheckedCreateNestedOneWithoutAttemptAnswerInput
 }
 
-export type AttemptAnswerCreateOrConnectWithoutQuestionInput = {
+export type AttemptAnswerCreateOrConnectWithoutQuestionVersionInput = {
   where: Prisma.AttemptAnswerWhereUniqueInput
-  create: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput>
+  create: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput>
 }
 
-export type AttemptAnswerCreateManyQuestionInputEnvelope = {
-  data: Prisma.AttemptAnswerCreateManyQuestionInput | Prisma.AttemptAnswerCreateManyQuestionInput[]
+export type AttemptAnswerCreateManyQuestionVersionInputEnvelope = {
+  data: Prisma.AttemptAnswerCreateManyQuestionVersionInput | Prisma.AttemptAnswerCreateManyQuestionVersionInput[]
   skipDuplicates?: boolean
 }
 
-export type AttemptAnswerUpsertWithWhereUniqueWithoutQuestionInput = {
+export type AttemptAnswerUpsertWithWhereUniqueWithoutQuestionVersionInput = {
   where: Prisma.AttemptAnswerWhereUniqueInput
-  update: Prisma.XOR<Prisma.AttemptAnswerUpdateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedUpdateWithoutQuestionInput>
-  create: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionInput>
+  update: Prisma.XOR<Prisma.AttemptAnswerUpdateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedUpdateWithoutQuestionVersionInput>
+  create: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedCreateWithoutQuestionVersionInput>
 }
 
-export type AttemptAnswerUpdateWithWhereUniqueWithoutQuestionInput = {
+export type AttemptAnswerUpdateWithWhereUniqueWithoutQuestionVersionInput = {
   where: Prisma.AttemptAnswerWhereUniqueInput
-  data: Prisma.XOR<Prisma.AttemptAnswerUpdateWithoutQuestionInput, Prisma.AttemptAnswerUncheckedUpdateWithoutQuestionInput>
+  data: Prisma.XOR<Prisma.AttemptAnswerUpdateWithoutQuestionVersionInput, Prisma.AttemptAnswerUncheckedUpdateWithoutQuestionVersionInput>
 }
 
-export type AttemptAnswerUpdateManyWithWhereWithoutQuestionInput = {
+export type AttemptAnswerUpdateManyWithWhereWithoutQuestionVersionInput = {
   where: Prisma.AttemptAnswerScalarWhereInput
-  data: Prisma.XOR<Prisma.AttemptAnswerUpdateManyMutationInput, Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionInput>
+  data: Prisma.XOR<Prisma.AttemptAnswerUpdateManyMutationInput, Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionInput>
 }
 
 export type AttemptAnswerScalarWhereInput = {
@@ -700,11 +670,10 @@ export type AttemptAnswerScalarWhereInput = {
   id?: Prisma.StringFilter<"AttemptAnswer"> | string
   attemptId?: Prisma.StringFilter<"AttemptAnswer"> | string
   attemptQuestionId?: Prisma.StringFilter<"AttemptAnswer"> | string
-  questionId?: Prisma.StringFilter<"AttemptAnswer"> | string
+  questionVersionId?: Prisma.StringFilter<"AttemptAnswer"> | string
   response?: Prisma.JsonFilter<"AttemptAnswer">
-  version?: Prisma.IntFilter<"AttemptAnswer"> | number
-  isCorrect?: Prisma.BoolNullableFilter<"AttemptAnswer"> | boolean | null
   pointsAwarded?: Prisma.FloatFilter<"AttemptAnswer"> | number
+  isCorrect?: Prisma.BoolNullableFilter<"AttemptAnswer"> | boolean | null
   savedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AttemptAnswer"> | Date | string
 }
@@ -712,24 +681,22 @@ export type AttemptAnswerScalarWhereInput = {
 export type AttemptAnswerCreateWithoutAttemptInput = {
   id?: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   attemptQuestion: Prisma.AttemptQuestionCreateNestedOneWithoutAnswersInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptAnswersInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptAnswersInput
   manualGrade?: Prisma.ManualGradeCreateNestedOneWithoutAttemptAnswerInput
 }
 
 export type AttemptAnswerUncheckedCreateWithoutAttemptInput = {
   id?: string
   attemptQuestionId: string
-  questionId: string
+  questionVersionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   manualGrade?: Prisma.ManualGradeUncheckedCreateNestedOneWithoutAttemptAnswerInput
@@ -764,24 +731,22 @@ export type AttemptAnswerUpdateManyWithWhereWithoutAttemptInput = {
 export type AttemptAnswerCreateWithoutAttemptQuestionInput = {
   id?: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutAnswersInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptAnswersInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptAnswersInput
   manualGrade?: Prisma.ManualGradeCreateNestedOneWithoutAttemptAnswerInput
 }
 
 export type AttemptAnswerUncheckedCreateWithoutAttemptQuestionInput = {
   id?: string
   attemptId: string
-  questionId: string
+  questionVersionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   manualGrade?: Prisma.ManualGradeUncheckedCreateNestedOneWithoutAttemptAnswerInput
@@ -816,25 +781,23 @@ export type AttemptAnswerUpdateManyWithWhereWithoutAttemptQuestionInput = {
 export type AttemptAnswerCreateWithoutManualGradeInput = {
   id?: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutAnswersInput
   attemptQuestion: Prisma.AttemptQuestionCreateNestedOneWithoutAnswersInput
-  question: Prisma.QuestionCreateNestedOneWithoutAttemptAnswersInput
+  questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptAnswersInput
 }
 
 export type AttemptAnswerUncheckedCreateWithoutManualGradeInput = {
   id?: string
   attemptId: string
   attemptQuestionId: string
-  questionId: string
+  questionVersionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
 }
@@ -858,47 +821,43 @@ export type AttemptAnswerUpdateToOneWithWhereWithoutManualGradeInput = {
 export type AttemptAnswerUpdateWithoutManualGradeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutAnswersNestedInput
   attemptQuestion?: Prisma.AttemptQuestionUpdateOneRequiredWithoutAnswersNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptAnswersNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptAnswersNestedInput
 }
 
 export type AttemptAnswerUncheckedUpdateWithoutManualGradeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptQuestionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type AttemptAnswerCreateManyQuestionInput = {
+export type AttemptAnswerCreateManyQuestionVersionInput = {
   id?: string
   attemptId: string
   attemptQuestionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type AttemptAnswerUpdateWithoutQuestionInput = {
+export type AttemptAnswerUpdateWithoutQuestionVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutAnswersNestedInput
@@ -906,27 +865,25 @@ export type AttemptAnswerUpdateWithoutQuestionInput = {
   manualGrade?: Prisma.ManualGradeUpdateOneWithoutAttemptAnswerNestedInput
 }
 
-export type AttemptAnswerUncheckedUpdateWithoutQuestionInput = {
+export type AttemptAnswerUncheckedUpdateWithoutQuestionVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptQuestionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manualGrade?: Prisma.ManualGradeUncheckedUpdateOneWithoutAttemptAnswerNestedInput
 }
 
-export type AttemptAnswerUncheckedUpdateManyWithoutQuestionInput = {
+export type AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptQuestionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -934,11 +891,10 @@ export type AttemptAnswerUncheckedUpdateManyWithoutQuestionInput = {
 export type AttemptAnswerCreateManyAttemptInput = {
   id?: string
   attemptQuestionId: string
-  questionId: string
+  questionVersionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
 }
@@ -946,24 +902,22 @@ export type AttemptAnswerCreateManyAttemptInput = {
 export type AttemptAnswerUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attemptQuestion?: Prisma.AttemptQuestionUpdateOneRequiredWithoutAnswersNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptAnswersNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptAnswersNestedInput
   manualGrade?: Prisma.ManualGradeUpdateOneWithoutAttemptAnswerNestedInput
 }
 
 export type AttemptAnswerUncheckedUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptQuestionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manualGrade?: Prisma.ManualGradeUncheckedUpdateOneWithoutAttemptAnswerNestedInput
@@ -972,11 +926,10 @@ export type AttemptAnswerUncheckedUpdateWithoutAttemptInput = {
 export type AttemptAnswerUncheckedUpdateManyWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptQuestionId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -984,11 +937,10 @@ export type AttemptAnswerUncheckedUpdateManyWithoutAttemptInput = {
 export type AttemptAnswerCreateManyAttemptQuestionInput = {
   id?: string
   attemptId: string
-  questionId: string
+  questionVersionId: string
   response: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: number
-  isCorrect?: boolean | null
   pointsAwarded?: number
+  isCorrect?: boolean | null
   savedAt?: Date | string
   updatedAt?: Date | string
 }
@@ -996,24 +948,22 @@ export type AttemptAnswerCreateManyAttemptQuestionInput = {
 export type AttemptAnswerUpdateWithoutAttemptQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutAnswersNestedInput
-  question?: Prisma.QuestionUpdateOneRequiredWithoutAttemptAnswersNestedInput
+  questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptAnswersNestedInput
   manualGrade?: Prisma.ManualGradeUpdateOneWithoutAttemptAnswerNestedInput
 }
 
 export type AttemptAnswerUncheckedUpdateWithoutAttemptQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manualGrade?: Prisma.ManualGradeUncheckedUpdateOneWithoutAttemptAnswerNestedInput
@@ -1022,11 +972,10 @@ export type AttemptAnswerUncheckedUpdateWithoutAttemptQuestionInput = {
 export type AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   response?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   pointsAwarded?: Prisma.FloatFieldUpdateOperationsInput | number
+  isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   savedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1037,16 +986,15 @@ export type AttemptAnswerSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   attemptId?: boolean
   attemptQuestionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
   response?: boolean
-  version?: boolean
-  isCorrect?: boolean
   pointsAwarded?: boolean
+  isCorrect?: boolean
   savedAt?: boolean
   updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptQuestion?: boolean | Prisma.AttemptQuestionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
   manualGrade?: boolean | Prisma.AttemptAnswer$manualGradeArgs<ExtArgs>
 }, ExtArgs["result"]["attemptAnswer"]>
 
@@ -1054,63 +1002,60 @@ export type AttemptAnswerSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   attemptId?: boolean
   attemptQuestionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
   response?: boolean
-  version?: boolean
-  isCorrect?: boolean
   pointsAwarded?: boolean
+  isCorrect?: boolean
   savedAt?: boolean
   updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptQuestion?: boolean | Prisma.AttemptQuestionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptAnswer"]>
 
 export type AttemptAnswerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
   attemptQuestionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
   response?: boolean
-  version?: boolean
-  isCorrect?: boolean
   pointsAwarded?: boolean
+  isCorrect?: boolean
   savedAt?: boolean
   updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptQuestion?: boolean | Prisma.AttemptQuestionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptAnswer"]>
 
 export type AttemptAnswerSelectScalar = {
   id?: boolean
   attemptId?: boolean
   attemptQuestionId?: boolean
-  questionId?: boolean
+  questionVersionId?: boolean
   response?: boolean
-  version?: boolean
-  isCorrect?: boolean
   pointsAwarded?: boolean
+  isCorrect?: boolean
   savedAt?: boolean
   updatedAt?: boolean
 }
 
-export type AttemptAnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "attemptQuestionId" | "questionId" | "response" | "version" | "isCorrect" | "pointsAwarded" | "savedAt" | "updatedAt", ExtArgs["result"]["attemptAnswer"]>
+export type AttemptAnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "attemptQuestionId" | "questionVersionId" | "response" | "pointsAwarded" | "isCorrect" | "savedAt" | "updatedAt", ExtArgs["result"]["attemptAnswer"]>
 export type AttemptAnswerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptQuestion?: boolean | Prisma.AttemptQuestionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
   manualGrade?: boolean | Prisma.AttemptAnswer$manualGradeArgs<ExtArgs>
 }
 export type AttemptAnswerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptQuestion?: boolean | Prisma.AttemptQuestionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
 }
 export type AttemptAnswerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptQuestion?: boolean | Prisma.AttemptQuestionDefaultArgs<ExtArgs>
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
 }
 
 export type $AttemptAnswerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1118,18 +1063,17 @@ export type $AttemptAnswerPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     attempt: Prisma.$TestAttemptPayload<ExtArgs>
     attemptQuestion: Prisma.$AttemptQuestionPayload<ExtArgs>
-    question: Prisma.$QuestionPayload<ExtArgs>
+    questionVersion: Prisma.$QuestionVersionPayload<ExtArgs>
     manualGrade: Prisma.$ManualGradePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     attemptId: string
     attemptQuestionId: string
-    questionId: string
+    questionVersionId: string
     response: runtime.JsonValue
-    version: number
-    isCorrect: boolean | null
     pointsAwarded: number
+    isCorrect: boolean | null
     savedAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["attemptAnswer"]>
@@ -1528,7 +1472,7 @@ export interface Prisma__AttemptAnswerClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   attempt<T extends Prisma.TestAttemptDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttemptDefaultArgs<ExtArgs>>): Prisma.Prisma__TestAttemptClient<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   attemptQuestion<T extends Prisma.AttemptQuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptQuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__AttemptQuestionClient<runtime.Types.Result.GetResult<Prisma.$AttemptQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  question<T extends Prisma.QuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__QuestionClient<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  questionVersion<T extends Prisma.QuestionVersionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersionDefaultArgs<ExtArgs>>): Prisma.Prisma__QuestionVersionClient<runtime.Types.Result.GetResult<Prisma.$QuestionVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   manualGrade<T extends Prisma.AttemptAnswer$manualGradeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptAnswer$manualGradeArgs<ExtArgs>>): Prisma.Prisma__ManualGradeClient<runtime.Types.Result.GetResult<Prisma.$ManualGradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1562,11 +1506,10 @@ export interface AttemptAnswerFieldRefs {
   readonly id: Prisma.FieldRef<"AttemptAnswer", 'String'>
   readonly attemptId: Prisma.FieldRef<"AttemptAnswer", 'String'>
   readonly attemptQuestionId: Prisma.FieldRef<"AttemptAnswer", 'String'>
-  readonly questionId: Prisma.FieldRef<"AttemptAnswer", 'String'>
+  readonly questionVersionId: Prisma.FieldRef<"AttemptAnswer", 'String'>
   readonly response: Prisma.FieldRef<"AttemptAnswer", 'Json'>
-  readonly version: Prisma.FieldRef<"AttemptAnswer", 'Int'>
-  readonly isCorrect: Prisma.FieldRef<"AttemptAnswer", 'Boolean'>
   readonly pointsAwarded: Prisma.FieldRef<"AttemptAnswer", 'Float'>
+  readonly isCorrect: Prisma.FieldRef<"AttemptAnswer", 'Boolean'>
   readonly savedAt: Prisma.FieldRef<"AttemptAnswer", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"AttemptAnswer", 'DateTime'>
 }

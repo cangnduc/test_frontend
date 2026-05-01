@@ -36,46 +36,27 @@ export type PassageSumAggregateOutputType = {
 
 export type PassageMinAggregateOutputType = {
   id: string | null
-  type: $Enums.PassageType | null
-  title: string | null
-  content: string | null
-  difficulty: $Enums.DifficultyLevel | null
-  visibility: $Enums.Visibility | null
-  explanation: string | null
-  isDeleted: boolean | null
   subjectId: string | null
   createdById: number | null
+  currentVersionId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type PassageMaxAggregateOutputType = {
   id: string | null
-  type: $Enums.PassageType | null
-  title: string | null
-  content: string | null
-  difficulty: $Enums.DifficultyLevel | null
-  visibility: $Enums.Visibility | null
-  explanation: string | null
-  isDeleted: boolean | null
   subjectId: string | null
   createdById: number | null
+  currentVersionId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type PassageCountAggregateOutputType = {
   id: number
-  type: number
-  title: number
-  content: number
-  difficulty: number
-  visibility: number
-  tags: number
-  explanation: number
-  isDeleted: number
   subjectId: number
   createdById: number
+  currentVersionId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -92,46 +73,27 @@ export type PassageSumAggregateInputType = {
 
 export type PassageMinAggregateInputType = {
   id?: true
-  type?: true
-  title?: true
-  content?: true
-  difficulty?: true
-  visibility?: true
-  explanation?: true
-  isDeleted?: true
   subjectId?: true
   createdById?: true
+  currentVersionId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type PassageMaxAggregateInputType = {
   id?: true
-  type?: true
-  title?: true
-  content?: true
-  difficulty?: true
-  visibility?: true
-  explanation?: true
-  isDeleted?: true
   subjectId?: true
   createdById?: true
+  currentVersionId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type PassageCountAggregateInputType = {
   id?: true
-  type?: true
-  title?: true
-  content?: true
-  difficulty?: true
-  visibility?: true
-  tags?: true
-  explanation?: true
-  isDeleted?: true
   subjectId?: true
   createdById?: true
+  currentVersionId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,16 +187,9 @@ export type PassageGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type PassageGroupByOutputType = {
   id: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty: $Enums.DifficultyLevel
-  visibility: $Enums.Visibility
-  tags: string[]
-  explanation: string | null
-  isDeleted: boolean
   subjectId: string
   createdById: number | null
+  currentVersionId: string | null
   createdAt: Date
   updatedAt: Date
   _count: PassageCountAggregateOutputType | null
@@ -264,82 +219,51 @@ export type PassageWhereInput = {
   OR?: Prisma.PassageWhereInput[]
   NOT?: Prisma.PassageWhereInput | Prisma.PassageWhereInput[]
   id?: Prisma.StringFilter<"Passage"> | string
-  type?: Prisma.EnumPassageTypeFilter<"Passage"> | $Enums.PassageType
-  title?: Prisma.StringFilter<"Passage"> | string
-  content?: Prisma.StringFilter<"Passage"> | string
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Passage"> | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFilter<"Passage"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"Passage">
-  explanation?: Prisma.StringNullableFilter<"Passage"> | string | null
-  isDeleted?: Prisma.BoolFilter<"Passage"> | boolean
   subjectId?: Prisma.StringFilter<"Passage"> | string
   createdById?: Prisma.IntNullableFilter<"Passage"> | number | null
+  currentVersionId?: Prisma.StringNullableFilter<"Passage"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
-  media?: Prisma.MediaListRelationFilter
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
-  questions?: Prisma.QuestionListRelationFilter
-  testSections?: Prisma.TestSectionListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  currentVersion?: Prisma.XOR<Prisma.PassageVersionNullableScalarRelationFilter, Prisma.PassageVersionWhereInput> | null
+  versions?: Prisma.PassageVersionListRelationFilter
 }
 
 export type PassageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
-  explanation?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
+  currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  media?: Prisma.MediaOrderByRelationAggregateInput
   subject?: Prisma.SubjectOrderByWithRelationInput
-  questions?: Prisma.QuestionOrderByRelationAggregateInput
-  testSections?: Prisma.TestSectionOrderByRelationAggregateInput
   createdBy?: Prisma.UserOrderByWithRelationInput
+  currentVersion?: Prisma.PassageVersionOrderByWithRelationInput
+  versions?: Prisma.PassageVersionOrderByRelationAggregateInput
 }
 
 export type PassageWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  currentVersionId?: string
   AND?: Prisma.PassageWhereInput | Prisma.PassageWhereInput[]
   OR?: Prisma.PassageWhereInput[]
   NOT?: Prisma.PassageWhereInput | Prisma.PassageWhereInput[]
-  type?: Prisma.EnumPassageTypeFilter<"Passage"> | $Enums.PassageType
-  title?: Prisma.StringFilter<"Passage"> | string
-  content?: Prisma.StringFilter<"Passage"> | string
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Passage"> | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFilter<"Passage"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"Passage">
-  explanation?: Prisma.StringNullableFilter<"Passage"> | string | null
-  isDeleted?: Prisma.BoolFilter<"Passage"> | boolean
   subjectId?: Prisma.StringFilter<"Passage"> | string
   createdById?: Prisma.IntNullableFilter<"Passage"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
-  media?: Prisma.MediaListRelationFilter
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
-  questions?: Prisma.QuestionListRelationFilter
-  testSections?: Prisma.TestSectionListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-}, "id">
+  currentVersion?: Prisma.XOR<Prisma.PassageVersionNullableScalarRelationFilter, Prisma.PassageVersionWhereInput> | null
+  versions?: Prisma.PassageVersionListRelationFilter
+}, "id" | "currentVersionId">
 
 export type PassageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
-  explanation?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
+  currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PassageCountOrderByAggregateInput
@@ -354,138 +278,73 @@ export type PassageScalarWhereWithAggregatesInput = {
   OR?: Prisma.PassageScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PassageScalarWhereWithAggregatesInput | Prisma.PassageScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Passage"> | string
-  type?: Prisma.EnumPassageTypeWithAggregatesFilter<"Passage"> | $Enums.PassageType
-  title?: Prisma.StringWithAggregatesFilter<"Passage"> | string
-  content?: Prisma.StringWithAggregatesFilter<"Passage"> | string
-  difficulty?: Prisma.EnumDifficultyLevelWithAggregatesFilter<"Passage"> | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityWithAggregatesFilter<"Passage"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"Passage">
-  explanation?: Prisma.StringNullableWithAggregatesFilter<"Passage"> | string | null
-  isDeleted?: Prisma.BoolWithAggregatesFilter<"Passage"> | boolean
   subjectId?: Prisma.StringWithAggregatesFilter<"Passage"> | string
   createdById?: Prisma.IntNullableWithAggregatesFilter<"Passage"> | number | null
+  currentVersionId?: Prisma.StringNullableWithAggregatesFilter<"Passage"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Passage"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Passage"> | Date | string
 }
 
 export type PassageCreateInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
   subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
+  currentVersion?: Prisma.PassageVersionCreateNestedOneWithoutCurrentVersionOfInput
+  versions?: Prisma.PassageVersionCreateNestedManyWithoutPassageInput
 }
 
 export type PassageUncheckedCreateInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   subjectId: string
   createdById?: number | null
+  currentVersionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassagesInput
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutPassageInput
+  versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
 }
 
 export type PassageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUpdateManyWithoutPassagesNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUpdateManyWithoutPassageNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
+  currentVersion?: Prisma.PassageVersionUpdateOneWithoutCurrentVersionOfNestedInput
+  versions?: Prisma.PassageVersionUpdateManyWithoutPassageNestedInput
 }
 
 export type PassageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUncheckedUpdateManyWithoutPassageNestedInput
+  versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
 }
 
 export type PassageCreateManyInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   subjectId: string
   createdById?: number | null
+  currentVersionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PassageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PassageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -500,23 +359,11 @@ export type PassageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type PassageNullableScalarRelationFilter = {
-  is?: Prisma.PassageWhereInput | null
-  isNot?: Prisma.PassageWhereInput | null
-}
-
 export type PassageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
-  explanation?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  currentVersionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -527,30 +374,18 @@ export type PassageAvgOrderByAggregateInput = {
 
 export type PassageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
-  explanation?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  currentVersionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type PassageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  visibility?: Prisma.SortOrder
-  explanation?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  currentVersionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -559,42 +394,14 @@ export type PassageSumOrderByAggregateInput = {
   createdById?: Prisma.SortOrder
 }
 
-export type PassageCreateNestedManyWithoutMediaInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutMediaInput, Prisma.PassageUncheckedCreateWithoutMediaInput> | Prisma.PassageCreateWithoutMediaInput[] | Prisma.PassageUncheckedCreateWithoutMediaInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutMediaInput | Prisma.PassageCreateOrConnectWithoutMediaInput[]
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+export type PassageScalarRelationFilter = {
+  is?: Prisma.PassageWhereInput
+  isNot?: Prisma.PassageWhereInput
 }
 
-export type PassageUncheckedCreateNestedManyWithoutMediaInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutMediaInput, Prisma.PassageUncheckedCreateWithoutMediaInput> | Prisma.PassageCreateWithoutMediaInput[] | Prisma.PassageUncheckedCreateWithoutMediaInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutMediaInput | Prisma.PassageCreateOrConnectWithoutMediaInput[]
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-}
-
-export type PassageUpdateManyWithoutMediaNestedInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutMediaInput, Prisma.PassageUncheckedCreateWithoutMediaInput> | Prisma.PassageCreateWithoutMediaInput[] | Prisma.PassageUncheckedCreateWithoutMediaInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutMediaInput | Prisma.PassageCreateOrConnectWithoutMediaInput[]
-  upsert?: Prisma.PassageUpsertWithWhereUniqueWithoutMediaInput | Prisma.PassageUpsertWithWhereUniqueWithoutMediaInput[]
-  set?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  disconnect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  delete?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  update?: Prisma.PassageUpdateWithWhereUniqueWithoutMediaInput | Prisma.PassageUpdateWithWhereUniqueWithoutMediaInput[]
-  updateMany?: Prisma.PassageUpdateManyWithWhereWithoutMediaInput | Prisma.PassageUpdateManyWithWhereWithoutMediaInput[]
-  deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
-}
-
-export type PassageUncheckedUpdateManyWithoutMediaNestedInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutMediaInput, Prisma.PassageUncheckedCreateWithoutMediaInput> | Prisma.PassageCreateWithoutMediaInput[] | Prisma.PassageUncheckedCreateWithoutMediaInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutMediaInput | Prisma.PassageCreateOrConnectWithoutMediaInput[]
-  upsert?: Prisma.PassageUpsertWithWhereUniqueWithoutMediaInput | Prisma.PassageUpsertWithWhereUniqueWithoutMediaInput[]
-  set?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  disconnect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  delete?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  update?: Prisma.PassageUpdateWithWhereUniqueWithoutMediaInput | Prisma.PassageUpdateWithWhereUniqueWithoutMediaInput[]
-  updateMany?: Prisma.PassageUpdateManyWithWhereWithoutMediaInput | Prisma.PassageUpdateManyWithWhereWithoutMediaInput[]
-  deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
+export type PassageNullableScalarRelationFilter = {
+  is?: Prisma.PassageWhereInput | null
+  isNot?: Prisma.PassageWhereInput | null
 }
 
 export type PassageCreateNestedManyWithoutSubjectInput = {
@@ -639,49 +446,50 @@ export type PassageUncheckedUpdateManyWithoutSubjectNestedInput = {
   deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
 }
 
-export type PassageCreateNestedOneWithoutQuestionsInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutQuestionsInput, Prisma.PassageUncheckedCreateWithoutQuestionsInput>
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutQuestionsInput
+export type PassageCreateNestedOneWithoutVersionsInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutVersionsInput
   connect?: Prisma.PassageWhereUniqueInput
 }
 
-export type PassageUpdateOneWithoutQuestionsNestedInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutQuestionsInput, Prisma.PassageUncheckedCreateWithoutQuestionsInput>
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutQuestionsInput
-  upsert?: Prisma.PassageUpsertWithoutQuestionsInput
+export type PassageCreateNestedOneWithoutCurrentVersionInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutCurrentVersionInput
+  connect?: Prisma.PassageWhereUniqueInput
+}
+
+export type PassageUncheckedCreateNestedOneWithoutCurrentVersionInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutCurrentVersionInput
+  connect?: Prisma.PassageWhereUniqueInput
+}
+
+export type PassageUpdateOneRequiredWithoutVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutVersionsInput
+  upsert?: Prisma.PassageUpsertWithoutVersionsInput
+  connect?: Prisma.PassageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageUpdateToOneWithWhereWithoutVersionsInput, Prisma.PassageUpdateWithoutVersionsInput>, Prisma.PassageUncheckedUpdateWithoutVersionsInput>
+}
+
+export type PassageUpdateOneWithoutCurrentVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutCurrentVersionInput
+  upsert?: Prisma.PassageUpsertWithoutCurrentVersionInput
   disconnect?: Prisma.PassageWhereInput | boolean
   delete?: Prisma.PassageWhereInput | boolean
   connect?: Prisma.PassageWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageUpdateToOneWithWhereWithoutQuestionsInput, Prisma.PassageUpdateWithoutQuestionsInput>, Prisma.PassageUncheckedUpdateWithoutQuestionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.PassageUpdateWithoutCurrentVersionInput>, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
 }
 
-export type PassageCreatetagsInput = {
-  set: string[]
-}
-
-export type EnumPassageTypeFieldUpdateOperationsInput = {
-  set?: $Enums.PassageType
-}
-
-export type PassageUpdatetagsInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type PassageCreateNestedOneWithoutTestSectionsInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutTestSectionsInput, Prisma.PassageUncheckedCreateWithoutTestSectionsInput>
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutTestSectionsInput
-  connect?: Prisma.PassageWhereUniqueInput
-}
-
-export type PassageUpdateOneWithoutTestSectionsNestedInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutTestSectionsInput, Prisma.PassageUncheckedCreateWithoutTestSectionsInput>
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutTestSectionsInput
-  upsert?: Prisma.PassageUpsertWithoutTestSectionsInput
+export type PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutCurrentVersionInput
+  upsert?: Prisma.PassageUpsertWithoutCurrentVersionInput
   disconnect?: Prisma.PassageWhereInput | boolean
   delete?: Prisma.PassageWhereInput | boolean
   connect?: Prisma.PassageWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageUpdateToOneWithWhereWithoutTestSectionsInput, Prisma.PassageUpdateWithoutTestSectionsInput>, Prisma.PassageUncheckedUpdateWithoutTestSectionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.PassageUpdateWithoutCurrentVersionInput>, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
 }
 
 export type PassageCreateNestedManyWithoutCreatedByInput = {
@@ -726,116 +534,22 @@ export type PassageUncheckedUpdateManyWithoutCreatedByNestedInput = {
   deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
 }
 
-export type PassageCreateWithoutMediaInput = {
-  id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
-}
-
-export type PassageUncheckedCreateWithoutMediaInput = {
-  id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
-  subjectId: string
-  createdById?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutPassageInput
-}
-
-export type PassageCreateOrConnectWithoutMediaInput = {
-  where: Prisma.PassageWhereUniqueInput
-  create: Prisma.XOR<Prisma.PassageCreateWithoutMediaInput, Prisma.PassageUncheckedCreateWithoutMediaInput>
-}
-
-export type PassageUpsertWithWhereUniqueWithoutMediaInput = {
-  where: Prisma.PassageWhereUniqueInput
-  update: Prisma.XOR<Prisma.PassageUpdateWithoutMediaInput, Prisma.PassageUncheckedUpdateWithoutMediaInput>
-  create: Prisma.XOR<Prisma.PassageCreateWithoutMediaInput, Prisma.PassageUncheckedCreateWithoutMediaInput>
-}
-
-export type PassageUpdateWithWhereUniqueWithoutMediaInput = {
-  where: Prisma.PassageWhereUniqueInput
-  data: Prisma.XOR<Prisma.PassageUpdateWithoutMediaInput, Prisma.PassageUncheckedUpdateWithoutMediaInput>
-}
-
-export type PassageUpdateManyWithWhereWithoutMediaInput = {
-  where: Prisma.PassageScalarWhereInput
-  data: Prisma.XOR<Prisma.PassageUpdateManyMutationInput, Prisma.PassageUncheckedUpdateManyWithoutMediaInput>
-}
-
-export type PassageScalarWhereInput = {
-  AND?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
-  OR?: Prisma.PassageScalarWhereInput[]
-  NOT?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
-  id?: Prisma.StringFilter<"Passage"> | string
-  type?: Prisma.EnumPassageTypeFilter<"Passage"> | $Enums.PassageType
-  title?: Prisma.StringFilter<"Passage"> | string
-  content?: Prisma.StringFilter<"Passage"> | string
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Passage"> | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFilter<"Passage"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"Passage">
-  explanation?: Prisma.StringNullableFilter<"Passage"> | string | null
-  isDeleted?: Prisma.BoolFilter<"Passage"> | boolean
-  subjectId?: Prisma.StringFilter<"Passage"> | string
-  createdById?: Prisma.IntNullableFilter<"Passage"> | number | null
-  createdAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
-}
-
 export type PassageCreateWithoutSubjectInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
+  currentVersion?: Prisma.PassageVersionCreateNestedOneWithoutCurrentVersionOfInput
+  versions?: Prisma.PassageVersionCreateNestedManyWithoutPassageInput
 }
 
 export type PassageUncheckedCreateWithoutSubjectInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   createdById?: number | null
+  currentVersionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassagesInput
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutPassageInput
+  versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
 }
 
 export type PassageCreateOrConnectWithoutSubjectInput = {
@@ -864,216 +578,138 @@ export type PassageUpdateManyWithWhereWithoutSubjectInput = {
   data: Prisma.XOR<Prisma.PassageUpdateManyMutationInput, Prisma.PassageUncheckedUpdateManyWithoutSubjectInput>
 }
 
-export type PassageCreateWithoutQuestionsInput = {
-  id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
-  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
-  testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
+export type PassageScalarWhereInput = {
+  AND?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
+  OR?: Prisma.PassageScalarWhereInput[]
+  NOT?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
+  id?: Prisma.StringFilter<"Passage"> | string
+  subjectId?: Prisma.StringFilter<"Passage"> | string
+  createdById?: Prisma.IntNullableFilter<"Passage"> | number | null
+  currentVersionId?: Prisma.StringNullableFilter<"Passage"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
 }
 
-export type PassageUncheckedCreateWithoutQuestionsInput = {
+export type PassageCreateWithoutVersionsInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
+  currentVersion?: Prisma.PassageVersionCreateNestedOneWithoutCurrentVersionOfInput
+}
+
+export type PassageUncheckedCreateWithoutVersionsInput = {
+  id?: string
+  subjectId: string
+  createdById?: number | null
+  currentVersionId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PassageCreateOrConnectWithoutVersionsInput = {
+  where: Prisma.PassageWhereUniqueInput
+  create: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
+}
+
+export type PassageCreateWithoutCurrentVersionInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
+  versions?: Prisma.PassageVersionCreateNestedManyWithoutPassageInput
+}
+
+export type PassageUncheckedCreateWithoutCurrentVersionInput = {
+  id?: string
   subjectId: string
   createdById?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassagesInput
-  testSections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutPassageInput
+  versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
 }
 
-export type PassageCreateOrConnectWithoutQuestionsInput = {
+export type PassageCreateOrConnectWithoutCurrentVersionInput = {
   where: Prisma.PassageWhereUniqueInput
-  create: Prisma.XOR<Prisma.PassageCreateWithoutQuestionsInput, Prisma.PassageUncheckedCreateWithoutQuestionsInput>
+  create: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
 }
 
-export type PassageUpsertWithoutQuestionsInput = {
-  update: Prisma.XOR<Prisma.PassageUpdateWithoutQuestionsInput, Prisma.PassageUncheckedUpdateWithoutQuestionsInput>
-  create: Prisma.XOR<Prisma.PassageCreateWithoutQuestionsInput, Prisma.PassageUncheckedCreateWithoutQuestionsInput>
+export type PassageUpsertWithoutVersionsInput = {
+  update: Prisma.XOR<Prisma.PassageUpdateWithoutVersionsInput, Prisma.PassageUncheckedUpdateWithoutVersionsInput>
+  create: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
   where?: Prisma.PassageWhereInput
 }
 
-export type PassageUpdateToOneWithWhereWithoutQuestionsInput = {
+export type PassageUpdateToOneWithWhereWithoutVersionsInput = {
   where?: Prisma.PassageWhereInput
-  data: Prisma.XOR<Prisma.PassageUpdateWithoutQuestionsInput, Prisma.PassageUncheckedUpdateWithoutQuestionsInput>
+  data: Prisma.XOR<Prisma.PassageUpdateWithoutVersionsInput, Prisma.PassageUncheckedUpdateWithoutVersionsInput>
 }
 
-export type PassageUpdateWithoutQuestionsInput = {
+export type PassageUpdateWithoutVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUpdateManyWithoutPassagesNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
-  testSections?: Prisma.TestSectionUpdateManyWithoutPassageNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
+  currentVersion?: Prisma.PassageVersionUpdateOneWithoutCurrentVersionOfNestedInput
 }
 
-export type PassageUncheckedUpdateWithoutQuestionsInput = {
+export type PassageUncheckedUpdateWithoutVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PassageUpsertWithoutCurrentVersionInput = {
+  update: Prisma.XOR<Prisma.PassageUpdateWithoutCurrentVersionInput, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
+  create: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
+  where?: Prisma.PassageWhereInput
+}
+
+export type PassageUpdateToOneWithWhereWithoutCurrentVersionInput = {
+  where?: Prisma.PassageWhereInput
+  data: Prisma.XOR<Prisma.PassageUpdateWithoutCurrentVersionInput, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
+}
+
+export type PassageUpdateWithoutCurrentVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
+  versions?: Prisma.PassageVersionUpdateManyWithoutPassageNestedInput
+}
+
+export type PassageUncheckedUpdateWithoutCurrentVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutPassagesNestedInput
-  testSections?: Prisma.TestSectionUncheckedUpdateManyWithoutPassageNestedInput
-}
-
-export type PassageCreateWithoutTestSectionsInput = {
-  id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
-  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
-}
-
-export type PassageUncheckedCreateWithoutTestSectionsInput = {
-  id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
-  subjectId: string
-  createdById?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassagesInput
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutPassageInput
-}
-
-export type PassageCreateOrConnectWithoutTestSectionsInput = {
-  where: Prisma.PassageWhereUniqueInput
-  create: Prisma.XOR<Prisma.PassageCreateWithoutTestSectionsInput, Prisma.PassageUncheckedCreateWithoutTestSectionsInput>
-}
-
-export type PassageUpsertWithoutTestSectionsInput = {
-  update: Prisma.XOR<Prisma.PassageUpdateWithoutTestSectionsInput, Prisma.PassageUncheckedUpdateWithoutTestSectionsInput>
-  create: Prisma.XOR<Prisma.PassageCreateWithoutTestSectionsInput, Prisma.PassageUncheckedCreateWithoutTestSectionsInput>
-  where?: Prisma.PassageWhereInput
-}
-
-export type PassageUpdateToOneWithWhereWithoutTestSectionsInput = {
-  where?: Prisma.PassageWhereInput
-  data: Prisma.XOR<Prisma.PassageUpdateWithoutTestSectionsInput, Prisma.PassageUncheckedUpdateWithoutTestSectionsInput>
-}
-
-export type PassageUpdateWithoutTestSectionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUpdateManyWithoutPassagesNestedInput
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutPassageNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
-}
-
-export type PassageUncheckedUpdateWithoutTestSectionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutPassageNestedInput
+  versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
 }
 
 export type PassageCreateWithoutCreatedByInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  media?: Prisma.MediaCreateNestedManyWithoutPassagesInput
   subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionCreateNestedManyWithoutPassageInput
+  currentVersion?: Prisma.PassageVersionCreateNestedOneWithoutCurrentVersionOfInput
+  versions?: Prisma.PassageVersionCreateNestedManyWithoutPassageInput
 }
 
 export type PassageUncheckedCreateWithoutCreatedByInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   subjectId: string
+  currentVersionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassagesInput
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutPassageInput
-  testSections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutPassageInput
+  versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
 }
 
 export type PassageCreateOrConnectWithoutCreatedByInput = {
@@ -1102,186 +738,70 @@ export type PassageUpdateManyWithWhereWithoutCreatedByInput = {
   data: Prisma.XOR<Prisma.PassageUpdateManyMutationInput, Prisma.PassageUncheckedUpdateManyWithoutCreatedByInput>
 }
 
-export type PassageUpdateWithoutMediaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUpdateManyWithoutPassageNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
-}
-
-export type PassageUncheckedUpdateWithoutMediaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUncheckedUpdateManyWithoutPassageNestedInput
-}
-
-export type PassageUncheckedUpdateManyWithoutMediaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type PassageCreateManySubjectInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   createdById?: number | null
+  currentVersionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PassageUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUpdateManyWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUpdateManyWithoutPassageNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
+  currentVersion?: Prisma.PassageVersionUpdateOneWithoutCurrentVersionOfNestedInput
+  versions?: Prisma.PassageVersionUpdateManyWithoutPassageNestedInput
 }
 
 export type PassageUncheckedUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUncheckedUpdateManyWithoutPassageNestedInput
+  versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
 }
 
 export type PassageUncheckedUpdateManyWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PassageCreateManyCreatedByInput = {
   id?: string
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageCreatetagsInput | string[]
-  explanation?: string | null
-  isDeleted?: boolean
   subjectId: string
+  currentVersionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PassageUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUpdateManyWithoutPassagesNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUpdateManyWithoutPassageNestedInput
+  currentVersion?: Prisma.PassageVersionUpdateOneWithoutCurrentVersionOfNestedInput
+  versions?: Prisma.PassageVersionUpdateManyWithoutPassageNestedInput
 }
 
 export type PassageUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutPassagesNestedInput
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutPassageNestedInput
-  testSections?: Prisma.TestSectionUncheckedUpdateManyWithoutPassageNestedInput
+  versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
 }
 
 export type PassageUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1292,15 +812,11 @@ export type PassageUncheckedUpdateManyWithoutCreatedByInput = {
  */
 
 export type PassageCountOutputType = {
-  media: number
-  questions: number
-  testSections: number
+  versions: number
 }
 
 export type PassageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  media?: boolean | PassageCountOutputTypeCountMediaArgs
-  questions?: boolean | PassageCountOutputTypeCountQuestionsArgs
-  testSections?: boolean | PassageCountOutputTypeCountTestSectionsArgs
+  versions?: boolean | PassageCountOutputTypeCountVersionsArgs
 }
 
 /**
@@ -1316,138 +832,90 @@ export type PassageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * PassageCountOutputType without action
  */
-export type PassageCountOutputTypeCountMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MediaWhereInput
-}
-
-/**
- * PassageCountOutputType without action
- */
-export type PassageCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.QuestionWhereInput
-}
-
-/**
- * PassageCountOutputType without action
- */
-export type PassageCountOutputTypeCountTestSectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestSectionWhereInput
+export type PassageCountOutputTypeCountVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PassageVersionWhereInput
 }
 
 
 export type PassageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  type?: boolean
-  title?: boolean
-  content?: boolean
-  difficulty?: boolean
-  visibility?: boolean
-  tags?: boolean
-  explanation?: boolean
-  isDeleted?: boolean
   subjectId?: boolean
   createdById?: boolean
+  currentVersionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  media?: boolean | Prisma.Passage$mediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
-  questions?: boolean | Prisma.Passage$questionsArgs<ExtArgs>
-  testSections?: boolean | Prisma.Passage$testSectionsArgs<ExtArgs>
   createdBy?: boolean | Prisma.Passage$createdByArgs<ExtArgs>
+  currentVersion?: boolean | Prisma.Passage$currentVersionArgs<ExtArgs>
+  versions?: boolean | Prisma.Passage$versionsArgs<ExtArgs>
   _count?: boolean | Prisma.PassageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["passage"]>
 
 export type PassageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  type?: boolean
-  title?: boolean
-  content?: boolean
-  difficulty?: boolean
-  visibility?: boolean
-  tags?: boolean
-  explanation?: boolean
-  isDeleted?: boolean
   subjectId?: boolean
   createdById?: boolean
+  currentVersionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.Passage$createdByArgs<ExtArgs>
+  currentVersion?: boolean | Prisma.Passage$currentVersionArgs<ExtArgs>
 }, ExtArgs["result"]["passage"]>
 
 export type PassageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  type?: boolean
-  title?: boolean
-  content?: boolean
-  difficulty?: boolean
-  visibility?: boolean
-  tags?: boolean
-  explanation?: boolean
-  isDeleted?: boolean
   subjectId?: boolean
   createdById?: boolean
+  currentVersionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.Passage$createdByArgs<ExtArgs>
+  currentVersion?: boolean | Prisma.Passage$currentVersionArgs<ExtArgs>
 }, ExtArgs["result"]["passage"]>
 
 export type PassageSelectScalar = {
   id?: boolean
-  type?: boolean
-  title?: boolean
-  content?: boolean
-  difficulty?: boolean
-  visibility?: boolean
-  tags?: boolean
-  explanation?: boolean
-  isDeleted?: boolean
   subjectId?: boolean
   createdById?: boolean
+  currentVersionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PassageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "title" | "content" | "difficulty" | "visibility" | "tags" | "explanation" | "isDeleted" | "subjectId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["passage"]>
+export type PassageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subjectId" | "createdById" | "currentVersionId" | "createdAt" | "updatedAt", ExtArgs["result"]["passage"]>
 export type PassageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  media?: boolean | Prisma.Passage$mediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
-  questions?: boolean | Prisma.Passage$questionsArgs<ExtArgs>
-  testSections?: boolean | Prisma.Passage$testSectionsArgs<ExtArgs>
   createdBy?: boolean | Prisma.Passage$createdByArgs<ExtArgs>
+  currentVersion?: boolean | Prisma.Passage$currentVersionArgs<ExtArgs>
+  versions?: boolean | Prisma.Passage$versionsArgs<ExtArgs>
   _count?: boolean | Prisma.PassageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PassageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.Passage$createdByArgs<ExtArgs>
+  currentVersion?: boolean | Prisma.Passage$currentVersionArgs<ExtArgs>
 }
 export type PassageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.Passage$createdByArgs<ExtArgs>
+  currentVersion?: boolean | Prisma.Passage$currentVersionArgs<ExtArgs>
 }
 
 export type $PassagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Passage"
   objects: {
-    media: Prisma.$MediaPayload<ExtArgs>[]
     subject: Prisma.$SubjectPayload<ExtArgs>
-    questions: Prisma.$QuestionPayload<ExtArgs>[]
-    testSections: Prisma.$TestSectionPayload<ExtArgs>[]
     createdBy: Prisma.$UserPayload<ExtArgs> | null
+    currentVersion: Prisma.$PassageVersionPayload<ExtArgs> | null
+    versions: Prisma.$PassageVersionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    type: $Enums.PassageType
-    title: string
-    content: string
-    difficulty: $Enums.DifficultyLevel
-    visibility: $Enums.Visibility
-    tags: string[]
-    explanation: string | null
-    isDeleted: boolean
     subjectId: string
     createdById: number | null
+    currentVersionId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["passage"]>
@@ -1844,11 +1312,10 @@ readonly fields: PassageFieldRefs;
  */
 export interface Prisma__PassageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  media<T extends Prisma.Passage$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passage$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subject<T extends Prisma.SubjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubjectDefaultArgs<ExtArgs>>): Prisma.Prisma__SubjectClient<runtime.Types.Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  questions<T extends Prisma.Passage$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passage$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  testSections<T extends Prisma.Passage$testSectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passage$testSectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestSectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdBy<T extends Prisma.Passage$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passage$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  currentVersion<T extends Prisma.Passage$currentVersionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passage$currentVersionArgs<ExtArgs>>): Prisma.Prisma__PassageVersionClient<runtime.Types.Result.GetResult<Prisma.$PassageVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  versions<T extends Prisma.Passage$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passage$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassageVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1879,16 +1346,9 @@ export interface Prisma__PassageClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface PassageFieldRefs {
   readonly id: Prisma.FieldRef<"Passage", 'String'>
-  readonly type: Prisma.FieldRef<"Passage", 'PassageType'>
-  readonly title: Prisma.FieldRef<"Passage", 'String'>
-  readonly content: Prisma.FieldRef<"Passage", 'String'>
-  readonly difficulty: Prisma.FieldRef<"Passage", 'DifficultyLevel'>
-  readonly visibility: Prisma.FieldRef<"Passage", 'Visibility'>
-  readonly tags: Prisma.FieldRef<"Passage", 'String[]'>
-  readonly explanation: Prisma.FieldRef<"Passage", 'String'>
-  readonly isDeleted: Prisma.FieldRef<"Passage", 'Boolean'>
   readonly subjectId: Prisma.FieldRef<"Passage", 'String'>
   readonly createdById: Prisma.FieldRef<"Passage", 'Int'>
+  readonly currentVersionId: Prisma.FieldRef<"Passage", 'String'>
   readonly createdAt: Prisma.FieldRef<"Passage", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Passage", 'DateTime'>
 }
@@ -2292,78 +1752,6 @@ export type PassageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Passage.media
- */
-export type Passage$mediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Media
-   */
-  select?: Prisma.MediaSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Media
-   */
-  omit?: Prisma.MediaOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MediaInclude<ExtArgs> | null
-  where?: Prisma.MediaWhereInput
-  orderBy?: Prisma.MediaOrderByWithRelationInput | Prisma.MediaOrderByWithRelationInput[]
-  cursor?: Prisma.MediaWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MediaScalarFieldEnum | Prisma.MediaScalarFieldEnum[]
-}
-
-/**
- * Passage.questions
- */
-export type Passage$questionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Question
-   */
-  select?: Prisma.QuestionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Question
-   */
-  omit?: Prisma.QuestionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.QuestionInclude<ExtArgs> | null
-  where?: Prisma.QuestionWhereInput
-  orderBy?: Prisma.QuestionOrderByWithRelationInput | Prisma.QuestionOrderByWithRelationInput[]
-  cursor?: Prisma.QuestionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.QuestionScalarFieldEnum | Prisma.QuestionScalarFieldEnum[]
-}
-
-/**
- * Passage.testSections
- */
-export type Passage$testSectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TestSection
-   */
-  select?: Prisma.TestSectionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TestSection
-   */
-  omit?: Prisma.TestSectionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestSectionInclude<ExtArgs> | null
-  where?: Prisma.TestSectionWhereInput
-  orderBy?: Prisma.TestSectionOrderByWithRelationInput | Prisma.TestSectionOrderByWithRelationInput[]
-  cursor?: Prisma.TestSectionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TestSectionScalarFieldEnum | Prisma.TestSectionScalarFieldEnum[]
-}
-
-/**
  * Passage.createdBy
  */
 export type Passage$createdByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2380,6 +1768,49 @@ export type Passage$createdByArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * Passage.currentVersion
+ */
+export type Passage$currentVersionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PassageVersion
+   */
+  select?: Prisma.PassageVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PassageVersion
+   */
+  omit?: Prisma.PassageVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PassageVersionInclude<ExtArgs> | null
+  where?: Prisma.PassageVersionWhereInput
+}
+
+/**
+ * Passage.versions
+ */
+export type Passage$versionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PassageVersion
+   */
+  select?: Prisma.PassageVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PassageVersion
+   */
+  omit?: Prisma.PassageVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PassageVersionInclude<ExtArgs> | null
+  where?: Prisma.PassageVersionWhereInput
+  orderBy?: Prisma.PassageVersionOrderByWithRelationInput | Prisma.PassageVersionOrderByWithRelationInput[]
+  cursor?: Prisma.PassageVersionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PassageVersionScalarFieldEnum | Prisma.PassageVersionScalarFieldEnum[]
 }
 
 /**

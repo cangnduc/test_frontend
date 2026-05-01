@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-col overflow-x-hidden">
       <Navbar />
-      {/* <Hero />
-      <TestSection />
+      <Hero />
+      {/* <TestSection />
       <PracticeSection />
       <Footer /> */}
     </main>

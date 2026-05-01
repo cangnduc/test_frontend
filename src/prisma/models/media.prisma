@@ -2,18 +2,20 @@ model Media {
   id      String    @id @default(cuid())
   type    MediaType
   url     String    @db.Text
-  ownerId Int
+  ownerId Int       @map("owner_id")
   User    User      @relation("UserCreatedMedia", fields: [ownerId], references: [id])
 
-  questions Question[]
-  passages  Passage[]
-  testCover Test?      @relation("TestCover")
+  questionVersions QuestionVersion[]
+  passageVersions  PassageVersion[]
+  testVersionCover TestVersion?      @relation("TestVersionCover")
 
-  isDeleted Boolean @default(false)
+  isDeleted Boolean @default(false) @map("is_deleted")
   alt       String?
   size      Int?
-  mimeType  String?
+  mimeType  String? @map("mime_type")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("media")
 }

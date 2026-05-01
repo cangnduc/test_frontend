@@ -9,6 +9,8 @@ import {
   Activity,
   SquareCheck,
   LayoutDashboard,
+  User,
+  LogIn,
   UserCircle,
   LogOut,
 } from "lucide-react";
@@ -21,6 +23,9 @@ const iconMap = {
   Activity,
   SquareCheck,
   LayoutDashboard,
+  User,
+  LogIn,
+  LogOut,
 };
 
 interface MobileMenuProps {
@@ -50,25 +55,31 @@ export function MobileMenu({ initialSession, links }: MobileMenuProps) {
         aria-label="Toggle Menu"
       >
         <div className="relative h-5 w-5">
-           <X 
-             className={cn(
-               "absolute inset-0 h-5 w-5 transition-all duration-300",
-               isOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"
-             )} 
-           />
-           <Menu 
-             className={cn(
-               "absolute inset-0 h-5 w-5 transition-all duration-300",
-               isOpen ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"
-             )} 
-           />
+          <X
+            className={cn(
+              "absolute inset-0 h-5 w-5 transition-all duration-300",
+              isOpen
+                ? "rotate-0 scale-100 opacity-100"
+                : "-rotate-90 scale-50 opacity-0",
+            )}
+          />
+          <Menu
+            className={cn(
+              "absolute inset-0 h-5 w-5 transition-all duration-300",
+              isOpen
+                ? "rotate-90 scale-50 opacity-0"
+                : "rotate-0 scale-100 opacity-100",
+            )}
+          />
         </div>
       </button>
 
       <div
         className={cn(
           "fixed inset-0 z-50 flex flex-col bg-background/98 pt-[48px] backdrop-blur-[20px] transition-all duration-500 md:hidden",
-          isOpen ? "translate-y-0 opacity-100" : "translate-y-[-10px] opacity-0 pointer-events-none"
+          isOpen
+            ? "translate-y-0 opacity-100"
+            : "translate-y-[-10px] opacity-0 pointer-events-none",
         )}
       >
         <div className="flex flex-col gap-6 px-10 py-12">

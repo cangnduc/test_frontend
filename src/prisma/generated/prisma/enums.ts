@@ -46,6 +46,14 @@ export const PublishStatus = {
 export type PublishStatus = (typeof PublishStatus)[keyof typeof PublishStatus]
 
 
+export const Visibility = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type Visibility = (typeof Visibility)[keyof typeof Visibility]
+
+
 export const AttemptStatus = {
   STARTED: 'STARTED',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -93,14 +101,6 @@ export const SubjectType = {
 } as const
 
 export type SubjectType = (typeof SubjectType)[keyof typeof SubjectType]
-
-
-export const Visibility = {
-  PUBLIC: 'PUBLIC',
-  PRIVATE: 'PRIVATE'
-} as const
-
-export type Visibility = (typeof Visibility)[keyof typeof Visibility]
 
 
 export const ResultViewType = {
@@ -173,7 +173,10 @@ export type Gender = (typeof Gender)[keyof typeof Gender]
 
 export const ClassRole = {
   STUDENT: 'STUDENT',
-  AUDITOR: 'AUDITOR'
+  AUDITOR: 'AUDITOR',
+  TEACHER: 'TEACHER',
+  MOD: 'MOD',
+  ADMIN: 'ADMIN'
 } as const
 
 export type ClassRole = (typeof ClassRole)[keyof typeof ClassRole]

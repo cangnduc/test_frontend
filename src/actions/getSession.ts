@@ -19,7 +19,5 @@ export const getSession = cache(async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  //wait 2seconds
-
   return session;
 });

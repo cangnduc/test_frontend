@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.7.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.7.0",
-  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 /**
@@ -392,16 +392,18 @@ export const ModelName = {
   Media: 'Media',
   Subject: 'Subject',
   Question: 'Question',
+  QuestionVersion: 'QuestionVersion',
   Passage: 'Passage',
+  PassageVersion: 'PassageVersion',
   TestAttempt: 'TestAttempt',
   AttemptSection: 'AttemptSection',
   AttemptQuestion: 'AttemptQuestion',
   AttemptAnswer: 'AttemptAnswer',
   ManualGrade: 'ManualGrade',
   Test: 'Test',
-  TestSetting: 'TestSetting',
-  TestSection: 'TestSection',
-  TestQuestion: 'TestQuestion',
+  TestVersion: 'TestVersion',
+  TestVersionSection: 'TestVersionSection',
+  TestVersionQuestion: 'TestVersionQuestion',
   Account: 'Account',
   Session: 'Session',
   User: 'User',
@@ -427,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "class" | "classEnrollment" | "classTestAssignment" | "systemLog" | "auditLog" | "media" | "subject" | "question" | "passage" | "testAttempt" | "attemptSection" | "attemptQuestion" | "attemptAnswer" | "manualGrade" | "test" | "testSetting" | "testSection" | "testQuestion" | "account" | "session" | "user" | "verification" | "profile" | "parentStudentLink" | "notification" | "userStats" | "tokenTransaction" | "userTestProgress"
+    modelProps: "class" | "classEnrollment" | "classTestAssignment" | "systemLog" | "auditLog" | "media" | "subject" | "question" | "questionVersion" | "passage" | "passageVersion" | "testAttempt" | "attemptSection" | "attemptQuestion" | "attemptAnswer" | "manualGrade" | "test" | "testVersion" | "testVersionSection" | "testVersionQuestion" | "account" | "session" | "user" | "verification" | "profile" | "parentStudentLink" | "notification" | "userStats" | "tokenTransaction" | "userTestProgress"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1023,6 +1025,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    QuestionVersion: {
+      payload: Prisma.$QuestionVersionPayload<ExtArgs>
+      fields: Prisma.QuestionVersionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.QuestionVersionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.QuestionVersionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>
+        }
+        findFirst: {
+          args: Prisma.QuestionVersionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.QuestionVersionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>
+        }
+        findMany: {
+          args: Prisma.QuestionVersionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>[]
+        }
+        create: {
+          args: Prisma.QuestionVersionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>
+        }
+        createMany: {
+          args: Prisma.QuestionVersionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.QuestionVersionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>[]
+        }
+        delete: {
+          args: Prisma.QuestionVersionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>
+        }
+        update: {
+          args: Prisma.QuestionVersionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>
+        }
+        deleteMany: {
+          args: Prisma.QuestionVersionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.QuestionVersionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.QuestionVersionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>[]
+        }
+        upsert: {
+          args: Prisma.QuestionVersionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestionVersionPayload>
+        }
+        aggregate: {
+          args: Prisma.QuestionVersionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateQuestionVersion>
+        }
+        groupBy: {
+          args: Prisma.QuestionVersionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuestionVersionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.QuestionVersionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuestionVersionCountAggregateOutputType> | number
+        }
+      }
+    }
     Passage: {
       payload: Prisma.$PassagePayload<ExtArgs>
       fields: Prisma.PassageFieldRefs
@@ -1094,6 +1170,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PassageCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PassageCountAggregateOutputType> | number
+        }
+      }
+    }
+    PassageVersion: {
+      payload: Prisma.$PassageVersionPayload<ExtArgs>
+      fields: Prisma.PassageVersionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PassageVersionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PassageVersionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>
+        }
+        findFirst: {
+          args: Prisma.PassageVersionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PassageVersionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>
+        }
+        findMany: {
+          args: Prisma.PassageVersionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>[]
+        }
+        create: {
+          args: Prisma.PassageVersionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>
+        }
+        createMany: {
+          args: Prisma.PassageVersionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PassageVersionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>[]
+        }
+        delete: {
+          args: Prisma.PassageVersionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>
+        }
+        update: {
+          args: Prisma.PassageVersionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>
+        }
+        deleteMany: {
+          args: Prisma.PassageVersionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PassageVersionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PassageVersionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>[]
+        }
+        upsert: {
+          args: Prisma.PassageVersionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PassageVersionPayload>
+        }
+        aggregate: {
+          args: Prisma.PassageVersionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePassageVersion>
+        }
+        groupBy: {
+          args: Prisma.PassageVersionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PassageVersionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PassageVersionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PassageVersionCountAggregateOutputType> | number
         }
       }
     }
@@ -1541,225 +1691,225 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    TestSetting: {
-      payload: Prisma.$TestSettingPayload<ExtArgs>
-      fields: Prisma.TestSettingFieldRefs
+    TestVersion: {
+      payload: Prisma.$TestVersionPayload<ExtArgs>
+      fields: Prisma.TestVersionFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.TestSettingFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload> | null
+          args: Prisma.TestVersionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.TestSettingFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>
+          args: Prisma.TestVersionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>
         }
         findFirst: {
-          args: Prisma.TestSettingFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload> | null
+          args: Prisma.TestVersionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.TestSettingFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>
+          args: Prisma.TestVersionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>
         }
         findMany: {
-          args: Prisma.TestSettingFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>[]
+          args: Prisma.TestVersionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>[]
         }
         create: {
-          args: Prisma.TestSettingCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>
+          args: Prisma.TestVersionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>
         }
         createMany: {
-          args: Prisma.TestSettingCreateManyArgs<ExtArgs>
+          args: Prisma.TestVersionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.TestSettingCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>[]
+          args: Prisma.TestVersionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>[]
         }
         delete: {
-          args: Prisma.TestSettingDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>
+          args: Prisma.TestVersionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>
         }
         update: {
-          args: Prisma.TestSettingUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>
+          args: Prisma.TestVersionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>
         }
         deleteMany: {
-          args: Prisma.TestSettingDeleteManyArgs<ExtArgs>
+          args: Prisma.TestVersionDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.TestSettingUpdateManyArgs<ExtArgs>
+          args: Prisma.TestVersionUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.TestSettingUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>[]
+          args: Prisma.TestVersionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>[]
         }
         upsert: {
-          args: Prisma.TestSettingUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSettingPayload>
+          args: Prisma.TestVersionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionPayload>
         }
         aggregate: {
-          args: Prisma.TestSettingAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTestSetting>
+          args: Prisma.TestVersionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTestVersion>
         }
         groupBy: {
-          args: Prisma.TestSettingGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TestSettingGroupByOutputType>[]
+          args: Prisma.TestVersionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestVersionGroupByOutputType>[]
         }
         count: {
-          args: Prisma.TestSettingCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TestSettingCountAggregateOutputType> | number
+          args: Prisma.TestVersionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestVersionCountAggregateOutputType> | number
         }
       }
     }
-    TestSection: {
-      payload: Prisma.$TestSectionPayload<ExtArgs>
-      fields: Prisma.TestSectionFieldRefs
+    TestVersionSection: {
+      payload: Prisma.$TestVersionSectionPayload<ExtArgs>
+      fields: Prisma.TestVersionSectionFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.TestSectionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload> | null
+          args: Prisma.TestVersionSectionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.TestSectionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>
+          args: Prisma.TestVersionSectionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>
         }
         findFirst: {
-          args: Prisma.TestSectionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload> | null
+          args: Prisma.TestVersionSectionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.TestSectionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>
+          args: Prisma.TestVersionSectionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>
         }
         findMany: {
-          args: Prisma.TestSectionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>[]
+          args: Prisma.TestVersionSectionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>[]
         }
         create: {
-          args: Prisma.TestSectionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>
+          args: Prisma.TestVersionSectionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>
         }
         createMany: {
-          args: Prisma.TestSectionCreateManyArgs<ExtArgs>
+          args: Prisma.TestVersionSectionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.TestSectionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>[]
+          args: Prisma.TestVersionSectionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>[]
         }
         delete: {
-          args: Prisma.TestSectionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>
+          args: Prisma.TestVersionSectionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>
         }
         update: {
-          args: Prisma.TestSectionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>
+          args: Prisma.TestVersionSectionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>
         }
         deleteMany: {
-          args: Prisma.TestSectionDeleteManyArgs<ExtArgs>
+          args: Prisma.TestVersionSectionDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.TestSectionUpdateManyArgs<ExtArgs>
+          args: Prisma.TestVersionSectionUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.TestSectionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>[]
+          args: Prisma.TestVersionSectionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>[]
         }
         upsert: {
-          args: Prisma.TestSectionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestSectionPayload>
+          args: Prisma.TestVersionSectionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionSectionPayload>
         }
         aggregate: {
-          args: Prisma.TestSectionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTestSection>
+          args: Prisma.TestVersionSectionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTestVersionSection>
         }
         groupBy: {
-          args: Prisma.TestSectionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TestSectionGroupByOutputType>[]
+          args: Prisma.TestVersionSectionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestVersionSectionGroupByOutputType>[]
         }
         count: {
-          args: Prisma.TestSectionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TestSectionCountAggregateOutputType> | number
+          args: Prisma.TestVersionSectionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestVersionSectionCountAggregateOutputType> | number
         }
       }
     }
-    TestQuestion: {
-      payload: Prisma.$TestQuestionPayload<ExtArgs>
-      fields: Prisma.TestQuestionFieldRefs
+    TestVersionQuestion: {
+      payload: Prisma.$TestVersionQuestionPayload<ExtArgs>
+      fields: Prisma.TestVersionQuestionFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.TestQuestionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload> | null
+          args: Prisma.TestVersionQuestionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.TestQuestionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>
+          args: Prisma.TestVersionQuestionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>
         }
         findFirst: {
-          args: Prisma.TestQuestionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload> | null
+          args: Prisma.TestVersionQuestionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.TestQuestionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>
+          args: Prisma.TestVersionQuestionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>
         }
         findMany: {
-          args: Prisma.TestQuestionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>[]
+          args: Prisma.TestVersionQuestionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>[]
         }
         create: {
-          args: Prisma.TestQuestionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>
+          args: Prisma.TestVersionQuestionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>
         }
         createMany: {
-          args: Prisma.TestQuestionCreateManyArgs<ExtArgs>
+          args: Prisma.TestVersionQuestionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.TestQuestionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>[]
+          args: Prisma.TestVersionQuestionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>[]
         }
         delete: {
-          args: Prisma.TestQuestionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>
+          args: Prisma.TestVersionQuestionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>
         }
         update: {
-          args: Prisma.TestQuestionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>
+          args: Prisma.TestVersionQuestionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>
         }
         deleteMany: {
-          args: Prisma.TestQuestionDeleteManyArgs<ExtArgs>
+          args: Prisma.TestVersionQuestionDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.TestQuestionUpdateManyArgs<ExtArgs>
+          args: Prisma.TestVersionQuestionUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.TestQuestionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>[]
+          args: Prisma.TestVersionQuestionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>[]
         }
         upsert: {
-          args: Prisma.TestQuestionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestQuestionPayload>
+          args: Prisma.TestVersionQuestionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TestVersionQuestionPayload>
         }
         aggregate: {
-          args: Prisma.TestQuestionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTestQuestion>
+          args: Prisma.TestVersionQuestionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTestVersionQuestion>
         }
         groupBy: {
-          args: Prisma.TestQuestionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TestQuestionGroupByOutputType>[]
+          args: Prisma.TestVersionQuestionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestVersionQuestionGroupByOutputType>[]
         }
         count: {
-          args: Prisma.TestQuestionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TestQuestionCountAggregateOutputType> | number
+          args: Prisma.TestVersionQuestionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TestVersionQuestionCountAggregateOutputType> | number
         }
       }
     }
@@ -2572,6 +2722,7 @@ export const ClassTestAssignmentScalarFieldEnum = {
   id: 'id',
   classId: 'classId',
   testId: 'testId',
+  testVersionId: 'testVersionId',
   dueAt: 'dueAt',
   assignedById: 'assignedById',
   createdAt: 'createdAt'
@@ -2640,18 +2791,9 @@ export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeo
 
 export const QuestionScalarFieldEnum = {
   id: 'id',
-  type: 'type',
-  difficulty: 'difficulty',
-  tags: 'tags',
-  text: 'text',
-  data: 'data',
-  explanation: 'explanation',
-  isDeleted: 'isDeleted',
-  defaultPoint: 'defaultPoint',
-  visibility: 'visibility',
   subjectId: 'subjectId',
   createdById: 'createdById',
-  passageId: 'passageId',
+  currentVersionId: 'currentVersionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2659,18 +2801,31 @@ export const QuestionScalarFieldEnum = {
 export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
 
 
+export const QuestionVersionScalarFieldEnum = {
+  id: 'id',
+  questionId: 'questionId',
+  version: 'version',
+  type: 'type',
+  difficulty: 'difficulty',
+  tags: 'tags',
+  text: 'text',
+  data: 'data',
+  explanation: 'explanation',
+  defaultPoint: 'defaultPoint',
+  visibility: 'visibility',
+  passageVersionId: 'passageVersionId',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type QuestionVersionScalarFieldEnum = (typeof QuestionVersionScalarFieldEnum)[keyof typeof QuestionVersionScalarFieldEnum]
+
+
 export const PassageScalarFieldEnum = {
   id: 'id',
-  type: 'type',
-  title: 'title',
-  content: 'content',
-  difficulty: 'difficulty',
-  visibility: 'visibility',
-  tags: 'tags',
-  explanation: 'explanation',
-  isDeleted: 'isDeleted',
   subjectId: 'subjectId',
   createdById: 'createdById',
+  currentVersionId: 'currentVersionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2678,10 +2833,29 @@ export const PassageScalarFieldEnum = {
 export type PassageScalarFieldEnum = (typeof PassageScalarFieldEnum)[keyof typeof PassageScalarFieldEnum]
 
 
+export const PassageVersionScalarFieldEnum = {
+  id: 'id',
+  passageId: 'passageId',
+  version: 'version',
+  type: 'type',
+  title: 'title',
+  content: 'content',
+  difficulty: 'difficulty',
+  visibility: 'visibility',
+  tags: 'tags',
+  explanation: 'explanation',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type PassageVersionScalarFieldEnum = (typeof PassageVersionScalarFieldEnum)[keyof typeof PassageVersionScalarFieldEnum]
+
+
 export const TestAttemptScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   testId: 'testId',
+  testVersionId: 'testVersionId',
   status: 'status',
   attemptNumber: 'attemptNumber',
   startedAt: 'startedAt',
@@ -2705,7 +2879,7 @@ export type TestAttemptScalarFieldEnum = (typeof TestAttemptScalarFieldEnum)[key
 export const AttemptSectionScalarFieldEnum = {
   id: 'id',
   attemptId: 'attemptId',
-  sectionId: 'sectionId',
+  testVersionSectionId: 'testVersionSectionId',
   order: 'order',
   title: 'title',
   timeLimit: 'timeLimit',
@@ -2724,11 +2898,11 @@ export const AttemptQuestionScalarFieldEnum = {
   id: 'id',
   attemptId: 'attemptId',
   attemptSectionId: 'attemptSectionId',
-  questionId: 'questionId',
+  questionVersionId: 'questionVersionId',
+  testVersionQuestionId: 'testVersionQuestionId',
   displayOrder: 'displayOrder',
   point: 'point',
-  isRequired: 'isRequired',
-  testQuestionId: 'testQuestionId'
+  isRequired: 'isRequired'
 } as const
 
 export type AttemptQuestionScalarFieldEnum = (typeof AttemptQuestionScalarFieldEnum)[keyof typeof AttemptQuestionScalarFieldEnum]
@@ -2738,11 +2912,10 @@ export const AttemptAnswerScalarFieldEnum = {
   id: 'id',
   attemptId: 'attemptId',
   attemptQuestionId: 'attemptQuestionId',
-  questionId: 'questionId',
+  questionVersionId: 'questionVersionId',
   response: 'response',
-  version: 'version',
-  isCorrect: 'isCorrect',
   pointsAwarded: 'pointsAwarded',
+  isCorrect: 'isCorrect',
   savedAt: 'savedAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2767,11 +2940,6 @@ export const TestScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  status: 'status',
-  tokenRequired: 'tokenRequired',
-  tags: 'tags',
-  difficulty: 'difficulty',
-  coverMediaId: 'coverMediaId',
   subjectId: 'subjectId',
   createdById: 'createdById',
   createdAt: 'createdAt',
@@ -2781,8 +2949,16 @@ export const TestScalarFieldEnum = {
 export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
 
 
-export const TestSettingScalarFieldEnum = {
+export const TestVersionScalarFieldEnum = {
   id: 'id',
+  testId: 'testId',
+  version: 'version',
+  status: 'status',
+  tokenRequired: 'tokenRequired',
+  tags: 'tags',
+  difficulty: 'difficulty',
+  coverMediaId: 'coverMediaId',
+  createdById: 'createdById',
   availableFrom: 'availableFrom',
   availableTo: 'availableTo',
   duration: 'duration',
@@ -2795,14 +2971,15 @@ export const TestSettingScalarFieldEnum = {
   forwardOnly: 'forwardOnly',
   passingPercentage: 'passingPercentage',
   resultView: 'resultView',
-  testId: 'testId'
+  createdAt: 'createdAt'
 } as const
 
-export type TestSettingScalarFieldEnum = (typeof TestSettingScalarFieldEnum)[keyof typeof TestSettingScalarFieldEnum]
+export type TestVersionScalarFieldEnum = (typeof TestVersionScalarFieldEnum)[keyof typeof TestVersionScalarFieldEnum]
 
 
-export const TestSectionScalarFieldEnum = {
+export const TestVersionSectionScalarFieldEnum = {
   id: 'id',
+  testVersionId: 'testVersionId',
   type: 'type',
   title: 'title',
   order: 'order',
@@ -2810,22 +2987,22 @@ export const TestSectionScalarFieldEnum = {
   timeLimit: 'timeLimit',
   questionSelectionMode: 'questionSelectionMode',
   questionToSelect: 'questionToSelect',
-  testId: 'testId',
-  passageId: 'passageId'
+  passageVersionId: 'passageVersionId'
 } as const
 
-export type TestSectionScalarFieldEnum = (typeof TestSectionScalarFieldEnum)[keyof typeof TestSectionScalarFieldEnum]
+export type TestVersionSectionScalarFieldEnum = (typeof TestVersionSectionScalarFieldEnum)[keyof typeof TestVersionSectionScalarFieldEnum]
 
 
-export const TestQuestionScalarFieldEnum = {
+export const TestVersionQuestionScalarFieldEnum = {
   id: 'id',
-  sectionId: 'sectionId',
+  testVersionSectionId: 'testVersionSectionId',
   questionId: 'questionId',
+  questionVersionId: 'questionVersionId',
   order: 'order',
   point: 'point'
 } as const
 
-export type TestQuestionScalarFieldEnum = (typeof TestQuestionScalarFieldEnum)[keyof typeof TestQuestionScalarFieldEnum]
+export type TestVersionQuestionScalarFieldEnum = (typeof TestVersionQuestionScalarFieldEnum)[keyof typeof TestVersionQuestionScalarFieldEnum]
 
 
 export const AccountScalarFieldEnum = {
@@ -3437,6 +3614,21 @@ export type PrismaClientOptions = ({
    * ```
    */
   comments?: runtime.SqlCommenterPlugin[]
+  /**
+   * Optional maximum size for the query plan cache. If not provided, a default size will be used.
+   * A value of `0` can be used to disable the cache entirely. A higher cache size can improve
+   * performance for applications that execute a large number of unique queries, while a smaller
+   * cache size can reduce memory usage.
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   queryPlanCacheMaxSize: 100,
+   * })
+   * ```
+   */
+  queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
   class?: Prisma.ClassOmit
@@ -3447,16 +3639,18 @@ export type GlobalOmitConfig = {
   media?: Prisma.MediaOmit
   subject?: Prisma.SubjectOmit
   question?: Prisma.QuestionOmit
+  questionVersion?: Prisma.QuestionVersionOmit
   passage?: Prisma.PassageOmit
+  passageVersion?: Prisma.PassageVersionOmit
   testAttempt?: Prisma.TestAttemptOmit
   attemptSection?: Prisma.AttemptSectionOmit
   attemptQuestion?: Prisma.AttemptQuestionOmit
   attemptAnswer?: Prisma.AttemptAnswerOmit
   manualGrade?: Prisma.ManualGradeOmit
   test?: Prisma.TestOmit
-  testSetting?: Prisma.TestSettingOmit
-  testSection?: Prisma.TestSectionOmit
-  testQuestion?: Prisma.TestQuestionOmit
+  testVersion?: Prisma.TestVersionOmit
+  testVersionSection?: Prisma.TestVersionSectionOmit
+  testVersionQuestion?: Prisma.TestVersionQuestionOmit
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit
   user?: Prisma.UserOmit

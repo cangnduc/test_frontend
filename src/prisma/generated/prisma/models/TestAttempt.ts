@@ -46,6 +46,7 @@ export type TestAttemptMinAggregateOutputType = {
   id: string | null
   userId: number | null
   testId: string | null
+  testVersionId: string | null
   status: $Enums.AttemptStatus | null
   attemptNumber: number | null
   startedAt: Date | null
@@ -66,6 +67,7 @@ export type TestAttemptMaxAggregateOutputType = {
   id: string | null
   userId: number | null
   testId: string | null
+  testVersionId: string | null
   status: $Enums.AttemptStatus | null
   attemptNumber: number | null
   startedAt: Date | null
@@ -86,6 +88,7 @@ export type TestAttemptCountAggregateOutputType = {
   id: number
   userId: number
   testId: number
+  testVersionId: number
   status: number
   attemptNumber: number
   startedAt: number
@@ -125,6 +128,7 @@ export type TestAttemptMinAggregateInputType = {
   id?: true
   userId?: true
   testId?: true
+  testVersionId?: true
   status?: true
   attemptNumber?: true
   startedAt?: true
@@ -145,6 +149,7 @@ export type TestAttemptMaxAggregateInputType = {
   id?: true
   userId?: true
   testId?: true
+  testVersionId?: true
   status?: true
   attemptNumber?: true
   startedAt?: true
@@ -165,6 +170,7 @@ export type TestAttemptCountAggregateInputType = {
   id?: true
   userId?: true
   testId?: true
+  testVersionId?: true
   status?: true
   attemptNumber?: true
   startedAt?: true
@@ -273,6 +279,7 @@ export type TestAttemptGroupByOutputType = {
   id: string
   userId: number
   testId: string
+  testVersionId: string
   status: $Enums.AttemptStatus
   attemptNumber: number
   startedAt: Date
@@ -284,7 +291,7 @@ export type TestAttemptGroupByOutputType = {
   maxScore: number | null
   percentage: number | null
   passed: boolean | null
-  configSnapshot: runtime.JsonValue
+  configSnapshot: runtime.JsonValue | null
   sessionToken: string | null
   clientFingerprint: string | null
   ipAddress: string | null
@@ -317,6 +324,7 @@ export type TestAttemptWhereInput = {
   id?: Prisma.StringFilter<"TestAttempt"> | string
   userId?: Prisma.IntFilter<"TestAttempt"> | number
   testId?: Prisma.StringFilter<"TestAttempt"> | string
+  testVersionId?: Prisma.StringFilter<"TestAttempt"> | string
   status?: Prisma.EnumAttemptStatusFilter<"TestAttempt"> | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFilter<"TestAttempt"> | number
   startedAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
@@ -328,12 +336,13 @@ export type TestAttemptWhereInput = {
   maxScore?: Prisma.FloatNullableFilter<"TestAttempt"> | number | null
   percentage?: Prisma.FloatNullableFilter<"TestAttempt"> | number | null
   passed?: Prisma.BoolNullableFilter<"TestAttempt"> | boolean | null
-  configSnapshot?: Prisma.JsonFilter<"TestAttempt">
+  configSnapshot?: Prisma.JsonNullableFilter<"TestAttempt">
   sessionToken?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
+  testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
   currentSection?: Prisma.XOR<Prisma.AttemptSectionNullableScalarRelationFilter, Prisma.AttemptSectionWhereInput> | null
   sections?: Prisma.AttemptSectionListRelationFilter
   questions?: Prisma.AttemptQuestionListRelationFilter
@@ -345,6 +354,7 @@ export type TestAttemptOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
@@ -356,12 +366,13 @@ export type TestAttemptOrderByWithRelationInput = {
   maxScore?: Prisma.SortOrderInput | Prisma.SortOrder
   percentage?: Prisma.SortOrderInput | Prisma.SortOrder
   passed?: Prisma.SortOrderInput | Prisma.SortOrder
-  configSnapshot?: Prisma.SortOrder
+  configSnapshot?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionToken?: Prisma.SortOrderInput | Prisma.SortOrder
   clientFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   test?: Prisma.TestOrderByWithRelationInput
+  testVersion?: Prisma.TestVersionOrderByWithRelationInput
   currentSection?: Prisma.AttemptSectionOrderByWithRelationInput
   sections?: Prisma.AttemptSectionOrderByRelationAggregateInput
   questions?: Prisma.AttemptQuestionOrderByRelationAggregateInput
@@ -377,6 +388,7 @@ export type TestAttemptWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TestAttemptWhereInput | Prisma.TestAttemptWhereInput[]
   userId?: Prisma.IntFilter<"TestAttempt"> | number
   testId?: Prisma.StringFilter<"TestAttempt"> | string
+  testVersionId?: Prisma.StringFilter<"TestAttempt"> | string
   status?: Prisma.EnumAttemptStatusFilter<"TestAttempt"> | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFilter<"TestAttempt"> | number
   startedAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
@@ -388,12 +400,13 @@ export type TestAttemptWhereUniqueInput = Prisma.AtLeast<{
   maxScore?: Prisma.FloatNullableFilter<"TestAttempt"> | number | null
   percentage?: Prisma.FloatNullableFilter<"TestAttempt"> | number | null
   passed?: Prisma.BoolNullableFilter<"TestAttempt"> | boolean | null
-  configSnapshot?: Prisma.JsonFilter<"TestAttempt">
+  configSnapshot?: Prisma.JsonNullableFilter<"TestAttempt">
   sessionToken?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
+  testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
   currentSection?: Prisma.XOR<Prisma.AttemptSectionNullableScalarRelationFilter, Prisma.AttemptSectionWhereInput> | null
   sections?: Prisma.AttemptSectionListRelationFilter
   questions?: Prisma.AttemptQuestionListRelationFilter
@@ -405,6 +418,7 @@ export type TestAttemptOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
@@ -416,7 +430,7 @@ export type TestAttemptOrderByWithAggregationInput = {
   maxScore?: Prisma.SortOrderInput | Prisma.SortOrder
   percentage?: Prisma.SortOrderInput | Prisma.SortOrder
   passed?: Prisma.SortOrderInput | Prisma.SortOrder
-  configSnapshot?: Prisma.SortOrder
+  configSnapshot?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionToken?: Prisma.SortOrderInput | Prisma.SortOrder
   clientFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -434,6 +448,7 @@ export type TestAttemptScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"TestAttempt"> | string
   userId?: Prisma.IntWithAggregatesFilter<"TestAttempt"> | number
   testId?: Prisma.StringWithAggregatesFilter<"TestAttempt"> | string
+  testVersionId?: Prisma.StringWithAggregatesFilter<"TestAttempt"> | string
   status?: Prisma.EnumAttemptStatusWithAggregatesFilter<"TestAttempt"> | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntWithAggregatesFilter<"TestAttempt"> | number
   startedAt?: Prisma.DateTimeWithAggregatesFilter<"TestAttempt"> | Date | string
@@ -445,7 +460,7 @@ export type TestAttemptScalarWhereWithAggregatesInput = {
   maxScore?: Prisma.FloatNullableWithAggregatesFilter<"TestAttempt"> | number | null
   percentage?: Prisma.FloatNullableWithAggregatesFilter<"TestAttempt"> | number | null
   passed?: Prisma.BoolNullableWithAggregatesFilter<"TestAttempt"> | boolean | null
-  configSnapshot?: Prisma.JsonWithAggregatesFilter<"TestAttempt">
+  configSnapshot?: Prisma.JsonNullableWithAggregatesFilter<"TestAttempt">
   sessionToken?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
@@ -463,12 +478,13 @@ export type TestAttemptCreateInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
@@ -480,6 +496,7 @@ export type TestAttemptUncheckedCreateInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -491,7 +508,7 @@ export type TestAttemptUncheckedCreateInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -513,12 +530,13 @@ export type TestAttemptUpdateInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
@@ -530,6 +548,7 @@ export type TestAttemptUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -541,7 +560,7 @@ export type TestAttemptUncheckedUpdateInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -555,6 +574,7 @@ export type TestAttemptCreateManyInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -566,7 +586,7 @@ export type TestAttemptCreateManyInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -584,7 +604,7 @@ export type TestAttemptUpdateManyMutationInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -594,6 +614,7 @@ export type TestAttemptUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -605,7 +626,7 @@ export type TestAttemptUncheckedUpdateManyInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -621,6 +642,7 @@ export type TestAttemptCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
@@ -650,6 +672,7 @@ export type TestAttemptMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
@@ -670,6 +693,7 @@ export type TestAttemptMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  testVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
@@ -856,6 +880,48 @@ export type TestAttemptUncheckedUpdateManyWithoutTestNestedInput = {
   deleteMany?: Prisma.TestAttemptScalarWhereInput | Prisma.TestAttemptScalarWhereInput[]
 }
 
+export type TestAttemptCreateNestedManyWithoutTestVersionInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutTestVersionInput, Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput> | Prisma.TestAttemptCreateWithoutTestVersionInput[] | Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput | Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput[]
+  createMany?: Prisma.TestAttemptCreateManyTestVersionInputEnvelope
+  connect?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+}
+
+export type TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutTestVersionInput, Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput> | Prisma.TestAttemptCreateWithoutTestVersionInput[] | Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput | Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput[]
+  createMany?: Prisma.TestAttemptCreateManyTestVersionInputEnvelope
+  connect?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+}
+
+export type TestAttemptUpdateManyWithoutTestVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutTestVersionInput, Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput> | Prisma.TestAttemptCreateWithoutTestVersionInput[] | Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput | Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput[]
+  upsert?: Prisma.TestAttemptUpsertWithWhereUniqueWithoutTestVersionInput | Prisma.TestAttemptUpsertWithWhereUniqueWithoutTestVersionInput[]
+  createMany?: Prisma.TestAttemptCreateManyTestVersionInputEnvelope
+  set?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  disconnect?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  delete?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  connect?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  update?: Prisma.TestAttemptUpdateWithWhereUniqueWithoutTestVersionInput | Prisma.TestAttemptUpdateWithWhereUniqueWithoutTestVersionInput[]
+  updateMany?: Prisma.TestAttemptUpdateManyWithWhereWithoutTestVersionInput | Prisma.TestAttemptUpdateManyWithWhereWithoutTestVersionInput[]
+  deleteMany?: Prisma.TestAttemptScalarWhereInput | Prisma.TestAttemptScalarWhereInput[]
+}
+
+export type TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutTestVersionInput, Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput> | Prisma.TestAttemptCreateWithoutTestVersionInput[] | Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput[]
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput | Prisma.TestAttemptCreateOrConnectWithoutTestVersionInput[]
+  upsert?: Prisma.TestAttemptUpsertWithWhereUniqueWithoutTestVersionInput | Prisma.TestAttemptUpsertWithWhereUniqueWithoutTestVersionInput[]
+  createMany?: Prisma.TestAttemptCreateManyTestVersionInputEnvelope
+  set?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  disconnect?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  delete?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  connect?: Prisma.TestAttemptWhereUniqueInput | Prisma.TestAttemptWhereUniqueInput[]
+  update?: Prisma.TestAttemptUpdateWithWhereUniqueWithoutTestVersionInput | Prisma.TestAttemptUpdateWithWhereUniqueWithoutTestVersionInput[]
+  updateMany?: Prisma.TestAttemptUpdateManyWithWhereWithoutTestVersionInput | Prisma.TestAttemptUpdateManyWithWhereWithoutTestVersionInput[]
+  deleteMany?: Prisma.TestAttemptScalarWhereInput | Prisma.TestAttemptScalarWhereInput[]
+}
+
 export type TestAttemptCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutUserInput, Prisma.TestAttemptUncheckedCreateWithoutUserInput> | Prisma.TestAttemptCreateWithoutUserInput[] | Prisma.TestAttemptUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutUserInput | Prisma.TestAttemptCreateOrConnectWithoutUserInput[]
@@ -926,12 +992,13 @@ export type TestAttemptCreateWithoutSectionsInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
@@ -942,6 +1009,7 @@ export type TestAttemptUncheckedCreateWithoutSectionsInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -953,7 +1021,7 @@ export type TestAttemptUncheckedCreateWithoutSectionsInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -979,12 +1047,13 @@ export type TestAttemptCreateWithoutCurrentSectionInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
@@ -995,6 +1064,7 @@ export type TestAttemptUncheckedCreateWithoutCurrentSectionInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -1005,7 +1075,7 @@ export type TestAttemptUncheckedCreateWithoutCurrentSectionInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1048,12 +1118,13 @@ export type TestAttemptUpdateWithoutSectionsInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
@@ -1064,6 +1135,7 @@ export type TestAttemptUncheckedUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1075,7 +1147,7 @@ export type TestAttemptUncheckedUpdateWithoutSectionsInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1107,6 +1179,7 @@ export type TestAttemptScalarWhereInput = {
   id?: Prisma.StringFilter<"TestAttempt"> | string
   userId?: Prisma.IntFilter<"TestAttempt"> | number
   testId?: Prisma.StringFilter<"TestAttempt"> | string
+  testVersionId?: Prisma.StringFilter<"TestAttempt"> | string
   status?: Prisma.EnumAttemptStatusFilter<"TestAttempt"> | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFilter<"TestAttempt"> | number
   startedAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
@@ -1118,7 +1191,7 @@ export type TestAttemptScalarWhereInput = {
   maxScore?: Prisma.FloatNullableFilter<"TestAttempt"> | number | null
   percentage?: Prisma.FloatNullableFilter<"TestAttempt"> | number | null
   passed?: Prisma.BoolNullableFilter<"TestAttempt"> | boolean | null
-  configSnapshot?: Prisma.JsonFilter<"TestAttempt">
+  configSnapshot?: Prisma.JsonNullableFilter<"TestAttempt">
   sessionToken?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
@@ -1136,12 +1209,13 @@ export type TestAttemptCreateWithoutQuestionsInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
@@ -1152,6 +1226,7 @@ export type TestAttemptUncheckedCreateWithoutQuestionsInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -1163,7 +1238,7 @@ export type TestAttemptUncheckedCreateWithoutQuestionsInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1200,12 +1275,13 @@ export type TestAttemptUpdateWithoutQuestionsInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
@@ -1216,6 +1292,7 @@ export type TestAttemptUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1227,7 +1304,7 @@ export type TestAttemptUncheckedUpdateWithoutQuestionsInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1248,12 +1325,13 @@ export type TestAttemptCreateWithoutAnswersInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
@@ -1264,6 +1342,7 @@ export type TestAttemptUncheckedCreateWithoutAnswersInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -1275,7 +1354,7 @@ export type TestAttemptUncheckedCreateWithoutAnswersInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1312,12 +1391,13 @@ export type TestAttemptUpdateWithoutAnswersInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
@@ -1328,6 +1408,7 @@ export type TestAttemptUncheckedUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1339,7 +1420,7 @@ export type TestAttemptUncheckedUpdateWithoutAnswersInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1360,11 +1441,12 @@ export type TestAttemptCreateWithoutTestInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
@@ -1375,6 +1457,7 @@ export type TestAttemptCreateWithoutTestInput = {
 export type TestAttemptUncheckedCreateWithoutTestInput = {
   id?: string
   userId: number
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -1386,7 +1469,7 @@ export type TestAttemptUncheckedCreateWithoutTestInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1422,7 +1505,7 @@ export type TestAttemptUpdateManyWithWhereWithoutTestInput = {
   data: Prisma.XOR<Prisma.TestAttemptUpdateManyMutationInput, Prisma.TestAttemptUncheckedUpdateManyWithoutTestInput>
 }
 
-export type TestAttemptCreateWithoutUserInput = {
+export type TestAttemptCreateWithoutTestVersionInput = {
   id?: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
@@ -1434,10 +1517,11 @@ export type TestAttemptCreateWithoutUserInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
@@ -1446,8 +1530,9 @@ export type TestAttemptCreateWithoutUserInput = {
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
 }
 
-export type TestAttemptUncheckedCreateWithoutUserInput = {
+export type TestAttemptUncheckedCreateWithoutTestVersionInput = {
   id?: string
+  userId: number
   testId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
@@ -1460,7 +1545,83 @@ export type TestAttemptUncheckedCreateWithoutUserInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: string | null
+  clientFingerprint?: string | null
+  ipAddress?: string | null
+  sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
+  questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
+  answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+}
+
+export type TestAttemptCreateOrConnectWithoutTestVersionInput = {
+  where: Prisma.TestAttemptWhereUniqueInput
+  create: Prisma.XOR<Prisma.TestAttemptCreateWithoutTestVersionInput, Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput>
+}
+
+export type TestAttemptCreateManyTestVersionInputEnvelope = {
+  data: Prisma.TestAttemptCreateManyTestVersionInput | Prisma.TestAttemptCreateManyTestVersionInput[]
+  skipDuplicates?: boolean
+}
+
+export type TestAttemptUpsertWithWhereUniqueWithoutTestVersionInput = {
+  where: Prisma.TestAttemptWhereUniqueInput
+  update: Prisma.XOR<Prisma.TestAttemptUpdateWithoutTestVersionInput, Prisma.TestAttemptUncheckedUpdateWithoutTestVersionInput>
+  create: Prisma.XOR<Prisma.TestAttemptCreateWithoutTestVersionInput, Prisma.TestAttemptUncheckedCreateWithoutTestVersionInput>
+}
+
+export type TestAttemptUpdateWithWhereUniqueWithoutTestVersionInput = {
+  where: Prisma.TestAttemptWhereUniqueInput
+  data: Prisma.XOR<Prisma.TestAttemptUpdateWithoutTestVersionInput, Prisma.TestAttemptUncheckedUpdateWithoutTestVersionInput>
+}
+
+export type TestAttemptUpdateManyWithWhereWithoutTestVersionInput = {
+  where: Prisma.TestAttemptScalarWhereInput
+  data: Prisma.XOR<Prisma.TestAttemptUpdateManyMutationInput, Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionInput>
+}
+
+export type TestAttemptCreateWithoutUserInput = {
+  id?: string
+  status?: $Enums.AttemptStatus
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  completedAt?: Date | string | null
+  globalEndAt?: Date | string | null
+  totalScore?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  passed?: boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: string | null
+  clientFingerprint?: string | null
+  ipAddress?: string | null
+  test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
+  currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
+  sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
+  questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
+  answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+}
+
+export type TestAttemptUncheckedCreateWithoutUserInput = {
+  id?: string
+  testId: string
+  testVersionId: string
+  status?: $Enums.AttemptStatus
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  completedAt?: Date | string | null
+  globalEndAt?: Date | string | null
+  currentSectionId?: string | null
+  totalScore?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  passed?: boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1508,12 +1669,13 @@ export type TestAttemptCreateWithoutProgressInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
@@ -1524,6 +1686,7 @@ export type TestAttemptUncheckedCreateWithoutProgressInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -1535,7 +1698,7 @@ export type TestAttemptUncheckedCreateWithoutProgressInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1572,12 +1735,13 @@ export type TestAttemptUpdateWithoutProgressInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
@@ -1588,6 +1752,7 @@ export type TestAttemptUncheckedUpdateWithoutProgressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1599,7 +1764,7 @@ export type TestAttemptUncheckedUpdateWithoutProgressInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1612,6 +1777,7 @@ export type TestAttemptCreateManyCurrentSectionInput = {
   id?: string
   userId: number
   testId: string
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -1622,7 +1788,7 @@ export type TestAttemptCreateManyCurrentSectionInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1640,12 +1806,13 @@ export type TestAttemptUpdateWithoutCurrentSectionInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
@@ -1656,6 +1823,7 @@ export type TestAttemptUncheckedUpdateWithoutCurrentSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1666,7 +1834,7 @@ export type TestAttemptUncheckedUpdateWithoutCurrentSectionInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1680,6 +1848,7 @@ export type TestAttemptUncheckedUpdateManyWithoutCurrentSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1690,7 +1859,7 @@ export type TestAttemptUncheckedUpdateManyWithoutCurrentSectionInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1699,6 +1868,7 @@ export type TestAttemptUncheckedUpdateManyWithoutCurrentSectionInput = {
 export type TestAttemptCreateManyTestInput = {
   id?: string
   userId: number
+  testVersionId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
   startedAt?: Date | string
@@ -1710,7 +1880,7 @@ export type TestAttemptCreateManyTestInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1728,11 +1898,12 @@ export type TestAttemptUpdateWithoutTestInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
@@ -1743,6 +1914,7 @@ export type TestAttemptUpdateWithoutTestInput = {
 export type TestAttemptUncheckedUpdateWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1754,7 +1926,7 @@ export type TestAttemptUncheckedUpdateWithoutTestInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1767,6 +1939,7 @@ export type TestAttemptUncheckedUpdateWithoutTestInput = {
 export type TestAttemptUncheckedUpdateManyWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1778,14 +1951,15 @@ export type TestAttemptUncheckedUpdateManyWithoutTestInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type TestAttemptCreateManyUserInput = {
+export type TestAttemptCreateManyTestVersionInput = {
   id?: string
+  userId: number
   testId: string
   status?: $Enums.AttemptStatus
   attemptNumber: number
@@ -1798,7 +1972,99 @@ export type TestAttemptCreateManyUserInput = {
   maxScore?: number | null
   percentage?: number | null
   passed?: boolean | null
-  configSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: string | null
+  clientFingerprint?: string | null
+  ipAddress?: string | null
+}
+
+export type TestAttemptUpdateWithoutTestVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  globalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
+  test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
+  sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
+  questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
+  answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+}
+
+export type TestAttemptUncheckedUpdateWithoutTestVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  globalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
+  questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
+  answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+}
+
+export type TestAttemptUncheckedUpdateManyWithoutTestVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  globalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type TestAttemptCreateManyUserInput = {
+  id?: string
+  testId: string
+  testVersionId: string
+  status?: $Enums.AttemptStatus
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  completedAt?: Date | string | null
+  globalEndAt?: Date | string | null
+  currentSectionId?: string | null
+  totalScore?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  passed?: boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
@@ -1816,11 +2082,12 @@ export type TestAttemptUpdateWithoutUserInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
@@ -1831,6 +2098,7 @@ export type TestAttemptUpdateWithoutUserInput = {
 export type TestAttemptUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1842,7 +2110,7 @@ export type TestAttemptUncheckedUpdateWithoutUserInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1855,6 +2123,7 @@ export type TestAttemptUncheckedUpdateWithoutUserInput = {
 export type TestAttemptUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1866,7 +2135,7 @@ export type TestAttemptUncheckedUpdateManyWithoutUserInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  configSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1934,6 +2203,7 @@ export type TestAttemptSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   userId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   status?: boolean
   attemptNumber?: boolean
   startedAt?: boolean
@@ -1951,6 +2221,7 @@ export type TestAttemptSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   ipAddress?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   currentSection?: boolean | Prisma.TestAttempt$currentSectionArgs<ExtArgs>
   sections?: boolean | Prisma.TestAttempt$sectionsArgs<ExtArgs>
   questions?: boolean | Prisma.TestAttempt$questionsArgs<ExtArgs>
@@ -1963,6 +2234,7 @@ export type TestAttemptSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   userId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   status?: boolean
   attemptNumber?: boolean
   startedAt?: boolean
@@ -1980,6 +2252,7 @@ export type TestAttemptSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   ipAddress?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   currentSection?: boolean | Prisma.TestAttempt$currentSectionArgs<ExtArgs>
 }, ExtArgs["result"]["testAttempt"]>
 
@@ -1987,6 +2260,7 @@ export type TestAttemptSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   userId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   status?: boolean
   attemptNumber?: boolean
   startedAt?: boolean
@@ -2004,6 +2278,7 @@ export type TestAttemptSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   ipAddress?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   currentSection?: boolean | Prisma.TestAttempt$currentSectionArgs<ExtArgs>
 }, ExtArgs["result"]["testAttempt"]>
 
@@ -2011,6 +2286,7 @@ export type TestAttemptSelectScalar = {
   id?: boolean
   userId?: boolean
   testId?: boolean
+  testVersionId?: boolean
   status?: boolean
   attemptNumber?: boolean
   startedAt?: boolean
@@ -2028,10 +2304,11 @@ export type TestAttemptSelectScalar = {
   ipAddress?: boolean
 }
 
-export type TestAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "testId" | "status" | "attemptNumber" | "startedAt" | "submittedAt" | "completedAt" | "globalEndAt" | "currentSectionId" | "totalScore" | "maxScore" | "percentage" | "passed" | "configSnapshot" | "sessionToken" | "clientFingerprint" | "ipAddress", ExtArgs["result"]["testAttempt"]>
+export type TestAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "testId" | "testVersionId" | "status" | "attemptNumber" | "startedAt" | "submittedAt" | "completedAt" | "globalEndAt" | "currentSectionId" | "totalScore" | "maxScore" | "percentage" | "passed" | "configSnapshot" | "sessionToken" | "clientFingerprint" | "ipAddress", ExtArgs["result"]["testAttempt"]>
 export type TestAttemptInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   currentSection?: boolean | Prisma.TestAttempt$currentSectionArgs<ExtArgs>
   sections?: boolean | Prisma.TestAttempt$sectionsArgs<ExtArgs>
   questions?: boolean | Prisma.TestAttempt$questionsArgs<ExtArgs>
@@ -2042,11 +2319,13 @@ export type TestAttemptInclude<ExtArgs extends runtime.Types.Extensions.Internal
 export type TestAttemptIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   currentSection?: boolean | Prisma.TestAttempt$currentSectionArgs<ExtArgs>
 }
 export type TestAttemptIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
+  testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   currentSection?: boolean | Prisma.TestAttempt$currentSectionArgs<ExtArgs>
 }
 
@@ -2055,6 +2334,7 @@ export type $TestAttemptPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     test: Prisma.$TestPayload<ExtArgs>
+    testVersion: Prisma.$TestVersionPayload<ExtArgs>
     currentSection: Prisma.$AttemptSectionPayload<ExtArgs> | null
     sections: Prisma.$AttemptSectionPayload<ExtArgs>[]
     questions: Prisma.$AttemptQuestionPayload<ExtArgs>[]
@@ -2065,6 +2345,7 @@ export type $TestAttemptPayload<ExtArgs extends runtime.Types.Extensions.Interna
     id: string
     userId: number
     testId: string
+    testVersionId: string
     status: $Enums.AttemptStatus
     attemptNumber: number
     startedAt: Date
@@ -2076,7 +2357,7 @@ export type $TestAttemptPayload<ExtArgs extends runtime.Types.Extensions.Interna
     maxScore: number | null
     percentage: number | null
     passed: boolean | null
-    configSnapshot: runtime.JsonValue
+    configSnapshot: runtime.JsonValue | null
     sessionToken: string | null
     clientFingerprint: string | null
     ipAddress: string | null
@@ -2476,6 +2757,7 @@ export interface Prisma__TestAttemptClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   test<T extends Prisma.TestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestDefaultArgs<ExtArgs>>): Prisma.Prisma__TestClient<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  testVersion<T extends Prisma.TestVersionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersionDefaultArgs<ExtArgs>>): Prisma.Prisma__TestVersionClient<runtime.Types.Result.GetResult<Prisma.$TestVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   currentSection<T extends Prisma.TestAttempt$currentSectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$currentSectionArgs<ExtArgs>>): Prisma.Prisma__AttemptSectionClient<runtime.Types.Result.GetResult<Prisma.$AttemptSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sections<T extends Prisma.TestAttempt$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptSectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questions<T extends Prisma.TestAttempt$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2513,6 +2795,7 @@ export interface TestAttemptFieldRefs {
   readonly id: Prisma.FieldRef<"TestAttempt", 'String'>
   readonly userId: Prisma.FieldRef<"TestAttempt", 'Int'>
   readonly testId: Prisma.FieldRef<"TestAttempt", 'String'>
+  readonly testVersionId: Prisma.FieldRef<"TestAttempt", 'String'>
   readonly status: Prisma.FieldRef<"TestAttempt", 'AttemptStatus'>
   readonly attemptNumber: Prisma.FieldRef<"TestAttempt", 'Int'>
   readonly startedAt: Prisma.FieldRef<"TestAttempt", 'DateTime'>

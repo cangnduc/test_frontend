@@ -82,10 +82,20 @@ export type Subject = Prisma.SubjectModel
  */
 export type Question = Prisma.QuestionModel
 /**
+ * Model QuestionVersion
+ * 
+ */
+export type QuestionVersion = Prisma.QuestionVersionModel
+/**
  * Model Passage
  * 
  */
 export type Passage = Prisma.PassageModel
+/**
+ * Model PassageVersion
+ * 
+ */
+export type PassageVersion = Prisma.PassageVersionModel
 /**
  * Model TestAttempt
  * 
@@ -117,20 +127,20 @@ export type ManualGrade = Prisma.ManualGradeModel
  */
 export type Test = Prisma.TestModel
 /**
- * Model TestSetting
+ * Model TestVersion
  * 
  */
-export type TestSetting = Prisma.TestSettingModel
+export type TestVersion = Prisma.TestVersionModel
 /**
- * Model TestSection
+ * Model TestVersionSection
  * 
  */
-export type TestSection = Prisma.TestSectionModel
+export type TestVersionSection = Prisma.TestVersionSectionModel
 /**
- * Model TestQuestion
+ * Model TestVersionQuestion
  * 
  */
-export type TestQuestion = Prisma.TestQuestionModel
+export type TestVersionQuestion = Prisma.TestVersionQuestionModel
 /**
  * Model Account
  * 

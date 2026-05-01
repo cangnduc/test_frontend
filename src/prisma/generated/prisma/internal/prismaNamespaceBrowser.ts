@@ -59,16 +59,18 @@ export const ModelName = {
   Media: 'Media',
   Subject: 'Subject',
   Question: 'Question',
+  QuestionVersion: 'QuestionVersion',
   Passage: 'Passage',
+  PassageVersion: 'PassageVersion',
   TestAttempt: 'TestAttempt',
   AttemptSection: 'AttemptSection',
   AttemptQuestion: 'AttemptQuestion',
   AttemptAnswer: 'AttemptAnswer',
   ManualGrade: 'ManualGrade',
   Test: 'Test',
-  TestSetting: 'TestSetting',
-  TestSection: 'TestSection',
-  TestQuestion: 'TestQuestion',
+  TestVersion: 'TestVersion',
+  TestVersionSection: 'TestVersionSection',
+  TestVersionQuestion: 'TestVersionQuestion',
   Account: 'Account',
   Session: 'Session',
   User: 'User',
@@ -127,6 +129,7 @@ export const ClassTestAssignmentScalarFieldEnum = {
   id: 'id',
   classId: 'classId',
   testId: 'testId',
+  testVersionId: 'testVersionId',
   dueAt: 'dueAt',
   assignedById: 'assignedById',
   createdAt: 'createdAt'
@@ -195,18 +198,9 @@ export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeo
 
 export const QuestionScalarFieldEnum = {
   id: 'id',
-  type: 'type',
-  difficulty: 'difficulty',
-  tags: 'tags',
-  text: 'text',
-  data: 'data',
-  explanation: 'explanation',
-  isDeleted: 'isDeleted',
-  defaultPoint: 'defaultPoint',
-  visibility: 'visibility',
   subjectId: 'subjectId',
   createdById: 'createdById',
-  passageId: 'passageId',
+  currentVersionId: 'currentVersionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -214,18 +208,31 @@ export const QuestionScalarFieldEnum = {
 export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
 
 
+export const QuestionVersionScalarFieldEnum = {
+  id: 'id',
+  questionId: 'questionId',
+  version: 'version',
+  type: 'type',
+  difficulty: 'difficulty',
+  tags: 'tags',
+  text: 'text',
+  data: 'data',
+  explanation: 'explanation',
+  defaultPoint: 'defaultPoint',
+  visibility: 'visibility',
+  passageVersionId: 'passageVersionId',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type QuestionVersionScalarFieldEnum = (typeof QuestionVersionScalarFieldEnum)[keyof typeof QuestionVersionScalarFieldEnum]
+
+
 export const PassageScalarFieldEnum = {
   id: 'id',
-  type: 'type',
-  title: 'title',
-  content: 'content',
-  difficulty: 'difficulty',
-  visibility: 'visibility',
-  tags: 'tags',
-  explanation: 'explanation',
-  isDeleted: 'isDeleted',
   subjectId: 'subjectId',
   createdById: 'createdById',
+  currentVersionId: 'currentVersionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -233,10 +240,29 @@ export const PassageScalarFieldEnum = {
 export type PassageScalarFieldEnum = (typeof PassageScalarFieldEnum)[keyof typeof PassageScalarFieldEnum]
 
 
+export const PassageVersionScalarFieldEnum = {
+  id: 'id',
+  passageId: 'passageId',
+  version: 'version',
+  type: 'type',
+  title: 'title',
+  content: 'content',
+  difficulty: 'difficulty',
+  visibility: 'visibility',
+  tags: 'tags',
+  explanation: 'explanation',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type PassageVersionScalarFieldEnum = (typeof PassageVersionScalarFieldEnum)[keyof typeof PassageVersionScalarFieldEnum]
+
+
 export const TestAttemptScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   testId: 'testId',
+  testVersionId: 'testVersionId',
   status: 'status',
   attemptNumber: 'attemptNumber',
   startedAt: 'startedAt',
@@ -260,7 +286,7 @@ export type TestAttemptScalarFieldEnum = (typeof TestAttemptScalarFieldEnum)[key
 export const AttemptSectionScalarFieldEnum = {
   id: 'id',
   attemptId: 'attemptId',
-  sectionId: 'sectionId',
+  testVersionSectionId: 'testVersionSectionId',
   order: 'order',
   title: 'title',
   timeLimit: 'timeLimit',
@@ -279,11 +305,11 @@ export const AttemptQuestionScalarFieldEnum = {
   id: 'id',
   attemptId: 'attemptId',
   attemptSectionId: 'attemptSectionId',
-  questionId: 'questionId',
+  questionVersionId: 'questionVersionId',
+  testVersionQuestionId: 'testVersionQuestionId',
   displayOrder: 'displayOrder',
   point: 'point',
-  isRequired: 'isRequired',
-  testQuestionId: 'testQuestionId'
+  isRequired: 'isRequired'
 } as const
 
 export type AttemptQuestionScalarFieldEnum = (typeof AttemptQuestionScalarFieldEnum)[keyof typeof AttemptQuestionScalarFieldEnum]
@@ -293,11 +319,10 @@ export const AttemptAnswerScalarFieldEnum = {
   id: 'id',
   attemptId: 'attemptId',
   attemptQuestionId: 'attemptQuestionId',
-  questionId: 'questionId',
+  questionVersionId: 'questionVersionId',
   response: 'response',
-  version: 'version',
-  isCorrect: 'isCorrect',
   pointsAwarded: 'pointsAwarded',
+  isCorrect: 'isCorrect',
   savedAt: 'savedAt',
   updatedAt: 'updatedAt'
 } as const
@@ -322,11 +347,6 @@ export const TestScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  status: 'status',
-  tokenRequired: 'tokenRequired',
-  tags: 'tags',
-  difficulty: 'difficulty',
-  coverMediaId: 'coverMediaId',
   subjectId: 'subjectId',
   createdById: 'createdById',
   createdAt: 'createdAt',
@@ -336,8 +356,16 @@ export const TestScalarFieldEnum = {
 export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
 
 
-export const TestSettingScalarFieldEnum = {
+export const TestVersionScalarFieldEnum = {
   id: 'id',
+  testId: 'testId',
+  version: 'version',
+  status: 'status',
+  tokenRequired: 'tokenRequired',
+  tags: 'tags',
+  difficulty: 'difficulty',
+  coverMediaId: 'coverMediaId',
+  createdById: 'createdById',
   availableFrom: 'availableFrom',
   availableTo: 'availableTo',
   duration: 'duration',
@@ -350,14 +378,15 @@ export const TestSettingScalarFieldEnum = {
   forwardOnly: 'forwardOnly',
   passingPercentage: 'passingPercentage',
   resultView: 'resultView',
-  testId: 'testId'
+  createdAt: 'createdAt'
 } as const
 
-export type TestSettingScalarFieldEnum = (typeof TestSettingScalarFieldEnum)[keyof typeof TestSettingScalarFieldEnum]
+export type TestVersionScalarFieldEnum = (typeof TestVersionScalarFieldEnum)[keyof typeof TestVersionScalarFieldEnum]
 
 
-export const TestSectionScalarFieldEnum = {
+export const TestVersionSectionScalarFieldEnum = {
   id: 'id',
+  testVersionId: 'testVersionId',
   type: 'type',
   title: 'title',
   order: 'order',
@@ -365,22 +394,22 @@ export const TestSectionScalarFieldEnum = {
   timeLimit: 'timeLimit',
   questionSelectionMode: 'questionSelectionMode',
   questionToSelect: 'questionToSelect',
-  testId: 'testId',
-  passageId: 'passageId'
+  passageVersionId: 'passageVersionId'
 } as const
 
-export type TestSectionScalarFieldEnum = (typeof TestSectionScalarFieldEnum)[keyof typeof TestSectionScalarFieldEnum]
+export type TestVersionSectionScalarFieldEnum = (typeof TestVersionSectionScalarFieldEnum)[keyof typeof TestVersionSectionScalarFieldEnum]
 
 
-export const TestQuestionScalarFieldEnum = {
+export const TestVersionQuestionScalarFieldEnum = {
   id: 'id',
-  sectionId: 'sectionId',
+  testVersionSectionId: 'testVersionSectionId',
   questionId: 'questionId',
+  questionVersionId: 'questionVersionId',
   order: 'order',
   point: 'point'
 } as const
 
-export type TestQuestionScalarFieldEnum = (typeof TestQuestionScalarFieldEnum)[keyof typeof TestQuestionScalarFieldEnum]
+export type TestVersionQuestionScalarFieldEnum = (typeof TestVersionQuestionScalarFieldEnum)[keyof typeof TestVersionQuestionScalarFieldEnum]
 
 
 export const AccountScalarFieldEnum = {

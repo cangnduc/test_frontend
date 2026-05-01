@@ -27,12 +27,10 @@ export type AggregateTest = {
 }
 
 export type TestAvgAggregateOutputType = {
-  tokenRequired: number | null
   createdById: number | null
 }
 
 export type TestSumAggregateOutputType = {
-  tokenRequired: number | null
   createdById: number | null
 }
 
@@ -40,10 +38,6 @@ export type TestMinAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
-  status: $Enums.PublishStatus | null
-  tokenRequired: number | null
-  difficulty: $Enums.DifficultyLevel | null
-  coverMediaId: string | null
   subjectId: string | null
   createdById: number | null
   createdAt: Date | null
@@ -54,10 +48,6 @@ export type TestMaxAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
-  status: $Enums.PublishStatus | null
-  tokenRequired: number | null
-  difficulty: $Enums.DifficultyLevel | null
-  coverMediaId: string | null
   subjectId: string | null
   createdById: number | null
   createdAt: Date | null
@@ -68,11 +58,6 @@ export type TestCountAggregateOutputType = {
   id: number
   title: number
   description: number
-  status: number
-  tokenRequired: number
-  tags: number
-  difficulty: number
-  coverMediaId: number
   subjectId: number
   createdById: number
   createdAt: number
@@ -82,12 +67,10 @@ export type TestCountAggregateOutputType = {
 
 
 export type TestAvgAggregateInputType = {
-  tokenRequired?: true
   createdById?: true
 }
 
 export type TestSumAggregateInputType = {
-  tokenRequired?: true
   createdById?: true
 }
 
@@ -95,10 +78,6 @@ export type TestMinAggregateInputType = {
   id?: true
   title?: true
   description?: true
-  status?: true
-  tokenRequired?: true
-  difficulty?: true
-  coverMediaId?: true
   subjectId?: true
   createdById?: true
   createdAt?: true
@@ -109,10 +88,6 @@ export type TestMaxAggregateInputType = {
   id?: true
   title?: true
   description?: true
-  status?: true
-  tokenRequired?: true
-  difficulty?: true
-  coverMediaId?: true
   subjectId?: true
   createdById?: true
   createdAt?: true
@@ -123,11 +98,6 @@ export type TestCountAggregateInputType = {
   id?: true
   title?: true
   description?: true
-  status?: true
-  tokenRequired?: true
-  tags?: true
-  difficulty?: true
-  coverMediaId?: true
   subjectId?: true
   createdById?: true
   createdAt?: true
@@ -225,11 +195,6 @@ export type TestGroupByOutputType = {
   id: string
   title: string
   description: string | null
-  status: $Enums.PublishStatus
-  tokenRequired: number
-  tags: string[]
-  difficulty: $Enums.DifficultyLevel
-  coverMediaId: string | null
   subjectId: string
   createdById: number
   createdAt: Date
@@ -263,83 +228,57 @@ export type TestWhereInput = {
   id?: Prisma.StringFilter<"Test"> | string
   title?: Prisma.StringFilter<"Test"> | string
   description?: Prisma.StringNullableFilter<"Test"> | string | null
-  status?: Prisma.EnumPublishStatusFilter<"Test"> | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFilter<"Test"> | number
-  tags?: Prisma.StringNullableListFilter<"Test">
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Test"> | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.StringNullableFilter<"Test"> | string | null
   subjectId?: Prisma.StringFilter<"Test"> | string
   createdById?: Prisma.IntFilter<"Test"> | number
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Test"> | Date | string
-  coverMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  attempts?: Prisma.TestAttemptListRelationFilter
-  sections?: Prisma.TestSectionListRelationFilter
-  setting?: Prisma.XOR<Prisma.TestSettingNullableScalarRelationFilter, Prisma.TestSettingWhereInput> | null
-  progress?: Prisma.UserTestProgressListRelationFilter
+  versions?: Prisma.TestVersionListRelationFilter
   classAssignments?: Prisma.ClassTestAssignmentListRelationFilter
+  attempts?: Prisma.TestAttemptListRelationFilter
+  progress?: Prisma.UserTestProgressListRelationFilter
 }
 
 export type TestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
-  tokenRequired?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  coverMediaId?: Prisma.SortOrderInput | Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  coverMedia?: Prisma.MediaOrderByWithRelationInput
   subject?: Prisma.SubjectOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
-  attempts?: Prisma.TestAttemptOrderByRelationAggregateInput
-  sections?: Prisma.TestSectionOrderByRelationAggregateInput
-  setting?: Prisma.TestSettingOrderByWithRelationInput
-  progress?: Prisma.UserTestProgressOrderByRelationAggregateInput
+  versions?: Prisma.TestVersionOrderByRelationAggregateInput
   classAssignments?: Prisma.ClassTestAssignmentOrderByRelationAggregateInput
+  attempts?: Prisma.TestAttemptOrderByRelationAggregateInput
+  progress?: Prisma.UserTestProgressOrderByRelationAggregateInput
 }
 
 export type TestWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  coverMediaId?: string
   AND?: Prisma.TestWhereInput | Prisma.TestWhereInput[]
   OR?: Prisma.TestWhereInput[]
   NOT?: Prisma.TestWhereInput | Prisma.TestWhereInput[]
   title?: Prisma.StringFilter<"Test"> | string
   description?: Prisma.StringNullableFilter<"Test"> | string | null
-  status?: Prisma.EnumPublishStatusFilter<"Test"> | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFilter<"Test"> | number
-  tags?: Prisma.StringNullableListFilter<"Test">
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Test"> | $Enums.DifficultyLevel
   subjectId?: Prisma.StringFilter<"Test"> | string
   createdById?: Prisma.IntFilter<"Test"> | number
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Test"> | Date | string
-  coverMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  attempts?: Prisma.TestAttemptListRelationFilter
-  sections?: Prisma.TestSectionListRelationFilter
-  setting?: Prisma.XOR<Prisma.TestSettingNullableScalarRelationFilter, Prisma.TestSettingWhereInput> | null
-  progress?: Prisma.UserTestProgressListRelationFilter
+  versions?: Prisma.TestVersionListRelationFilter
   classAssignments?: Prisma.ClassTestAssignmentListRelationFilter
-}, "id" | "coverMediaId">
+  attempts?: Prisma.TestAttemptListRelationFilter
+  progress?: Prisma.UserTestProgressListRelationFilter
+}, "id">
 
 export type TestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
-  tokenRequired?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  coverMediaId?: Prisma.SortOrderInput | Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -358,11 +297,6 @@ export type TestScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Test"> | string
   title?: Prisma.StringWithAggregatesFilter<"Test"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Test"> | string | null
-  status?: Prisma.EnumPublishStatusWithAggregatesFilter<"Test"> | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntWithAggregatesFilter<"Test"> | number
-  tags?: Prisma.StringNullableListFilter<"Test">
-  difficulty?: Prisma.EnumDifficultyLevelWithAggregatesFilter<"Test"> | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.StringNullableWithAggregatesFilter<"Test"> | string | null
   subjectId?: Prisma.StringWithAggregatesFilter<"Test"> | string
   createdById?: Prisma.IntWithAggregatesFilter<"Test"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Test"> | Date | string
@@ -373,91 +307,62 @@ export type TestCreateInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
-  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
-  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateManyInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdById: number
   createdAt?: Date | string
@@ -468,10 +373,6 @@ export type TestUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -480,11 +381,6 @@ export type TestUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -494,11 +390,6 @@ export type TestUncheckedUpdateManyInput = {
 export type TestScalarRelationFilter = {
   is?: Prisma.TestWhereInput
   isNot?: Prisma.TestWhereInput
-}
-
-export type TestNullableScalarRelationFilter = {
-  is?: Prisma.TestWhereInput | null
-  isNot?: Prisma.TestWhereInput | null
 }
 
 export type TestListRelationFilter = {
@@ -515,11 +406,6 @@ export type TestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  tokenRequired?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  coverMediaId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -527,7 +413,6 @@ export type TestCountOrderByAggregateInput = {
 }
 
 export type TestAvgOrderByAggregateInput = {
-  tokenRequired?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
 }
 
@@ -535,10 +420,6 @@ export type TestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  tokenRequired?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  coverMediaId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -549,10 +430,6 @@ export type TestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  tokenRequired?: Prisma.SortOrder
-  difficulty?: Prisma.SortOrder
-  coverMediaId?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -560,7 +437,6 @@ export type TestMinOrderByAggregateInput = {
 }
 
 export type TestSumOrderByAggregateInput = {
-  tokenRequired?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
 }
 
@@ -576,38 +452,6 @@ export type TestUpdateOneRequiredWithoutClassAssignmentsNestedInput = {
   upsert?: Prisma.TestUpsertWithoutClassAssignmentsInput
   connect?: Prisma.TestWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutClassAssignmentsInput, Prisma.TestUpdateWithoutClassAssignmentsInput>, Prisma.TestUncheckedUpdateWithoutClassAssignmentsInput>
-}
-
-export type TestCreateNestedOneWithoutCoverMediaInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutCoverMediaInput, Prisma.TestUncheckedCreateWithoutCoverMediaInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutCoverMediaInput
-  connect?: Prisma.TestWhereUniqueInput
-}
-
-export type TestUncheckedCreateNestedOneWithoutCoverMediaInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutCoverMediaInput, Prisma.TestUncheckedCreateWithoutCoverMediaInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutCoverMediaInput
-  connect?: Prisma.TestWhereUniqueInput
-}
-
-export type TestUpdateOneWithoutCoverMediaNestedInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutCoverMediaInput, Prisma.TestUncheckedCreateWithoutCoverMediaInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutCoverMediaInput
-  upsert?: Prisma.TestUpsertWithoutCoverMediaInput
-  disconnect?: Prisma.TestWhereInput | boolean
-  delete?: Prisma.TestWhereInput | boolean
-  connect?: Prisma.TestWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutCoverMediaInput, Prisma.TestUpdateWithoutCoverMediaInput>, Prisma.TestUncheckedUpdateWithoutCoverMediaInput>
-}
-
-export type TestUncheckedUpdateOneWithoutCoverMediaNestedInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutCoverMediaInput, Prisma.TestUncheckedCreateWithoutCoverMediaInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutCoverMediaInput
-  upsert?: Prisma.TestUpsertWithoutCoverMediaInput
-  disconnect?: Prisma.TestWhereInput | boolean
-  delete?: Prisma.TestWhereInput | boolean
-  connect?: Prisma.TestWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutCoverMediaInput, Prisma.TestUpdateWithoutCoverMediaInput>, Prisma.TestUncheckedUpdateWithoutCoverMediaInput>
 }
 
 export type TestCreateNestedManyWithoutSubjectInput = {
@@ -666,45 +510,18 @@ export type TestUpdateOneRequiredWithoutAttemptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutAttemptsInput, Prisma.TestUpdateWithoutAttemptsInput>, Prisma.TestUncheckedUpdateWithoutAttemptsInput>
 }
 
-export type TestCreatetagsInput = {
-  set: string[]
-}
-
-export type EnumPublishStatusFieldUpdateOperationsInput = {
-  set?: $Enums.PublishStatus
-}
-
-export type TestUpdatetagsInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type TestCreateNestedOneWithoutSettingInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutSettingInput, Prisma.TestUncheckedCreateWithoutSettingInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSettingInput
+export type TestCreateNestedOneWithoutVersionsInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutVersionsInput, Prisma.TestUncheckedCreateWithoutVersionsInput>
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutVersionsInput
   connect?: Prisma.TestWhereUniqueInput
 }
 
-export type TestUpdateOneRequiredWithoutSettingNestedInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutSettingInput, Prisma.TestUncheckedCreateWithoutSettingInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSettingInput
-  upsert?: Prisma.TestUpsertWithoutSettingInput
+export type TestUpdateOneRequiredWithoutVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutVersionsInput, Prisma.TestUncheckedCreateWithoutVersionsInput>
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutVersionsInput
+  upsert?: Prisma.TestUpsertWithoutVersionsInput
   connect?: Prisma.TestWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutSettingInput, Prisma.TestUpdateWithoutSettingInput>, Prisma.TestUncheckedUpdateWithoutSettingInput>
-}
-
-export type TestCreateNestedOneWithoutSectionsInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutSectionsInput, Prisma.TestUncheckedCreateWithoutSectionsInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSectionsInput
-  connect?: Prisma.TestWhereUniqueInput
-}
-
-export type TestUpdateOneRequiredWithoutSectionsNestedInput = {
-  create?: Prisma.XOR<Prisma.TestCreateWithoutSectionsInput, Prisma.TestUncheckedCreateWithoutSectionsInput>
-  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSectionsInput
-  upsert?: Prisma.TestUpsertWithoutSectionsInput
-  connect?: Prisma.TestWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutSectionsInput, Prisma.TestUpdateWithoutSectionsInput>, Prisma.TestUncheckedUpdateWithoutSectionsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutVersionsInput, Prisma.TestUpdateWithoutVersionsInput>, Prisma.TestUncheckedUpdateWithoutVersionsInput>
 }
 
 export type TestCreateNestedManyWithoutCreatedByInput = {
@@ -767,18 +584,12 @@ export type TestCreateWithoutClassAssignmentsInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
+  versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
 }
 
@@ -786,18 +597,12 @@ export type TestUncheckedCreateWithoutClassAssignmentsInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
 }
 
@@ -821,18 +626,12 @@ export type TestUpdateWithoutClassAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
+  versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
 }
 
@@ -840,149 +639,39 @@ export type TestUncheckedUpdateWithoutClassAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
-}
-
-export type TestCreateWithoutCoverMediaInput = {
-  id?: string
-  title: string
-  description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
-  createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
-  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
-  classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
-}
-
-export type TestUncheckedCreateWithoutCoverMediaInput = {
-  id?: string
-  title: string
-  description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  subjectId: string
-  createdById: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
-  classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
-}
-
-export type TestCreateOrConnectWithoutCoverMediaInput = {
-  where: Prisma.TestWhereUniqueInput
-  create: Prisma.XOR<Prisma.TestCreateWithoutCoverMediaInput, Prisma.TestUncheckedCreateWithoutCoverMediaInput>
-}
-
-export type TestUpsertWithoutCoverMediaInput = {
-  update: Prisma.XOR<Prisma.TestUpdateWithoutCoverMediaInput, Prisma.TestUncheckedUpdateWithoutCoverMediaInput>
-  create: Prisma.XOR<Prisma.TestCreateWithoutCoverMediaInput, Prisma.TestUncheckedCreateWithoutCoverMediaInput>
-  where?: Prisma.TestWhereInput
-}
-
-export type TestUpdateToOneWithWhereWithoutCoverMediaInput = {
-  where?: Prisma.TestWhereInput
-  data: Prisma.XOR<Prisma.TestUpdateWithoutCoverMediaInput, Prisma.TestUncheckedUpdateWithoutCoverMediaInput>
-}
-
-export type TestUpdateWithoutCoverMediaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
-  createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
-  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
-  classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
-}
-
-export type TestUncheckedUpdateWithoutCoverMediaInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
-  classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateWithoutSubjectInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
-  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutSubjectInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutSubjectInput = {
@@ -1018,11 +707,6 @@ export type TestScalarWhereInput = {
   id?: Prisma.StringFilter<"Test"> | string
   title?: Prisma.StringFilter<"Test"> | string
   description?: Prisma.StringNullableFilter<"Test"> | string | null
-  status?: Prisma.EnumPublishStatusFilter<"Test"> | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFilter<"Test"> | number
-  tags?: Prisma.StringNullableListFilter<"Test">
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Test"> | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.StringNullableFilter<"Test"> | string | null
   subjectId?: Prisma.StringFilter<"Test"> | string
   createdById?: Prisma.IntFilter<"Test"> | number
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
@@ -1033,38 +717,26 @@ export type TestCreateWithoutAttemptsInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutAttemptsInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutAttemptsInput = {
@@ -1087,260 +759,120 @@ export type TestUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
 }
 
-export type TestCreateWithoutSettingInput = {
+export type TestCreateWithoutVersionsInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
-  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
 }
 
-export type TestUncheckedCreateWithoutSettingInput = {
+export type TestUncheckedCreateWithoutVersionsInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
 }
 
-export type TestCreateOrConnectWithoutSettingInput = {
+export type TestCreateOrConnectWithoutVersionsInput = {
   where: Prisma.TestWhereUniqueInput
-  create: Prisma.XOR<Prisma.TestCreateWithoutSettingInput, Prisma.TestUncheckedCreateWithoutSettingInput>
+  create: Prisma.XOR<Prisma.TestCreateWithoutVersionsInput, Prisma.TestUncheckedCreateWithoutVersionsInput>
 }
 
-export type TestUpsertWithoutSettingInput = {
-  update: Prisma.XOR<Prisma.TestUpdateWithoutSettingInput, Prisma.TestUncheckedUpdateWithoutSettingInput>
-  create: Prisma.XOR<Prisma.TestCreateWithoutSettingInput, Prisma.TestUncheckedCreateWithoutSettingInput>
+export type TestUpsertWithoutVersionsInput = {
+  update: Prisma.XOR<Prisma.TestUpdateWithoutVersionsInput, Prisma.TestUncheckedUpdateWithoutVersionsInput>
+  create: Prisma.XOR<Prisma.TestCreateWithoutVersionsInput, Prisma.TestUncheckedCreateWithoutVersionsInput>
   where?: Prisma.TestWhereInput
 }
 
-export type TestUpdateToOneWithWhereWithoutSettingInput = {
+export type TestUpdateToOneWithWhereWithoutVersionsInput = {
   where?: Prisma.TestWhereInput
-  data: Prisma.XOR<Prisma.TestUpdateWithoutSettingInput, Prisma.TestUncheckedUpdateWithoutSettingInput>
+  data: Prisma.XOR<Prisma.TestUpdateWithoutVersionsInput, Prisma.TestUncheckedUpdateWithoutVersionsInput>
 }
 
-export type TestUpdateWithoutSettingInput = {
+export type TestUpdateWithoutVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
-  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
 }
 
-export type TestUncheckedUpdateWithoutSettingInput = {
+export type TestUncheckedUpdateWithoutVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
-}
-
-export type TestCreateWithoutSectionsInput = {
-  id?: string
-  title: string
-  description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
-  subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
-  createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
-  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
-  classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
-}
-
-export type TestUncheckedCreateWithoutSectionsInput = {
-  id?: string
-  title: string
-  description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
-  subjectId: string
-  createdById: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
-  classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
-}
-
-export type TestCreateOrConnectWithoutSectionsInput = {
-  where: Prisma.TestWhereUniqueInput
-  create: Prisma.XOR<Prisma.TestCreateWithoutSectionsInput, Prisma.TestUncheckedCreateWithoutSectionsInput>
-}
-
-export type TestUpsertWithoutSectionsInput = {
-  update: Prisma.XOR<Prisma.TestUpdateWithoutSectionsInput, Prisma.TestUncheckedUpdateWithoutSectionsInput>
-  create: Prisma.XOR<Prisma.TestCreateWithoutSectionsInput, Prisma.TestUncheckedCreateWithoutSectionsInput>
-  where?: Prisma.TestWhereInput
-}
-
-export type TestUpdateToOneWithWhereWithoutSectionsInput = {
-  where?: Prisma.TestWhereInput
-  data: Prisma.XOR<Prisma.TestUpdateWithoutSectionsInput, Prisma.TestUncheckedUpdateWithoutSectionsInput>
-}
-
-export type TestUpdateWithoutSectionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
-  createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
-  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
-  classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
-}
-
-export type TestUncheckedUpdateWithoutSectionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
-  classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateWithoutCreatedByInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
-  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutCreatedByInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
-  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutCreatedByInput = {
@@ -1373,38 +905,26 @@ export type TestCreateWithoutProgressInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
   createdAt?: Date | string
   updatedAt?: Date | string
-  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestCoverInput
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
-  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingCreateNestedOneWithoutTestInput
+  versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutProgressInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
-  sections?: Prisma.TestSectionUncheckedCreateNestedManyWithoutTestInput
-  setting?: Prisma.TestSettingUncheckedCreateNestedOneWithoutTestInput
+  versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutProgressInput = {
@@ -1427,49 +947,32 @@ export type TestUpdateWithoutProgressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
-  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
+  versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutProgressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
+  versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateManySubjectInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1479,49 +982,32 @@ export type TestUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
-  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateManyWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1531,11 +1017,6 @@ export type TestCreateManyCreatedByInput = {
   id?: string
   title: string
   description?: string | null
-  status?: $Enums.PublishStatus
-  tokenRequired?: number
-  tags?: Prisma.TestCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  coverMediaId?: string | null
   subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1545,49 +1026,32 @@ export type TestUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coverMedia?: Prisma.MediaUpdateOneWithoutTestCoverNestedInput
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
-  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
-  sections?: Prisma.TestSectionUncheckedUpdateManyWithoutTestNestedInput
-  setting?: Prisma.TestSettingUncheckedUpdateOneWithoutTestNestedInput
-  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
-  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1599,17 +1063,17 @@ export type TestUncheckedUpdateManyWithoutCreatedByInput = {
  */
 
 export type TestCountOutputType = {
-  attempts: number
-  sections: number
-  progress: number
+  versions: number
   classAssignments: number
+  attempts: number
+  progress: number
 }
 
 export type TestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  attempts?: boolean | TestCountOutputTypeCountAttemptsArgs
-  sections?: boolean | TestCountOutputTypeCountSectionsArgs
-  progress?: boolean | TestCountOutputTypeCountProgressArgs
+  versions?: boolean | TestCountOutputTypeCountVersionsArgs
   classAssignments?: boolean | TestCountOutputTypeCountClassAssignmentsArgs
+  attempts?: boolean | TestCountOutputTypeCountAttemptsArgs
+  progress?: boolean | TestCountOutputTypeCountProgressArgs
 }
 
 /**
@@ -1625,22 +1089,8 @@ export type TestCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * TestCountOutputType without action
  */
-export type TestCountOutputTypeCountAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestAttemptWhereInput
-}
-
-/**
- * TestCountOutputType without action
- */
-export type TestCountOutputTypeCountSectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestSectionWhereInput
-}
-
-/**
- * TestCountOutputType without action
- */
-export type TestCountOutputTypeCountProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserTestProgressWhereInput
+export type TestCountOutputTypeCountVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestVersionWhereInput
 }
 
 /**
@@ -1650,28 +1100,35 @@ export type TestCountOutputTypeCountClassAssignmentsArgs<ExtArgs extends runtime
   where?: Prisma.ClassTestAssignmentWhereInput
 }
 
+/**
+ * TestCountOutputType without action
+ */
+export type TestCountOutputTypeCountAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestAttemptWhereInput
+}
+
+/**
+ * TestCountOutputType without action
+ */
+export type TestCountOutputTypeCountProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserTestProgressWhereInput
+}
+
 
 export type TestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   description?: boolean
-  status?: boolean
-  tokenRequired?: boolean
-  tags?: boolean
-  difficulty?: boolean
-  coverMediaId?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coverMedia?: boolean | Prisma.Test$coverMediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  attempts?: boolean | Prisma.Test$attemptsArgs<ExtArgs>
-  sections?: boolean | Prisma.Test$sectionsArgs<ExtArgs>
-  setting?: boolean | Prisma.Test$settingArgs<ExtArgs>
-  progress?: boolean | Prisma.Test$progressArgs<ExtArgs>
+  versions?: boolean | Prisma.Test$versionsArgs<ExtArgs>
   classAssignments?: boolean | Prisma.Test$classAssignmentsArgs<ExtArgs>
+  attempts?: boolean | Prisma.Test$attemptsArgs<ExtArgs>
+  progress?: boolean | Prisma.Test$progressArgs<ExtArgs>
   _count?: boolean | Prisma.TestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["test"]>
 
@@ -1679,16 +1136,10 @@ export type TestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   description?: boolean
-  status?: boolean
-  tokenRequired?: boolean
-  tags?: boolean
-  difficulty?: boolean
-  coverMediaId?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coverMedia?: boolean | Prisma.Test$coverMediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["test"]>
@@ -1697,16 +1148,10 @@ export type TestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   description?: boolean
-  status?: boolean
-  tokenRequired?: boolean
-  tags?: boolean
-  difficulty?: boolean
-  coverMediaId?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coverMedia?: boolean | Prisma.Test$coverMediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["test"]>
@@ -1715,36 +1160,27 @@ export type TestSelectScalar = {
   id?: boolean
   title?: boolean
   description?: boolean
-  status?: boolean
-  tokenRequired?: boolean
-  tags?: boolean
-  difficulty?: boolean
-  coverMediaId?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "tokenRequired" | "tags" | "difficulty" | "coverMediaId" | "subjectId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
+export type TestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "subjectId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
 export type TestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coverMedia?: boolean | Prisma.Test$coverMediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  attempts?: boolean | Prisma.Test$attemptsArgs<ExtArgs>
-  sections?: boolean | Prisma.Test$sectionsArgs<ExtArgs>
-  setting?: boolean | Prisma.Test$settingArgs<ExtArgs>
-  progress?: boolean | Prisma.Test$progressArgs<ExtArgs>
+  versions?: boolean | Prisma.Test$versionsArgs<ExtArgs>
   classAssignments?: boolean | Prisma.Test$classAssignmentsArgs<ExtArgs>
+  attempts?: boolean | Prisma.Test$attemptsArgs<ExtArgs>
+  progress?: boolean | Prisma.Test$progressArgs<ExtArgs>
   _count?: boolean | Prisma.TestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coverMedia?: boolean | Prisma.Test$coverMediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type TestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coverMedia?: boolean | Prisma.Test$coverMediaArgs<ExtArgs>
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -1752,24 +1188,17 @@ export type TestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $TestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Test"
   objects: {
-    coverMedia: Prisma.$MediaPayload<ExtArgs> | null
     subject: Prisma.$SubjectPayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs>
-    attempts: Prisma.$TestAttemptPayload<ExtArgs>[]
-    sections: Prisma.$TestSectionPayload<ExtArgs>[]
-    setting: Prisma.$TestSettingPayload<ExtArgs> | null
-    progress: Prisma.$UserTestProgressPayload<ExtArgs>[]
+    versions: Prisma.$TestVersionPayload<ExtArgs>[]
     classAssignments: Prisma.$ClassTestAssignmentPayload<ExtArgs>[]
+    attempts: Prisma.$TestAttemptPayload<ExtArgs>[]
+    progress: Prisma.$UserTestProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
     description: string | null
-    status: $Enums.PublishStatus
-    tokenRequired: number
-    tags: string[]
-    difficulty: $Enums.DifficultyLevel
-    coverMediaId: string | null
     subjectId: string
     createdById: number
     createdAt: Date
@@ -2168,14 +1597,12 @@ readonly fields: TestFieldRefs;
  */
 export interface Prisma__TestClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  coverMedia<T extends Prisma.Test$coverMediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$coverMediaArgs<ExtArgs>>): Prisma.Prisma__MediaClient<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   subject<T extends Prisma.SubjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubjectDefaultArgs<ExtArgs>>): Prisma.Prisma__SubjectClient<runtime.Types.Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  attempts<T extends Prisma.Test$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  sections<T extends Prisma.Test$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestSectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  setting<T extends Prisma.Test$settingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$settingArgs<ExtArgs>>): Prisma.Prisma__TestSettingClient<runtime.Types.Result.GetResult<Prisma.$TestSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  progress<T extends Prisma.Test$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTestProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  versions<T extends Prisma.Test$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   classAssignments<T extends Prisma.Test$classAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$classAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassTestAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attempts<T extends Prisma.Test$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  progress<T extends Prisma.Test$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTestProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2208,11 +1635,6 @@ export interface TestFieldRefs {
   readonly id: Prisma.FieldRef<"Test", 'String'>
   readonly title: Prisma.FieldRef<"Test", 'String'>
   readonly description: Prisma.FieldRef<"Test", 'String'>
-  readonly status: Prisma.FieldRef<"Test", 'PublishStatus'>
-  readonly tokenRequired: Prisma.FieldRef<"Test", 'Int'>
-  readonly tags: Prisma.FieldRef<"Test", 'String[]'>
-  readonly difficulty: Prisma.FieldRef<"Test", 'DifficultyLevel'>
-  readonly coverMediaId: Prisma.FieldRef<"Test", 'String'>
   readonly subjectId: Prisma.FieldRef<"Test", 'String'>
   readonly createdById: Prisma.FieldRef<"Test", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Test", 'DateTime'>
@@ -2618,22 +2040,51 @@ export type TestDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Test.coverMedia
+ * Test.versions
  */
-export type Test$coverMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Test$versionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Media
+   * Select specific fields to fetch from the TestVersion
    */
-  select?: Prisma.MediaSelect<ExtArgs> | null
+  select?: Prisma.TestVersionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Media
+   * Omit specific fields from the TestVersion
    */
-  omit?: Prisma.MediaOmit<ExtArgs> | null
+  omit?: Prisma.TestVersionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MediaInclude<ExtArgs> | null
-  where?: Prisma.MediaWhereInput
+  include?: Prisma.TestVersionInclude<ExtArgs> | null
+  where?: Prisma.TestVersionWhereInput
+  orderBy?: Prisma.TestVersionOrderByWithRelationInput | Prisma.TestVersionOrderByWithRelationInput[]
+  cursor?: Prisma.TestVersionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TestVersionScalarFieldEnum | Prisma.TestVersionScalarFieldEnum[]
+}
+
+/**
+ * Test.classAssignments
+ */
+export type Test$classAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClassTestAssignment
+   */
+  select?: Prisma.ClassTestAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClassTestAssignment
+   */
+  omit?: Prisma.ClassTestAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClassTestAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ClassTestAssignmentWhereInput
+  orderBy?: Prisma.ClassTestAssignmentOrderByWithRelationInput | Prisma.ClassTestAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ClassTestAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClassTestAssignmentScalarFieldEnum | Prisma.ClassTestAssignmentScalarFieldEnum[]
 }
 
 /**
@@ -2661,49 +2112,6 @@ export type Test$attemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * Test.sections
- */
-export type Test$sectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TestSection
-   */
-  select?: Prisma.TestSectionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TestSection
-   */
-  omit?: Prisma.TestSectionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestSectionInclude<ExtArgs> | null
-  where?: Prisma.TestSectionWhereInput
-  orderBy?: Prisma.TestSectionOrderByWithRelationInput | Prisma.TestSectionOrderByWithRelationInput[]
-  cursor?: Prisma.TestSectionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TestSectionScalarFieldEnum | Prisma.TestSectionScalarFieldEnum[]
-}
-
-/**
- * Test.setting
- */
-export type Test$settingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TestSetting
-   */
-  select?: Prisma.TestSettingSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TestSetting
-   */
-  omit?: Prisma.TestSettingOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestSettingInclude<ExtArgs> | null
-  where?: Prisma.TestSettingWhereInput
-}
-
-/**
  * Test.progress
  */
 export type Test$progressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2725,30 +2133,6 @@ export type Test$progressArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.UserTestProgressScalarFieldEnum | Prisma.UserTestProgressScalarFieldEnum[]
-}
-
-/**
- * Test.classAssignments
- */
-export type Test$classAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ClassTestAssignment
-   */
-  select?: Prisma.ClassTestAssignmentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ClassTestAssignment
-   */
-  omit?: Prisma.ClassTestAssignmentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClassTestAssignmentInclude<ExtArgs> | null
-  where?: Prisma.ClassTestAssignmentWhereInput
-  orderBy?: Prisma.ClassTestAssignmentOrderByWithRelationInput | Prisma.ClassTestAssignmentOrderByWithRelationInput[]
-  cursor?: Prisma.ClassTestAssignmentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ClassTestAssignmentScalarFieldEnum | Prisma.ClassTestAssignmentScalarFieldEnum[]
 }
 
 /**

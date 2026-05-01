@@ -3,44 +3,55 @@ model Class {
   name        String
   description String?
   code        String   @unique // join code for students
-  isActive    Boolean  @default(true)
+  isActive    Boolean  @default(true) @map("is_active")
 
-  teacherId Int
-  teacher   User @relation("TeacherClasses", fields: [teacherId], references: [id])
+  teacherId Int   @map("teacher_id")
+  teacher   User  @relation("TeacherClasses", fields: [teacherId], references: [id])
 
   enrollments ClassEnrollment[]
   assignments ClassTestAssignment[]
 
-  subjectId String?
+  subjectId String?  @map("subject_id")
   subject   Subject? @relation(fields: [subjectId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("class")
 }
 
 model ClassEnrollment {
   id       String    @id @default(uuid())
-  classId  String
+  classId  String    @map("class_id")
   class    Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
-  userId   Int
+  userId   Int       @map("user_id")
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   role     ClassRole @default(STUDENT)
-  joinedAt DateTime  @default(now())
+  joinedAt DateTime  @default(now()) @map("joined_at")
 
   @@unique([classId, userId])
   @@index([userId])
+  @@map("class_enrollment")
 }
 
 model ClassTestAssignment {
-  id           String    @id @default(uuid())
-  classId      String
-  class        Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
-  testId       String
-  test         Test      @relation(fields: [testId], references: [id], onDelete: Cascade)
-  dueAt        DateTime?
-  assignedById Int
-  assignedBy   User      @relation("AssignedBy", fields: [assignedById], references: [id])
-  createdAt    DateTime  @default(now())
+  id            String      @id @default(uuid())
+  classId       String      @map("class_id")
+  class         Class       @relation(fields: [classId], references: [id], onDelete: Cascade)
+  
+  testId        String      @map("test_id")
+  test          Test        @relation(fields: [testId], references: [id], onDelete: Cascade)
+  
+  testVersionId String      @map("test_version_id") // ✅ specific version assigned
+  testVersion   TestVersion @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
+  
+  dueAt        DateTime?    @map("due_at")
+  assignedById Int          @map("assigned_by_id")
+  assignedBy   User         @relation("AssignedBy", fields: [assignedById], references: [id])
+  createdAt    DateTime     @default(now()) @map("created_at")
 
-  @@unique([classId, testId])
+  @@unique([classId, testVersionId])
+  @@index([classId])
+  @@index([testId])
+  @@map("class_test_assignment")
 }

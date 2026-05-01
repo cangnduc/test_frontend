@@ -261,9 +261,9 @@ export type MediaWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  questions?: Prisma.QuestionListRelationFilter
-  passages?: Prisma.PassageListRelationFilter
-  testCover?: Prisma.XOR<Prisma.TestNullableScalarRelationFilter, Prisma.TestWhereInput> | null
+  questionVersions?: Prisma.QuestionVersionListRelationFilter
+  passageVersions?: Prisma.PassageVersionListRelationFilter
+  testVersionCover?: Prisma.XOR<Prisma.TestVersionNullableScalarRelationFilter, Prisma.TestVersionWhereInput> | null
 }
 
 export type MediaOrderByWithRelationInput = {
@@ -278,9 +278,9 @@ export type MediaOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   User?: Prisma.UserOrderByWithRelationInput
-  questions?: Prisma.QuestionOrderByRelationAggregateInput
-  passages?: Prisma.PassageOrderByRelationAggregateInput
-  testCover?: Prisma.TestOrderByWithRelationInput
+  questionVersions?: Prisma.QuestionVersionOrderByRelationAggregateInput
+  passageVersions?: Prisma.PassageVersionOrderByRelationAggregateInput
+  testVersionCover?: Prisma.TestVersionOrderByWithRelationInput
 }
 
 export type MediaWhereUniqueInput = Prisma.AtLeast<{
@@ -298,9 +298,9 @@ export type MediaWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  questions?: Prisma.QuestionListRelationFilter
-  passages?: Prisma.PassageListRelationFilter
-  testCover?: Prisma.XOR<Prisma.TestNullableScalarRelationFilter, Prisma.TestWhereInput> | null
+  questionVersions?: Prisma.QuestionVersionListRelationFilter
+  passageVersions?: Prisma.PassageVersionListRelationFilter
+  testVersionCover?: Prisma.XOR<Prisma.TestVersionNullableScalarRelationFilter, Prisma.TestVersionWhereInput> | null
 }, "id">
 
 export type MediaOrderByWithAggregationInput = {
@@ -348,9 +348,9 @@ export type MediaCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   User: Prisma.UserCreateNestedOneWithoutMediaInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutMediaInput
-  passages?: Prisma.PassageCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestCreateNestedOneWithoutCoverMediaInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutMediaInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionCreateNestedOneWithoutCoverMediaInput
 }
 
 export type MediaUncheckedCreateInput = {
@@ -364,9 +364,9 @@ export type MediaUncheckedCreateInput = {
   mimeType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutMediaInput
-  passages?: Prisma.PassageUncheckedCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestUncheckedCreateNestedOneWithoutCoverMediaInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutMediaInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionUncheckedCreateNestedOneWithoutCoverMediaInput
 }
 
 export type MediaUpdateInput = {
@@ -380,9 +380,9 @@ export type MediaUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   User?: Prisma.UserUpdateOneRequiredWithoutMediaNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutMediaNestedInput
-  passages?: Prisma.PassageUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUpdateOneWithoutCoverMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUpdateOneWithoutCoverMediaNestedInput
 }
 
 export type MediaUncheckedUpdateInput = {
@@ -396,9 +396,9 @@ export type MediaUncheckedUpdateInput = {
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutMediaNestedInput
-  passages?: Prisma.PassageUncheckedUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUncheckedUpdateOneWithoutCoverMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUncheckedUpdateOneWithoutCoverMediaNestedInput
 }
 
 export type MediaCreateManyInput = {
@@ -507,96 +507,96 @@ export type EnumMediaTypeFieldUpdateOperationsInput = {
   set?: $Enums.MediaType
 }
 
-export type MediaCreateNestedManyWithoutQuestionsInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionsInput, Prisma.MediaUncheckedCreateWithoutQuestionsInput> | Prisma.MediaCreateWithoutQuestionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionsInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionsInput | Prisma.MediaCreateOrConnectWithoutQuestionsInput[]
+export type MediaCreateNestedManyWithoutQuestionVersionsInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionVersionsInput, Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput> | Prisma.MediaCreateWithoutQuestionVersionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput | Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
 }
 
-export type MediaUncheckedCreateNestedManyWithoutQuestionsInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionsInput, Prisma.MediaUncheckedCreateWithoutQuestionsInput> | Prisma.MediaCreateWithoutQuestionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionsInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionsInput | Prisma.MediaCreateOrConnectWithoutQuestionsInput[]
+export type MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionVersionsInput, Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput> | Prisma.MediaCreateWithoutQuestionVersionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput | Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
 }
 
-export type MediaUpdateManyWithoutQuestionsNestedInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionsInput, Prisma.MediaUncheckedCreateWithoutQuestionsInput> | Prisma.MediaCreateWithoutQuestionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionsInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionsInput | Prisma.MediaCreateOrConnectWithoutQuestionsInput[]
-  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutQuestionsInput | Prisma.MediaUpsertWithWhereUniqueWithoutQuestionsInput[]
+export type MediaUpdateManyWithoutQuestionVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionVersionsInput, Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput> | Prisma.MediaCreateWithoutQuestionVersionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput | Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput[]
+  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutQuestionVersionsInput | Prisma.MediaUpsertWithWhereUniqueWithoutQuestionVersionsInput[]
   set?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   disconnect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   delete?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
-  update?: Prisma.MediaUpdateWithWhereUniqueWithoutQuestionsInput | Prisma.MediaUpdateWithWhereUniqueWithoutQuestionsInput[]
-  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutQuestionsInput | Prisma.MediaUpdateManyWithWhereWithoutQuestionsInput[]
+  update?: Prisma.MediaUpdateWithWhereUniqueWithoutQuestionVersionsInput | Prisma.MediaUpdateWithWhereUniqueWithoutQuestionVersionsInput[]
+  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutQuestionVersionsInput | Prisma.MediaUpdateManyWithWhereWithoutQuestionVersionsInput[]
   deleteMany?: Prisma.MediaScalarWhereInput | Prisma.MediaScalarWhereInput[]
 }
 
-export type MediaUncheckedUpdateManyWithoutQuestionsNestedInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionsInput, Prisma.MediaUncheckedCreateWithoutQuestionsInput> | Prisma.MediaCreateWithoutQuestionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionsInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionsInput | Prisma.MediaCreateOrConnectWithoutQuestionsInput[]
-  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutQuestionsInput | Prisma.MediaUpsertWithWhereUniqueWithoutQuestionsInput[]
+export type MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutQuestionVersionsInput, Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput> | Prisma.MediaCreateWithoutQuestionVersionsInput[] | Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput | Prisma.MediaCreateOrConnectWithoutQuestionVersionsInput[]
+  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutQuestionVersionsInput | Prisma.MediaUpsertWithWhereUniqueWithoutQuestionVersionsInput[]
   set?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   disconnect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   delete?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
-  update?: Prisma.MediaUpdateWithWhereUniqueWithoutQuestionsInput | Prisma.MediaUpdateWithWhereUniqueWithoutQuestionsInput[]
-  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutQuestionsInput | Prisma.MediaUpdateManyWithWhereWithoutQuestionsInput[]
+  update?: Prisma.MediaUpdateWithWhereUniqueWithoutQuestionVersionsInput | Prisma.MediaUpdateWithWhereUniqueWithoutQuestionVersionsInput[]
+  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutQuestionVersionsInput | Prisma.MediaUpdateManyWithWhereWithoutQuestionVersionsInput[]
   deleteMany?: Prisma.MediaScalarWhereInput | Prisma.MediaScalarWhereInput[]
 }
 
-export type MediaCreateNestedManyWithoutPassagesInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassagesInput, Prisma.MediaUncheckedCreateWithoutPassagesInput> | Prisma.MediaCreateWithoutPassagesInput[] | Prisma.MediaUncheckedCreateWithoutPassagesInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassagesInput | Prisma.MediaCreateOrConnectWithoutPassagesInput[]
+export type MediaCreateNestedManyWithoutPassageVersionsInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassageVersionsInput, Prisma.MediaUncheckedCreateWithoutPassageVersionsInput> | Prisma.MediaCreateWithoutPassageVersionsInput[] | Prisma.MediaUncheckedCreateWithoutPassageVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassageVersionsInput | Prisma.MediaCreateOrConnectWithoutPassageVersionsInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
 }
 
-export type MediaUncheckedCreateNestedManyWithoutPassagesInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassagesInput, Prisma.MediaUncheckedCreateWithoutPassagesInput> | Prisma.MediaCreateWithoutPassagesInput[] | Prisma.MediaUncheckedCreateWithoutPassagesInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassagesInput | Prisma.MediaCreateOrConnectWithoutPassagesInput[]
+export type MediaUncheckedCreateNestedManyWithoutPassageVersionsInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassageVersionsInput, Prisma.MediaUncheckedCreateWithoutPassageVersionsInput> | Prisma.MediaCreateWithoutPassageVersionsInput[] | Prisma.MediaUncheckedCreateWithoutPassageVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassageVersionsInput | Prisma.MediaCreateOrConnectWithoutPassageVersionsInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
 }
 
-export type MediaUpdateManyWithoutPassagesNestedInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassagesInput, Prisma.MediaUncheckedCreateWithoutPassagesInput> | Prisma.MediaCreateWithoutPassagesInput[] | Prisma.MediaUncheckedCreateWithoutPassagesInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassagesInput | Prisma.MediaCreateOrConnectWithoutPassagesInput[]
-  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutPassagesInput | Prisma.MediaUpsertWithWhereUniqueWithoutPassagesInput[]
+export type MediaUpdateManyWithoutPassageVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassageVersionsInput, Prisma.MediaUncheckedCreateWithoutPassageVersionsInput> | Prisma.MediaCreateWithoutPassageVersionsInput[] | Prisma.MediaUncheckedCreateWithoutPassageVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassageVersionsInput | Prisma.MediaCreateOrConnectWithoutPassageVersionsInput[]
+  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutPassageVersionsInput | Prisma.MediaUpsertWithWhereUniqueWithoutPassageVersionsInput[]
   set?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   disconnect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   delete?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
-  update?: Prisma.MediaUpdateWithWhereUniqueWithoutPassagesInput | Prisma.MediaUpdateWithWhereUniqueWithoutPassagesInput[]
-  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutPassagesInput | Prisma.MediaUpdateManyWithWhereWithoutPassagesInput[]
+  update?: Prisma.MediaUpdateWithWhereUniqueWithoutPassageVersionsInput | Prisma.MediaUpdateWithWhereUniqueWithoutPassageVersionsInput[]
+  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutPassageVersionsInput | Prisma.MediaUpdateManyWithWhereWithoutPassageVersionsInput[]
   deleteMany?: Prisma.MediaScalarWhereInput | Prisma.MediaScalarWhereInput[]
 }
 
-export type MediaUncheckedUpdateManyWithoutPassagesNestedInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassagesInput, Prisma.MediaUncheckedCreateWithoutPassagesInput> | Prisma.MediaCreateWithoutPassagesInput[] | Prisma.MediaUncheckedCreateWithoutPassagesInput[]
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassagesInput | Prisma.MediaCreateOrConnectWithoutPassagesInput[]
-  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutPassagesInput | Prisma.MediaUpsertWithWhereUniqueWithoutPassagesInput[]
+export type MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutPassageVersionsInput, Prisma.MediaUncheckedCreateWithoutPassageVersionsInput> | Prisma.MediaCreateWithoutPassageVersionsInput[] | Prisma.MediaUncheckedCreateWithoutPassageVersionsInput[]
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutPassageVersionsInput | Prisma.MediaCreateOrConnectWithoutPassageVersionsInput[]
+  upsert?: Prisma.MediaUpsertWithWhereUniqueWithoutPassageVersionsInput | Prisma.MediaUpsertWithWhereUniqueWithoutPassageVersionsInput[]
   set?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   disconnect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   delete?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
   connect?: Prisma.MediaWhereUniqueInput | Prisma.MediaWhereUniqueInput[]
-  update?: Prisma.MediaUpdateWithWhereUniqueWithoutPassagesInput | Prisma.MediaUpdateWithWhereUniqueWithoutPassagesInput[]
-  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutPassagesInput | Prisma.MediaUpdateManyWithWhereWithoutPassagesInput[]
+  update?: Prisma.MediaUpdateWithWhereUniqueWithoutPassageVersionsInput | Prisma.MediaUpdateWithWhereUniqueWithoutPassageVersionsInput[]
+  updateMany?: Prisma.MediaUpdateManyWithWhereWithoutPassageVersionsInput | Prisma.MediaUpdateManyWithWhereWithoutPassageVersionsInput[]
   deleteMany?: Prisma.MediaScalarWhereInput | Prisma.MediaScalarWhereInput[]
 }
 
-export type MediaCreateNestedOneWithoutTestCoverInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutTestCoverInput, Prisma.MediaUncheckedCreateWithoutTestCoverInput>
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutTestCoverInput
+export type MediaCreateNestedOneWithoutTestVersionCoverInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutTestVersionCoverInput, Prisma.MediaUncheckedCreateWithoutTestVersionCoverInput>
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutTestVersionCoverInput
   connect?: Prisma.MediaWhereUniqueInput
 }
 
-export type MediaUpdateOneWithoutTestCoverNestedInput = {
-  create?: Prisma.XOR<Prisma.MediaCreateWithoutTestCoverInput, Prisma.MediaUncheckedCreateWithoutTestCoverInput>
-  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutTestCoverInput
-  upsert?: Prisma.MediaUpsertWithoutTestCoverInput
+export type MediaUpdateOneWithoutTestVersionCoverNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaCreateWithoutTestVersionCoverInput, Prisma.MediaUncheckedCreateWithoutTestVersionCoverInput>
+  connectOrCreate?: Prisma.MediaCreateOrConnectWithoutTestVersionCoverInput
+  upsert?: Prisma.MediaUpsertWithoutTestVersionCoverInput
   disconnect?: Prisma.MediaWhereInput | boolean
   delete?: Prisma.MediaWhereInput | boolean
   connect?: Prisma.MediaWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MediaUpdateToOneWithWhereWithoutTestCoverInput, Prisma.MediaUpdateWithoutTestCoverInput>, Prisma.MediaUncheckedUpdateWithoutTestCoverInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MediaUpdateToOneWithWhereWithoutTestVersionCoverInput, Prisma.MediaUpdateWithoutTestVersionCoverInput>, Prisma.MediaUncheckedUpdateWithoutTestVersionCoverInput>
 }
 
 export type MediaCreateNestedManyWithoutUserInput = {
@@ -641,7 +641,7 @@ export type MediaUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.MediaScalarWhereInput | Prisma.MediaScalarWhereInput[]
 }
 
-export type MediaCreateWithoutQuestionsInput = {
+export type MediaCreateWithoutQuestionVersionsInput = {
   id?: string
   type: $Enums.MediaType
   url: string
@@ -652,11 +652,11 @@ export type MediaCreateWithoutQuestionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   User: Prisma.UserCreateNestedOneWithoutMediaInput
-  passages?: Prisma.PassageCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestCreateNestedOneWithoutCoverMediaInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionCreateNestedOneWithoutCoverMediaInput
 }
 
-export type MediaUncheckedCreateWithoutQuestionsInput = {
+export type MediaUncheckedCreateWithoutQuestionVersionsInput = {
   id?: string
   type: $Enums.MediaType
   url: string
@@ -667,29 +667,29 @@ export type MediaUncheckedCreateWithoutQuestionsInput = {
   mimeType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  passages?: Prisma.PassageUncheckedCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestUncheckedCreateNestedOneWithoutCoverMediaInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionUncheckedCreateNestedOneWithoutCoverMediaInput
 }
 
-export type MediaCreateOrConnectWithoutQuestionsInput = {
+export type MediaCreateOrConnectWithoutQuestionVersionsInput = {
   where: Prisma.MediaWhereUniqueInput
-  create: Prisma.XOR<Prisma.MediaCreateWithoutQuestionsInput, Prisma.MediaUncheckedCreateWithoutQuestionsInput>
+  create: Prisma.XOR<Prisma.MediaCreateWithoutQuestionVersionsInput, Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput>
 }
 
-export type MediaUpsertWithWhereUniqueWithoutQuestionsInput = {
+export type MediaUpsertWithWhereUniqueWithoutQuestionVersionsInput = {
   where: Prisma.MediaWhereUniqueInput
-  update: Prisma.XOR<Prisma.MediaUpdateWithoutQuestionsInput, Prisma.MediaUncheckedUpdateWithoutQuestionsInput>
-  create: Prisma.XOR<Prisma.MediaCreateWithoutQuestionsInput, Prisma.MediaUncheckedCreateWithoutQuestionsInput>
+  update: Prisma.XOR<Prisma.MediaUpdateWithoutQuestionVersionsInput, Prisma.MediaUncheckedUpdateWithoutQuestionVersionsInput>
+  create: Prisma.XOR<Prisma.MediaCreateWithoutQuestionVersionsInput, Prisma.MediaUncheckedCreateWithoutQuestionVersionsInput>
 }
 
-export type MediaUpdateWithWhereUniqueWithoutQuestionsInput = {
+export type MediaUpdateWithWhereUniqueWithoutQuestionVersionsInput = {
   where: Prisma.MediaWhereUniqueInput
-  data: Prisma.XOR<Prisma.MediaUpdateWithoutQuestionsInput, Prisma.MediaUncheckedUpdateWithoutQuestionsInput>
+  data: Prisma.XOR<Prisma.MediaUpdateWithoutQuestionVersionsInput, Prisma.MediaUncheckedUpdateWithoutQuestionVersionsInput>
 }
 
-export type MediaUpdateManyWithWhereWithoutQuestionsInput = {
+export type MediaUpdateManyWithWhereWithoutQuestionVersionsInput = {
   where: Prisma.MediaScalarWhereInput
-  data: Prisma.XOR<Prisma.MediaUpdateManyMutationInput, Prisma.MediaUncheckedUpdateManyWithoutQuestionsInput>
+  data: Prisma.XOR<Prisma.MediaUpdateManyMutationInput, Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsInput>
 }
 
 export type MediaScalarWhereInput = {
@@ -708,7 +708,7 @@ export type MediaScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Media"> | Date | string
 }
 
-export type MediaCreateWithoutPassagesInput = {
+export type MediaCreateWithoutPassageVersionsInput = {
   id?: string
   type: $Enums.MediaType
   url: string
@@ -719,11 +719,11 @@ export type MediaCreateWithoutPassagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   User: Prisma.UserCreateNestedOneWithoutMediaInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestCreateNestedOneWithoutCoverMediaInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionCreateNestedOneWithoutCoverMediaInput
 }
 
-export type MediaUncheckedCreateWithoutPassagesInput = {
+export type MediaUncheckedCreateWithoutPassageVersionsInput = {
   id?: string
   type: $Enums.MediaType
   url: string
@@ -734,32 +734,32 @@ export type MediaUncheckedCreateWithoutPassagesInput = {
   mimeType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestUncheckedCreateNestedOneWithoutCoverMediaInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionUncheckedCreateNestedOneWithoutCoverMediaInput
 }
 
-export type MediaCreateOrConnectWithoutPassagesInput = {
+export type MediaCreateOrConnectWithoutPassageVersionsInput = {
   where: Prisma.MediaWhereUniqueInput
-  create: Prisma.XOR<Prisma.MediaCreateWithoutPassagesInput, Prisma.MediaUncheckedCreateWithoutPassagesInput>
+  create: Prisma.XOR<Prisma.MediaCreateWithoutPassageVersionsInput, Prisma.MediaUncheckedCreateWithoutPassageVersionsInput>
 }
 
-export type MediaUpsertWithWhereUniqueWithoutPassagesInput = {
+export type MediaUpsertWithWhereUniqueWithoutPassageVersionsInput = {
   where: Prisma.MediaWhereUniqueInput
-  update: Prisma.XOR<Prisma.MediaUpdateWithoutPassagesInput, Prisma.MediaUncheckedUpdateWithoutPassagesInput>
-  create: Prisma.XOR<Prisma.MediaCreateWithoutPassagesInput, Prisma.MediaUncheckedCreateWithoutPassagesInput>
+  update: Prisma.XOR<Prisma.MediaUpdateWithoutPassageVersionsInput, Prisma.MediaUncheckedUpdateWithoutPassageVersionsInput>
+  create: Prisma.XOR<Prisma.MediaCreateWithoutPassageVersionsInput, Prisma.MediaUncheckedCreateWithoutPassageVersionsInput>
 }
 
-export type MediaUpdateWithWhereUniqueWithoutPassagesInput = {
+export type MediaUpdateWithWhereUniqueWithoutPassageVersionsInput = {
   where: Prisma.MediaWhereUniqueInput
-  data: Prisma.XOR<Prisma.MediaUpdateWithoutPassagesInput, Prisma.MediaUncheckedUpdateWithoutPassagesInput>
+  data: Prisma.XOR<Prisma.MediaUpdateWithoutPassageVersionsInput, Prisma.MediaUncheckedUpdateWithoutPassageVersionsInput>
 }
 
-export type MediaUpdateManyWithWhereWithoutPassagesInput = {
+export type MediaUpdateManyWithWhereWithoutPassageVersionsInput = {
   where: Prisma.MediaScalarWhereInput
-  data: Prisma.XOR<Prisma.MediaUpdateManyMutationInput, Prisma.MediaUncheckedUpdateManyWithoutPassagesInput>
+  data: Prisma.XOR<Prisma.MediaUpdateManyMutationInput, Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsInput>
 }
 
-export type MediaCreateWithoutTestCoverInput = {
+export type MediaCreateWithoutTestVersionCoverInput = {
   id?: string
   type: $Enums.MediaType
   url: string
@@ -770,11 +770,11 @@ export type MediaCreateWithoutTestCoverInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   User: Prisma.UserCreateNestedOneWithoutMediaInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutMediaInput
-  passages?: Prisma.PassageCreateNestedManyWithoutMediaInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutMediaInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutMediaInput
 }
 
-export type MediaUncheckedCreateWithoutTestCoverInput = {
+export type MediaUncheckedCreateWithoutTestVersionCoverInput = {
   id?: string
   type: $Enums.MediaType
   url: string
@@ -785,27 +785,27 @@ export type MediaUncheckedCreateWithoutTestCoverInput = {
   mimeType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutMediaInput
-  passages?: Prisma.PassageUncheckedCreateNestedManyWithoutMediaInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutMediaInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutMediaInput
 }
 
-export type MediaCreateOrConnectWithoutTestCoverInput = {
+export type MediaCreateOrConnectWithoutTestVersionCoverInput = {
   where: Prisma.MediaWhereUniqueInput
-  create: Prisma.XOR<Prisma.MediaCreateWithoutTestCoverInput, Prisma.MediaUncheckedCreateWithoutTestCoverInput>
+  create: Prisma.XOR<Prisma.MediaCreateWithoutTestVersionCoverInput, Prisma.MediaUncheckedCreateWithoutTestVersionCoverInput>
 }
 
-export type MediaUpsertWithoutTestCoverInput = {
-  update: Prisma.XOR<Prisma.MediaUpdateWithoutTestCoverInput, Prisma.MediaUncheckedUpdateWithoutTestCoverInput>
-  create: Prisma.XOR<Prisma.MediaCreateWithoutTestCoverInput, Prisma.MediaUncheckedCreateWithoutTestCoverInput>
+export type MediaUpsertWithoutTestVersionCoverInput = {
+  update: Prisma.XOR<Prisma.MediaUpdateWithoutTestVersionCoverInput, Prisma.MediaUncheckedUpdateWithoutTestVersionCoverInput>
+  create: Prisma.XOR<Prisma.MediaCreateWithoutTestVersionCoverInput, Prisma.MediaUncheckedCreateWithoutTestVersionCoverInput>
   where?: Prisma.MediaWhereInput
 }
 
-export type MediaUpdateToOneWithWhereWithoutTestCoverInput = {
+export type MediaUpdateToOneWithWhereWithoutTestVersionCoverInput = {
   where?: Prisma.MediaWhereInput
-  data: Prisma.XOR<Prisma.MediaUpdateWithoutTestCoverInput, Prisma.MediaUncheckedUpdateWithoutTestCoverInput>
+  data: Prisma.XOR<Prisma.MediaUpdateWithoutTestVersionCoverInput, Prisma.MediaUncheckedUpdateWithoutTestVersionCoverInput>
 }
 
-export type MediaUpdateWithoutTestCoverInput = {
+export type MediaUpdateWithoutTestVersionCoverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -816,11 +816,11 @@ export type MediaUpdateWithoutTestCoverInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   User?: Prisma.UserUpdateOneRequiredWithoutMediaNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutMediaNestedInput
-  passages?: Prisma.PassageUpdateManyWithoutMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutMediaNestedInput
 }
 
-export type MediaUncheckedUpdateWithoutTestCoverInput = {
+export type MediaUncheckedUpdateWithoutTestVersionCoverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -831,8 +831,8 @@ export type MediaUncheckedUpdateWithoutTestCoverInput = {
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutMediaNestedInput
-  passages?: Prisma.PassageUncheckedUpdateManyWithoutMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutMediaNestedInput
 }
 
 export type MediaCreateWithoutUserInput = {
@@ -845,9 +845,9 @@ export type MediaCreateWithoutUserInput = {
   mimeType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  questions?: Prisma.QuestionCreateNestedManyWithoutMediaInput
-  passages?: Prisma.PassageCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestCreateNestedOneWithoutCoverMediaInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutMediaInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionCreateNestedOneWithoutCoverMediaInput
 }
 
 export type MediaUncheckedCreateWithoutUserInput = {
@@ -860,9 +860,9 @@ export type MediaUncheckedCreateWithoutUserInput = {
   mimeType?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutMediaInput
-  passages?: Prisma.PassageUncheckedCreateNestedManyWithoutMediaInput
-  testCover?: Prisma.TestUncheckedCreateNestedOneWithoutCoverMediaInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutMediaInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutMediaInput
+  testVersionCover?: Prisma.TestVersionUncheckedCreateNestedOneWithoutCoverMediaInput
 }
 
 export type MediaCreateOrConnectWithoutUserInput = {
@@ -891,7 +891,7 @@ export type MediaUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.MediaUpdateManyMutationInput, Prisma.MediaUncheckedUpdateManyWithoutUserInput>
 }
 
-export type MediaUpdateWithoutQuestionsInput = {
+export type MediaUpdateWithoutQuestionVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -902,11 +902,11 @@ export type MediaUpdateWithoutQuestionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   User?: Prisma.UserUpdateOneRequiredWithoutMediaNestedInput
-  passages?: Prisma.PassageUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUpdateOneWithoutCoverMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUpdateOneWithoutCoverMediaNestedInput
 }
 
-export type MediaUncheckedUpdateWithoutQuestionsInput = {
+export type MediaUncheckedUpdateWithoutQuestionVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -917,11 +917,11 @@ export type MediaUncheckedUpdateWithoutQuestionsInput = {
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  passages?: Prisma.PassageUncheckedUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUncheckedUpdateOneWithoutCoverMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUncheckedUpdateOneWithoutCoverMediaNestedInput
 }
 
-export type MediaUncheckedUpdateManyWithoutQuestionsInput = {
+export type MediaUncheckedUpdateManyWithoutQuestionVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -934,7 +934,7 @@ export type MediaUncheckedUpdateManyWithoutQuestionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type MediaUpdateWithoutPassagesInput = {
+export type MediaUpdateWithoutPassageVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -945,11 +945,11 @@ export type MediaUpdateWithoutPassagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   User?: Prisma.UserUpdateOneRequiredWithoutMediaNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUpdateOneWithoutCoverMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUpdateOneWithoutCoverMediaNestedInput
 }
 
-export type MediaUncheckedUpdateWithoutPassagesInput = {
+export type MediaUncheckedUpdateWithoutPassageVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -960,11 +960,11 @@ export type MediaUncheckedUpdateWithoutPassagesInput = {
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUncheckedUpdateOneWithoutCoverMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUncheckedUpdateOneWithoutCoverMediaNestedInput
 }
 
-export type MediaUncheckedUpdateManyWithoutPassagesInput = {
+export type MediaUncheckedUpdateManyWithoutPassageVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -999,9 +999,9 @@ export type MediaUpdateWithoutUserInput = {
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  questions?: Prisma.QuestionUpdateManyWithoutMediaNestedInput
-  passages?: Prisma.PassageUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUpdateOneWithoutCoverMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUpdateOneWithoutCoverMediaNestedInput
 }
 
 export type MediaUncheckedUpdateWithoutUserInput = {
@@ -1014,9 +1014,9 @@ export type MediaUncheckedUpdateWithoutUserInput = {
   mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutMediaNestedInput
-  passages?: Prisma.PassageUncheckedUpdateManyWithoutMediaNestedInput
-  testCover?: Prisma.TestUncheckedUpdateOneWithoutCoverMediaNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutMediaNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutMediaNestedInput
+  testVersionCover?: Prisma.TestVersionUncheckedUpdateOneWithoutCoverMediaNestedInput
 }
 
 export type MediaUncheckedUpdateManyWithoutUserInput = {
@@ -1037,13 +1037,13 @@ export type MediaUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type MediaCountOutputType = {
-  questions: number
-  passages: number
+  questionVersions: number
+  passageVersions: number
 }
 
 export type MediaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  questions?: boolean | MediaCountOutputTypeCountQuestionsArgs
-  passages?: boolean | MediaCountOutputTypeCountPassagesArgs
+  questionVersions?: boolean | MediaCountOutputTypeCountQuestionVersionsArgs
+  passageVersions?: boolean | MediaCountOutputTypeCountPassageVersionsArgs
 }
 
 /**
@@ -1059,15 +1059,15 @@ export type MediaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * MediaCountOutputType without action
  */
-export type MediaCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.QuestionWhereInput
+export type MediaCountOutputTypeCountQuestionVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestionVersionWhereInput
 }
 
 /**
  * MediaCountOutputType without action
  */
-export type MediaCountOutputTypeCountPassagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PassageWhereInput
+export type MediaCountOutputTypeCountPassageVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PassageVersionWhereInput
 }
 
 
@@ -1083,9 +1083,9 @@ export type MediaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdAt?: boolean
   updatedAt?: boolean
   User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  questions?: boolean | Prisma.Media$questionsArgs<ExtArgs>
-  passages?: boolean | Prisma.Media$passagesArgs<ExtArgs>
-  testCover?: boolean | Prisma.Media$testCoverArgs<ExtArgs>
+  questionVersions?: boolean | Prisma.Media$questionVersionsArgs<ExtArgs>
+  passageVersions?: boolean | Prisma.Media$passageVersionsArgs<ExtArgs>
+  testVersionCover?: boolean | Prisma.Media$testVersionCoverArgs<ExtArgs>
   _count?: boolean | Prisma.MediaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["media"]>
 
@@ -1133,9 +1133,9 @@ export type MediaSelectScalar = {
 export type MediaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "url" | "ownerId" | "isDeleted" | "alt" | "size" | "mimeType" | "createdAt" | "updatedAt", ExtArgs["result"]["media"]>
 export type MediaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  questions?: boolean | Prisma.Media$questionsArgs<ExtArgs>
-  passages?: boolean | Prisma.Media$passagesArgs<ExtArgs>
-  testCover?: boolean | Prisma.Media$testCoverArgs<ExtArgs>
+  questionVersions?: boolean | Prisma.Media$questionVersionsArgs<ExtArgs>
+  passageVersions?: boolean | Prisma.Media$passageVersionsArgs<ExtArgs>
+  testVersionCover?: boolean | Prisma.Media$testVersionCoverArgs<ExtArgs>
   _count?: boolean | Prisma.MediaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MediaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1149,9 +1149,9 @@ export type $MediaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Media"
   objects: {
     User: Prisma.$UserPayload<ExtArgs>
-    questions: Prisma.$QuestionPayload<ExtArgs>[]
-    passages: Prisma.$PassagePayload<ExtArgs>[]
-    testCover: Prisma.$TestPayload<ExtArgs> | null
+    questionVersions: Prisma.$QuestionVersionPayload<ExtArgs>[]
+    passageVersions: Prisma.$PassageVersionPayload<ExtArgs>[]
+    testVersionCover: Prisma.$TestVersionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1559,9 +1559,9 @@ readonly fields: MediaFieldRefs;
 export interface Prisma__MediaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  questions<T extends Prisma.Media$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Media$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  passages<T extends Prisma.Media$passagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Media$passagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  testCover<T extends Prisma.Media$testCoverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Media$testCoverArgs<ExtArgs>>): Prisma.Prisma__TestClient<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  questionVersions<T extends Prisma.Media$questionVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Media$questionVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passageVersions<T extends Prisma.Media$passageVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Media$passageVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassageVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  testVersionCover<T extends Prisma.Media$testVersionCoverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Media$testVersionCoverArgs<ExtArgs>>): Prisma.Prisma__TestVersionClient<runtime.Types.Result.GetResult<Prisma.$TestVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2002,70 +2002,70 @@ export type MediaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Media.questions
+ * Media.questionVersions
  */
-export type Media$questionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Media$questionVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Question
+   * Select specific fields to fetch from the QuestionVersion
    */
-  select?: Prisma.QuestionSelect<ExtArgs> | null
+  select?: Prisma.QuestionVersionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Question
+   * Omit specific fields from the QuestionVersion
    */
-  omit?: Prisma.QuestionOmit<ExtArgs> | null
+  omit?: Prisma.QuestionVersionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.QuestionInclude<ExtArgs> | null
-  where?: Prisma.QuestionWhereInput
-  orderBy?: Prisma.QuestionOrderByWithRelationInput | Prisma.QuestionOrderByWithRelationInput[]
-  cursor?: Prisma.QuestionWhereUniqueInput
+  include?: Prisma.QuestionVersionInclude<ExtArgs> | null
+  where?: Prisma.QuestionVersionWhereInput
+  orderBy?: Prisma.QuestionVersionOrderByWithRelationInput | Prisma.QuestionVersionOrderByWithRelationInput[]
+  cursor?: Prisma.QuestionVersionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.QuestionScalarFieldEnum | Prisma.QuestionScalarFieldEnum[]
+  distinct?: Prisma.QuestionVersionScalarFieldEnum | Prisma.QuestionVersionScalarFieldEnum[]
 }
 
 /**
- * Media.passages
+ * Media.passageVersions
  */
-export type Media$passagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Media$passageVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Passage
+   * Select specific fields to fetch from the PassageVersion
    */
-  select?: Prisma.PassageSelect<ExtArgs> | null
+  select?: Prisma.PassageVersionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Passage
+   * Omit specific fields from the PassageVersion
    */
-  omit?: Prisma.PassageOmit<ExtArgs> | null
+  omit?: Prisma.PassageVersionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PassageInclude<ExtArgs> | null
-  where?: Prisma.PassageWhereInput
-  orderBy?: Prisma.PassageOrderByWithRelationInput | Prisma.PassageOrderByWithRelationInput[]
-  cursor?: Prisma.PassageWhereUniqueInput
+  include?: Prisma.PassageVersionInclude<ExtArgs> | null
+  where?: Prisma.PassageVersionWhereInput
+  orderBy?: Prisma.PassageVersionOrderByWithRelationInput | Prisma.PassageVersionOrderByWithRelationInput[]
+  cursor?: Prisma.PassageVersionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PassageScalarFieldEnum | Prisma.PassageScalarFieldEnum[]
+  distinct?: Prisma.PassageVersionScalarFieldEnum | Prisma.PassageVersionScalarFieldEnum[]
 }
 
 /**
- * Media.testCover
+ * Media.testVersionCover
  */
-export type Media$testCoverArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Media$testVersionCoverArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Test
+   * Select specific fields to fetch from the TestVersion
    */
-  select?: Prisma.TestSelect<ExtArgs> | null
+  select?: Prisma.TestVersionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Test
+   * Omit specific fields from the TestVersion
    */
-  omit?: Prisma.TestOmit<ExtArgs> | null
+  omit?: Prisma.TestVersionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TestInclude<ExtArgs> | null
-  where?: Prisma.TestWhereInput
+  include?: Prisma.TestVersionInclude<ExtArgs> | null
+  where?: Prisma.TestVersionWhereInput
 }
 
 /**

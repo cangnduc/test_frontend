@@ -1,55 +1,58 @@
 model Account {
-id            Int       @id @default(autoincrement())
-accountId             String
-providerId            String
-userId                Int
-user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-accessToken           String?
-refreshToken          String?
-idToken               String?
-accessTokenExpiresAt  DateTime?
-refreshTokenExpiresAt DateTime?
-scope                 String?
-password              String?
-createdAt             DateTime  @default(now())
-updatedAt             DateTime  @updatedAt
+  id                    Int       @id @default(autoincrement())
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  userId                Int       @map("user_id")
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @map("access_token")
+  refreshToken          String?   @map("refresh_token")
+  idToken               String?   @map("id_token")
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
 
-@@index([userId])
-@@map("account")
+  @@index([userId])
+  @@map("account")
 }
 
 model Session {
-id        String   @id @default(uuid())
-expiresAt DateTime
-token     String
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
-ipAddress String?
-userAgent String?
-userId    Int
-user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  expiresAt DateTime @map("expires_at")
+  token     String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-@@unique([token])
-@@index([userId])
-@@map("session")
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
 }
 
 model User {
   id            Int       @id @default(autoincrement())
   name          String?
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean   @default(false) @map("email_verified")
   image         String?
   banned        Boolean   @default(false)
   role          UserRole  @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
   sessions      Session[]
   accounts      Account[]
   stats         UserStats?
   tests         Test[]     @relation("UserCreatedTests")
+  testVersions  TestVersion[] @relation("UserCreatedTestVersions")
   questions     Question[] @relation("UserCreatedQuestions")
+  questionVersions QuestionVersion[] @relation("UserCreatedQuestionVersions")
   passages      Passage[]  @relation("UserCreatedPassages")
+  passageVersions PassageVersion[] @relation("UserCreatedPassageVersions")
   media         Media[]    @relation("UserCreatedMedia")
   profile       Profile?
   tokenHistory  TokenTransaction[]
@@ -74,113 +77,125 @@ model User {
 }
 
 model Verification {
-id         String   @id @default(uuid())
-identifier String
-value      String
-expiresAt  DateTime
-createdAt  DateTime @default(now())
-updatedAt  DateTime @updatedAt
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime @map("expires_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
-@@index([identifier])
-@@map("verification")
+  @@index([identifier])
+  @@map("verification")
 }
 
 model Profile {
   id          String    @id @default(uuid())
   bio         String?
-  displayName String?
-  avatarUrl   String?
-  dateOfBirth DateTime?
+  displayName String?   @map("display_name")
+  avatarUrl   String?   @map("avatar_url")
+  dateOfBirth DateTime? @map("date_of_birth")
   gender      Gender?
   language    String?   @default("en")
   timezone    String?   @default("UTC")
 
-  userId    Int      @unique
-  User      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  userId    Int      @unique @map("user_id")
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("profile")
 }
 
 model ParentStudentLink {
   id        String   @id @default(uuid())
-  parentId  Int
-  parent    User     @relation("ParentLinks", fields: [parentId], references: [id])
-  studentId Int
-  student   User     @relation("StudentLinks", fields: [studentId], references: [id])
-  createdAt DateTime @default(now())
+  parentId  Int      @map("parent_id")
+  parent    User     @relation("ParentLinks", fields: [parentId], references: [id], onDelete: Cascade)
+  studentId Int      @map("student_id")
+  student   User     @relation("StudentLinks", fields: [studentId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@unique([parentId, studentId])
+  @@index([studentId])
+  @@map("parent_student_link")
 }
 
 model Notification {
   id        String           @id @default(uuid())
-  userId    Int
+  userId    Int              @map("user_id")
   user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   type      NotificationType
   title     String
   body      String
-  isRead    Boolean          @default(false)
+  isRead    Boolean          @default(false) @map("is_read")
   metadata  Json?
-  createdAt DateTime         @default(now())
+  createdAt DateTime         @default(now()) @map("created_at")
 
   @@index([userId, isRead])
+  @@index([createdAt])
+  @@map("notification")
 }
+
 model UserStats {
-id        String   @id @default(uuid())
-userId    Int      @unique
-user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  userId    Int      @unique @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-// Gamification
-tokens    Int      @default(0)
-xp        Int      @default(0)
-level     Int      @default(1)
-streak    Int      @default(0)
+  // Gamification
+  tokens    Int      @default(0)
+  xp        Int      @default(0)
+  level     Int      @default(1)
+  streak    Int      @default(0)
 
-// Progress summary
-testsTaken     Int @default(0)
-testsCompleted Int @default(0)
-testsPassed    Int @default(0)
+  // Progress summary
+  testsTaken     Int @default(0) @map("tests_taken")
+  testsCompleted Int @default(0) @map("tests_completed")
+  testsPassed    Int @default(0) @map("tests_passed")
 
-lastActiveAt DateTime @default(now())
-createdAt    DateTime @default(now())
-updatedAt    DateTime @updatedAt
+  lastActiveAt DateTime @default(now()) @map("last_active_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("user_stats")
 }
 
 model TokenTransaction {
-id        String   @id @default(uuid())
+  id        String   @id @default(uuid())
 
-userId    Int
-user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-amount    Int      // +10 reward, -5 test attempt
-balanceAfter Int   // snapshot after transaction (important!)
-reason    TokenTransactionReason
+  amount    Int      // +10 reward, -5 test attempt
+  balanceAfter Int   @map("balance_after") // snapshot after transaction (important!)
+  reason    TokenTransactionReason
 
-testId    String?  // context (optional)
-attemptId String?  // context (optional)
+  testId    String?  @map("test_id") // context (optional)
+  attemptId String?  @map("attempt_id") // context (optional)
 
-createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
-@@index([userId, createdAt])
+  @@index([userId, createdAt])
+  @@map("token_transaction")
 }
+
 model UserTestProgress {
   id        String   @id @default(uuid())
 
-  userId    Int
+  userId    Int      @map("user_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  testId    String
+  testId    String   @map("test_id")
   test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
 
   status     AttemptStatus
   score      Float?
-  maxScore   Float?
+  maxScore   Float?   @map("max_score")
   percentage Float?
 
-  lastAttemptId  String?
+  lastAttemptId  String?      @map("last_attempt_id")
   lastAttempt    TestAttempt? @relation(fields: [lastAttemptId], references: [id])
-  lastActivityAt DateTime @updatedAt
+  lastActivityAt DateTime     @updatedAt @map("last_activity_at")
 
   @@unique([userId, testId])
   @@index([userId, status])
+  @@map("user_test_progress")
 }

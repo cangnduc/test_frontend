@@ -28,6 +28,11 @@ enum PublishStatus {
   PRIVATE // Visible to use for other
 }
 
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
 enum AttemptStatus {
   STARTED
   IN_PROGRESS
@@ -66,10 +71,7 @@ enum SubjectType {
   GENERAL_KNOWLEDGE
 }
 
-enum Visibility {
-  PUBLIC
-  PRIVATE
-}
+
 
 enum ResultViewType {
   IMMEDIATE //show score + answers + explanations
@@ -121,6 +123,9 @@ enum Gender {
 enum ClassRole {
   STUDENT
   AUDITOR
+  TEACHER
+  MOD
+  ADMIN
 }
 
 enum NotificationType {

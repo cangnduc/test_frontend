@@ -1,84 +1,105 @@
 model Test {
   id          String        @id @default(uuid())
-  
   title       String
   description String?
-  status      PublishStatus    @default(PUBLISHED)
-  tokenRequired Int        @default(0) // Number of tokens required to take this test (for gamification)
-  tags        String[]      @default([])
-  difficulty  DifficultyLevel @default(DL_1)
   
-  // Cover image - only 1 allowed per test
-  coverMediaId String? @unique
-  coverMedia   Media?  @relation("TestCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
-
-  subjectId   String
+  subjectId   String        @map("subject_id")
   subject     Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 
-  createdById Int
+  createdById Int           @map("created_by_id")
   createdBy   User          @relation("UserCreatedTests", fields: [createdById], references: [id])
 
-  attempts         TestAttempt[] // Who took this test?
-  sections         TestSection[]
-  setting          TestSetting?
-  progress         UserTestProgress[]
+  versions         TestVersion[]
   classAssignments ClassTestAssignment[]
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
+  attempts         TestAttempt[]
+  progress         UserTestProgress[]
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+
+  @@index([subjectId])
+  @@index([createdById])
+  @@map("test")
 }
 
-model TestSetting {
-  id                   String   @id @default(uuid())
- 
-  availableFrom        DateTime? @default(now())
-  availableTo          DateTime?
+model TestVersion {
+  id            String        @id @default(uuid())
+  testId        String        @map("test_id")
+  test          Test          @relation(fields: [testId], references: [id], onDelete: Cascade)
+  version       Int           // 1, 2, 3... per test
+  status        PublishStatus @default(DRAFT)
+  
+  // Snapshot of test-level metadata
+  tokenRequired     Int             @default(0) @map("token_required")
+  tags              String[]        @default([])
+  difficulty        DifficultyLevel @default(DL_1)
+  coverMediaId      String?         @unique @map("cover_media_id")
+  coverMedia        Media?          @relation("TestVersionCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
+  
+  createdById   Int           @map("created_by_id")
+  createdBy     User          @relation("UserCreatedTestVersions", fields: [createdById], references: [id])
+
+  // Settings (merged from old TestSetting)
+  availableFrom         DateTime? @default(now()) @map("available_from")
+  availableTo           DateTime? @map("available_to")
   duration             Int?     // Total test duration (minutes)
-  
-  // PROFESSIONAL SETTINGS
-  maxAttempts          Int?      @default(-1) // -1 = unlimited
-  shuffleQuestions     Boolean?  @default(false) // Randomize order?
-  showResultImmediately Boolean? @default(true)  // or wait for manual publish?
-  requirePassword      String?  // For proctored exams
-  ipRestriction        String?  // Anti-cheat (optional)
-  strictMode             Boolean?  @default(false) // block copy-paste, switch tabs, etc.
-  forwardOnly            Boolean?  @default(false) // if true, use must finish section 1 before going to section 2, and can't go back to previous sections
-  passingPercentage      Int?      @default(50) // Percentage of passage to show
-  resultView ResultViewType? @default(IMMEDIATE) // Instant or AfterTest 
-  
-  testId               String   @unique
-  test                 Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  maxAttempts          Int?      @default(-1) @map("max_attempts")
+  shuffleQuestions     Boolean?  @default(false) @map("shuffle_questions")
+  showResultImmediately Boolean? @default(true) @map("show_result_immediately")
+  requirePassword      String?   @map("require_password")
+  ipRestriction        String?   @map("ip_restriction")
+  strictMode             Boolean?  @default(false) @map("strict_mode")
+  forwardOnly            Boolean?  @default(false) @map("forward_only")
+  passingPercentage      Int?      @default(50) @map("passing_percentage")
+  resultView           ResultViewType? @default(IMMEDIATE) @map("result_view")
+
+  sections         TestVersionSection[]
+  classAssignments ClassTestAssignment[] 
+  attempts         TestAttempt[]
+  createdAt        DateTime      @default(now()) @map("created_at")
+
+  @@unique([testId, version])
+  @@index([testId, status])
+  @@index([testId, version])
+  @@map("test_version")
 }
 
-model TestSection {
-  id          String         @id @default(uuid())
-  type SectionType
-  title       String         // e.g., "Section 1: Calculating, Reading, Listening"
-  order       Int
-  description String?        // instructions for this specific section
-  timeLimit   Int?           @default(-1)  // in minutes (-1 = no limit)
-  questionSelectionMode SelectionMode @default(ALL_REQUIRED)
-  questionToSelect Int? @default(-1) // Number of questions to select (-1 = all)
+model TestVersionSection {
+  id                    String          @id @default(uuid())
+  testVersionId         String          @map("test_version_id")
+  testVersion           TestVersion     @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
+  type                  SectionType
+  title                 String
+  order                 Int
+  description           String?
+  timeLimit             Int?            @default(-1) @map("time_limit")
+  questionSelectionMode SelectionMode   @default(ALL_REQUIRED) @map("question_selection_mode")
+  questionToSelect      Int?            @default(-1) @map("question_to_select")
+  passageVersionId      String?         @map("passage_version_id") // ✅ for passage‑based sections
+  passageVersion        PassageVersion? @relation(fields: [passageVersionId], references: [id])
 
-  questions   TestQuestion[] // The "Link" table. Allows reusing questions in multiple tests.
-  attemptSections AttemptSection[] // Sections in attempts
-  testId      String
-  test        Test           @relation(fields: [testId], references: [id], onDelete: Cascade)
+  questions TestVersionQuestion[]
+  attemptSections AttemptSection[]      // now references this versioned section
 
-  passageId   String?
-  passage     Passage?       @relation(fields: [passageId], references: [id])
+  @@index([testVersionId, order])
+  @@map("test_version_section")
 }
-// The "Link" table. Allows reusing questions in multiple tests.
-model TestQuestion {
-  id          String      @id @default(uuid())
-  sectionId   String
-  section     TestSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+model TestVersionQuestion {
+  id                   String            @id @default(uuid())
+  testVersionSectionId String            @map("test_version_section_id")
+  testVersionSection   TestVersionSection @relation(fields: [testVersionSectionId], references: [id], onDelete: Cascade)
+  
+  questionId          String            @map("question_id") // Container ID
+  question            Question          @relation(fields: [questionId], references: [id])
+  
+  questionVersionId    String            @map("question_version_id") // ✅ links to immutable question version
+  questionVersion      QuestionVersion   @relation(fields: [questionVersionId], references: [id])
+  
+  order                Int
+  point                Int               @default(1)   // override per test
+
   attemptQuestions AttemptQuestion[]
-  questionId  String
-  question    Question    @relation(fields: [questionId], references: [id])
-  
-  order       Int
-  point       Int         @default(1) // Can override base points
-  
-  @@unique([sectionId, questionId])
-  @@index([sectionId])
+  @@unique([testVersionSectionId, questionVersionId])
+  @@index([testVersionSectionId, order])
+  @@map("test_version_question")
 }

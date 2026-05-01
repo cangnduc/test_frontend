@@ -41,7 +41,7 @@ export type AttemptSectionSumAggregateOutputType = {
 export type AttemptSectionMinAggregateOutputType = {
   id: string | null
   attemptId: string | null
-  sectionId: string | null
+  testVersionSectionId: string | null
   order: number | null
   title: string | null
   timeLimit: number | null
@@ -56,7 +56,7 @@ export type AttemptSectionMinAggregateOutputType = {
 export type AttemptSectionMaxAggregateOutputType = {
   id: string | null
   attemptId: string | null
-  sectionId: string | null
+  testVersionSectionId: string | null
   order: number | null
   title: string | null
   timeLimit: number | null
@@ -71,7 +71,7 @@ export type AttemptSectionMaxAggregateOutputType = {
 export type AttemptSectionCountAggregateOutputType = {
   id: number
   attemptId: number
-  sectionId: number
+  testVersionSectionId: number
   order: number
   title: number
   timeLimit: number
@@ -100,7 +100,7 @@ export type AttemptSectionSumAggregateInputType = {
 export type AttemptSectionMinAggregateInputType = {
   id?: true
   attemptId?: true
-  sectionId?: true
+  testVersionSectionId?: true
   order?: true
   title?: true
   timeLimit?: true
@@ -115,7 +115,7 @@ export type AttemptSectionMinAggregateInputType = {
 export type AttemptSectionMaxAggregateInputType = {
   id?: true
   attemptId?: true
-  sectionId?: true
+  testVersionSectionId?: true
   order?: true
   title?: true
   timeLimit?: true
@@ -130,7 +130,7 @@ export type AttemptSectionMaxAggregateInputType = {
 export type AttemptSectionCountAggregateInputType = {
   id?: true
   attemptId?: true
-  sectionId?: true
+  testVersionSectionId?: true
   order?: true
   title?: true
   timeLimit?: true
@@ -232,7 +232,7 @@ export type AttemptSectionGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type AttemptSectionGroupByOutputType = {
   id: string
   attemptId: string
-  sectionId: string
+  testVersionSectionId: string
   order: number
   title: string
   timeLimit: number | null
@@ -270,7 +270,7 @@ export type AttemptSectionWhereInput = {
   NOT?: Prisma.AttemptSectionWhereInput | Prisma.AttemptSectionWhereInput[]
   id?: Prisma.StringFilter<"AttemptSection"> | string
   attemptId?: Prisma.StringFilter<"AttemptSection"> | string
-  sectionId?: Prisma.StringFilter<"AttemptSection"> | string
+  testVersionSectionId?: Prisma.StringFilter<"AttemptSection"> | string
   order?: Prisma.IntFilter<"AttemptSection"> | number
   title?: Prisma.StringFilter<"AttemptSection"> | string
   timeLimit?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
@@ -280,8 +280,8 @@ export type AttemptSectionWhereInput = {
   startedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   sectionEndAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
-  section?: Prisma.XOR<Prisma.TestSectionScalarRelationFilter, Prisma.TestSectionWhereInput>
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
+  testVersionSection?: Prisma.XOR<Prisma.TestVersionSectionScalarRelationFilter, Prisma.TestVersionSectionWhereInput>
   currentAttempts?: Prisma.TestAttemptListRelationFilter
   questions?: Prisma.AttemptQuestionListRelationFilter
 }
@@ -289,7 +289,7 @@ export type AttemptSectionWhereInput = {
 export type AttemptSectionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
+  testVersionSectionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
   timeLimit?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -299,20 +299,20 @@ export type AttemptSectionOrderByWithRelationInput = {
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   sectionEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  section?: Prisma.TestSectionOrderByWithRelationInput
   attempt?: Prisma.TestAttemptOrderByWithRelationInput
+  testVersionSection?: Prisma.TestVersionSectionOrderByWithRelationInput
   currentAttempts?: Prisma.TestAttemptOrderByRelationAggregateInput
   questions?: Prisma.AttemptQuestionOrderByRelationAggregateInput
 }
 
 export type AttemptSectionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  attemptId_sectionId?: Prisma.AttemptSectionAttemptIdSectionIdCompoundUniqueInput
+  attemptId_testVersionSectionId?: Prisma.AttemptSectionAttemptIdTestVersionSectionIdCompoundUniqueInput
   AND?: Prisma.AttemptSectionWhereInput | Prisma.AttemptSectionWhereInput[]
   OR?: Prisma.AttemptSectionWhereInput[]
   NOT?: Prisma.AttemptSectionWhereInput | Prisma.AttemptSectionWhereInput[]
   attemptId?: Prisma.StringFilter<"AttemptSection"> | string
-  sectionId?: Prisma.StringFilter<"AttemptSection"> | string
+  testVersionSectionId?: Prisma.StringFilter<"AttemptSection"> | string
   order?: Prisma.IntFilter<"AttemptSection"> | number
   title?: Prisma.StringFilter<"AttemptSection"> | string
   timeLimit?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
@@ -322,16 +322,16 @@ export type AttemptSectionWhereUniqueInput = Prisma.AtLeast<{
   startedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   sectionEndAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
-  section?: Prisma.XOR<Prisma.TestSectionScalarRelationFilter, Prisma.TestSectionWhereInput>
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
+  testVersionSection?: Prisma.XOR<Prisma.TestVersionSectionScalarRelationFilter, Prisma.TestVersionSectionWhereInput>
   currentAttempts?: Prisma.TestAttemptListRelationFilter
   questions?: Prisma.AttemptQuestionListRelationFilter
-}, "id" | "attemptId_sectionId">
+}, "id" | "attemptId_testVersionSectionId">
 
 export type AttemptSectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
+  testVersionSectionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
   timeLimit?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -354,7 +354,7 @@ export type AttemptSectionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AttemptSectionScalarWhereWithAggregatesInput | Prisma.AttemptSectionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
   attemptId?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
-  sectionId?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
+  testVersionSectionId?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
   order?: Prisma.IntWithAggregatesFilter<"AttemptSection"> | number
   title?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
   timeLimit?: Prisma.IntNullableWithAggregatesFilter<"AttemptSection"> | number | null
@@ -377,8 +377,8 @@ export type AttemptSectionCreateInput = {
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
-  section: Prisma.TestSectionCreateNestedOneWithoutAttemptSectionsInput
   attempt: Prisma.TestAttemptCreateNestedOneWithoutSectionsInput
+  testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   currentAttempts?: Prisma.TestAttemptCreateNestedManyWithoutCurrentSectionInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptSectionInput
 }
@@ -386,7 +386,7 @@ export type AttemptSectionCreateInput = {
 export type AttemptSectionUncheckedCreateInput = {
   id?: string
   attemptId: string
-  sectionId: string
+  testVersionSectionId: string
   order: number
   title: string
   timeLimit?: number | null
@@ -411,8 +411,8 @@ export type AttemptSectionUpdateInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  section?: Prisma.TestSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutSectionsNestedInput
+  testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   currentAttempts?: Prisma.TestAttemptUpdateManyWithoutCurrentSectionNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptSectionNestedInput
 }
@@ -420,7 +420,7 @@ export type AttemptSectionUpdateInput = {
 export type AttemptSectionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -437,7 +437,7 @@ export type AttemptSectionUncheckedUpdateInput = {
 export type AttemptSectionCreateManyInput = {
   id?: string
   attemptId: string
-  sectionId: string
+  testVersionSectionId: string
   order: number
   title: string
   timeLimit?: number | null
@@ -465,7 +465,7 @@ export type AttemptSectionUpdateManyMutationInput = {
 export type AttemptSectionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -492,15 +492,15 @@ export type AttemptSectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type AttemptSectionAttemptIdSectionIdCompoundUniqueInput = {
+export type AttemptSectionAttemptIdTestVersionSectionIdCompoundUniqueInput = {
   attemptId: string
-  sectionId: string
+  testVersionSectionId: string
 }
 
 export type AttemptSectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
+  testVersionSectionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
   timeLimit?: Prisma.SortOrder
@@ -521,7 +521,7 @@ export type AttemptSectionAvgOrderByAggregateInput = {
 export type AttemptSectionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
+  testVersionSectionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
   timeLimit?: Prisma.SortOrder
@@ -536,7 +536,7 @@ export type AttemptSectionMaxOrderByAggregateInput = {
 export type AttemptSectionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
+  testVersionSectionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
   timeLimit?: Prisma.SortOrder
@@ -639,45 +639,45 @@ export type AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AttemptSectionUpdateToOneWithWhereWithoutQuestionsInput, Prisma.AttemptSectionUpdateWithoutQuestionsInput>, Prisma.AttemptSectionUncheckedUpdateWithoutQuestionsInput>
 }
 
-export type AttemptSectionCreateNestedManyWithoutSectionInput = {
-  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutSectionInput> | Prisma.AttemptSectionCreateWithoutSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutSectionInput[]
-  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutSectionInput[]
-  createMany?: Prisma.AttemptSectionCreateManySectionInputEnvelope
+export type AttemptSectionCreateNestedManyWithoutTestVersionSectionInput = {
+  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput> | Prisma.AttemptSectionCreateWithoutTestVersionSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput[]
+  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput[]
+  createMany?: Prisma.AttemptSectionCreateManyTestVersionSectionInputEnvelope
   connect?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
 }
 
-export type AttemptSectionUncheckedCreateNestedManyWithoutSectionInput = {
-  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutSectionInput> | Prisma.AttemptSectionCreateWithoutSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutSectionInput[]
-  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutSectionInput[]
-  createMany?: Prisma.AttemptSectionCreateManySectionInputEnvelope
+export type AttemptSectionUncheckedCreateNestedManyWithoutTestVersionSectionInput = {
+  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput> | Prisma.AttemptSectionCreateWithoutTestVersionSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput[]
+  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput[]
+  createMany?: Prisma.AttemptSectionCreateManyTestVersionSectionInputEnvelope
   connect?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
 }
 
-export type AttemptSectionUpdateManyWithoutSectionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutSectionInput> | Prisma.AttemptSectionCreateWithoutSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutSectionInput[]
-  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutSectionInput[]
-  upsert?: Prisma.AttemptSectionUpsertWithWhereUniqueWithoutSectionInput | Prisma.AttemptSectionUpsertWithWhereUniqueWithoutSectionInput[]
-  createMany?: Prisma.AttemptSectionCreateManySectionInputEnvelope
+export type AttemptSectionUpdateManyWithoutTestVersionSectionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput> | Prisma.AttemptSectionCreateWithoutTestVersionSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput[]
+  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput[]
+  upsert?: Prisma.AttemptSectionUpsertWithWhereUniqueWithoutTestVersionSectionInput | Prisma.AttemptSectionUpsertWithWhereUniqueWithoutTestVersionSectionInput[]
+  createMany?: Prisma.AttemptSectionCreateManyTestVersionSectionInputEnvelope
   set?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
   disconnect?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
   delete?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
   connect?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
-  update?: Prisma.AttemptSectionUpdateWithWhereUniqueWithoutSectionInput | Prisma.AttemptSectionUpdateWithWhereUniqueWithoutSectionInput[]
-  updateMany?: Prisma.AttemptSectionUpdateManyWithWhereWithoutSectionInput | Prisma.AttemptSectionUpdateManyWithWhereWithoutSectionInput[]
+  update?: Prisma.AttemptSectionUpdateWithWhereUniqueWithoutTestVersionSectionInput | Prisma.AttemptSectionUpdateWithWhereUniqueWithoutTestVersionSectionInput[]
+  updateMany?: Prisma.AttemptSectionUpdateManyWithWhereWithoutTestVersionSectionInput | Prisma.AttemptSectionUpdateManyWithWhereWithoutTestVersionSectionInput[]
   deleteMany?: Prisma.AttemptSectionScalarWhereInput | Prisma.AttemptSectionScalarWhereInput[]
 }
 
-export type AttemptSectionUncheckedUpdateManyWithoutSectionNestedInput = {
-  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutSectionInput> | Prisma.AttemptSectionCreateWithoutSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutSectionInput[]
-  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutSectionInput[]
-  upsert?: Prisma.AttemptSectionUpsertWithWhereUniqueWithoutSectionInput | Prisma.AttemptSectionUpsertWithWhereUniqueWithoutSectionInput[]
-  createMany?: Prisma.AttemptSectionCreateManySectionInputEnvelope
+export type AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionNestedInput = {
+  create?: Prisma.XOR<Prisma.AttemptSectionCreateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput> | Prisma.AttemptSectionCreateWithoutTestVersionSectionInput[] | Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput[]
+  connectOrCreate?: Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput | Prisma.AttemptSectionCreateOrConnectWithoutTestVersionSectionInput[]
+  upsert?: Prisma.AttemptSectionUpsertWithWhereUniqueWithoutTestVersionSectionInput | Prisma.AttemptSectionUpsertWithWhereUniqueWithoutTestVersionSectionInput[]
+  createMany?: Prisma.AttemptSectionCreateManyTestVersionSectionInputEnvelope
   set?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
   disconnect?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
   delete?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
   connect?: Prisma.AttemptSectionWhereUniqueInput | Prisma.AttemptSectionWhereUniqueInput[]
-  update?: Prisma.AttemptSectionUpdateWithWhereUniqueWithoutSectionInput | Prisma.AttemptSectionUpdateWithWhereUniqueWithoutSectionInput[]
-  updateMany?: Prisma.AttemptSectionUpdateManyWithWhereWithoutSectionInput | Prisma.AttemptSectionUpdateManyWithWhereWithoutSectionInput[]
+  update?: Prisma.AttemptSectionUpdateWithWhereUniqueWithoutTestVersionSectionInput | Prisma.AttemptSectionUpdateWithWhereUniqueWithoutTestVersionSectionInput[]
+  updateMany?: Prisma.AttemptSectionUpdateManyWithWhereWithoutTestVersionSectionInput | Prisma.AttemptSectionUpdateManyWithWhereWithoutTestVersionSectionInput[]
   deleteMany?: Prisma.AttemptSectionScalarWhereInput | Prisma.AttemptSectionScalarWhereInput[]
 }
 
@@ -692,15 +692,15 @@ export type AttemptSectionCreateWithoutCurrentAttemptsInput = {
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
-  section: Prisma.TestSectionCreateNestedOneWithoutAttemptSectionsInput
   attempt: Prisma.TestAttemptCreateNestedOneWithoutSectionsInput
+  testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptSectionInput
 }
 
 export type AttemptSectionUncheckedCreateWithoutCurrentAttemptsInput = {
   id?: string
   attemptId: string
-  sectionId: string
+  testVersionSectionId: string
   order: number
   title: string
   timeLimit?: number | null
@@ -729,14 +729,14 @@ export type AttemptSectionCreateWithoutAttemptInput = {
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
-  section: Prisma.TestSectionCreateNestedOneWithoutAttemptSectionsInput
+  testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   currentAttempts?: Prisma.TestAttemptCreateNestedManyWithoutCurrentSectionInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptSectionInput
 }
 
 export type AttemptSectionUncheckedCreateWithoutAttemptInput = {
   id?: string
-  sectionId: string
+  testVersionSectionId: string
   order: number
   title: string
   timeLimit?: number | null
@@ -782,15 +782,15 @@ export type AttemptSectionUpdateWithoutCurrentAttemptsInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  section?: Prisma.TestSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutSectionsNestedInput
+  testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptSectionNestedInput
 }
 
 export type AttemptSectionUncheckedUpdateWithoutCurrentAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -825,7 +825,7 @@ export type AttemptSectionScalarWhereInput = {
   NOT?: Prisma.AttemptSectionScalarWhereInput | Prisma.AttemptSectionScalarWhereInput[]
   id?: Prisma.StringFilter<"AttemptSection"> | string
   attemptId?: Prisma.StringFilter<"AttemptSection"> | string
-  sectionId?: Prisma.StringFilter<"AttemptSection"> | string
+  testVersionSectionId?: Prisma.StringFilter<"AttemptSection"> | string
   order?: Prisma.IntFilter<"AttemptSection"> | number
   title?: Prisma.StringFilter<"AttemptSection"> | string
   timeLimit?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
@@ -848,15 +848,15 @@ export type AttemptSectionCreateWithoutQuestionsInput = {
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
-  section: Prisma.TestSectionCreateNestedOneWithoutAttemptSectionsInput
   attempt: Prisma.TestAttemptCreateNestedOneWithoutSectionsInput
+  testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   currentAttempts?: Prisma.TestAttemptCreateNestedManyWithoutCurrentSectionInput
 }
 
 export type AttemptSectionUncheckedCreateWithoutQuestionsInput = {
   id?: string
   attemptId: string
-  sectionId: string
+  testVersionSectionId: string
   order: number
   title: string
   timeLimit?: number | null
@@ -896,15 +896,15 @@ export type AttemptSectionUpdateWithoutQuestionsInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  section?: Prisma.TestSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutSectionsNestedInput
+  testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   currentAttempts?: Prisma.TestAttemptUpdateManyWithoutCurrentSectionNestedInput
 }
 
 export type AttemptSectionUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -917,7 +917,7 @@ export type AttemptSectionUncheckedUpdateWithoutQuestionsInput = {
   currentAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutCurrentSectionNestedInput
 }
 
-export type AttemptSectionCreateWithoutSectionInput = {
+export type AttemptSectionCreateWithoutTestVersionSectionInput = {
   id?: string
   order: number
   title: string
@@ -933,7 +933,7 @@ export type AttemptSectionCreateWithoutSectionInput = {
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptSectionInput
 }
 
-export type AttemptSectionUncheckedCreateWithoutSectionInput = {
+export type AttemptSectionUncheckedCreateWithoutTestVersionSectionInput = {
   id?: string
   attemptId: string
   order: number
@@ -949,35 +949,35 @@ export type AttemptSectionUncheckedCreateWithoutSectionInput = {
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptSectionInput
 }
 
-export type AttemptSectionCreateOrConnectWithoutSectionInput = {
+export type AttemptSectionCreateOrConnectWithoutTestVersionSectionInput = {
   where: Prisma.AttemptSectionWhereUniqueInput
-  create: Prisma.XOR<Prisma.AttemptSectionCreateWithoutSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutSectionInput>
+  create: Prisma.XOR<Prisma.AttemptSectionCreateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput>
 }
 
-export type AttemptSectionCreateManySectionInputEnvelope = {
-  data: Prisma.AttemptSectionCreateManySectionInput | Prisma.AttemptSectionCreateManySectionInput[]
+export type AttemptSectionCreateManyTestVersionSectionInputEnvelope = {
+  data: Prisma.AttemptSectionCreateManyTestVersionSectionInput | Prisma.AttemptSectionCreateManyTestVersionSectionInput[]
   skipDuplicates?: boolean
 }
 
-export type AttemptSectionUpsertWithWhereUniqueWithoutSectionInput = {
+export type AttemptSectionUpsertWithWhereUniqueWithoutTestVersionSectionInput = {
   where: Prisma.AttemptSectionWhereUniqueInput
-  update: Prisma.XOR<Prisma.AttemptSectionUpdateWithoutSectionInput, Prisma.AttemptSectionUncheckedUpdateWithoutSectionInput>
-  create: Prisma.XOR<Prisma.AttemptSectionCreateWithoutSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutSectionInput>
+  update: Prisma.XOR<Prisma.AttemptSectionUpdateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedUpdateWithoutTestVersionSectionInput>
+  create: Prisma.XOR<Prisma.AttemptSectionCreateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedCreateWithoutTestVersionSectionInput>
 }
 
-export type AttemptSectionUpdateWithWhereUniqueWithoutSectionInput = {
+export type AttemptSectionUpdateWithWhereUniqueWithoutTestVersionSectionInput = {
   where: Prisma.AttemptSectionWhereUniqueInput
-  data: Prisma.XOR<Prisma.AttemptSectionUpdateWithoutSectionInput, Prisma.AttemptSectionUncheckedUpdateWithoutSectionInput>
+  data: Prisma.XOR<Prisma.AttemptSectionUpdateWithoutTestVersionSectionInput, Prisma.AttemptSectionUncheckedUpdateWithoutTestVersionSectionInput>
 }
 
-export type AttemptSectionUpdateManyWithWhereWithoutSectionInput = {
+export type AttemptSectionUpdateManyWithWhereWithoutTestVersionSectionInput = {
   where: Prisma.AttemptSectionScalarWhereInput
-  data: Prisma.XOR<Prisma.AttemptSectionUpdateManyMutationInput, Prisma.AttemptSectionUncheckedUpdateManyWithoutSectionInput>
+  data: Prisma.XOR<Prisma.AttemptSectionUpdateManyMutationInput, Prisma.AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionInput>
 }
 
 export type AttemptSectionCreateManyAttemptInput = {
   id?: string
-  sectionId: string
+  testVersionSectionId: string
   order: number
   title: string
   timeLimit?: number | null
@@ -1000,14 +1000,14 @@ export type AttemptSectionUpdateWithoutAttemptInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  section?: Prisma.TestSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
+  testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   currentAttempts?: Prisma.TestAttemptUpdateManyWithoutCurrentSectionNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptSectionNestedInput
 }
 
 export type AttemptSectionUncheckedUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1023,7 +1023,7 @@ export type AttemptSectionUncheckedUpdateWithoutAttemptInput = {
 
 export type AttemptSectionUncheckedUpdateManyWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1035,7 +1035,7 @@ export type AttemptSectionUncheckedUpdateManyWithoutAttemptInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type AttemptSectionCreateManySectionInput = {
+export type AttemptSectionCreateManyTestVersionSectionInput = {
   id?: string
   attemptId: string
   order: number
@@ -1049,7 +1049,7 @@ export type AttemptSectionCreateManySectionInput = {
   completedAt?: Date | string | null
 }
 
-export type AttemptSectionUpdateWithoutSectionInput = {
+export type AttemptSectionUpdateWithoutTestVersionSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1065,7 +1065,7 @@ export type AttemptSectionUpdateWithoutSectionInput = {
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptSectionNestedInput
 }
 
-export type AttemptSectionUncheckedUpdateWithoutSectionInput = {
+export type AttemptSectionUncheckedUpdateWithoutTestVersionSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1081,7 +1081,7 @@ export type AttemptSectionUncheckedUpdateWithoutSectionInput = {
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptSectionNestedInput
 }
 
-export type AttemptSectionUncheckedUpdateManyWithoutSectionInput = {
+export type AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1138,7 +1138,7 @@ export type AttemptSectionCountOutputTypeCountQuestionsArgs<ExtArgs extends runt
 export type AttemptSectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
-  sectionId?: boolean
+  testVersionSectionId?: boolean
   order?: boolean
   title?: boolean
   timeLimit?: boolean
@@ -1148,8 +1148,8 @@ export type AttemptSectionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   startedAt?: boolean
   sectionEndAt?: boolean
   completedAt?: boolean
-  section?: boolean | Prisma.TestSectionDefaultArgs<ExtArgs>
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
+  testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
   currentAttempts?: boolean | Prisma.AttemptSection$currentAttemptsArgs<ExtArgs>
   questions?: boolean | Prisma.AttemptSection$questionsArgs<ExtArgs>
   _count?: boolean | Prisma.AttemptSectionCountOutputTypeDefaultArgs<ExtArgs>
@@ -1158,7 +1158,7 @@ export type AttemptSectionSelect<ExtArgs extends runtime.Types.Extensions.Intern
 export type AttemptSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
-  sectionId?: boolean
+  testVersionSectionId?: boolean
   order?: boolean
   title?: boolean
   timeLimit?: boolean
@@ -1168,14 +1168,14 @@ export type AttemptSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   startedAt?: boolean
   sectionEndAt?: boolean
   completedAt?: boolean
-  section?: boolean | Prisma.TestSectionDefaultArgs<ExtArgs>
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
+  testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptSection"]>
 
 export type AttemptSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   attemptId?: boolean
-  sectionId?: boolean
+  testVersionSectionId?: boolean
   order?: boolean
   title?: boolean
   timeLimit?: boolean
@@ -1185,14 +1185,14 @@ export type AttemptSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   startedAt?: boolean
   sectionEndAt?: boolean
   completedAt?: boolean
-  section?: boolean | Prisma.TestSectionDefaultArgs<ExtArgs>
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
+  testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptSection"]>
 
 export type AttemptSectionSelectScalar = {
   id?: boolean
   attemptId?: boolean
-  sectionId?: boolean
+  testVersionSectionId?: boolean
   order?: boolean
   title?: boolean
   timeLimit?: boolean
@@ -1204,35 +1204,35 @@ export type AttemptSectionSelectScalar = {
   completedAt?: boolean
 }
 
-export type AttemptSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "sectionId" | "order" | "title" | "timeLimit" | "selectionMode" | "requiredAnswerCount" | "status" | "startedAt" | "sectionEndAt" | "completedAt", ExtArgs["result"]["attemptSection"]>
+export type AttemptSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "testVersionSectionId" | "order" | "title" | "timeLimit" | "selectionMode" | "requiredAnswerCount" | "status" | "startedAt" | "sectionEndAt" | "completedAt", ExtArgs["result"]["attemptSection"]>
 export type AttemptSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  section?: boolean | Prisma.TestSectionDefaultArgs<ExtArgs>
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
+  testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
   currentAttempts?: boolean | Prisma.AttemptSection$currentAttemptsArgs<ExtArgs>
   questions?: boolean | Prisma.AttemptSection$questionsArgs<ExtArgs>
   _count?: boolean | Prisma.AttemptSectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AttemptSectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  section?: boolean | Prisma.TestSectionDefaultArgs<ExtArgs>
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
+  testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
 }
 export type AttemptSectionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  section?: boolean | Prisma.TestSectionDefaultArgs<ExtArgs>
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
+  testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
 }
 
 export type $AttemptSectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AttemptSection"
   objects: {
-    section: Prisma.$TestSectionPayload<ExtArgs>
     attempt: Prisma.$TestAttemptPayload<ExtArgs>
+    testVersionSection: Prisma.$TestVersionSectionPayload<ExtArgs>
     currentAttempts: Prisma.$TestAttemptPayload<ExtArgs>[]
     questions: Prisma.$AttemptQuestionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     attemptId: string
-    sectionId: string
+    testVersionSectionId: string
     order: number
     title: string
     timeLimit: number | null
@@ -1636,8 +1636,8 @@ readonly fields: AttemptSectionFieldRefs;
  */
 export interface Prisma__AttemptSectionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  section<T extends Prisma.TestSectionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestSectionDefaultArgs<ExtArgs>>): Prisma.Prisma__TestSectionClient<runtime.Types.Result.GetResult<Prisma.$TestSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   attempt<T extends Prisma.TestAttemptDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttemptDefaultArgs<ExtArgs>>): Prisma.Prisma__TestAttemptClient<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  testVersionSection<T extends Prisma.TestVersionSectionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersionSectionDefaultArgs<ExtArgs>>): Prisma.Prisma__TestVersionSectionClient<runtime.Types.Result.GetResult<Prisma.$TestVersionSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   currentAttempts<T extends Prisma.AttemptSection$currentAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptSection$currentAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questions<T extends Prisma.AttemptSection$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttemptSection$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1671,7 +1671,7 @@ export interface Prisma__AttemptSectionClient<T, Null = never, ExtArgs extends r
 export interface AttemptSectionFieldRefs {
   readonly id: Prisma.FieldRef<"AttemptSection", 'String'>
   readonly attemptId: Prisma.FieldRef<"AttemptSection", 'String'>
-  readonly sectionId: Prisma.FieldRef<"AttemptSection", 'String'>
+  readonly testVersionSectionId: Prisma.FieldRef<"AttemptSection", 'String'>
   readonly order: Prisma.FieldRef<"AttemptSection", 'Int'>
   readonly title: Prisma.FieldRef<"AttemptSection", 'String'>
   readonly timeLimit: Prisma.FieldRef<"AttemptSection", 'Int'>

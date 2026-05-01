@@ -252,8 +252,11 @@ export type UserWhereInput = {
   accounts?: Prisma.AccountListRelationFilter
   stats?: Prisma.XOR<Prisma.UserStatsNullableScalarRelationFilter, Prisma.UserStatsWhereInput> | null
   tests?: Prisma.TestListRelationFilter
+  testVersions?: Prisma.TestVersionListRelationFilter
   questions?: Prisma.QuestionListRelationFilter
+  questionVersions?: Prisma.QuestionVersionListRelationFilter
   passages?: Prisma.PassageListRelationFilter
+  passageVersions?: Prisma.PassageVersionListRelationFilter
   media?: Prisma.MediaListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   tokenHistory?: Prisma.TokenTransactionListRelationFilter
@@ -284,8 +287,11 @@ export type UserOrderByWithRelationInput = {
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   stats?: Prisma.UserStatsOrderByWithRelationInput
   tests?: Prisma.TestOrderByRelationAggregateInput
+  testVersions?: Prisma.TestVersionOrderByRelationAggregateInput
   questions?: Prisma.QuestionOrderByRelationAggregateInput
+  questionVersions?: Prisma.QuestionVersionOrderByRelationAggregateInput
   passages?: Prisma.PassageOrderByRelationAggregateInput
+  passageVersions?: Prisma.PassageVersionOrderByRelationAggregateInput
   media?: Prisma.MediaOrderByRelationAggregateInput
   profile?: Prisma.ProfileOrderByWithRelationInput
   tokenHistory?: Prisma.TokenTransactionOrderByRelationAggregateInput
@@ -319,8 +325,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   accounts?: Prisma.AccountListRelationFilter
   stats?: Prisma.XOR<Prisma.UserStatsNullableScalarRelationFilter, Prisma.UserStatsWhereInput> | null
   tests?: Prisma.TestListRelationFilter
+  testVersions?: Prisma.TestVersionListRelationFilter
   questions?: Prisma.QuestionListRelationFilter
+  questionVersions?: Prisma.QuestionVersionListRelationFilter
   passages?: Prisma.PassageListRelationFilter
+  passageVersions?: Prisma.PassageVersionListRelationFilter
   media?: Prisma.MediaListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   tokenHistory?: Prisma.TokenTransactionListRelationFilter
@@ -382,8 +391,11 @@ export type UserCreateInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -414,8 +426,11 @@ export type UserUncheckedCreateInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -445,8 +460,11 @@ export type UserUpdateInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -477,8 +495,11 @@ export type UserUncheckedUpdateInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -688,6 +709,22 @@ export type UserUpdateOneWithoutQuestionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutQuestionsInput, Prisma.UserUpdateWithoutQuestionsInput>, Prisma.UserUncheckedUpdateWithoutQuestionsInput>
 }
 
+export type UserCreateNestedOneWithoutQuestionVersionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQuestionVersionsInput, Prisma.UserUncheckedCreateWithoutQuestionVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQuestionVersionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutQuestionVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQuestionVersionsInput, Prisma.UserUncheckedCreateWithoutQuestionVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQuestionVersionsInput
+  upsert?: Prisma.UserUpsertWithoutQuestionVersionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutQuestionVersionsInput, Prisma.UserUpdateWithoutQuestionVersionsInput>, Prisma.UserUncheckedUpdateWithoutQuestionVersionsInput>
+}
+
 export type UserCreateNestedOneWithoutPassagesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutPassagesInput, Prisma.UserUncheckedCreateWithoutPassagesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutPassagesInput
@@ -702,6 +739,22 @@ export type UserUpdateOneWithoutPassagesNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPassagesInput, Prisma.UserUpdateWithoutPassagesInput>, Prisma.UserUncheckedUpdateWithoutPassagesInput>
+}
+
+export type UserCreateNestedOneWithoutPassageVersionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPassageVersionsInput, Prisma.UserUncheckedCreateWithoutPassageVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPassageVersionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPassageVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPassageVersionsInput, Prisma.UserUncheckedCreateWithoutPassageVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPassageVersionsInput
+  upsert?: Prisma.UserUpsertWithoutPassageVersionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPassageVersionsInput, Prisma.UserUpdateWithoutPassageVersionsInput>, Prisma.UserUncheckedUpdateWithoutPassageVersionsInput>
 }
 
 export type UserCreateNestedOneWithoutTestAttemptsInput = {
@@ -744,6 +797,20 @@ export type UserUpdateOneRequiredWithoutTestsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutTestsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTestsInput, Prisma.UserUpdateWithoutTestsInput>, Prisma.UserUncheckedUpdateWithoutTestsInput>
+}
+
+export type UserCreateNestedOneWithoutTestVersionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTestVersionsInput, Prisma.UserUncheckedCreateWithoutTestVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTestVersionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTestVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTestVersionsInput, Prisma.UserUncheckedCreateWithoutTestVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTestVersionsInput
+  upsert?: Prisma.UserUpsertWithoutTestVersionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTestVersionsInput, Prisma.UserUpdateWithoutTestVersionsInput>, Prisma.UserUncheckedUpdateWithoutTestVersionsInput>
 }
 
 export type UserCreateNestedOneWithoutAccountsInput = {
@@ -889,8 +956,11 @@ export type UserCreateWithoutClassesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -920,8 +990,11 @@ export type UserUncheckedCreateWithoutClassesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -966,8 +1039,11 @@ export type UserUpdateWithoutClassesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -997,8 +1073,11 @@ export type UserUncheckedUpdateWithoutClassesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1027,8 +1106,11 @@ export type UserCreateWithoutClassEnrollmentsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -1058,8 +1140,11 @@ export type UserUncheckedCreateWithoutClassEnrollmentsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1104,8 +1189,11 @@ export type UserUpdateWithoutClassEnrollmentsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -1135,8 +1223,11 @@ export type UserUncheckedUpdateWithoutClassEnrollmentsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1165,8 +1256,11 @@ export type UserCreateWithoutClassAssignmentsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -1196,8 +1290,11 @@ export type UserUncheckedCreateWithoutClassAssignmentsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1242,8 +1339,11 @@ export type UserUpdateWithoutClassAssignmentsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -1273,8 +1373,11 @@ export type UserUncheckedUpdateWithoutClassAssignmentsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1303,8 +1406,11 @@ export type UserCreateWithoutSystemLogsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -1334,8 +1440,11 @@ export type UserUncheckedCreateWithoutSystemLogsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1380,8 +1489,11 @@ export type UserUpdateWithoutSystemLogsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -1411,8 +1523,11 @@ export type UserUncheckedUpdateWithoutSystemLogsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1441,8 +1556,11 @@ export type UserCreateWithoutAuditLogsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -1472,8 +1590,11 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1518,8 +1639,11 @@ export type UserUpdateWithoutAuditLogsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -1549,8 +1673,11 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1579,8 +1706,11 @@ export type UserCreateWithoutMediaInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
   systemLogs?: Prisma.SystemLogCreateNestedManyWithoutUserInput
@@ -1610,8 +1740,11 @@ export type UserUncheckedCreateWithoutMediaInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
   systemLogs?: Prisma.SystemLogUncheckedCreateNestedManyWithoutUserInput
@@ -1656,8 +1789,11 @@ export type UserUpdateWithoutMediaInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
   systemLogs?: Prisma.SystemLogUpdateManyWithoutUserNestedInput
@@ -1687,8 +1823,11 @@ export type UserUncheckedUpdateWithoutMediaInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
   systemLogs?: Prisma.SystemLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1717,7 +1856,10 @@ export type UserCreateWithoutQuestionsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -1748,7 +1890,10 @@ export type UserUncheckedCreateWithoutQuestionsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1794,7 +1939,10 @@ export type UserUpdateWithoutQuestionsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -1825,7 +1973,160 @@ export type UserUncheckedUpdateWithoutQuestionsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
+  systemLogs?: Prisma.SystemLogUncheckedUpdateManyWithoutUserNestedInput
+  testAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutUserNestedInput
+  testProgress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  manualGrades?: Prisma.ManualGradeUncheckedUpdateManyWithoutGradedByNestedInput
+  parentLinks?: Prisma.ParentStudentLinkUncheckedUpdateManyWithoutParentNestedInput
+  studentLinks?: Prisma.ParentStudentLinkUncheckedUpdateManyWithoutStudentNestedInput
+  classes?: Prisma.ClassUncheckedUpdateManyWithoutTeacherNestedInput
+  classEnrollments?: Prisma.ClassEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserCreateWithoutQuestionVersionsInput = {
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  banned?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
+  tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
+  media?: Prisma.MediaCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
+  systemLogs?: Prisma.SystemLogCreateNestedManyWithoutUserInput
+  testAttempts?: Prisma.TestAttemptCreateNestedManyWithoutUserInput
+  testProgress?: Prisma.UserTestProgressCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  manualGrades?: Prisma.ManualGradeCreateNestedManyWithoutGradedByInput
+  parentLinks?: Prisma.ParentStudentLinkCreateNestedManyWithoutParentInput
+  studentLinks?: Prisma.ParentStudentLinkCreateNestedManyWithoutStudentInput
+  classes?: Prisma.ClassCreateNestedManyWithoutTeacherInput
+  classEnrollments?: Prisma.ClassEnrollmentCreateNestedManyWithoutUserInput
+  classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserUncheckedCreateWithoutQuestionVersionsInput = {
+  id?: number
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  banned?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
+  systemLogs?: Prisma.SystemLogUncheckedCreateNestedManyWithoutUserInput
+  testAttempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutUserInput
+  testProgress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  manualGrades?: Prisma.ManualGradeUncheckedCreateNestedManyWithoutGradedByInput
+  parentLinks?: Prisma.ParentStudentLinkUncheckedCreateNestedManyWithoutParentInput
+  studentLinks?: Prisma.ParentStudentLinkUncheckedCreateNestedManyWithoutStudentInput
+  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutTeacherInput
+  classEnrollments?: Prisma.ClassEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserCreateOrConnectWithoutQuestionVersionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutQuestionVersionsInput, Prisma.UserUncheckedCreateWithoutQuestionVersionsInput>
+}
+
+export type UserUpsertWithoutQuestionVersionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutQuestionVersionsInput, Prisma.UserUncheckedUpdateWithoutQuestionVersionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutQuestionVersionsInput, Prisma.UserUncheckedCreateWithoutQuestionVersionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutQuestionVersionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutQuestionVersionsInput, Prisma.UserUncheckedUpdateWithoutQuestionVersionsInput>
+}
+
+export type UserUpdateWithoutQuestionVersionsInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
+  systemLogs?: Prisma.SystemLogUpdateManyWithoutUserNestedInput
+  testAttempts?: Prisma.TestAttemptUpdateManyWithoutUserNestedInput
+  testProgress?: Prisma.UserTestProgressUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  manualGrades?: Prisma.ManualGradeUpdateManyWithoutGradedByNestedInput
+  parentLinks?: Prisma.ParentStudentLinkUpdateManyWithoutParentNestedInput
+  studentLinks?: Prisma.ParentStudentLinkUpdateManyWithoutStudentNestedInput
+  classes?: Prisma.ClassUpdateManyWithoutTeacherNestedInput
+  classEnrollments?: Prisma.ClassEnrollmentUpdateManyWithoutUserNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutQuestionVersionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1855,7 +2156,10 @@ export type UserCreateWithoutPassagesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -1886,7 +2190,10 @@ export type UserUncheckedCreateWithoutPassagesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1932,7 +2239,10 @@ export type UserUpdateWithoutPassagesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -1963,7 +2273,160 @@ export type UserUncheckedUpdateWithoutPassagesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
+  systemLogs?: Prisma.SystemLogUncheckedUpdateManyWithoutUserNestedInput
+  testAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutUserNestedInput
+  testProgress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  manualGrades?: Prisma.ManualGradeUncheckedUpdateManyWithoutGradedByNestedInput
+  parentLinks?: Prisma.ParentStudentLinkUncheckedUpdateManyWithoutParentNestedInput
+  studentLinks?: Prisma.ParentStudentLinkUncheckedUpdateManyWithoutStudentNestedInput
+  classes?: Prisma.ClassUncheckedUpdateManyWithoutTeacherNestedInput
+  classEnrollments?: Prisma.ClassEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserCreateWithoutPassageVersionsInput = {
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  banned?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
+  tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
+  passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  media?: Prisma.MediaCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
+  systemLogs?: Prisma.SystemLogCreateNestedManyWithoutUserInput
+  testAttempts?: Prisma.TestAttemptCreateNestedManyWithoutUserInput
+  testProgress?: Prisma.UserTestProgressCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  manualGrades?: Prisma.ManualGradeCreateNestedManyWithoutGradedByInput
+  parentLinks?: Prisma.ParentStudentLinkCreateNestedManyWithoutParentInput
+  studentLinks?: Prisma.ParentStudentLinkCreateNestedManyWithoutStudentInput
+  classes?: Prisma.ClassCreateNestedManyWithoutTeacherInput
+  classEnrollments?: Prisma.ClassEnrollmentCreateNestedManyWithoutUserInput
+  classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserUncheckedCreateWithoutPassageVersionsInput = {
+  id?: number
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  banned?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
+  systemLogs?: Prisma.SystemLogUncheckedCreateNestedManyWithoutUserInput
+  testAttempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutUserInput
+  testProgress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  manualGrades?: Prisma.ManualGradeUncheckedCreateNestedManyWithoutGradedByInput
+  parentLinks?: Prisma.ParentStudentLinkUncheckedCreateNestedManyWithoutParentInput
+  studentLinks?: Prisma.ParentStudentLinkUncheckedCreateNestedManyWithoutStudentInput
+  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutTeacherInput
+  classEnrollments?: Prisma.ClassEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserCreateOrConnectWithoutPassageVersionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPassageVersionsInput, Prisma.UserUncheckedCreateWithoutPassageVersionsInput>
+}
+
+export type UserUpsertWithoutPassageVersionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPassageVersionsInput, Prisma.UserUncheckedUpdateWithoutPassageVersionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPassageVersionsInput, Prisma.UserUncheckedCreateWithoutPassageVersionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPassageVersionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPassageVersionsInput, Prisma.UserUncheckedUpdateWithoutPassageVersionsInput>
+}
+
+export type UserUpdateWithoutPassageVersionsInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
+  passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
+  systemLogs?: Prisma.SystemLogUpdateManyWithoutUserNestedInput
+  testAttempts?: Prisma.TestAttemptUpdateManyWithoutUserNestedInput
+  testProgress?: Prisma.UserTestProgressUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  manualGrades?: Prisma.ManualGradeUpdateManyWithoutGradedByNestedInput
+  parentLinks?: Prisma.ParentStudentLinkUpdateManyWithoutParentNestedInput
+  studentLinks?: Prisma.ParentStudentLinkUpdateManyWithoutStudentNestedInput
+  classes?: Prisma.ClassUpdateManyWithoutTeacherNestedInput
+  classEnrollments?: Prisma.ClassEnrollmentUpdateManyWithoutUserNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPassageVersionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1993,8 +2456,11 @@ export type UserCreateWithoutTestAttemptsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -2024,8 +2490,11 @@ export type UserUncheckedCreateWithoutTestAttemptsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -2070,8 +2539,11 @@ export type UserUpdateWithoutTestAttemptsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -2101,8 +2573,11 @@ export type UserUncheckedUpdateWithoutTestAttemptsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -2131,8 +2606,11 @@ export type UserCreateWithoutManualGradesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -2162,8 +2640,11 @@ export type UserUncheckedCreateWithoutManualGradesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -2208,8 +2689,11 @@ export type UserUpdateWithoutManualGradesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -2239,8 +2723,11 @@ export type UserUncheckedUpdateWithoutManualGradesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -2268,8 +2755,11 @@ export type UserCreateWithoutTestsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -2299,8 +2789,11 @@ export type UserUncheckedCreateWithoutTestsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -2345,8 +2838,11 @@ export type UserUpdateWithoutTestsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -2376,8 +2872,161 @@ export type UserUncheckedUpdateWithoutTestsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
+  systemLogs?: Prisma.SystemLogUncheckedUpdateManyWithoutUserNestedInput
+  testAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutUserNestedInput
+  testProgress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  manualGrades?: Prisma.ManualGradeUncheckedUpdateManyWithoutGradedByNestedInput
+  parentLinks?: Prisma.ParentStudentLinkUncheckedUpdateManyWithoutParentNestedInput
+  studentLinks?: Prisma.ParentStudentLinkUncheckedUpdateManyWithoutStudentNestedInput
+  classes?: Prisma.ClassUncheckedUpdateManyWithoutTeacherNestedInput
+  classEnrollments?: Prisma.ClassEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserCreateWithoutTestVersionsInput = {
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  banned?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
+  tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
+  passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
+  media?: Prisma.MediaCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
+  systemLogs?: Prisma.SystemLogCreateNestedManyWithoutUserInput
+  testAttempts?: Prisma.TestAttemptCreateNestedManyWithoutUserInput
+  testProgress?: Prisma.UserTestProgressCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  manualGrades?: Prisma.ManualGradeCreateNestedManyWithoutGradedByInput
+  parentLinks?: Prisma.ParentStudentLinkCreateNestedManyWithoutParentInput
+  studentLinks?: Prisma.ParentStudentLinkCreateNestedManyWithoutStudentInput
+  classes?: Prisma.ClassCreateNestedManyWithoutTeacherInput
+  classEnrollments?: Prisma.ClassEnrollmentCreateNestedManyWithoutUserInput
+  classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserUncheckedCreateWithoutTestVersionsInput = {
+  id?: number
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  banned?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
+  tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
+  systemLogs?: Prisma.SystemLogUncheckedCreateNestedManyWithoutUserInput
+  testAttempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutUserInput
+  testProgress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  manualGrades?: Prisma.ManualGradeUncheckedCreateNestedManyWithoutGradedByInput
+  parentLinks?: Prisma.ParentStudentLinkUncheckedCreateNestedManyWithoutParentInput
+  studentLinks?: Prisma.ParentStudentLinkUncheckedCreateNestedManyWithoutStudentInput
+  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutTeacherInput
+  classEnrollments?: Prisma.ClassEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserCreateOrConnectWithoutTestVersionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTestVersionsInput, Prisma.UserUncheckedCreateWithoutTestVersionsInput>
+}
+
+export type UserUpsertWithoutTestVersionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTestVersionsInput, Prisma.UserUncheckedUpdateWithoutTestVersionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTestVersionsInput, Prisma.UserUncheckedCreateWithoutTestVersionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTestVersionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTestVersionsInput, Prisma.UserUncheckedUpdateWithoutTestVersionsInput>
+}
+
+export type UserUpdateWithoutTestVersionsInput = {
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
+  tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
+  passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
+  media?: Prisma.MediaUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
+  systemLogs?: Prisma.SystemLogUpdateManyWithoutUserNestedInput
+  testAttempts?: Prisma.TestAttemptUpdateManyWithoutUserNestedInput
+  testProgress?: Prisma.UserTestProgressUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  manualGrades?: Prisma.ManualGradeUpdateManyWithoutGradedByNestedInput
+  parentLinks?: Prisma.ParentStudentLinkUpdateManyWithoutParentNestedInput
+  studentLinks?: Prisma.ParentStudentLinkUpdateManyWithoutStudentNestedInput
+  classes?: Prisma.ClassUpdateManyWithoutTeacherNestedInput
+  classEnrollments?: Prisma.ClassEnrollmentUpdateManyWithoutUserNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTestVersionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
+  tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+  passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -2406,8 +3055,11 @@ export type UserCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -2437,8 +3089,11 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -2483,8 +3138,11 @@ export type UserUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -2514,8 +3172,11 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -2544,8 +3205,11 @@ export type UserCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -2575,8 +3239,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -2621,8 +3288,11 @@ export type UserUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -2652,8 +3322,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -2683,8 +3356,11 @@ export type UserCreateWithoutProfileInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
   systemLogs?: Prisma.SystemLogCreateNestedManyWithoutUserInput
@@ -2714,8 +3390,11 @@ export type UserUncheckedCreateWithoutProfileInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
   systemLogs?: Prisma.SystemLogUncheckedCreateNestedManyWithoutUserInput
@@ -2760,8 +3439,11 @@ export type UserUpdateWithoutProfileInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
   systemLogs?: Prisma.SystemLogUpdateManyWithoutUserNestedInput
@@ -2791,8 +3473,11 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
   systemLogs?: Prisma.SystemLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2821,8 +3506,11 @@ export type UserCreateWithoutParentLinksInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -2852,8 +3540,11 @@ export type UserUncheckedCreateWithoutParentLinksInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -2887,8 +3578,11 @@ export type UserCreateWithoutStudentLinksInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -2918,8 +3612,11 @@ export type UserUncheckedCreateWithoutStudentLinksInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -2964,8 +3661,11 @@ export type UserUpdateWithoutParentLinksInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -2995,8 +3695,11 @@ export type UserUncheckedUpdateWithoutParentLinksInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -3036,8 +3739,11 @@ export type UserUpdateWithoutStudentLinksInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -3067,8 +3773,11 @@ export type UserUncheckedUpdateWithoutStudentLinksInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -3097,8 +3806,11 @@ export type UserCreateWithoutNotificationsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -3128,8 +3840,11 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -3174,8 +3889,11 @@ export type UserUpdateWithoutNotificationsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -3205,8 +3923,11 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -3234,8 +3955,11 @@ export type UserCreateWithoutStatsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -3265,8 +3989,11 @@ export type UserUncheckedCreateWithoutStatsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -3311,8 +4038,11 @@ export type UserUpdateWithoutStatsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -3342,8 +4072,11 @@ export type UserUncheckedUpdateWithoutStatsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -3373,8 +4106,11 @@ export type UserCreateWithoutTokenHistoryInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   systemLogs?: Prisma.SystemLogCreateNestedManyWithoutUserInput
@@ -3404,8 +4140,11 @@ export type UserUncheckedCreateWithoutTokenHistoryInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   systemLogs?: Prisma.SystemLogUncheckedCreateNestedManyWithoutUserInput
@@ -3450,8 +4189,11 @@ export type UserUpdateWithoutTokenHistoryInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   systemLogs?: Prisma.SystemLogUpdateManyWithoutUserNestedInput
@@ -3481,8 +4223,11 @@ export type UserUncheckedUpdateWithoutTokenHistoryInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   systemLogs?: Prisma.SystemLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3511,8 +4256,11 @@ export type UserCreateWithoutTestProgressInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsCreateNestedOneWithoutUserInput
   tests?: Prisma.TestCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionCreateNestedManyWithoutUserInput
@@ -3542,8 +4290,11 @@ export type UserUncheckedCreateWithoutTestProgressInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   stats?: Prisma.UserStatsUncheckedCreateNestedOneWithoutUserInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutCreatedByInput
+  testVersions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutCreatedByInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutCreatedByInput
+  questionVersions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutCreatedByInput
   passages?: Prisma.PassageUncheckedCreateNestedManyWithoutCreatedByInput
+  passageVersions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutCreatedByInput
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   tokenHistory?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -3588,8 +4339,11 @@ export type UserUpdateWithoutTestProgressInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUpdateManyWithoutUserNestedInput
@@ -3619,8 +4373,11 @@ export type UserUncheckedUpdateWithoutTestProgressInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   stats?: Prisma.UserStatsUncheckedUpdateOneWithoutUserNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutCreatedByNestedInput
+  testVersions?: Prisma.TestVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  questionVersions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   passages?: Prisma.PassageUncheckedUpdateManyWithoutCreatedByNestedInput
+  passageVersions?: Prisma.PassageVersionUncheckedUpdateManyWithoutCreatedByNestedInput
   media?: Prisma.MediaUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   tokenHistory?: Prisma.TokenTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -3645,8 +4402,11 @@ export type UserCountOutputType = {
   sessions: number
   accounts: number
   tests: number
+  testVersions: number
   questions: number
+  questionVersions: number
   passages: number
+  passageVersions: number
   media: number
   tokenHistory: number
   systemLogs: number
@@ -3666,8 +4426,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   tests?: boolean | UserCountOutputTypeCountTestsArgs
+  testVersions?: boolean | UserCountOutputTypeCountTestVersionsArgs
   questions?: boolean | UserCountOutputTypeCountQuestionsArgs
+  questionVersions?: boolean | UserCountOutputTypeCountQuestionVersionsArgs
   passages?: boolean | UserCountOutputTypeCountPassagesArgs
+  passageVersions?: boolean | UserCountOutputTypeCountPassageVersionsArgs
   media?: boolean | UserCountOutputTypeCountMediaArgs
   tokenHistory?: boolean | UserCountOutputTypeCountTokenHistoryArgs
   systemLogs?: boolean | UserCountOutputTypeCountSystemLogsArgs
@@ -3717,6 +4480,13 @@ export type UserCountOutputTypeCountTestsArgs<ExtArgs extends runtime.Types.Exte
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountTestVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestVersionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.QuestionWhereInput
 }
@@ -3724,8 +4494,22 @@ export type UserCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountQuestionVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestionVersionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountPassagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PassageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPassageVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PassageVersionWhereInput
 }
 
 /**
@@ -3834,8 +4618,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   stats?: boolean | Prisma.User$statsArgs<ExtArgs>
   tests?: boolean | Prisma.User$testsArgs<ExtArgs>
+  testVersions?: boolean | Prisma.User$testVersionsArgs<ExtArgs>
   questions?: boolean | Prisma.User$questionsArgs<ExtArgs>
+  questionVersions?: boolean | Prisma.User$questionVersionsArgs<ExtArgs>
   passages?: boolean | Prisma.User$passagesArgs<ExtArgs>
+  passageVersions?: boolean | Prisma.User$passageVersionsArgs<ExtArgs>
   media?: boolean | Prisma.User$mediaArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   tokenHistory?: boolean | Prisma.User$tokenHistoryArgs<ExtArgs>
@@ -3895,8 +4682,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   stats?: boolean | Prisma.User$statsArgs<ExtArgs>
   tests?: boolean | Prisma.User$testsArgs<ExtArgs>
+  testVersions?: boolean | Prisma.User$testVersionsArgs<ExtArgs>
   questions?: boolean | Prisma.User$questionsArgs<ExtArgs>
+  questionVersions?: boolean | Prisma.User$questionVersionsArgs<ExtArgs>
   passages?: boolean | Prisma.User$passagesArgs<ExtArgs>
+  passageVersions?: boolean | Prisma.User$passageVersionsArgs<ExtArgs>
   media?: boolean | Prisma.User$mediaArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   tokenHistory?: boolean | Prisma.User$tokenHistoryArgs<ExtArgs>
@@ -3923,8 +4713,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     stats: Prisma.$UserStatsPayload<ExtArgs> | null
     tests: Prisma.$TestPayload<ExtArgs>[]
+    testVersions: Prisma.$TestVersionPayload<ExtArgs>[]
     questions: Prisma.$QuestionPayload<ExtArgs>[]
+    questionVersions: Prisma.$QuestionVersionPayload<ExtArgs>[]
     passages: Prisma.$PassagePayload<ExtArgs>[]
+    passageVersions: Prisma.$PassageVersionPayload<ExtArgs>[]
     media: Prisma.$MediaPayload<ExtArgs>[]
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     tokenHistory: Prisma.$TokenTransactionPayload<ExtArgs>[]
@@ -4348,8 +5141,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stats<T extends Prisma.User$statsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$statsArgs<ExtArgs>>): Prisma.Prisma__UserStatsClient<runtime.Types.Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tests<T extends Prisma.User$testsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$testsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  testVersions<T extends Prisma.User$testVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$testVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questions<T extends Prisma.User$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  questionVersions<T extends Prisma.User$questionVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$questionVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   passages<T extends Prisma.User$passagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passageVersions<T extends Prisma.User$passageVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passageVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassageVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   media<T extends Prisma.User$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tokenHistory<T extends Prisma.User$tokenHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tokenHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TokenTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4886,6 +5682,30 @@ export type User$testsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 }
 
 /**
+ * User.testVersions
+ */
+export type User$testVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestVersion
+   */
+  select?: Prisma.TestVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestVersion
+   */
+  omit?: Prisma.TestVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestVersionInclude<ExtArgs> | null
+  where?: Prisma.TestVersionWhereInput
+  orderBy?: Prisma.TestVersionOrderByWithRelationInput | Prisma.TestVersionOrderByWithRelationInput[]
+  cursor?: Prisma.TestVersionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TestVersionScalarFieldEnum | Prisma.TestVersionScalarFieldEnum[]
+}
+
+/**
  * User.questions
  */
 export type User$questionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4910,6 +5730,30 @@ export type User$questionsArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.questionVersions
+ */
+export type User$questionVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestionVersion
+   */
+  select?: Prisma.QuestionVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestionVersion
+   */
+  omit?: Prisma.QuestionVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionVersionInclude<ExtArgs> | null
+  where?: Prisma.QuestionVersionWhereInput
+  orderBy?: Prisma.QuestionVersionOrderByWithRelationInput | Prisma.QuestionVersionOrderByWithRelationInput[]
+  cursor?: Prisma.QuestionVersionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestionVersionScalarFieldEnum | Prisma.QuestionVersionScalarFieldEnum[]
+}
+
+/**
  * User.passages
  */
 export type User$passagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4931,6 +5775,30 @@ export type User$passagesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.PassageScalarFieldEnum | Prisma.PassageScalarFieldEnum[]
+}
+
+/**
+ * User.passageVersions
+ */
+export type User$passageVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PassageVersion
+   */
+  select?: Prisma.PassageVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PassageVersion
+   */
+  omit?: Prisma.PassageVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PassageVersionInclude<ExtArgs> | null
+  where?: Prisma.PassageVersionWhereInput
+  orderBy?: Prisma.PassageVersionOrderByWithRelationInput | Prisma.PassageVersionOrderByWithRelationInput[]
+  cursor?: Prisma.PassageVersionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PassageVersionScalarFieldEnum | Prisma.PassageVersionScalarFieldEnum[]
 }
 
 /**
