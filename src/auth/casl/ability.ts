@@ -11,6 +11,7 @@ export type Actions =
   | "manage" // CASL wildcard — admin only
   | "create"
   | "read"
+  | "readAll"
   | "update"
   | "delete"
   // Domain-specific
