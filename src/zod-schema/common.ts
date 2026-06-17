@@ -2,10 +2,7 @@ import { z } from "zod";
 
 export const UserRole = z.enum(["USER", "ADMIN", "TEACHER", "MOD", "PARENT"]);
 
-export const DifficultyLevel = z.enum([
-  "DL_1", "DL_2", "DL_3", "DL_4", "DL_5",
-  "DL_6", "DL_7", "DL_8", "DL_9", "DL_10"
-]);
+export const DifficultyLevel = z.number().int().min(1).max(10);
 
 export const PublishStatus = z.enum(["DRAFT", "PUBLISHED", "ARCHIVED", "PRIVATE"]);
 
@@ -18,11 +15,6 @@ export const PassageType = z.enum(["READING", "LISTENING"]);
 export const QuestionType = z.enum([
   "MULTIPLE_CHOICE", "SINGLE_CHOICE", "TRUE_FALSE", "FILL_IN_THE_BLANK",
   "MATCHING", "ORDERING", "OPEN_ENDED", "ESSAY", "CODING"
-]);
-
-export const SubjectType = z.enum([
-  "MATH", "ENGLISH", "SCIENCE", "HISTORY", "GEOGRAPHY",
-  "ART", "MUSIC", "PHYSICAL_EDUCATION", "GENERAL_KNOWLEDGE"
 ]);
 
 export const Visibility = z.enum(["PUBLIC", "PRIVATE"]);
@@ -47,8 +39,16 @@ export const TokenTransactionReason = z.enum([
 
 export const Gender = z.enum(["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"]);
 
-export const ClassRole = z.enum(["STUDENT", "AUDITOR"]);
+export const ClassRole = z.enum(["STUDENT", "AUDITOR", "TEACHER", "MOD", "ADMIN"]);
 
 export const NotificationType = z.enum([
   "GRADE_READY", "TEST_ASSIGNED", "ACHIEVEMENT_UNLOCKED", "SYSTEM"
 ]);
+
+export const HomeworkStatus = z.enum(["DRAFT", "PUBLISHED", "CLOSED"]);
+
+export const SubmissionStatus = z.enum(["SUBMITTED", "GRADED", "RETURNED"]);
+
+export const LeaderboardScope = z.enum(["GLOBAL", "CLASS", "SUBJECT"]);
+
+export const AttendanceStatus = z.enum(["PRESENT", "ABSENT", "LATE", "EXCUSED"]);

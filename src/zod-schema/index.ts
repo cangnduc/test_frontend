@@ -7,3 +7,8 @@ export * from "./attempt";
 export * from "./media";
 export * from "./subject";
 export * from "./passage";
+export * from "./tag";
+export * from "./homework";
+export * from "./gamification";
+export * from "./gradebook";
+export * from "./log";

@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model AttemptQuestion
- * 
+ * Link record representing a specific question served to a student in an attempt
  */
 export type AttemptQuestionModel = runtime.Types.Result.DefaultSelection<Prisma.$AttemptQuestionPayload>
 
@@ -45,6 +45,7 @@ export type AttemptQuestionMinAggregateOutputType = {
   displayOrder: number | null
   point: number | null
   isRequired: boolean | null
+  updatedAt: Date | null
 }
 
 export type AttemptQuestionMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type AttemptQuestionMaxAggregateOutputType = {
   displayOrder: number | null
   point: number | null
   isRequired: boolean | null
+  updatedAt: Date | null
 }
 
 export type AttemptQuestionCountAggregateOutputType = {
@@ -67,6 +69,7 @@ export type AttemptQuestionCountAggregateOutputType = {
   displayOrder: number
   point: number
   isRequired: number
+  updatedAt: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type AttemptQuestionMinAggregateInputType = {
   displayOrder?: true
   point?: true
   isRequired?: true
+  updatedAt?: true
 }
 
 export type AttemptQuestionMaxAggregateInputType = {
@@ -101,6 +105,7 @@ export type AttemptQuestionMaxAggregateInputType = {
   displayOrder?: true
   point?: true
   isRequired?: true
+  updatedAt?: true
 }
 
 export type AttemptQuestionCountAggregateInputType = {
@@ -112,6 +117,7 @@ export type AttemptQuestionCountAggregateInputType = {
   displayOrder?: true
   point?: true
   isRequired?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -210,6 +216,7 @@ export type AttemptQuestionGroupByOutputType = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt: Date
   _count: AttemptQuestionCountAggregateOutputType | null
   _avg: AttemptQuestionAvgAggregateOutputType | null
   _sum: AttemptQuestionSumAggregateOutputType | null
@@ -244,6 +251,7 @@ export type AttemptQuestionWhereInput = {
   displayOrder?: Prisma.IntFilter<"AttemptQuestion"> | number
   point?: Prisma.IntFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolFilter<"AttemptQuestion"> | boolean
+  updatedAt?: Prisma.DateTimeFilter<"AttemptQuestion"> | Date | string
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   attemptSection?: Prisma.XOR<Prisma.AttemptSectionScalarRelationFilter, Prisma.AttemptSectionWhereInput>
   questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
@@ -260,6 +268,7 @@ export type AttemptQuestionOrderByWithRelationInput = {
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   attempt?: Prisma.TestAttemptOrderByWithRelationInput
   attemptSection?: Prisma.AttemptSectionOrderByWithRelationInput
   questionVersion?: Prisma.QuestionVersionOrderByWithRelationInput
@@ -280,6 +289,7 @@ export type AttemptQuestionWhereUniqueInput = Prisma.AtLeast<{
   displayOrder?: Prisma.IntFilter<"AttemptQuestion"> | number
   point?: Prisma.IntFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolFilter<"AttemptQuestion"> | boolean
+  updatedAt?: Prisma.DateTimeFilter<"AttemptQuestion"> | Date | string
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   attemptSection?: Prisma.XOR<Prisma.AttemptSectionScalarRelationFilter, Prisma.AttemptSectionWhereInput>
   questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
@@ -296,6 +306,7 @@ export type AttemptQuestionOrderByWithAggregationInput = {
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AttemptQuestionCountOrderByAggregateInput
   _avg?: Prisma.AttemptQuestionAvgOrderByAggregateInput
   _max?: Prisma.AttemptQuestionMaxOrderByAggregateInput
@@ -315,6 +326,7 @@ export type AttemptQuestionScalarWhereWithAggregatesInput = {
   displayOrder?: Prisma.IntWithAggregatesFilter<"AttemptQuestion"> | number
   point?: Prisma.IntWithAggregatesFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolWithAggregatesFilter<"AttemptQuestion"> | boolean
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AttemptQuestion"> | Date | string
 }
 
 export type AttemptQuestionCreateInput = {
@@ -322,6 +334,7 @@ export type AttemptQuestionCreateInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
@@ -338,6 +351,7 @@ export type AttemptQuestionUncheckedCreateInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -346,6 +360,7 @@ export type AttemptQuestionUpdateInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
@@ -362,6 +377,7 @@ export type AttemptQuestionUncheckedUpdateInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
@@ -374,6 +390,7 @@ export type AttemptQuestionCreateManyInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
 }
 
 export type AttemptQuestionUpdateManyMutationInput = {
@@ -381,6 +398,7 @@ export type AttemptQuestionUpdateManyMutationInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptQuestionUncheckedUpdateManyInput = {
@@ -392,6 +410,7 @@ export type AttemptQuestionUncheckedUpdateManyInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptQuestionListRelationFilter = {
@@ -418,6 +437,7 @@ export type AttemptQuestionCountOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptQuestionAvgOrderByAggregateInput = {
@@ -434,6 +454,7 @@ export type AttemptQuestionMaxOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptQuestionMinOrderByAggregateInput = {
@@ -445,6 +466,7 @@ export type AttemptQuestionMinOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   point?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptQuestionSumOrderByAggregateInput = {
@@ -644,6 +666,7 @@ export type AttemptQuestionCreateWithoutQuestionVersionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
   testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
@@ -658,6 +681,7 @@ export type AttemptQuestionUncheckedCreateWithoutQuestionVersionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -699,6 +723,7 @@ export type AttemptQuestionScalarWhereInput = {
   displayOrder?: Prisma.IntFilter<"AttemptQuestion"> | number
   point?: Prisma.IntFilter<"AttemptQuestion"> | number
   isRequired?: Prisma.BoolFilter<"AttemptQuestion"> | boolean
+  updatedAt?: Prisma.DateTimeFilter<"AttemptQuestion"> | Date | string
 }
 
 export type AttemptQuestionCreateWithoutAttemptInput = {
@@ -706,6 +731,7 @@ export type AttemptQuestionCreateWithoutAttemptInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
   testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
@@ -720,6 +746,7 @@ export type AttemptQuestionUncheckedCreateWithoutAttemptInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -754,6 +781,7 @@ export type AttemptQuestionCreateWithoutAttemptSectionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
   testVersionQuestion?: Prisma.TestVersionQuestionCreateNestedOneWithoutAttemptQuestionsInput
@@ -768,6 +796,7 @@ export type AttemptQuestionUncheckedCreateWithoutAttemptSectionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -802,6 +831,7 @@ export type AttemptQuestionCreateWithoutAnswersInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
@@ -817,6 +847,7 @@ export type AttemptQuestionUncheckedCreateWithoutAnswersInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
 }
 
 export type AttemptQuestionCreateOrConnectWithoutAnswersInput = {
@@ -840,6 +871,7 @@ export type AttemptQuestionUpdateWithoutAnswersInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
@@ -855,6 +887,7 @@ export type AttemptQuestionUncheckedUpdateWithoutAnswersInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptQuestionCreateWithoutTestVersionQuestionInput = {
@@ -862,6 +895,7 @@ export type AttemptQuestionCreateWithoutTestVersionQuestionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutQuestionsInput
   attemptSection: Prisma.AttemptSectionCreateNestedOneWithoutQuestionsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput
@@ -876,6 +910,7 @@ export type AttemptQuestionUncheckedCreateWithoutTestVersionQuestionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptQuestionInput
 }
 
@@ -913,6 +948,7 @@ export type AttemptQuestionCreateManyQuestionVersionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
 }
 
 export type AttemptQuestionUpdateWithoutQuestionVersionInput = {
@@ -920,6 +956,7 @@ export type AttemptQuestionUpdateWithoutQuestionVersionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
   testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
@@ -934,6 +971,7 @@ export type AttemptQuestionUncheckedUpdateWithoutQuestionVersionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
@@ -945,6 +983,7 @@ export type AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptQuestionCreateManyAttemptInput = {
@@ -955,6 +994,7 @@ export type AttemptQuestionCreateManyAttemptInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
 }
 
 export type AttemptQuestionUpdateWithoutAttemptInput = {
@@ -962,6 +1002,7 @@ export type AttemptQuestionUpdateWithoutAttemptInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
   testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
@@ -976,6 +1017,7 @@ export type AttemptQuestionUncheckedUpdateWithoutAttemptInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
@@ -987,6 +1029,7 @@ export type AttemptQuestionUncheckedUpdateManyWithoutAttemptInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptQuestionCreateManyAttemptSectionInput = {
@@ -997,6 +1040,7 @@ export type AttemptQuestionCreateManyAttemptSectionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
 }
 
 export type AttemptQuestionUpdateWithoutAttemptSectionInput = {
@@ -1004,6 +1048,7 @@ export type AttemptQuestionUpdateWithoutAttemptSectionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
   testVersionQuestion?: Prisma.TestVersionQuestionUpdateOneWithoutAttemptQuestionsNestedInput
@@ -1018,6 +1063,7 @@ export type AttemptQuestionUncheckedUpdateWithoutAttemptSectionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
@@ -1029,6 +1075,7 @@ export type AttemptQuestionUncheckedUpdateManyWithoutAttemptSectionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptQuestionCreateManyTestVersionQuestionInput = {
@@ -1039,6 +1086,7 @@ export type AttemptQuestionCreateManyTestVersionQuestionInput = {
   displayOrder: number
   point: number
   isRequired: boolean
+  updatedAt?: Date | string
 }
 
 export type AttemptQuestionUpdateWithoutTestVersionQuestionInput = {
@@ -1046,6 +1094,7 @@ export type AttemptQuestionUpdateWithoutTestVersionQuestionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutQuestionsNestedInput
   attemptSection?: Prisma.AttemptSectionUpdateOneRequiredWithoutQuestionsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutAttemptQuestionsNestedInput
@@ -1060,6 +1109,7 @@ export type AttemptQuestionUncheckedUpdateWithoutTestVersionQuestionInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput
 }
 
@@ -1071,6 +1121,7 @@ export type AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionInput = 
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1113,6 +1164,7 @@ export type AttemptQuestionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
   questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
@@ -1130,6 +1182,7 @@ export type AttemptQuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
   questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
@@ -1145,6 +1198,7 @@ export type AttemptQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
   questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
@@ -1160,9 +1214,10 @@ export type AttemptQuestionSelectScalar = {
   displayOrder?: boolean
   point?: boolean
   isRequired?: boolean
+  updatedAt?: boolean
 }
 
-export type AttemptQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "attemptSectionId" | "questionVersionId" | "testVersionQuestionId" | "displayOrder" | "point" | "isRequired", ExtArgs["result"]["attemptQuestion"]>
+export type AttemptQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "attemptSectionId" | "questionVersionId" | "testVersionQuestionId" | "displayOrder" | "point" | "isRequired" | "updatedAt", ExtArgs["result"]["attemptQuestion"]>
 export type AttemptQuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   attemptSection?: boolean | Prisma.AttemptSectionDefaultArgs<ExtArgs>
@@ -1199,9 +1254,16 @@ export type $AttemptQuestionPayload<ExtArgs extends runtime.Types.Extensions.Int
     attemptSectionId: string
     questionVersionId: string
     testVersionQuestionId: string | null
+    /**
+     * The order in which this question was displayed to the student (supports shuffling)
+     */
     displayOrder: number
+    /**
+     * Points possible for this question in this attempt
+     */
     point: number
     isRequired: boolean
+    updatedAt: Date
   }, ExtArgs["result"]["attemptQuestion"]>
   composites: {}
 }
@@ -1638,6 +1700,7 @@ export interface AttemptQuestionFieldRefs {
   readonly displayOrder: Prisma.FieldRef<"AttemptQuestion", 'Int'>
   readonly point: Prisma.FieldRef<"AttemptQuestion", 'Int'>
   readonly isRequired: Prisma.FieldRef<"AttemptQuestion", 'Boolean'>
+  readonly updatedAt: Prisma.FieldRef<"AttemptQuestion", 'DateTime'>
 }
     
 

@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model TestVersion
- * 
+ * Immutable snapshot of a test's configuration, sections, and questions
  */
 export type TestVersionModel = runtime.Types.Result.DefaultSelection<Prisma.$TestVersionPayload>
 
@@ -29,6 +29,7 @@ export type AggregateTestVersion = {
 export type TestVersionAvgAggregateOutputType = {
   version: number | null
   tokenRequired: number | null
+  difficulty: number | null
   createdById: number | null
   duration: number | null
   maxAttempts: number | null
@@ -38,6 +39,7 @@ export type TestVersionAvgAggregateOutputType = {
 export type TestVersionSumAggregateOutputType = {
   version: number | null
   tokenRequired: number | null
+  difficulty: number | null
   createdById: number | null
   duration: number | null
   maxAttempts: number | null
@@ -50,7 +52,7 @@ export type TestVersionMinAggregateOutputType = {
   version: number | null
   status: $Enums.PublishStatus | null
   tokenRequired: number | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: number | null
   coverMediaId: string | null
   createdById: number | null
   availableFrom: Date | null
@@ -65,7 +67,11 @@ export type TestVersionMinAggregateOutputType = {
   forwardOnly: boolean | null
   passingPercentage: number | null
   resultView: $Enums.ResultViewType | null
+  publishedAt: Date | null
+  archivedAt: Date | null
+  changelog: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TestVersionMaxAggregateOutputType = {
@@ -74,7 +80,7 @@ export type TestVersionMaxAggregateOutputType = {
   version: number | null
   status: $Enums.PublishStatus | null
   tokenRequired: number | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: number | null
   coverMediaId: string | null
   createdById: number | null
   availableFrom: Date | null
@@ -89,7 +95,11 @@ export type TestVersionMaxAggregateOutputType = {
   forwardOnly: boolean | null
   passingPercentage: number | null
   resultView: $Enums.ResultViewType | null
+  publishedAt: Date | null
+  archivedAt: Date | null
+  changelog: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TestVersionCountAggregateOutputType = {
@@ -98,7 +108,6 @@ export type TestVersionCountAggregateOutputType = {
   version: number
   status: number
   tokenRequired: number
-  tags: number
   difficulty: number
   coverMediaId: number
   createdById: number
@@ -114,7 +123,11 @@ export type TestVersionCountAggregateOutputType = {
   forwardOnly: number
   passingPercentage: number
   resultView: number
+  publishedAt: number
+  archivedAt: number
+  changelog: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -122,6 +135,7 @@ export type TestVersionCountAggregateOutputType = {
 export type TestVersionAvgAggregateInputType = {
   version?: true
   tokenRequired?: true
+  difficulty?: true
   createdById?: true
   duration?: true
   maxAttempts?: true
@@ -131,6 +145,7 @@ export type TestVersionAvgAggregateInputType = {
 export type TestVersionSumAggregateInputType = {
   version?: true
   tokenRequired?: true
+  difficulty?: true
   createdById?: true
   duration?: true
   maxAttempts?: true
@@ -158,7 +173,11 @@ export type TestVersionMinAggregateInputType = {
   forwardOnly?: true
   passingPercentage?: true
   resultView?: true
+  publishedAt?: true
+  archivedAt?: true
+  changelog?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type TestVersionMaxAggregateInputType = {
@@ -182,7 +201,11 @@ export type TestVersionMaxAggregateInputType = {
   forwardOnly?: true
   passingPercentage?: true
   resultView?: true
+  publishedAt?: true
+  archivedAt?: true
+  changelog?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type TestVersionCountAggregateInputType = {
@@ -191,7 +214,6 @@ export type TestVersionCountAggregateInputType = {
   version?: true
   status?: true
   tokenRequired?: true
-  tags?: true
   difficulty?: true
   coverMediaId?: true
   createdById?: true
@@ -207,7 +229,11 @@ export type TestVersionCountAggregateInputType = {
   forwardOnly?: true
   passingPercentage?: true
   resultView?: true
+  publishedAt?: true
+  archivedAt?: true
+  changelog?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -303,11 +329,10 @@ export type TestVersionGroupByOutputType = {
   version: number
   status: $Enums.PublishStatus
   tokenRequired: number
-  tags: string[]
-  difficulty: $Enums.DifficultyLevel
+  difficulty: number
   coverMediaId: string | null
   createdById: number
-  availableFrom: Date | null
+  availableFrom: Date
   availableTo: Date | null
   duration: number | null
   maxAttempts: number | null
@@ -319,7 +344,11 @@ export type TestVersionGroupByOutputType = {
   forwardOnly: boolean | null
   passingPercentage: number | null
   resultView: $Enums.ResultViewType | null
+  publishedAt: Date | null
+  archivedAt: Date | null
+  changelog: string | null
   createdAt: Date
+  updatedAt: Date
   _count: TestVersionCountAggregateOutputType | null
   _avg: TestVersionAvgAggregateOutputType | null
   _sum: TestVersionSumAggregateOutputType | null
@@ -351,11 +380,10 @@ export type TestVersionWhereInput = {
   version?: Prisma.IntFilter<"TestVersion"> | number
   status?: Prisma.EnumPublishStatusFilter<"TestVersion"> | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFilter<"TestVersion"> | number
-  tags?: Prisma.StringNullableListFilter<"TestVersion">
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"TestVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFilter<"TestVersion"> | number
   coverMediaId?: Prisma.StringNullableFilter<"TestVersion"> | string | null
   createdById?: Prisma.IntFilter<"TestVersion"> | number
-  availableFrom?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  availableFrom?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
   availableTo?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
   duration?: Prisma.IntNullableFilter<"TestVersion"> | number | null
   maxAttempts?: Prisma.IntNullableFilter<"TestVersion"> | number | null
@@ -367,10 +395,15 @@ export type TestVersionWhereInput = {
   forwardOnly?: Prisma.BoolNullableFilter<"TestVersion"> | boolean | null
   passingPercentage?: Prisma.IntNullableFilter<"TestVersion"> | number | null
   resultView?: Prisma.EnumResultViewTypeNullableFilter<"TestVersion"> | $Enums.ResultViewType | null
+  publishedAt?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  changelog?: Prisma.StringNullableFilter<"TestVersion"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
   coverMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tags?: Prisma.TestTagListRelationFilter
   sections?: Prisma.TestVersionSectionListRelationFilter
   classAssignments?: Prisma.ClassTestAssignmentListRelationFilter
   attempts?: Prisma.TestAttemptListRelationFilter
@@ -382,11 +415,10 @@ export type TestVersionOrderByWithRelationInput = {
   version?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tokenRequired?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   coverMediaId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
-  availableFrom?: Prisma.SortOrderInput | Prisma.SortOrder
+  availableFrom?: Prisma.SortOrder
   availableTo?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   maxAttempts?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -398,10 +430,15 @@ export type TestVersionOrderByWithRelationInput = {
   forwardOnly?: Prisma.SortOrderInput | Prisma.SortOrder
   passingPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   resultView?: Prisma.SortOrderInput | Prisma.SortOrder
+  publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  changelog?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   test?: Prisma.TestOrderByWithRelationInput
   coverMedia?: Prisma.MediaOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
+  tags?: Prisma.TestTagOrderByRelationAggregateInput
   sections?: Prisma.TestVersionSectionOrderByRelationAggregateInput
   classAssignments?: Prisma.ClassTestAssignmentOrderByRelationAggregateInput
   attempts?: Prisma.TestAttemptOrderByRelationAggregateInput
@@ -418,10 +455,9 @@ export type TestVersionWhereUniqueInput = Prisma.AtLeast<{
   version?: Prisma.IntFilter<"TestVersion"> | number
   status?: Prisma.EnumPublishStatusFilter<"TestVersion"> | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFilter<"TestVersion"> | number
-  tags?: Prisma.StringNullableListFilter<"TestVersion">
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"TestVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFilter<"TestVersion"> | number
   createdById?: Prisma.IntFilter<"TestVersion"> | number
-  availableFrom?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  availableFrom?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
   availableTo?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
   duration?: Prisma.IntNullableFilter<"TestVersion"> | number | null
   maxAttempts?: Prisma.IntNullableFilter<"TestVersion"> | number | null
@@ -433,10 +469,15 @@ export type TestVersionWhereUniqueInput = Prisma.AtLeast<{
   forwardOnly?: Prisma.BoolNullableFilter<"TestVersion"> | boolean | null
   passingPercentage?: Prisma.IntNullableFilter<"TestVersion"> | number | null
   resultView?: Prisma.EnumResultViewTypeNullableFilter<"TestVersion"> | $Enums.ResultViewType | null
+  publishedAt?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  changelog?: Prisma.StringNullableFilter<"TestVersion"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
   coverMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tags?: Prisma.TestTagListRelationFilter
   sections?: Prisma.TestVersionSectionListRelationFilter
   classAssignments?: Prisma.ClassTestAssignmentListRelationFilter
   attempts?: Prisma.TestAttemptListRelationFilter
@@ -448,11 +489,10 @@ export type TestVersionOrderByWithAggregationInput = {
   version?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tokenRequired?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   coverMediaId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
-  availableFrom?: Prisma.SortOrderInput | Prisma.SortOrder
+  availableFrom?: Prisma.SortOrder
   availableTo?: Prisma.SortOrderInput | Prisma.SortOrder
   duration?: Prisma.SortOrderInput | Prisma.SortOrder
   maxAttempts?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -464,7 +504,11 @@ export type TestVersionOrderByWithAggregationInput = {
   forwardOnly?: Prisma.SortOrderInput | Prisma.SortOrder
   passingPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   resultView?: Prisma.SortOrderInput | Prisma.SortOrder
+  publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  changelog?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TestVersionCountOrderByAggregateInput
   _avg?: Prisma.TestVersionAvgOrderByAggregateInput
   _max?: Prisma.TestVersionMaxOrderByAggregateInput
@@ -481,11 +525,10 @@ export type TestVersionScalarWhereWithAggregatesInput = {
   version?: Prisma.IntWithAggregatesFilter<"TestVersion"> | number
   status?: Prisma.EnumPublishStatusWithAggregatesFilter<"TestVersion"> | $Enums.PublishStatus
   tokenRequired?: Prisma.IntWithAggregatesFilter<"TestVersion"> | number
-  tags?: Prisma.StringNullableListFilter<"TestVersion">
-  difficulty?: Prisma.EnumDifficultyLevelWithAggregatesFilter<"TestVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntWithAggregatesFilter<"TestVersion"> | number
   coverMediaId?: Prisma.StringNullableWithAggregatesFilter<"TestVersion"> | string | null
   createdById?: Prisma.IntWithAggregatesFilter<"TestVersion"> | number
-  availableFrom?: Prisma.DateTimeNullableWithAggregatesFilter<"TestVersion"> | Date | string | null
+  availableFrom?: Prisma.DateTimeWithAggregatesFilter<"TestVersion"> | Date | string
   availableTo?: Prisma.DateTimeNullableWithAggregatesFilter<"TestVersion"> | Date | string | null
   duration?: Prisma.IntNullableWithAggregatesFilter<"TestVersion"> | number | null
   maxAttempts?: Prisma.IntNullableWithAggregatesFilter<"TestVersion"> | number | null
@@ -497,7 +540,11 @@ export type TestVersionScalarWhereWithAggregatesInput = {
   forwardOnly?: Prisma.BoolNullableWithAggregatesFilter<"TestVersion"> | boolean | null
   passingPercentage?: Prisma.IntNullableWithAggregatesFilter<"TestVersion"> | number | null
   resultView?: Prisma.EnumResultViewTypeNullableWithAggregatesFilter<"TestVersion"> | $Enums.ResultViewType | null
+  publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TestVersion"> | Date | string | null
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TestVersion"> | Date | string | null
+  changelog?: Prisma.StringNullableWithAggregatesFilter<"TestVersion"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TestVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TestVersion"> | Date | string
 }
 
 export type TestVersionCreateInput = {
@@ -505,9 +552,8 @@ export type TestVersionCreateInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  availableFrom?: Date | string | null
+  difficulty?: number
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -519,10 +565,15 @@ export type TestVersionCreateInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutVersionsInput
   coverMedia?: Prisma.MediaCreateNestedOneWithoutTestVersionCoverInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestVersionsInput
+  tags?: Prisma.TestTagCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestVersionInput
@@ -534,11 +585,10 @@ export type TestVersionUncheckedCreateInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -550,7 +600,12 @@ export type TestVersionUncheckedCreateInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TestTagUncheckedCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput
@@ -561,9 +616,8 @@ export type TestVersionUpdateInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -575,10 +629,15 @@ export type TestVersionUpdateInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutVersionsNestedInput
   coverMedia?: Prisma.MediaUpdateOneWithoutTestVersionCoverNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestVersionsNestedInput
+  tags?: Prisma.TestTagUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestVersionNestedInput
@@ -590,11 +649,10 @@ export type TestVersionUncheckedUpdateInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -606,7 +664,12 @@ export type TestVersionUncheckedUpdateInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TestTagUncheckedUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput
@@ -618,11 +681,10 @@ export type TestVersionCreateManyInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -634,7 +696,11 @@ export type TestVersionCreateManyInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestVersionUpdateManyMutationInput = {
@@ -642,9 +708,8 @@ export type TestVersionUpdateManyMutationInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -656,7 +721,11 @@ export type TestVersionUpdateManyMutationInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionUncheckedUpdateManyInput = {
@@ -665,11 +734,10 @@ export type TestVersionUncheckedUpdateManyInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -681,7 +749,11 @@ export type TestVersionUncheckedUpdateManyInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionScalarRelationFilter = {
@@ -715,7 +787,6 @@ export type TestVersionCountOrderByAggregateInput = {
   version?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tokenRequired?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   coverMediaId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -731,12 +802,17 @@ export type TestVersionCountOrderByAggregateInput = {
   forwardOnly?: Prisma.SortOrder
   passingPercentage?: Prisma.SortOrder
   resultView?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
+  changelog?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionAvgOrderByAggregateInput = {
   version?: Prisma.SortOrder
   tokenRequired?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   maxAttempts?: Prisma.SortOrder
@@ -764,7 +840,11 @@ export type TestVersionMaxOrderByAggregateInput = {
   forwardOnly?: Prisma.SortOrder
   passingPercentage?: Prisma.SortOrder
   resultView?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
+  changelog?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionMinOrderByAggregateInput = {
@@ -788,12 +868,17 @@ export type TestVersionMinOrderByAggregateInput = {
   forwardOnly?: Prisma.SortOrder
   passingPercentage?: Prisma.SortOrder
   resultView?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
+  changelog?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionSumOrderByAggregateInput = {
   version?: Prisma.SortOrder
   tokenRequired?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   maxAttempts?: Prisma.SortOrder
@@ -844,6 +929,20 @@ export type TestVersionUncheckedUpdateOneWithoutCoverMediaNestedInput = {
   delete?: Prisma.TestVersionWhereInput | boolean
   connect?: Prisma.TestVersionWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TestVersionUpdateToOneWithWhereWithoutCoverMediaInput, Prisma.TestVersionUpdateWithoutCoverMediaInput>, Prisma.TestVersionUncheckedUpdateWithoutCoverMediaInput>
+}
+
+export type TestVersionCreateNestedOneWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.TestVersionCreateWithoutTagsInput, Prisma.TestVersionUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.TestVersionCreateOrConnectWithoutTagsInput
+  connect?: Prisma.TestVersionWhereUniqueInput
+}
+
+export type TestVersionUpdateOneRequiredWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.TestVersionCreateWithoutTagsInput, Prisma.TestVersionUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.TestVersionCreateOrConnectWithoutTagsInput
+  upsert?: Prisma.TestVersionUpsertWithoutTagsInput
+  connect?: Prisma.TestVersionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TestVersionUpdateToOneWithWhereWithoutTagsInput, Prisma.TestVersionUpdateWithoutTagsInput>, Prisma.TestVersionUncheckedUpdateWithoutTagsInput>
 }
 
 export type TestVersionCreateNestedOneWithoutAttemptsInput = {
@@ -902,17 +1001,8 @@ export type TestVersionUncheckedUpdateManyWithoutTestNestedInput = {
   deleteMany?: Prisma.TestVersionScalarWhereInput | Prisma.TestVersionScalarWhereInput[]
 }
 
-export type TestVersionCreatetagsInput = {
-  set: string[]
-}
-
 export type EnumPublishStatusFieldUpdateOperationsInput = {
   set?: $Enums.PublishStatus
-}
-
-export type TestVersionUpdatetagsInput = {
-  set?: string[]
-  push?: string | string[]
 }
 
 export type NullableEnumResultViewTypeFieldUpdateOperationsInput = {
@@ -980,9 +1070,8 @@ export type TestVersionCreateWithoutClassAssignmentsInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  availableFrom?: Date | string | null
+  difficulty?: number
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -994,10 +1083,15 @@ export type TestVersionCreateWithoutClassAssignmentsInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutVersionsInput
   coverMedia?: Prisma.MediaCreateNestedOneWithoutTestVersionCoverInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestVersionsInput
+  tags?: Prisma.TestTagCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestVersionInput
 }
@@ -1008,11 +1102,10 @@ export type TestVersionUncheckedCreateWithoutClassAssignmentsInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1024,7 +1117,12 @@ export type TestVersionUncheckedCreateWithoutClassAssignmentsInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TestTagUncheckedCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput
 }
@@ -1050,9 +1148,8 @@ export type TestVersionUpdateWithoutClassAssignmentsInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1064,10 +1161,15 @@ export type TestVersionUpdateWithoutClassAssignmentsInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutVersionsNestedInput
   coverMedia?: Prisma.MediaUpdateOneWithoutTestVersionCoverNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestVersionsNestedInput
+  tags?: Prisma.TestTagUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestVersionNestedInput
 }
@@ -1078,11 +1180,10 @@ export type TestVersionUncheckedUpdateWithoutClassAssignmentsInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1094,7 +1195,12 @@ export type TestVersionUncheckedUpdateWithoutClassAssignmentsInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TestTagUncheckedUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput
 }
@@ -1104,9 +1210,8 @@ export type TestVersionCreateWithoutCoverMediaInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  availableFrom?: Date | string | null
+  difficulty?: number
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1118,9 +1223,14 @@ export type TestVersionCreateWithoutCoverMediaInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutVersionsInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestVersionsInput
+  tags?: Prisma.TestTagCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestVersionInput
@@ -1132,10 +1242,9 @@ export type TestVersionUncheckedCreateWithoutCoverMediaInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1147,7 +1256,12 @@ export type TestVersionUncheckedCreateWithoutCoverMediaInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TestTagUncheckedCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput
@@ -1174,9 +1288,8 @@ export type TestVersionUpdateWithoutCoverMediaInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1188,9 +1301,14 @@ export type TestVersionUpdateWithoutCoverMediaInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutVersionsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestVersionsNestedInput
+  tags?: Prisma.TestTagUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestVersionNestedInput
@@ -1202,10 +1320,9 @@ export type TestVersionUncheckedUpdateWithoutCoverMediaInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1217,7 +1334,152 @@ export type TestVersionUncheckedUpdateWithoutCoverMediaInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TestTagUncheckedUpdateManyWithoutTestVersionNestedInput
+  sections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutTestVersionNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput
+  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput
+}
+
+export type TestVersionCreateWithoutTagsInput = {
+  id?: string
+  version: number
+  status?: $Enums.PublishStatus
+  tokenRequired?: number
+  difficulty?: number
+  availableFrom?: Date | string
+  availableTo?: Date | string | null
+  duration?: number | null
+  maxAttempts?: number | null
+  shuffleQuestions?: boolean | null
+  showResultImmediately?: boolean | null
+  requirePassword?: string | null
+  ipRestriction?: string | null
+  strictMode?: boolean | null
+  forwardOnly?: boolean | null
+  passingPercentage?: number | null
+  resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  test: Prisma.TestCreateNestedOneWithoutVersionsInput
+  coverMedia?: Prisma.MediaCreateNestedOneWithoutTestVersionCoverInput
+  createdBy: Prisma.UserCreateNestedOneWithoutTestVersionsInput
+  sections?: Prisma.TestVersionSectionCreateNestedManyWithoutTestVersionInput
+  classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestVersionInput
+  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestVersionInput
+}
+
+export type TestVersionUncheckedCreateWithoutTagsInput = {
+  id?: string
+  testId: string
+  version: number
+  status?: $Enums.PublishStatus
+  tokenRequired?: number
+  difficulty?: number
+  coverMediaId?: string | null
+  createdById: number
+  availableFrom?: Date | string
+  availableTo?: Date | string | null
+  duration?: number | null
+  maxAttempts?: number | null
+  shuffleQuestions?: boolean | null
+  showResultImmediately?: boolean | null
+  requirePassword?: string | null
+  ipRestriction?: string | null
+  strictMode?: boolean | null
+  forwardOnly?: boolean | null
+  passingPercentage?: number | null
+  resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutTestVersionInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput
+  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput
+}
+
+export type TestVersionCreateOrConnectWithoutTagsInput = {
+  where: Prisma.TestVersionWhereUniqueInput
+  create: Prisma.XOR<Prisma.TestVersionCreateWithoutTagsInput, Prisma.TestVersionUncheckedCreateWithoutTagsInput>
+}
+
+export type TestVersionUpsertWithoutTagsInput = {
+  update: Prisma.XOR<Prisma.TestVersionUpdateWithoutTagsInput, Prisma.TestVersionUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.TestVersionCreateWithoutTagsInput, Prisma.TestVersionUncheckedCreateWithoutTagsInput>
+  where?: Prisma.TestVersionWhereInput
+}
+
+export type TestVersionUpdateToOneWithWhereWithoutTagsInput = {
+  where?: Prisma.TestVersionWhereInput
+  data: Prisma.XOR<Prisma.TestVersionUpdateWithoutTagsInput, Prisma.TestVersionUncheckedUpdateWithoutTagsInput>
+}
+
+export type TestVersionUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  shuffleQuestions?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  showResultImmediately?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  requirePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipRestriction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  strictMode?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  test?: Prisma.TestUpdateOneRequiredWithoutVersionsNestedInput
+  coverMedia?: Prisma.MediaUpdateOneWithoutTestVersionCoverNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutTestVersionsNestedInput
+  sections?: Prisma.TestVersionSectionUpdateManyWithoutTestVersionNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput
+  attempts?: Prisma.TestAttemptUpdateManyWithoutTestVersionNestedInput
+}
+
+export type TestVersionUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  shuffleQuestions?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  showResultImmediately?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  requirePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipRestriction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  strictMode?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput
@@ -1228,9 +1490,8 @@ export type TestVersionCreateWithoutAttemptsInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  availableFrom?: Date | string | null
+  difficulty?: number
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1242,10 +1503,15 @@ export type TestVersionCreateWithoutAttemptsInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutVersionsInput
   coverMedia?: Prisma.MediaCreateNestedOneWithoutTestVersionCoverInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestVersionsInput
+  tags?: Prisma.TestTagCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestVersionInput
 }
@@ -1256,11 +1522,10 @@ export type TestVersionUncheckedCreateWithoutAttemptsInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1272,7 +1537,12 @@ export type TestVersionUncheckedCreateWithoutAttemptsInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TestTagUncheckedCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput
 }
@@ -1298,9 +1568,8 @@ export type TestVersionUpdateWithoutAttemptsInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1312,10 +1581,15 @@ export type TestVersionUpdateWithoutAttemptsInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutVersionsNestedInput
   coverMedia?: Prisma.MediaUpdateOneWithoutTestVersionCoverNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestVersionsNestedInput
+  tags?: Prisma.TestTagUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput
 }
@@ -1326,11 +1600,10 @@ export type TestVersionUncheckedUpdateWithoutAttemptsInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1342,7 +1615,12 @@ export type TestVersionUncheckedUpdateWithoutAttemptsInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TestTagUncheckedUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput
 }
@@ -1352,9 +1630,8 @@ export type TestVersionCreateWithoutTestInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  availableFrom?: Date | string | null
+  difficulty?: number
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1366,9 +1643,14 @@ export type TestVersionCreateWithoutTestInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   coverMedia?: Prisma.MediaCreateNestedOneWithoutTestVersionCoverInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestVersionsInput
+  tags?: Prisma.TestTagCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestVersionInput
@@ -1379,11 +1661,10 @@ export type TestVersionUncheckedCreateWithoutTestInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1395,7 +1676,12 @@ export type TestVersionUncheckedCreateWithoutTestInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TestTagUncheckedCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput
@@ -1436,11 +1722,10 @@ export type TestVersionScalarWhereInput = {
   version?: Prisma.IntFilter<"TestVersion"> | number
   status?: Prisma.EnumPublishStatusFilter<"TestVersion"> | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFilter<"TestVersion"> | number
-  tags?: Prisma.StringNullableListFilter<"TestVersion">
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"TestVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFilter<"TestVersion"> | number
   coverMediaId?: Prisma.StringNullableFilter<"TestVersion"> | string | null
   createdById?: Prisma.IntFilter<"TestVersion"> | number
-  availableFrom?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  availableFrom?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
   availableTo?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
   duration?: Prisma.IntNullableFilter<"TestVersion"> | number | null
   maxAttempts?: Prisma.IntNullableFilter<"TestVersion"> | number | null
@@ -1452,7 +1737,11 @@ export type TestVersionScalarWhereInput = {
   forwardOnly?: Prisma.BoolNullableFilter<"TestVersion"> | boolean | null
   passingPercentage?: Prisma.IntNullableFilter<"TestVersion"> | number | null
   resultView?: Prisma.EnumResultViewTypeNullableFilter<"TestVersion"> | $Enums.ResultViewType | null
+  publishedAt?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"TestVersion"> | Date | string | null
+  changelog?: Prisma.StringNullableFilter<"TestVersion"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TestVersion"> | Date | string
 }
 
 export type TestVersionCreateWithoutSectionsInput = {
@@ -1460,9 +1749,8 @@ export type TestVersionCreateWithoutSectionsInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  availableFrom?: Date | string | null
+  difficulty?: number
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1474,10 +1762,15 @@ export type TestVersionCreateWithoutSectionsInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutVersionsInput
   coverMedia?: Prisma.MediaCreateNestedOneWithoutTestVersionCoverInput
   createdBy: Prisma.UserCreateNestedOneWithoutTestVersionsInput
+  tags?: Prisma.TestTagCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestVersionInput
 }
@@ -1488,11 +1781,10 @@ export type TestVersionUncheckedCreateWithoutSectionsInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1504,7 +1796,12 @@ export type TestVersionUncheckedCreateWithoutSectionsInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TestTagUncheckedCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput
 }
@@ -1530,9 +1827,8 @@ export type TestVersionUpdateWithoutSectionsInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1544,10 +1840,15 @@ export type TestVersionUpdateWithoutSectionsInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutVersionsNestedInput
   coverMedia?: Prisma.MediaUpdateOneWithoutTestVersionCoverNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestVersionsNestedInput
+  tags?: Prisma.TestTagUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestVersionNestedInput
 }
@@ -1558,11 +1859,10 @@ export type TestVersionUncheckedUpdateWithoutSectionsInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1574,7 +1874,12 @@ export type TestVersionUncheckedUpdateWithoutSectionsInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TestTagUncheckedUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput
 }
@@ -1584,9 +1889,8 @@ export type TestVersionCreateWithoutCreatedByInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
-  availableFrom?: Date | string | null
+  difficulty?: number
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1598,9 +1902,14 @@ export type TestVersionCreateWithoutCreatedByInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutVersionsInput
   coverMedia?: Prisma.MediaCreateNestedOneWithoutTestVersionCoverInput
+  tags?: Prisma.TestTagCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestVersionInput
@@ -1612,10 +1921,9 @@ export type TestVersionUncheckedCreateWithoutCreatedByInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1627,7 +1935,12 @@ export type TestVersionUncheckedCreateWithoutCreatedByInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TestTagUncheckedCreateNestedManyWithoutTestVersionInput
   sections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutTestVersionInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestVersionInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestVersionInput
@@ -1664,11 +1977,10 @@ export type TestVersionCreateManyTestInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
   createdById: number
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1680,7 +1992,11 @@ export type TestVersionCreateManyTestInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestVersionUpdateWithoutTestInput = {
@@ -1688,9 +2004,8 @@ export type TestVersionUpdateWithoutTestInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1702,9 +2017,14 @@ export type TestVersionUpdateWithoutTestInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   coverMedia?: Prisma.MediaUpdateOneWithoutTestVersionCoverNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestVersionsNestedInput
+  tags?: Prisma.TestTagUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestVersionNestedInput
@@ -1715,11 +2035,10 @@ export type TestVersionUncheckedUpdateWithoutTestInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1731,7 +2050,12 @@ export type TestVersionUncheckedUpdateWithoutTestInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TestTagUncheckedUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput
@@ -1742,11 +2066,10 @@ export type TestVersionUncheckedUpdateManyWithoutTestInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1758,7 +2081,11 @@ export type TestVersionUncheckedUpdateManyWithoutTestInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionCreateManyCreatedByInput = {
@@ -1767,10 +2094,9 @@ export type TestVersionCreateManyCreatedByInput = {
   version: number
   status?: $Enums.PublishStatus
   tokenRequired?: number
-  tags?: Prisma.TestVersionCreatetagsInput | string[]
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   coverMediaId?: string | null
-  availableFrom?: Date | string | null
+  availableFrom?: Date | string
   availableTo?: Date | string | null
   duration?: number | null
   maxAttempts?: number | null
@@ -1782,7 +2108,11 @@ export type TestVersionCreateManyCreatedByInput = {
   forwardOnly?: boolean | null
   passingPercentage?: number | null
   resultView?: $Enums.ResultViewType | null
+  publishedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  changelog?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestVersionUpdateWithoutCreatedByInput = {
@@ -1790,9 +2120,8 @@ export type TestVersionUpdateWithoutCreatedByInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1804,9 +2133,14 @@ export type TestVersionUpdateWithoutCreatedByInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutVersionsNestedInput
   coverMedia?: Prisma.MediaUpdateOneWithoutTestVersionCoverNestedInput
+  tags?: Prisma.TestTagUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestVersionNestedInput
@@ -1818,10 +2152,9 @@ export type TestVersionUncheckedUpdateWithoutCreatedByInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1833,7 +2166,12 @@ export type TestVersionUncheckedUpdateWithoutCreatedByInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TestTagUncheckedUpdateManyWithoutTestVersionNestedInput
   sections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutTestVersionNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestVersionNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestVersionNestedInput
@@ -1845,10 +2183,9 @@ export type TestVersionUncheckedUpdateManyWithoutCreatedByInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   tokenRequired?: Prisma.IntFieldUpdateOperationsInput | number
-  tags?: Prisma.TestVersionUpdatetagsInput | string[]
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   coverMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   availableTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxAttempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1860,7 +2197,11 @@ export type TestVersionUncheckedUpdateManyWithoutCreatedByInput = {
   forwardOnly?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   passingPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   resultView?: Prisma.NullableEnumResultViewTypeFieldUpdateOperationsInput | $Enums.ResultViewType | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  changelog?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1869,12 +2210,14 @@ export type TestVersionUncheckedUpdateManyWithoutCreatedByInput = {
  */
 
 export type TestVersionCountOutputType = {
+  tags: number
   sections: number
   classAssignments: number
   attempts: number
 }
 
 export type TestVersionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tags?: boolean | TestVersionCountOutputTypeCountTagsArgs
   sections?: boolean | TestVersionCountOutputTypeCountSectionsArgs
   classAssignments?: boolean | TestVersionCountOutputTypeCountClassAssignmentsArgs
   attempts?: boolean | TestVersionCountOutputTypeCountAttemptsArgs
@@ -1888,6 +2231,13 @@ export type TestVersionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
    * Select specific fields to fetch from the TestVersionCountOutputType
    */
   select?: Prisma.TestVersionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TestVersionCountOutputType without action
+ */
+export type TestVersionCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestTagWhereInput
 }
 
 /**
@@ -1918,7 +2268,6 @@ export type TestVersionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   version?: boolean
   status?: boolean
   tokenRequired?: boolean
-  tags?: boolean
   difficulty?: boolean
   coverMediaId?: boolean
   createdById?: boolean
@@ -1934,10 +2283,15 @@ export type TestVersionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   forwardOnly?: boolean
   passingPercentage?: boolean
   resultView?: boolean
+  publishedAt?: boolean
+  archivedAt?: boolean
+  changelog?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   coverMedia?: boolean | Prisma.TestVersion$coverMediaArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tags?: boolean | Prisma.TestVersion$tagsArgs<ExtArgs>
   sections?: boolean | Prisma.TestVersion$sectionsArgs<ExtArgs>
   classAssignments?: boolean | Prisma.TestVersion$classAssignmentsArgs<ExtArgs>
   attempts?: boolean | Prisma.TestVersion$attemptsArgs<ExtArgs>
@@ -1950,7 +2304,6 @@ export type TestVersionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   version?: boolean
   status?: boolean
   tokenRequired?: boolean
-  tags?: boolean
   difficulty?: boolean
   coverMediaId?: boolean
   createdById?: boolean
@@ -1966,7 +2319,11 @@ export type TestVersionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   forwardOnly?: boolean
   passingPercentage?: boolean
   resultView?: boolean
+  publishedAt?: boolean
+  archivedAt?: boolean
+  changelog?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   coverMedia?: boolean | Prisma.TestVersion$coverMediaArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1978,7 +2335,6 @@ export type TestVersionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   version?: boolean
   status?: boolean
   tokenRequired?: boolean
-  tags?: boolean
   difficulty?: boolean
   coverMediaId?: boolean
   createdById?: boolean
@@ -1994,7 +2350,11 @@ export type TestVersionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   forwardOnly?: boolean
   passingPercentage?: boolean
   resultView?: boolean
+  publishedAt?: boolean
+  archivedAt?: boolean
+  changelog?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   coverMedia?: boolean | Prisma.TestVersion$coverMediaArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -2006,7 +2366,6 @@ export type TestVersionSelectScalar = {
   version?: boolean
   status?: boolean
   tokenRequired?: boolean
-  tags?: boolean
   difficulty?: boolean
   coverMediaId?: boolean
   createdById?: boolean
@@ -2022,14 +2381,19 @@ export type TestVersionSelectScalar = {
   forwardOnly?: boolean
   passingPercentage?: boolean
   resultView?: boolean
+  publishedAt?: boolean
+  archivedAt?: boolean
+  changelog?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type TestVersionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testId" | "version" | "status" | "tokenRequired" | "tags" | "difficulty" | "coverMediaId" | "createdById" | "availableFrom" | "availableTo" | "duration" | "maxAttempts" | "shuffleQuestions" | "showResultImmediately" | "requirePassword" | "ipRestriction" | "strictMode" | "forwardOnly" | "passingPercentage" | "resultView" | "createdAt", ExtArgs["result"]["testVersion"]>
+export type TestVersionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testId" | "version" | "status" | "tokenRequired" | "difficulty" | "coverMediaId" | "createdById" | "availableFrom" | "availableTo" | "duration" | "maxAttempts" | "shuffleQuestions" | "showResultImmediately" | "requirePassword" | "ipRestriction" | "strictMode" | "forwardOnly" | "passingPercentage" | "resultView" | "publishedAt" | "archivedAt" | "changelog" | "createdAt" | "updatedAt", ExtArgs["result"]["testVersion"]>
 export type TestVersionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   coverMedia?: boolean | Prisma.TestVersion$coverMediaArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tags?: boolean | Prisma.TestVersion$tagsArgs<ExtArgs>
   sections?: boolean | Prisma.TestVersion$sectionsArgs<ExtArgs>
   classAssignments?: boolean | Prisma.TestVersion$classAssignmentsArgs<ExtArgs>
   attempts?: boolean | Prisma.TestVersion$attemptsArgs<ExtArgs>
@@ -2052,6 +2416,7 @@ export type $TestVersionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     test: Prisma.$TestPayload<ExtArgs>
     coverMedia: Prisma.$MediaPayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs>
+    tags: Prisma.$TestTagPayload<ExtArgs>[]
     sections: Prisma.$TestVersionSectionPayload<ExtArgs>[]
     classAssignments: Prisma.$ClassTestAssignmentPayload<ExtArgs>[]
     attempts: Prisma.$TestAttemptPayload<ExtArgs>[]
@@ -2059,26 +2424,62 @@ export type $TestVersionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     testId: string
+    /**
+     * Incremental version number for this specific test
+     */
     version: number
     status: $Enums.PublishStatus
+    /**
+     * Cost in tokens required to start this test version
+     */
     tokenRequired: number
-    tags: string[]
-    difficulty: $Enums.DifficultyLevel
+    difficulty: number
     coverMediaId: string | null
     createdById: number
-    availableFrom: Date | null
+    /**
+     * Timestamp after which the test is accessible
+     */
+    availableFrom: Date
+    /**
+     * Optional expiration timestamp for the test
+     */
     availableTo: Date | null
+    /**
+     * Total duration in minutes (-1 or null for unlimited)
+     */
     duration: number | null
+    /**
+     * Maximum number of attempts allowed per student (-1 for unlimited)
+     */
     maxAttempts: number | null
     shuffleQuestions: boolean | null
     showResultImmediately: boolean | null
     requirePassword: string | null
     ipRestriction: string | null
+    /**
+     * If true, prevents leaving the test window or switching tabs
+     */
     strictMode: boolean | null
+    /**
+     * If true, prevents going back to previous questions
+     */
     forwardOnly: boolean | null
     passingPercentage: number | null
     resultView: $Enums.ResultViewType | null
+    /**
+     * Timestamp when this version was officially published
+     */
+    publishedAt: Date | null
+    /**
+     * Timestamp when this version was retired
+     */
+    archivedAt: Date | null
+    /**
+     * Summary of changes from the previous version
+     */
+    changelog: string | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["testVersion"]>
   composites: {}
 }
@@ -2476,6 +2877,7 @@ export interface Prisma__TestVersionClient<T, Null = never, ExtArgs extends runt
   test<T extends Prisma.TestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestDefaultArgs<ExtArgs>>): Prisma.Prisma__TestClient<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   coverMedia<T extends Prisma.TestVersion$coverMediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersion$coverMediaArgs<ExtArgs>>): Prisma.Prisma__MediaClient<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tags<T extends Prisma.TestVersion$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersion$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sections<T extends Prisma.TestVersion$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersion$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestVersionSectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   classAssignments<T extends Prisma.TestVersion$classAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersion$classAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassTestAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attempts<T extends Prisma.TestVersion$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestVersion$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2513,8 +2915,7 @@ export interface TestVersionFieldRefs {
   readonly version: Prisma.FieldRef<"TestVersion", 'Int'>
   readonly status: Prisma.FieldRef<"TestVersion", 'PublishStatus'>
   readonly tokenRequired: Prisma.FieldRef<"TestVersion", 'Int'>
-  readonly tags: Prisma.FieldRef<"TestVersion", 'String[]'>
-  readonly difficulty: Prisma.FieldRef<"TestVersion", 'DifficultyLevel'>
+  readonly difficulty: Prisma.FieldRef<"TestVersion", 'Int'>
   readonly coverMediaId: Prisma.FieldRef<"TestVersion", 'String'>
   readonly createdById: Prisma.FieldRef<"TestVersion", 'Int'>
   readonly availableFrom: Prisma.FieldRef<"TestVersion", 'DateTime'>
@@ -2529,7 +2930,11 @@ export interface TestVersionFieldRefs {
   readonly forwardOnly: Prisma.FieldRef<"TestVersion", 'Boolean'>
   readonly passingPercentage: Prisma.FieldRef<"TestVersion", 'Int'>
   readonly resultView: Prisma.FieldRef<"TestVersion", 'ResultViewType'>
+  readonly publishedAt: Prisma.FieldRef<"TestVersion", 'DateTime'>
+  readonly archivedAt: Prisma.FieldRef<"TestVersion", 'DateTime'>
+  readonly changelog: Prisma.FieldRef<"TestVersion", 'String'>
   readonly createdAt: Prisma.FieldRef<"TestVersion", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"TestVersion", 'DateTime'>
 }
     
 
@@ -2947,6 +3352,30 @@ export type TestVersion$coverMediaArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.MediaInclude<ExtArgs> | null
   where?: Prisma.MediaWhereInput
+}
+
+/**
+ * TestVersion.tags
+ */
+export type TestVersion$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestTag
+   */
+  select?: Prisma.TestTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestTag
+   */
+  omit?: Prisma.TestTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestTagInclude<ExtArgs> | null
+  where?: Prisma.TestTagWhereInput
+  orderBy?: Prisma.TestTagOrderByWithRelationInput | Prisma.TestTagOrderByWithRelationInput[]
+  cursor?: Prisma.TestTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TestTagScalarFieldEnum | Prisma.TestTagScalarFieldEnum[]
 }
 
 /**

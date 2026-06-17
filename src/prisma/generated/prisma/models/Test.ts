@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Test
- * 
+ * Logical container for an assessment. References the active version.
  */
 export type TestModel = runtime.Types.Result.DefaultSelection<Prisma.$TestPayload>
 
@@ -38,6 +38,7 @@ export type TestMinAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  isArchived: boolean | null
   subjectId: string | null
   createdById: number | null
   createdAt: Date | null
@@ -48,6 +49,7 @@ export type TestMaxAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  isArchived: boolean | null
   subjectId: string | null
   createdById: number | null
   createdAt: Date | null
@@ -58,6 +60,7 @@ export type TestCountAggregateOutputType = {
   id: number
   title: number
   description: number
+  isArchived: number
   subjectId: number
   createdById: number
   createdAt: number
@@ -78,6 +81,7 @@ export type TestMinAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  isArchived?: true
   subjectId?: true
   createdById?: true
   createdAt?: true
@@ -88,6 +92,7 @@ export type TestMaxAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  isArchived?: true
   subjectId?: true
   createdById?: true
   createdAt?: true
@@ -98,6 +103,7 @@ export type TestCountAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  isArchived?: true
   subjectId?: true
   createdById?: true
   createdAt?: true
@@ -195,6 +201,7 @@ export type TestGroupByOutputType = {
   id: string
   title: string
   description: string | null
+  isArchived: boolean
   subjectId: string
   createdById: number
   createdAt: Date
@@ -228,6 +235,7 @@ export type TestWhereInput = {
   id?: Prisma.StringFilter<"Test"> | string
   title?: Prisma.StringFilter<"Test"> | string
   description?: Prisma.StringNullableFilter<"Test"> | string | null
+  isArchived?: Prisma.BoolFilter<"Test"> | boolean
   subjectId?: Prisma.StringFilter<"Test"> | string
   createdById?: Prisma.IntFilter<"Test"> | number
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
@@ -238,12 +246,14 @@ export type TestWhereInput = {
   classAssignments?: Prisma.ClassTestAssignmentListRelationFilter
   attempts?: Prisma.TestAttemptListRelationFilter
   progress?: Prisma.UserTestProgressListRelationFilter
+  tokenTransactions?: Prisma.TokenTransactionListRelationFilter
 }
 
 export type TestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -254,6 +264,7 @@ export type TestOrderByWithRelationInput = {
   classAssignments?: Prisma.ClassTestAssignmentOrderByRelationAggregateInput
   attempts?: Prisma.TestAttemptOrderByRelationAggregateInput
   progress?: Prisma.UserTestProgressOrderByRelationAggregateInput
+  tokenTransactions?: Prisma.TokenTransactionOrderByRelationAggregateInput
 }
 
 export type TestWhereUniqueInput = Prisma.AtLeast<{
@@ -263,6 +274,7 @@ export type TestWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TestWhereInput | Prisma.TestWhereInput[]
   title?: Prisma.StringFilter<"Test"> | string
   description?: Prisma.StringNullableFilter<"Test"> | string | null
+  isArchived?: Prisma.BoolFilter<"Test"> | boolean
   subjectId?: Prisma.StringFilter<"Test"> | string
   createdById?: Prisma.IntFilter<"Test"> | number
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
@@ -273,12 +285,14 @@ export type TestWhereUniqueInput = Prisma.AtLeast<{
   classAssignments?: Prisma.ClassTestAssignmentListRelationFilter
   attempts?: Prisma.TestAttemptListRelationFilter
   progress?: Prisma.UserTestProgressListRelationFilter
+  tokenTransactions?: Prisma.TokenTransactionListRelationFilter
 }, "id">
 
 export type TestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -297,6 +311,7 @@ export type TestScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Test"> | string
   title?: Prisma.StringWithAggregatesFilter<"Test"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Test"> | string | null
+  isArchived?: Prisma.BoolWithAggregatesFilter<"Test"> | boolean
   subjectId?: Prisma.StringWithAggregatesFilter<"Test"> | string
   createdById?: Prisma.IntWithAggregatesFilter<"Test"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Test"> | Date | string
@@ -307,6 +322,7 @@ export type TestCreateInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
@@ -315,12 +331,14 @@ export type TestCreateInput = {
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdById: number
   createdAt?: Date | string
@@ -329,12 +347,14 @@ export type TestUncheckedCreateInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
@@ -343,12 +363,14 @@ export type TestUpdateInput = {
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -357,12 +379,14 @@ export type TestUncheckedUpdateInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateManyInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdById: number
   createdAt?: Date | string
@@ -373,6 +397,7 @@ export type TestUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -381,6 +406,7 @@ export type TestUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -406,6 +432,7 @@ export type TestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -420,6 +447,7 @@ export type TestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -430,6 +458,7 @@ export type TestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isArchived?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -438,6 +467,11 @@ export type TestMinOrderByAggregateInput = {
 
 export type TestSumOrderByAggregateInput = {
   createdById?: Prisma.SortOrder
+}
+
+export type TestNullableScalarRelationFilter = {
+  is?: Prisma.TestWhereInput | null
+  isNot?: Prisma.TestWhereInput | null
 }
 
 export type TestCreateNestedOneWithoutClassAssignmentsInput = {
@@ -566,6 +600,22 @@ export type TestUncheckedUpdateManyWithoutCreatedByNestedInput = {
   deleteMany?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
 }
 
+export type TestCreateNestedOneWithoutTokenTransactionsInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutTokenTransactionsInput, Prisma.TestUncheckedCreateWithoutTokenTransactionsInput>
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutTokenTransactionsInput
+  connect?: Prisma.TestWhereUniqueInput
+}
+
+export type TestUpdateOneWithoutTokenTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutTokenTransactionsInput, Prisma.TestUncheckedCreateWithoutTokenTransactionsInput>
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutTokenTransactionsInput
+  upsert?: Prisma.TestUpsertWithoutTokenTransactionsInput
+  disconnect?: Prisma.TestWhereInput | boolean
+  delete?: Prisma.TestWhereInput | boolean
+  connect?: Prisma.TestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutTokenTransactionsInput, Prisma.TestUpdateWithoutTokenTransactionsInput>, Prisma.TestUncheckedUpdateWithoutTokenTransactionsInput>
+}
+
 export type TestCreateNestedOneWithoutProgressInput = {
   create?: Prisma.XOR<Prisma.TestCreateWithoutProgressInput, Prisma.TestUncheckedCreateWithoutProgressInput>
   connectOrCreate?: Prisma.TestCreateOrConnectWithoutProgressInput
@@ -584,6 +634,7 @@ export type TestCreateWithoutClassAssignmentsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
@@ -591,12 +642,14 @@ export type TestCreateWithoutClassAssignmentsInput = {
   versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutClassAssignmentsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdById: number
   createdAt?: Date | string
@@ -604,6 +657,7 @@ export type TestUncheckedCreateWithoutClassAssignmentsInput = {
   versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutClassAssignmentsInput = {
@@ -626,6 +680,7 @@ export type TestUpdateWithoutClassAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
@@ -633,12 +688,14 @@ export type TestUpdateWithoutClassAssignmentsInput = {
   versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutClassAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -646,12 +703,14 @@ export type TestUncheckedUpdateWithoutClassAssignmentsInput = {
   versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateWithoutSubjectInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
@@ -659,12 +718,14 @@ export type TestCreateWithoutSubjectInput = {
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutSubjectInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -672,6 +733,7 @@ export type TestUncheckedCreateWithoutSubjectInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutSubjectInput = {
@@ -707,6 +769,7 @@ export type TestScalarWhereInput = {
   id?: Prisma.StringFilter<"Test"> | string
   title?: Prisma.StringFilter<"Test"> | string
   description?: Prisma.StringNullableFilter<"Test"> | string | null
+  isArchived?: Prisma.BoolFilter<"Test"> | boolean
   subjectId?: Prisma.StringFilter<"Test"> | string
   createdById?: Prisma.IntFilter<"Test"> | number
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
@@ -717,6 +780,7 @@ export type TestCreateWithoutAttemptsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
@@ -724,12 +788,14 @@ export type TestCreateWithoutAttemptsInput = {
   versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutAttemptsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdById: number
   createdAt?: Date | string
@@ -737,6 +803,7 @@ export type TestUncheckedCreateWithoutAttemptsInput = {
   versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutAttemptsInput = {
@@ -759,6 +826,7 @@ export type TestUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
@@ -766,12 +834,14 @@ export type TestUpdateWithoutAttemptsInput = {
   versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -779,12 +849,14 @@ export type TestUncheckedUpdateWithoutAttemptsInput = {
   versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateWithoutVersionsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
@@ -792,12 +864,14 @@ export type TestCreateWithoutVersionsInput = {
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutVersionsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdById: number
   createdAt?: Date | string
@@ -805,6 +879,7 @@ export type TestUncheckedCreateWithoutVersionsInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutVersionsInput = {
@@ -827,6 +902,7 @@ export type TestUpdateWithoutVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
@@ -834,12 +910,14 @@ export type TestUpdateWithoutVersionsInput = {
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -847,12 +925,14 @@ export type TestUncheckedUpdateWithoutVersionsInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateWithoutCreatedByInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
@@ -860,12 +940,14 @@ export type TestCreateWithoutCreatedByInput = {
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutTestInput
 }
 
 export type TestUncheckedCreateWithoutCreatedByInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -873,6 +955,7 @@ export type TestUncheckedCreateWithoutCreatedByInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutCreatedByInput = {
@@ -901,10 +984,11 @@ export type TestUpdateManyWithWhereWithoutCreatedByInput = {
   data: Prisma.XOR<Prisma.TestUpdateManyMutationInput, Prisma.TestUncheckedUpdateManyWithoutCreatedByInput>
 }
 
-export type TestCreateWithoutProgressInput = {
+export type TestCreateWithoutTokenTransactionsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
@@ -912,12 +996,14 @@ export type TestCreateWithoutProgressInput = {
   versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutTestInput
 }
 
-export type TestUncheckedCreateWithoutProgressInput = {
+export type TestUncheckedCreateWithoutTokenTransactionsInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdById: number
   createdAt?: Date | string
@@ -925,6 +1011,83 @@ export type TestUncheckedCreateWithoutProgressInput = {
   versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
   attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutTestInput
+}
+
+export type TestCreateOrConnectWithoutTokenTransactionsInput = {
+  where: Prisma.TestWhereUniqueInput
+  create: Prisma.XOR<Prisma.TestCreateWithoutTokenTransactionsInput, Prisma.TestUncheckedCreateWithoutTokenTransactionsInput>
+}
+
+export type TestUpsertWithoutTokenTransactionsInput = {
+  update: Prisma.XOR<Prisma.TestUpdateWithoutTokenTransactionsInput, Prisma.TestUncheckedUpdateWithoutTokenTransactionsInput>
+  create: Prisma.XOR<Prisma.TestCreateWithoutTokenTransactionsInput, Prisma.TestUncheckedCreateWithoutTokenTransactionsInput>
+  where?: Prisma.TestWhereInput
+}
+
+export type TestUpdateToOneWithWhereWithoutTokenTransactionsInput = {
+  where?: Prisma.TestWhereInput
+  data: Prisma.XOR<Prisma.TestUpdateWithoutTokenTransactionsInput, Prisma.TestUncheckedUpdateWithoutTokenTransactionsInput>
+}
+
+export type TestUpdateWithoutTokenTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
+  versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+}
+
+export type TestUncheckedUpdateWithoutTokenTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
+  attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+}
+
+export type TestCreateWithoutProgressInput = {
+  id?: string
+  title: string
+  description?: string | null
+  isArchived?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutTestsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutTestsInput
+  versions?: Prisma.TestVersionCreateNestedManyWithoutTestInput
+  classAssignments?: Prisma.ClassTestAssignmentCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutTestInput
+}
+
+export type TestUncheckedCreateWithoutProgressInput = {
+  id?: string
+  title: string
+  description?: string | null
+  isArchived?: boolean
+  subjectId: string
+  createdById: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  versions?: Prisma.TestVersionUncheckedCreateNestedManyWithoutTestInput
+  classAssignments?: Prisma.ClassTestAssignmentUncheckedCreateNestedManyWithoutTestInput
+  attempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutTestInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutTestInput
 }
 
 export type TestCreateOrConnectWithoutProgressInput = {
@@ -947,6 +1110,7 @@ export type TestUpdateWithoutProgressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
@@ -954,12 +1118,14 @@ export type TestUpdateWithoutProgressInput = {
   versions?: Prisma.TestVersionUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutProgressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -967,12 +1133,14 @@ export type TestUncheckedUpdateWithoutProgressInput = {
   versions?: Prisma.TestVersionUncheckedUpdateManyWithoutTestNestedInput
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestCreateManySubjectInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   createdById: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -982,6 +1150,7 @@ export type TestUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutTestsNestedInput
@@ -989,12 +1158,14 @@ export type TestUpdateWithoutSubjectInput = {
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1002,12 +1173,14 @@ export type TestUncheckedUpdateWithoutSubjectInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateManyWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1017,6 +1190,7 @@ export type TestCreateManyCreatedByInput = {
   id?: string
   title: string
   description?: string | null
+  isArchived?: boolean
   subjectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1026,6 +1200,7 @@ export type TestUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTestsNestedInput
@@ -1033,12 +1208,14 @@ export type TestUpdateWithoutCreatedByInput = {
   classAssignments?: Prisma.ClassTestAssignmentUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1046,12 +1223,14 @@ export type TestUncheckedUpdateWithoutCreatedByInput = {
   classAssignments?: Prisma.ClassTestAssignmentUncheckedUpdateManyWithoutTestNestedInput
   attempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutTestNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutTestNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutTestNestedInput
 }
 
 export type TestUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1067,6 +1246,7 @@ export type TestCountOutputType = {
   classAssignments: number
   attempts: number
   progress: number
+  tokenTransactions: number
 }
 
 export type TestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1074,6 +1254,7 @@ export type TestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   classAssignments?: boolean | TestCountOutputTypeCountClassAssignmentsArgs
   attempts?: boolean | TestCountOutputTypeCountAttemptsArgs
   progress?: boolean | TestCountOutputTypeCountProgressArgs
+  tokenTransactions?: boolean | TestCountOutputTypeCountTokenTransactionsArgs
 }
 
 /**
@@ -1114,11 +1295,19 @@ export type TestCountOutputTypeCountProgressArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.UserTestProgressWhereInput
 }
 
+/**
+ * TestCountOutputType without action
+ */
+export type TestCountOutputTypeCountTokenTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TokenTransactionWhereInput
+}
+
 
 export type TestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   description?: boolean
+  isArchived?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -1129,6 +1318,7 @@ export type TestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   classAssignments?: boolean | Prisma.Test$classAssignmentsArgs<ExtArgs>
   attempts?: boolean | Prisma.Test$attemptsArgs<ExtArgs>
   progress?: boolean | Prisma.Test$progressArgs<ExtArgs>
+  tokenTransactions?: boolean | Prisma.Test$tokenTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.TestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["test"]>
 
@@ -1136,6 +1326,7 @@ export type TestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   description?: boolean
+  isArchived?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -1148,6 +1339,7 @@ export type TestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   description?: boolean
+  isArchived?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -1160,13 +1352,14 @@ export type TestSelectScalar = {
   id?: boolean
   title?: boolean
   description?: boolean
+  isArchived?: boolean
   subjectId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "subjectId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
+export type TestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "isArchived" | "subjectId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
 export type TestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1174,6 +1367,7 @@ export type TestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   classAssignments?: boolean | Prisma.Test$classAssignmentsArgs<ExtArgs>
   attempts?: boolean | Prisma.Test$attemptsArgs<ExtArgs>
   progress?: boolean | Prisma.Test$progressArgs<ExtArgs>
+  tokenTransactions?: boolean | Prisma.Test$tokenTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.TestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1194,11 +1388,13 @@ export type $TestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     classAssignments: Prisma.$ClassTestAssignmentPayload<ExtArgs>[]
     attempts: Prisma.$TestAttemptPayload<ExtArgs>[]
     progress: Prisma.$UserTestProgressPayload<ExtArgs>[]
+    tokenTransactions: Prisma.$TokenTransactionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
     description: string | null
+    isArchived: boolean
     subjectId: string
     createdById: number
     createdAt: Date
@@ -1603,6 +1799,7 @@ export interface Prisma__TestClient<T, Null = never, ExtArgs extends runtime.Typ
   classAssignments<T extends Prisma.Test$classAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$classAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassTestAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attempts<T extends Prisma.Test$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   progress<T extends Prisma.Test$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTestProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tokenTransactions<T extends Prisma.Test$tokenTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$tokenTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TokenTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1635,6 +1832,7 @@ export interface TestFieldRefs {
   readonly id: Prisma.FieldRef<"Test", 'String'>
   readonly title: Prisma.FieldRef<"Test", 'String'>
   readonly description: Prisma.FieldRef<"Test", 'String'>
+  readonly isArchived: Prisma.FieldRef<"Test", 'Boolean'>
   readonly subjectId: Prisma.FieldRef<"Test", 'String'>
   readonly createdById: Prisma.FieldRef<"Test", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Test", 'DateTime'>
@@ -2133,6 +2331,30 @@ export type Test$progressArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.UserTestProgressScalarFieldEnum | Prisma.UserTestProgressScalarFieldEnum[]
+}
+
+/**
+ * Test.tokenTransactions
+ */
+export type Test$tokenTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TokenTransaction
+   */
+  select?: Prisma.TokenTransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TokenTransaction
+   */
+  omit?: Prisma.TokenTransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TokenTransactionInclude<ExtArgs> | null
+  where?: Prisma.TokenTransactionWhereInput
+  orderBy?: Prisma.TokenTransactionOrderByWithRelationInput | Prisma.TokenTransactionOrderByWithRelationInput[]
+  cursor?: Prisma.TokenTransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TokenTransactionScalarFieldEnum | Prisma.TokenTransactionScalarFieldEnum[]
 }
 
 /**

@@ -19,151 +19,216 @@ export * as $Enums from './enums'
 export * from './enums';
 /**
  * Model Class
- * 
+ * Represents a virtual or physical classroom group
  */
 export type Class = Prisma.ClassModel
 /**
  * Model ClassEnrollment
- * 
+ * Link record representing a user's participation in a class
  */
 export type ClassEnrollment = Prisma.ClassEnrollmentModel
 /**
  * Model ClassTestAssignment
- * 
+ * A specific test version assigned to a class with a deadline
  */
 export type ClassTestAssignment = Prisma.ClassTestAssignmentModel
 /**
+ * Model Achievement
+ * Defines a badge or milestone that can be earned by users
+ */
+export type Achievement = Prisma.AchievementModel
+/**
+ * Model AchievementUnlock
+ * Link record representing a specific user earning an achievement
+ */
+export type AchievementUnlock = Prisma.AchievementUnlockModel
+/**
+ * Model Leaderboard
+ * Denormalized/cached ranking table for various contexts
+ */
+export type Leaderboard = Prisma.LeaderboardModel
+/**
+ * Model Term
+ * Represents an academic time period (e.g., "Fall 2026")
+ */
+export type Term = Prisma.TermModel
+/**
+ * Model Attendance
+ * Record of a student's presence in a specific class on a specific date
+ */
+export type Attendance = Prisma.AttendanceModel
+/**
+ * Model GradeBook
+ * Aggregated performance metrics for a student in a class/term
+ */
+export type GradeBook = Prisma.GradeBookModel
+/**
+ * Model HomeworkAssignment
+ * Represents a task assigned to a class, distinct from timed tests
+ */
+export type HomeworkAssignment = Prisma.HomeworkAssignmentModel
+/**
+ * Model HomeworkSubmission
+ * A student's specific submission for a homework task
+ */
+export type HomeworkSubmission = Prisma.HomeworkSubmissionModel
+/**
+ * Model SubmissionFile
+ * A file asset attached to a specific homework submission
+ */
+export type SubmissionFile = Prisma.SubmissionFileModel
+/**
  * Model SystemLog
- * 
+ * Internal system logs for debugging and observability
  */
 export type SystemLog = Prisma.SystemLogModel
 /**
  * Model AuditLog
- * 
+ * Security and compliance audit trail for sensitive actions
  */
 export type AuditLog = Prisma.AuditLogModel
 /**
  * Model Media
- * 
+ * Central repository for uploaded media files (images, audio, etc.)
  */
 export type Media = Prisma.MediaModel
 /**
- * Model Subject
- * 
- */
-export type Subject = Prisma.SubjectModel
-/**
- * Model Question
- * 
- */
-export type Question = Prisma.QuestionModel
-/**
- * Model QuestionVersion
- * 
- */
-export type QuestionVersion = Prisma.QuestionVersionModel
-/**
  * Model Passage
- * 
+ * Logical container for a reading/listening passage. References active version.
  */
 export type Passage = Prisma.PassageModel
 /**
  * Model PassageVersion
- * 
+ * Immutable snapshot of a passage's content
  */
 export type PassageVersion = Prisma.PassageVersionModel
 /**
+ * Model Question
+ * Logical container for a question. References the active version.
+ */
+export type Question = Prisma.QuestionModel
+/**
+ * Model QuestionVersion
+ * Immutable snapshot of a question's content and logic
+ */
+export type QuestionVersion = Prisma.QuestionVersionModel
+/**
+ * Model Subject
+ * Academic subject category (e.g., Grammar, Vocabulary, IELTS)
+ */
+export type Subject = Prisma.SubjectModel
+/**
+ * Model Tag
+ * Centralized tag vocabulary for classifying content
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model QuestionTag
+ * Junction table linking QuestionVersion to Tag
+ */
+export type QuestionTag = Prisma.QuestionTagModel
+/**
+ * Model TestTag
+ * Junction table linking TestVersion to Tag
+ */
+export type TestTag = Prisma.TestTagModel
+/**
+ * Model PassageTag
+ * Junction table linking PassageVersion to Tag
+ */
+export type PassageTag = Prisma.PassageTagModel
+/**
  * Model TestAttempt
- * 
+ * Represents a student's instance of taking a specific test version
  */
 export type TestAttempt = Prisma.TestAttemptModel
 /**
  * Model AttemptSection
- * 
+ * Tracking record for a student's progress through a specific test section
  */
 export type AttemptSection = Prisma.AttemptSectionModel
 /**
  * Model AttemptQuestion
- * 
+ * Link record representing a specific question served to a student in an attempt
  */
 export type AttemptQuestion = Prisma.AttemptQuestionModel
 /**
  * Model AttemptAnswer
- * 
+ * A student's specific response to an attempt question
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
 /**
  * Model ManualGrade
- * 
+ * Record of a manual grading action by a teacher/admin
  */
 export type ManualGrade = Prisma.ManualGradeModel
 /**
  * Model Test
- * 
+ * Logical container for an assessment. References the active version.
  */
 export type Test = Prisma.TestModel
 /**
  * Model TestVersion
- * 
+ * Immutable snapshot of a test's configuration, sections, and questions
  */
 export type TestVersion = Prisma.TestVersionModel
 /**
  * Model TestVersionSection
- * 
+ * A structural block within a TestVersion (e.g., Reading Section 1)
  */
 export type TestVersionSection = Prisma.TestVersionSectionModel
 /**
  * Model TestVersionQuestion
- * 
+ * Link record placing a specific QuestionVersion into a TestVersionSection
  */
 export type TestVersionQuestion = Prisma.TestVersionQuestionModel
 /**
  * Model Account
- * 
+ * Authentication account linked to a User (e.g., Google, Email/Password)
  */
 export type Account = Prisma.AccountModel
 /**
  * Model Session
- * 
+ * Active user session for authentication tracking
  */
 export type Session = Prisma.SessionModel
 /**
  * Model User
- * 
+ * Core User model representing students, teachers, and admins
  */
 export type User = Prisma.UserModel
 /**
  * Model Verification
- * 
+ * Email or phone verification tokens
  */
 export type Verification = Prisma.VerificationModel
 /**
  * Model Profile
- * 
+ * Extended user information and social data
  */
 export type Profile = Prisma.ProfileModel
 /**
  * Model ParentStudentLink
- * 
+ * Junction table linking parents to their students
  */
 export type ParentStudentLink = Prisma.ParentStudentLinkModel
 /**
  * Model Notification
- * 
+ * In-app notification records for users
  */
 export type Notification = Prisma.NotificationModel
 /**
  * Model UserStats
- * 
+ * Gamification and activity statistics for a user
  */
 export type UserStats = Prisma.UserStatsModel
 /**
  * Model TokenTransaction
- * 
+ * Audit trail for all changes to a user's token balance
  */
 export type TokenTransaction = Prisma.TokenTransactionModel
 /**
  * Model UserTestProgress
- * 
+ * Historical tracking of student performance on specific tests
  */
 export type UserTestProgress = Prisma.UserTestProgressModel

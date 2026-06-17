@@ -1,0 +1,74 @@
+/// Represents a task assigned to a class, distinct from timed tests
+model HomeworkAssignment {
+  id          String   @id @default(uuid())
+  classId     String   @map("class_id")
+  createdById Int      @map("created_by_id")
+  title       String
+  /// Detailed instructions for the task
+  description String?  @db.Text
+  /// The deadline for submission
+  dueAt       DateTime? @map("due_at")
+  isLateAllowed      Boolean @default(true) @map("is_late_allowed")
+  /// Percentage reduction for late work
+  latePenaltyPercent Int?    @map("late_penalty_percent")
+  maxScore           Float?  @map("max_score")
+  status      HomeworkStatus @default(DRAFT)
+  visibility  Visibility     @default(PRIVATE)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  class       Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  submissions HomeworkSubmission[]
+
+  @@index([classId])
+  @@index([createdById])
+  @@map("homework_assignment")
+}
+
+/// A student's specific submission for a homework task
+model HomeworkSubmission {
+  id         String   @id @default(uuid())
+  homeworkId String   @map("homework_id")
+  studentId  Int      @map("student_id")
+  /// The student's text response
+  content    String?  @db.Text
+  score      Float?
+  /// Teacher's qualitative feedback
+  feedback   String?  @db.Text
+  gradedById Int?     @map("graded_by_id")
+  gradedAt    DateTime? @map("graded_at")
+  submittedAt DateTime  @default(now()) @map("submitted_at")
+  isLate      Boolean   @default(false) @map("is_late")
+  attemptNumber Int     @default(1) @map("attempt_number")
+  status      SubmissionStatus @default(SUBMITTED)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  homework   HomeworkAssignment @relation(fields: [homeworkId], references: [id], onDelete: Cascade)
+  student    User     @relation("StudentSubmissions", fields: [studentId], references: [id], onDelete: Cascade)
+  gradedBy   User?    @relation("GraderSubmissions", fields: [gradedById], references: [id])
+  files       SubmissionFile[]
+
+  @@unique([homeworkId, studentId, attemptNumber])
+  @@index([homeworkId])
+  @@index([studentId])
+  @@map("homework_submission")
+}
+
+/// A file asset attached to a specific homework submission
+model SubmissionFile {
+  id           String   @id @default(uuid())
+  submissionId String   @map("submission_id")
+  mediaId      String   @map("media_id")
+  /// Optional label for the file (e.g., "Draft 1", "Final Output")
+  label        String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  submission   HomeworkSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  media        Media              @relation(fields: [mediaId], references: [id])
+
+  @@index([submissionId])
+  @@map("submission_file")
+}

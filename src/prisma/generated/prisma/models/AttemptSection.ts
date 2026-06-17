@@ -14,132 +14,82 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model AttemptSection
- * 
+ * Tracking record for a student's progress through a specific test section
  */
 export type AttemptSectionModel = runtime.Types.Result.DefaultSelection<Prisma.$AttemptSectionPayload>
 
 export type AggregateAttemptSection = {
   _count: AttemptSectionCountAggregateOutputType | null
-  _avg: AttemptSectionAvgAggregateOutputType | null
-  _sum: AttemptSectionSumAggregateOutputType | null
   _min: AttemptSectionMinAggregateOutputType | null
   _max: AttemptSectionMaxAggregateOutputType | null
-}
-
-export type AttemptSectionAvgAggregateOutputType = {
-  order: number | null
-  timeLimit: number | null
-  requiredAnswerCount: number | null
-}
-
-export type AttemptSectionSumAggregateOutputType = {
-  order: number | null
-  timeLimit: number | null
-  requiredAnswerCount: number | null
 }
 
 export type AttemptSectionMinAggregateOutputType = {
   id: string | null
   attemptId: string | null
   testVersionSectionId: string | null
-  order: number | null
-  title: string | null
-  timeLimit: number | null
-  selectionMode: $Enums.SelectionMode | null
-  requiredAnswerCount: number | null
   status: $Enums.SectionStatus | null
   startedAt: Date | null
   sectionEndAt: Date | null
   completedAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AttemptSectionMaxAggregateOutputType = {
   id: string | null
   attemptId: string | null
   testVersionSectionId: string | null
-  order: number | null
-  title: string | null
-  timeLimit: number | null
-  selectionMode: $Enums.SelectionMode | null
-  requiredAnswerCount: number | null
   status: $Enums.SectionStatus | null
   startedAt: Date | null
   sectionEndAt: Date | null
   completedAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AttemptSectionCountAggregateOutputType = {
   id: number
   attemptId: number
   testVersionSectionId: number
-  order: number
-  title: number
-  timeLimit: number
-  selectionMode: number
-  requiredAnswerCount: number
   status: number
   startedAt: number
   sectionEndAt: number
   completedAt: number
+  updatedAt: number
   _all: number
 }
 
-
-export type AttemptSectionAvgAggregateInputType = {
-  order?: true
-  timeLimit?: true
-  requiredAnswerCount?: true
-}
-
-export type AttemptSectionSumAggregateInputType = {
-  order?: true
-  timeLimit?: true
-  requiredAnswerCount?: true
-}
 
 export type AttemptSectionMinAggregateInputType = {
   id?: true
   attemptId?: true
   testVersionSectionId?: true
-  order?: true
-  title?: true
-  timeLimit?: true
-  selectionMode?: true
-  requiredAnswerCount?: true
   status?: true
   startedAt?: true
   sectionEndAt?: true
   completedAt?: true
+  updatedAt?: true
 }
 
 export type AttemptSectionMaxAggregateInputType = {
   id?: true
   attemptId?: true
   testVersionSectionId?: true
-  order?: true
-  title?: true
-  timeLimit?: true
-  selectionMode?: true
-  requiredAnswerCount?: true
   status?: true
   startedAt?: true
   sectionEndAt?: true
   completedAt?: true
+  updatedAt?: true
 }
 
 export type AttemptSectionCountAggregateInputType = {
   id?: true
   attemptId?: true
   testVersionSectionId?: true
-  order?: true
-  title?: true
-  timeLimit?: true
-  selectionMode?: true
-  requiredAnswerCount?: true
   status?: true
   startedAt?: true
   sectionEndAt?: true
   completedAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -181,18 +131,6 @@ export type AttemptSectionAggregateArgs<ExtArgs extends runtime.Types.Extensions
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: AttemptSectionAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: AttemptSectionSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: AttemptSectionMinAggregateInputType
@@ -223,8 +161,6 @@ export type AttemptSectionGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   _count?: AttemptSectionCountAggregateInputType | true
-  _avg?: AttemptSectionAvgAggregateInputType
-  _sum?: AttemptSectionSumAggregateInputType
   _min?: AttemptSectionMinAggregateInputType
   _max?: AttemptSectionMaxAggregateInputType
 }
@@ -233,18 +169,12 @@ export type AttemptSectionGroupByOutputType = {
   id: string
   attemptId: string
   testVersionSectionId: string
-  order: number
-  title: string
-  timeLimit: number | null
-  selectionMode: $Enums.SelectionMode | null
-  requiredAnswerCount: number | null
   status: $Enums.SectionStatus
   startedAt: Date | null
   sectionEndAt: Date | null
   completedAt: Date | null
+  updatedAt: Date
   _count: AttemptSectionCountAggregateOutputType | null
-  _avg: AttemptSectionAvgAggregateOutputType | null
-  _sum: AttemptSectionSumAggregateOutputType | null
   _min: AttemptSectionMinAggregateOutputType | null
   _max: AttemptSectionMaxAggregateOutputType | null
 }
@@ -271,15 +201,11 @@ export type AttemptSectionWhereInput = {
   id?: Prisma.StringFilter<"AttemptSection"> | string
   attemptId?: Prisma.StringFilter<"AttemptSection"> | string
   testVersionSectionId?: Prisma.StringFilter<"AttemptSection"> | string
-  order?: Prisma.IntFilter<"AttemptSection"> | number
-  title?: Prisma.StringFilter<"AttemptSection"> | string
-  timeLimit?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
-  selectionMode?: Prisma.EnumSelectionModeNullableFilter<"AttemptSection"> | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
   status?: Prisma.EnumSectionStatusFilter<"AttemptSection"> | $Enums.SectionStatus
   startedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   sectionEndAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
+  updatedAt?: Prisma.DateTimeFilter<"AttemptSection"> | Date | string
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   testVersionSection?: Prisma.XOR<Prisma.TestVersionSectionScalarRelationFilter, Prisma.TestVersionSectionWhereInput>
   currentAttempts?: Prisma.TestAttemptListRelationFilter
@@ -290,15 +216,11 @@ export type AttemptSectionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   testVersionSectionId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  timeLimit?: Prisma.SortOrderInput | Prisma.SortOrder
-  selectionMode?: Prisma.SortOrderInput | Prisma.SortOrder
-  requiredAnswerCount?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   sectionEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   attempt?: Prisma.TestAttemptOrderByWithRelationInput
   testVersionSection?: Prisma.TestVersionSectionOrderByWithRelationInput
   currentAttempts?: Prisma.TestAttemptOrderByRelationAggregateInput
@@ -313,15 +235,11 @@ export type AttemptSectionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AttemptSectionWhereInput | Prisma.AttemptSectionWhereInput[]
   attemptId?: Prisma.StringFilter<"AttemptSection"> | string
   testVersionSectionId?: Prisma.StringFilter<"AttemptSection"> | string
-  order?: Prisma.IntFilter<"AttemptSection"> | number
-  title?: Prisma.StringFilter<"AttemptSection"> | string
-  timeLimit?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
-  selectionMode?: Prisma.EnumSelectionModeNullableFilter<"AttemptSection"> | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
   status?: Prisma.EnumSectionStatusFilter<"AttemptSection"> | $Enums.SectionStatus
   startedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   sectionEndAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
+  updatedAt?: Prisma.DateTimeFilter<"AttemptSection"> | Date | string
   attempt?: Prisma.XOR<Prisma.TestAttemptScalarRelationFilter, Prisma.TestAttemptWhereInput>
   testVersionSection?: Prisma.XOR<Prisma.TestVersionSectionScalarRelationFilter, Prisma.TestVersionSectionWhereInput>
   currentAttempts?: Prisma.TestAttemptListRelationFilter
@@ -332,20 +250,14 @@ export type AttemptSectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   testVersionSectionId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  timeLimit?: Prisma.SortOrderInput | Prisma.SortOrder
-  selectionMode?: Prisma.SortOrderInput | Prisma.SortOrder
-  requiredAnswerCount?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   sectionEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AttemptSectionCountOrderByAggregateInput
-  _avg?: Prisma.AttemptSectionAvgOrderByAggregateInput
   _max?: Prisma.AttemptSectionMaxOrderByAggregateInput
   _min?: Prisma.AttemptSectionMinOrderByAggregateInput
-  _sum?: Prisma.AttemptSectionSumOrderByAggregateInput
 }
 
 export type AttemptSectionScalarWhereWithAggregatesInput = {
@@ -355,28 +267,20 @@ export type AttemptSectionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
   attemptId?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
   testVersionSectionId?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
-  order?: Prisma.IntWithAggregatesFilter<"AttemptSection"> | number
-  title?: Prisma.StringWithAggregatesFilter<"AttemptSection"> | string
-  timeLimit?: Prisma.IntNullableWithAggregatesFilter<"AttemptSection"> | number | null
-  selectionMode?: Prisma.EnumSelectionModeNullableWithAggregatesFilter<"AttemptSection"> | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.IntNullableWithAggregatesFilter<"AttemptSection"> | number | null
   status?: Prisma.EnumSectionStatusWithAggregatesFilter<"AttemptSection"> | $Enums.SectionStatus
   startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AttemptSection"> | Date | string | null
   sectionEndAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AttemptSection"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AttemptSection"> | Date | string | null
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AttemptSection"> | Date | string
 }
 
 export type AttemptSectionCreateInput = {
   id?: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutSectionsInput
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   currentAttempts?: Prisma.TestAttemptCreateNestedManyWithoutCurrentSectionInput
@@ -387,30 +291,22 @@ export type AttemptSectionUncheckedCreateInput = {
   id?: string
   attemptId: string
   testVersionSectionId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutCurrentSectionInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptSectionInput
 }
 
 export type AttemptSectionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutSectionsNestedInput
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   currentAttempts?: Prisma.TestAttemptUpdateManyWithoutCurrentSectionNestedInput
@@ -421,15 +317,11 @@ export type AttemptSectionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutCurrentSectionNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptSectionNestedInput
 }
@@ -438,43 +330,31 @@ export type AttemptSectionCreateManyInput = {
   id?: string
   attemptId: string
   testVersionSectionId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type AttemptSectionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptSectionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptSectionNullableScalarRelationFilter = {
@@ -501,57 +381,33 @@ export type AttemptSectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   testVersionSectionId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  timeLimit?: Prisma.SortOrder
-  selectionMode?: Prisma.SortOrder
-  requiredAnswerCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   sectionEndAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
-}
-
-export type AttemptSectionAvgOrderByAggregateInput = {
-  order?: Prisma.SortOrder
-  timeLimit?: Prisma.SortOrder
-  requiredAnswerCount?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptSectionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   testVersionSectionId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  timeLimit?: Prisma.SortOrder
-  selectionMode?: Prisma.SortOrder
-  requiredAnswerCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   sectionEndAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptSectionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   testVersionSectionId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  timeLimit?: Prisma.SortOrder
-  selectionMode?: Prisma.SortOrder
-  requiredAnswerCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   sectionEndAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
-}
-
-export type AttemptSectionSumOrderByAggregateInput = {
-  order?: Prisma.SortOrder
-  timeLimit?: Prisma.SortOrder
-  requiredAnswerCount?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AttemptSectionScalarRelationFilter = {
@@ -617,10 +473,6 @@ export type AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput = {
   deleteMany?: Prisma.AttemptSectionScalarWhereInput | Prisma.AttemptSectionScalarWhereInput[]
 }
 
-export type NullableEnumSelectionModeFieldUpdateOperationsInput = {
-  set?: $Enums.SelectionMode | null
-}
-
 export type EnumSectionStatusFieldUpdateOperationsInput = {
   set?: $Enums.SectionStatus
 }
@@ -683,15 +535,11 @@ export type AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionNestedInpu
 
 export type AttemptSectionCreateWithoutCurrentAttemptsInput = {
   id?: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutSectionsInput
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptSectionInput
@@ -701,15 +549,11 @@ export type AttemptSectionUncheckedCreateWithoutCurrentAttemptsInput = {
   id?: string
   attemptId: string
   testVersionSectionId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptSectionInput
 }
 
@@ -720,15 +564,11 @@ export type AttemptSectionCreateOrConnectWithoutCurrentAttemptsInput = {
 
 export type AttemptSectionCreateWithoutAttemptInput = {
   id?: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   currentAttempts?: Prisma.TestAttemptCreateNestedManyWithoutCurrentSectionInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptSectionInput
@@ -737,15 +577,11 @@ export type AttemptSectionCreateWithoutAttemptInput = {
 export type AttemptSectionUncheckedCreateWithoutAttemptInput = {
   id?: string
   testVersionSectionId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutCurrentSectionInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptSectionInput
 }
@@ -773,15 +609,11 @@ export type AttemptSectionUpdateToOneWithWhereWithoutCurrentAttemptsInput = {
 
 export type AttemptSectionUpdateWithoutCurrentAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutSectionsNestedInput
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptSectionNestedInput
@@ -791,15 +623,11 @@ export type AttemptSectionUncheckedUpdateWithoutCurrentAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptSectionNestedInput
 }
 
@@ -826,28 +654,20 @@ export type AttemptSectionScalarWhereInput = {
   id?: Prisma.StringFilter<"AttemptSection"> | string
   attemptId?: Prisma.StringFilter<"AttemptSection"> | string
   testVersionSectionId?: Prisma.StringFilter<"AttemptSection"> | string
-  order?: Prisma.IntFilter<"AttemptSection"> | number
-  title?: Prisma.StringFilter<"AttemptSection"> | string
-  timeLimit?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
-  selectionMode?: Prisma.EnumSelectionModeNullableFilter<"AttemptSection"> | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.IntNullableFilter<"AttemptSection"> | number | null
   status?: Prisma.EnumSectionStatusFilter<"AttemptSection"> | $Enums.SectionStatus
   startedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   sectionEndAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"AttemptSection"> | Date | string | null
+  updatedAt?: Prisma.DateTimeFilter<"AttemptSection"> | Date | string
 }
 
 export type AttemptSectionCreateWithoutQuestionsInput = {
   id?: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutSectionsInput
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutAttemptSectionsInput
   currentAttempts?: Prisma.TestAttemptCreateNestedManyWithoutCurrentSectionInput
@@ -857,15 +677,11 @@ export type AttemptSectionUncheckedCreateWithoutQuestionsInput = {
   id?: string
   attemptId: string
   testVersionSectionId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutCurrentSectionInput
 }
 
@@ -887,15 +703,11 @@ export type AttemptSectionUpdateToOneWithWhereWithoutQuestionsInput = {
 
 export type AttemptSectionUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutSectionsNestedInput
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   currentAttempts?: Prisma.TestAttemptUpdateManyWithoutCurrentSectionNestedInput
@@ -905,29 +717,21 @@ export type AttemptSectionUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutCurrentSectionNestedInput
 }
 
 export type AttemptSectionCreateWithoutTestVersionSectionInput = {
   id?: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   attempt: Prisma.TestAttemptCreateNestedOneWithoutSectionsInput
   currentAttempts?: Prisma.TestAttemptCreateNestedManyWithoutCurrentSectionInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptSectionInput
@@ -936,15 +740,11 @@ export type AttemptSectionCreateWithoutTestVersionSectionInput = {
 export type AttemptSectionUncheckedCreateWithoutTestVersionSectionInput = {
   id?: string
   attemptId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedCreateNestedManyWithoutCurrentSectionInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptSectionInput
 }
@@ -978,28 +778,20 @@ export type AttemptSectionUpdateManyWithWhereWithoutTestVersionSectionInput = {
 export type AttemptSectionCreateManyAttemptInput = {
   id?: string
   testVersionSectionId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type AttemptSectionUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutAttemptSectionsNestedInput
   currentAttempts?: Prisma.TestAttemptUpdateManyWithoutCurrentSectionNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptSectionNestedInput
@@ -1008,15 +800,11 @@ export type AttemptSectionUpdateWithoutAttemptInput = {
 export type AttemptSectionUncheckedUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutCurrentSectionNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptSectionNestedInput
 }
@@ -1024,42 +812,30 @@ export type AttemptSectionUncheckedUpdateWithoutAttemptInput = {
 export type AttemptSectionUncheckedUpdateManyWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testVersionSectionId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttemptSectionCreateManyTestVersionSectionInput = {
   id?: string
   attemptId: string
-  order: number
-  title: string
-  timeLimit?: number | null
-  selectionMode?: $Enums.SelectionMode | null
-  requiredAnswerCount?: number | null
   status?: $Enums.SectionStatus
   startedAt?: Date | string | null
   sectionEndAt?: Date | string | null
   completedAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type AttemptSectionUpdateWithoutTestVersionSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempt?: Prisma.TestAttemptUpdateOneRequiredWithoutSectionsNestedInput
   currentAttempts?: Prisma.TestAttemptUpdateManyWithoutCurrentSectionNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptSectionNestedInput
@@ -1068,15 +844,11 @@ export type AttemptSectionUpdateWithoutTestVersionSectionInput = {
 export type AttemptSectionUncheckedUpdateWithoutTestVersionSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentAttempts?: Prisma.TestAttemptUncheckedUpdateManyWithoutCurrentSectionNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptSectionNestedInput
 }
@@ -1084,15 +856,11 @@ export type AttemptSectionUncheckedUpdateWithoutTestVersionSectionInput = {
 export type AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  selectionMode?: Prisma.NullableEnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode | null
-  requiredAnswerCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumSectionStatusFieldUpdateOperationsInput | $Enums.SectionStatus
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1139,15 +907,11 @@ export type AttemptSectionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   id?: boolean
   attemptId?: boolean
   testVersionSectionId?: boolean
-  order?: boolean
-  title?: boolean
-  timeLimit?: boolean
-  selectionMode?: boolean
-  requiredAnswerCount?: boolean
   status?: boolean
   startedAt?: boolean
   sectionEndAt?: boolean
   completedAt?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
   currentAttempts?: boolean | Prisma.AttemptSection$currentAttemptsArgs<ExtArgs>
@@ -1159,15 +923,11 @@ export type AttemptSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   attemptId?: boolean
   testVersionSectionId?: boolean
-  order?: boolean
-  title?: boolean
-  timeLimit?: boolean
-  selectionMode?: boolean
-  requiredAnswerCount?: boolean
   status?: boolean
   startedAt?: boolean
   sectionEndAt?: boolean
   completedAt?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptSection"]>
@@ -1176,15 +936,11 @@ export type AttemptSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   attemptId?: boolean
   testVersionSectionId?: boolean
-  order?: boolean
-  title?: boolean
-  timeLimit?: boolean
-  selectionMode?: boolean
-  requiredAnswerCount?: boolean
   status?: boolean
   startedAt?: boolean
   sectionEndAt?: boolean
   completedAt?: boolean
+  updatedAt?: boolean
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptSection"]>
@@ -1193,18 +949,14 @@ export type AttemptSectionSelectScalar = {
   id?: boolean
   attemptId?: boolean
   testVersionSectionId?: boolean
-  order?: boolean
-  title?: boolean
-  timeLimit?: boolean
-  selectionMode?: boolean
-  requiredAnswerCount?: boolean
   status?: boolean
   startedAt?: boolean
   sectionEndAt?: boolean
   completedAt?: boolean
+  updatedAt?: boolean
 }
 
-export type AttemptSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "testVersionSectionId" | "order" | "title" | "timeLimit" | "selectionMode" | "requiredAnswerCount" | "status" | "startedAt" | "sectionEndAt" | "completedAt", ExtArgs["result"]["attemptSection"]>
+export type AttemptSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "testVersionSectionId" | "status" | "startedAt" | "sectionEndAt" | "completedAt" | "updatedAt", ExtArgs["result"]["attemptSection"]>
 export type AttemptSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.TestAttemptDefaultArgs<ExtArgs>
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
@@ -1233,15 +985,14 @@ export type $AttemptSectionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     id: string
     attemptId: string
     testVersionSectionId: string
-    order: number
-    title: string
-    timeLimit: number | null
-    selectionMode: $Enums.SelectionMode | null
-    requiredAnswerCount: number | null
     status: $Enums.SectionStatus
     startedAt: Date | null
+    /**
+     * Deadline for this specific section (if timed)
+     */
     sectionEndAt: Date | null
     completedAt: Date | null
+    updatedAt: Date
   }, ExtArgs["result"]["attemptSection"]>
   composites: {}
 }
@@ -1672,15 +1423,11 @@ export interface AttemptSectionFieldRefs {
   readonly id: Prisma.FieldRef<"AttemptSection", 'String'>
   readonly attemptId: Prisma.FieldRef<"AttemptSection", 'String'>
   readonly testVersionSectionId: Prisma.FieldRef<"AttemptSection", 'String'>
-  readonly order: Prisma.FieldRef<"AttemptSection", 'Int'>
-  readonly title: Prisma.FieldRef<"AttemptSection", 'String'>
-  readonly timeLimit: Prisma.FieldRef<"AttemptSection", 'Int'>
-  readonly selectionMode: Prisma.FieldRef<"AttemptSection", 'SelectionMode'>
-  readonly requiredAnswerCount: Prisma.FieldRef<"AttemptSection", 'Int'>
   readonly status: Prisma.FieldRef<"AttemptSection", 'SectionStatus'>
   readonly startedAt: Prisma.FieldRef<"AttemptSection", 'DateTime'>
   readonly sectionEndAt: Prisma.FieldRef<"AttemptSection", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"AttemptSection", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"AttemptSection", 'DateTime'>
 }
     
 

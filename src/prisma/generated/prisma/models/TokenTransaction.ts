@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model TokenTransaction
- * 
+ * Audit trail for all changes to a user's token balance
  */
 export type TokenTransactionModel = runtime.Types.Result.DefaultSelection<Prisma.$TokenTransactionPayload>
 
@@ -47,6 +47,7 @@ export type TokenTransactionMinAggregateOutputType = {
   testId: string | null
   attemptId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TokenTransactionMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type TokenTransactionMaxAggregateOutputType = {
   testId: string | null
   attemptId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TokenTransactionCountAggregateOutputType = {
@@ -69,6 +71,7 @@ export type TokenTransactionCountAggregateOutputType = {
   testId: number
   attemptId: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -94,6 +97,7 @@ export type TokenTransactionMinAggregateInputType = {
   testId?: true
   attemptId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type TokenTransactionMaxAggregateInputType = {
@@ -105,6 +109,7 @@ export type TokenTransactionMaxAggregateInputType = {
   testId?: true
   attemptId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type TokenTransactionCountAggregateInputType = {
@@ -116,6 +121,7 @@ export type TokenTransactionCountAggregateInputType = {
   testId?: true
   attemptId?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -214,6 +220,7 @@ export type TokenTransactionGroupByOutputType = {
   testId: string | null
   attemptId: string | null
   createdAt: Date
+  updatedAt: Date
   _count: TokenTransactionCountAggregateOutputType | null
   _avg: TokenTransactionAvgAggregateOutputType | null
   _sum: TokenTransactionSumAggregateOutputType | null
@@ -248,7 +255,10 @@ export type TokenTransactionWhereInput = {
   testId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
   attemptId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TokenTransaction"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TokenTransaction"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  test?: Prisma.XOR<Prisma.TestNullableScalarRelationFilter, Prisma.TestWhereInput> | null
+  attempt?: Prisma.XOR<Prisma.TestAttemptNullableScalarRelationFilter, Prisma.TestAttemptWhereInput> | null
 }
 
 export type TokenTransactionOrderByWithRelationInput = {
@@ -260,7 +270,10 @@ export type TokenTransactionOrderByWithRelationInput = {
   testId?: Prisma.SortOrderInput | Prisma.SortOrder
   attemptId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  test?: Prisma.TestOrderByWithRelationInput
+  attempt?: Prisma.TestAttemptOrderByWithRelationInput
 }
 
 export type TokenTransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -275,7 +288,10 @@ export type TokenTransactionWhereUniqueInput = Prisma.AtLeast<{
   testId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
   attemptId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TokenTransaction"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TokenTransaction"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  test?: Prisma.XOR<Prisma.TestNullableScalarRelationFilter, Prisma.TestWhereInput> | null
+  attempt?: Prisma.XOR<Prisma.TestAttemptNullableScalarRelationFilter, Prisma.TestAttemptWhereInput> | null
 }, "id">
 
 export type TokenTransactionOrderByWithAggregationInput = {
@@ -287,6 +303,7 @@ export type TokenTransactionOrderByWithAggregationInput = {
   testId?: Prisma.SortOrderInput | Prisma.SortOrder
   attemptId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TokenTransactionCountOrderByAggregateInput
   _avg?: Prisma.TokenTransactionAvgOrderByAggregateInput
   _max?: Prisma.TokenTransactionMaxOrderByAggregateInput
@@ -306,6 +323,7 @@ export type TokenTransactionScalarWhereWithAggregatesInput = {
   testId?: Prisma.StringNullableWithAggregatesFilter<"TokenTransaction"> | string | null
   attemptId?: Prisma.StringNullableWithAggregatesFilter<"TokenTransaction"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TokenTransaction"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TokenTransaction"> | Date | string
 }
 
 export type TokenTransactionCreateInput = {
@@ -313,10 +331,11 @@ export type TokenTransactionCreateInput = {
   amount: number
   balanceAfter: number
   reason: $Enums.TokenTransactionReason
-  testId?: string | null
-  attemptId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTokenHistoryInput
+  test?: Prisma.TestCreateNestedOneWithoutTokenTransactionsInput
+  attempt?: Prisma.TestAttemptCreateNestedOneWithoutTokenTransactionsInput
 }
 
 export type TokenTransactionUncheckedCreateInput = {
@@ -328,6 +347,7 @@ export type TokenTransactionUncheckedCreateInput = {
   testId?: string | null
   attemptId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TokenTransactionUpdateInput = {
@@ -335,10 +355,11 @@ export type TokenTransactionUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
-  testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTokenHistoryNestedInput
+  test?: Prisma.TestUpdateOneWithoutTokenTransactionsNestedInput
+  attempt?: Prisma.TestAttemptUpdateOneWithoutTokenTransactionsNestedInput
 }
 
 export type TokenTransactionUncheckedUpdateInput = {
@@ -350,6 +371,7 @@ export type TokenTransactionUncheckedUpdateInput = {
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TokenTransactionCreateManyInput = {
@@ -361,6 +383,7 @@ export type TokenTransactionCreateManyInput = {
   testId?: string | null
   attemptId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TokenTransactionUpdateManyMutationInput = {
@@ -368,9 +391,8 @@ export type TokenTransactionUpdateManyMutationInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
-  testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TokenTransactionUncheckedUpdateManyInput = {
@@ -382,6 +404,7 @@ export type TokenTransactionUncheckedUpdateManyInput = {
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TokenTransactionListRelationFilter = {
@@ -403,6 +426,7 @@ export type TokenTransactionCountOrderByAggregateInput = {
   testId?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TokenTransactionAvgOrderByAggregateInput = {
@@ -420,6 +444,7 @@ export type TokenTransactionMaxOrderByAggregateInput = {
   testId?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TokenTransactionMinOrderByAggregateInput = {
@@ -431,12 +456,97 @@ export type TokenTransactionMinOrderByAggregateInput = {
   testId?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TokenTransactionSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   balanceAfter?: Prisma.SortOrder
+}
+
+export type TokenTransactionCreateNestedManyWithoutAttemptInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutAttemptInput, Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput> | Prisma.TokenTransactionCreateWithoutAttemptInput[] | Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput | Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput[]
+  createMany?: Prisma.TokenTransactionCreateManyAttemptInputEnvelope
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+}
+
+export type TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutAttemptInput, Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput> | Prisma.TokenTransactionCreateWithoutAttemptInput[] | Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput | Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput[]
+  createMany?: Prisma.TokenTransactionCreateManyAttemptInputEnvelope
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+}
+
+export type TokenTransactionUpdateManyWithoutAttemptNestedInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutAttemptInput, Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput> | Prisma.TokenTransactionCreateWithoutAttemptInput[] | Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput | Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput[]
+  upsert?: Prisma.TokenTransactionUpsertWithWhereUniqueWithoutAttemptInput | Prisma.TokenTransactionUpsertWithWhereUniqueWithoutAttemptInput[]
+  createMany?: Prisma.TokenTransactionCreateManyAttemptInputEnvelope
+  set?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  disconnect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  delete?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  update?: Prisma.TokenTransactionUpdateWithWhereUniqueWithoutAttemptInput | Prisma.TokenTransactionUpdateWithWhereUniqueWithoutAttemptInput[]
+  updateMany?: Prisma.TokenTransactionUpdateManyWithWhereWithoutAttemptInput | Prisma.TokenTransactionUpdateManyWithWhereWithoutAttemptInput[]
+  deleteMany?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
+}
+
+export type TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutAttemptInput, Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput> | Prisma.TokenTransactionCreateWithoutAttemptInput[] | Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput | Prisma.TokenTransactionCreateOrConnectWithoutAttemptInput[]
+  upsert?: Prisma.TokenTransactionUpsertWithWhereUniqueWithoutAttemptInput | Prisma.TokenTransactionUpsertWithWhereUniqueWithoutAttemptInput[]
+  createMany?: Prisma.TokenTransactionCreateManyAttemptInputEnvelope
+  set?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  disconnect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  delete?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  update?: Prisma.TokenTransactionUpdateWithWhereUniqueWithoutAttemptInput | Prisma.TokenTransactionUpdateWithWhereUniqueWithoutAttemptInput[]
+  updateMany?: Prisma.TokenTransactionUpdateManyWithWhereWithoutAttemptInput | Prisma.TokenTransactionUpdateManyWithWhereWithoutAttemptInput[]
+  deleteMany?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
+}
+
+export type TokenTransactionCreateNestedManyWithoutTestInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutTestInput, Prisma.TokenTransactionUncheckedCreateWithoutTestInput> | Prisma.TokenTransactionCreateWithoutTestInput[] | Prisma.TokenTransactionUncheckedCreateWithoutTestInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutTestInput | Prisma.TokenTransactionCreateOrConnectWithoutTestInput[]
+  createMany?: Prisma.TokenTransactionCreateManyTestInputEnvelope
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+}
+
+export type TokenTransactionUncheckedCreateNestedManyWithoutTestInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutTestInput, Prisma.TokenTransactionUncheckedCreateWithoutTestInput> | Prisma.TokenTransactionCreateWithoutTestInput[] | Prisma.TokenTransactionUncheckedCreateWithoutTestInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutTestInput | Prisma.TokenTransactionCreateOrConnectWithoutTestInput[]
+  createMany?: Prisma.TokenTransactionCreateManyTestInputEnvelope
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+}
+
+export type TokenTransactionUpdateManyWithoutTestNestedInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutTestInput, Prisma.TokenTransactionUncheckedCreateWithoutTestInput> | Prisma.TokenTransactionCreateWithoutTestInput[] | Prisma.TokenTransactionUncheckedCreateWithoutTestInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutTestInput | Prisma.TokenTransactionCreateOrConnectWithoutTestInput[]
+  upsert?: Prisma.TokenTransactionUpsertWithWhereUniqueWithoutTestInput | Prisma.TokenTransactionUpsertWithWhereUniqueWithoutTestInput[]
+  createMany?: Prisma.TokenTransactionCreateManyTestInputEnvelope
+  set?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  disconnect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  delete?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  update?: Prisma.TokenTransactionUpdateWithWhereUniqueWithoutTestInput | Prisma.TokenTransactionUpdateWithWhereUniqueWithoutTestInput[]
+  updateMany?: Prisma.TokenTransactionUpdateManyWithWhereWithoutTestInput | Prisma.TokenTransactionUpdateManyWithWhereWithoutTestInput[]
+  deleteMany?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
+}
+
+export type TokenTransactionUncheckedUpdateManyWithoutTestNestedInput = {
+  create?: Prisma.XOR<Prisma.TokenTransactionCreateWithoutTestInput, Prisma.TokenTransactionUncheckedCreateWithoutTestInput> | Prisma.TokenTransactionCreateWithoutTestInput[] | Prisma.TokenTransactionUncheckedCreateWithoutTestInput[]
+  connectOrCreate?: Prisma.TokenTransactionCreateOrConnectWithoutTestInput | Prisma.TokenTransactionCreateOrConnectWithoutTestInput[]
+  upsert?: Prisma.TokenTransactionUpsertWithWhereUniqueWithoutTestInput | Prisma.TokenTransactionUpsertWithWhereUniqueWithoutTestInput[]
+  createMany?: Prisma.TokenTransactionCreateManyTestInputEnvelope
+  set?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  disconnect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  delete?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  connect?: Prisma.TokenTransactionWhereUniqueInput | Prisma.TokenTransactionWhereUniqueInput[]
+  update?: Prisma.TokenTransactionUpdateWithWhereUniqueWithoutTestInput | Prisma.TokenTransactionUpdateWithWhereUniqueWithoutTestInput[]
+  updateMany?: Prisma.TokenTransactionUpdateManyWithWhereWithoutTestInput | Prisma.TokenTransactionUpdateManyWithWhereWithoutTestInput[]
+  deleteMany?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
 }
 
 export type TokenTransactionCreateNestedManyWithoutUserInput = {
@@ -485,14 +595,126 @@ export type EnumTokenTransactionReasonFieldUpdateOperationsInput = {
   set?: $Enums.TokenTransactionReason
 }
 
+export type TokenTransactionCreateWithoutAttemptInput = {
+  id?: string
+  amount: number
+  balanceAfter: number
+  reason: $Enums.TokenTransactionReason
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTokenHistoryInput
+  test?: Prisma.TestCreateNestedOneWithoutTokenTransactionsInput
+}
+
+export type TokenTransactionUncheckedCreateWithoutAttemptInput = {
+  id?: string
+  userId: number
+  amount: number
+  balanceAfter: number
+  reason: $Enums.TokenTransactionReason
+  testId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TokenTransactionCreateOrConnectWithoutAttemptInput = {
+  where: Prisma.TokenTransactionWhereUniqueInput
+  create: Prisma.XOR<Prisma.TokenTransactionCreateWithoutAttemptInput, Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput>
+}
+
+export type TokenTransactionCreateManyAttemptInputEnvelope = {
+  data: Prisma.TokenTransactionCreateManyAttemptInput | Prisma.TokenTransactionCreateManyAttemptInput[]
+  skipDuplicates?: boolean
+}
+
+export type TokenTransactionUpsertWithWhereUniqueWithoutAttemptInput = {
+  where: Prisma.TokenTransactionWhereUniqueInput
+  update: Prisma.XOR<Prisma.TokenTransactionUpdateWithoutAttemptInput, Prisma.TokenTransactionUncheckedUpdateWithoutAttemptInput>
+  create: Prisma.XOR<Prisma.TokenTransactionCreateWithoutAttemptInput, Prisma.TokenTransactionUncheckedCreateWithoutAttemptInput>
+}
+
+export type TokenTransactionUpdateWithWhereUniqueWithoutAttemptInput = {
+  where: Prisma.TokenTransactionWhereUniqueInput
+  data: Prisma.XOR<Prisma.TokenTransactionUpdateWithoutAttemptInput, Prisma.TokenTransactionUncheckedUpdateWithoutAttemptInput>
+}
+
+export type TokenTransactionUpdateManyWithWhereWithoutAttemptInput = {
+  where: Prisma.TokenTransactionScalarWhereInput
+  data: Prisma.XOR<Prisma.TokenTransactionUpdateManyMutationInput, Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptInput>
+}
+
+export type TokenTransactionScalarWhereInput = {
+  AND?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
+  OR?: Prisma.TokenTransactionScalarWhereInput[]
+  NOT?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
+  id?: Prisma.StringFilter<"TokenTransaction"> | string
+  userId?: Prisma.IntFilter<"TokenTransaction"> | number
+  amount?: Prisma.IntFilter<"TokenTransaction"> | number
+  balanceAfter?: Prisma.IntFilter<"TokenTransaction"> | number
+  reason?: Prisma.EnumTokenTransactionReasonFilter<"TokenTransaction"> | $Enums.TokenTransactionReason
+  testId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
+  attemptId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"TokenTransaction"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TokenTransaction"> | Date | string
+}
+
+export type TokenTransactionCreateWithoutTestInput = {
+  id?: string
+  amount: number
+  balanceAfter: number
+  reason: $Enums.TokenTransactionReason
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTokenHistoryInput
+  attempt?: Prisma.TestAttemptCreateNestedOneWithoutTokenTransactionsInput
+}
+
+export type TokenTransactionUncheckedCreateWithoutTestInput = {
+  id?: string
+  userId: number
+  amount: number
+  balanceAfter: number
+  reason: $Enums.TokenTransactionReason
+  attemptId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TokenTransactionCreateOrConnectWithoutTestInput = {
+  where: Prisma.TokenTransactionWhereUniqueInput
+  create: Prisma.XOR<Prisma.TokenTransactionCreateWithoutTestInput, Prisma.TokenTransactionUncheckedCreateWithoutTestInput>
+}
+
+export type TokenTransactionCreateManyTestInputEnvelope = {
+  data: Prisma.TokenTransactionCreateManyTestInput | Prisma.TokenTransactionCreateManyTestInput[]
+  skipDuplicates?: boolean
+}
+
+export type TokenTransactionUpsertWithWhereUniqueWithoutTestInput = {
+  where: Prisma.TokenTransactionWhereUniqueInput
+  update: Prisma.XOR<Prisma.TokenTransactionUpdateWithoutTestInput, Prisma.TokenTransactionUncheckedUpdateWithoutTestInput>
+  create: Prisma.XOR<Prisma.TokenTransactionCreateWithoutTestInput, Prisma.TokenTransactionUncheckedCreateWithoutTestInput>
+}
+
+export type TokenTransactionUpdateWithWhereUniqueWithoutTestInput = {
+  where: Prisma.TokenTransactionWhereUniqueInput
+  data: Prisma.XOR<Prisma.TokenTransactionUpdateWithoutTestInput, Prisma.TokenTransactionUncheckedUpdateWithoutTestInput>
+}
+
+export type TokenTransactionUpdateManyWithWhereWithoutTestInput = {
+  where: Prisma.TokenTransactionScalarWhereInput
+  data: Prisma.XOR<Prisma.TokenTransactionUpdateManyMutationInput, Prisma.TokenTransactionUncheckedUpdateManyWithoutTestInput>
+}
+
 export type TokenTransactionCreateWithoutUserInput = {
   id?: string
   amount: number
   balanceAfter: number
   reason: $Enums.TokenTransactionReason
-  testId?: string | null
-  attemptId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  test?: Prisma.TestCreateNestedOneWithoutTokenTransactionsInput
+  attempt?: Prisma.TestAttemptCreateNestedOneWithoutTokenTransactionsInput
 }
 
 export type TokenTransactionUncheckedCreateWithoutUserInput = {
@@ -503,6 +725,7 @@ export type TokenTransactionUncheckedCreateWithoutUserInput = {
   testId?: string | null
   attemptId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TokenTransactionCreateOrConnectWithoutUserInput = {
@@ -531,18 +754,92 @@ export type TokenTransactionUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.TokenTransactionUpdateManyMutationInput, Prisma.TokenTransactionUncheckedUpdateManyWithoutUserInput>
 }
 
-export type TokenTransactionScalarWhereInput = {
-  AND?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
-  OR?: Prisma.TokenTransactionScalarWhereInput[]
-  NOT?: Prisma.TokenTransactionScalarWhereInput | Prisma.TokenTransactionScalarWhereInput[]
-  id?: Prisma.StringFilter<"TokenTransaction"> | string
-  userId?: Prisma.IntFilter<"TokenTransaction"> | number
-  amount?: Prisma.IntFilter<"TokenTransaction"> | number
-  balanceAfter?: Prisma.IntFilter<"TokenTransaction"> | number
-  reason?: Prisma.EnumTokenTransactionReasonFilter<"TokenTransaction"> | $Enums.TokenTransactionReason
-  testId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
-  attemptId?: Prisma.StringNullableFilter<"TokenTransaction"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"TokenTransaction"> | Date | string
+export type TokenTransactionCreateManyAttemptInput = {
+  id?: string
+  userId: number
+  amount: number
+  balanceAfter: number
+  reason: $Enums.TokenTransactionReason
+  testId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TokenTransactionUpdateWithoutAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTokenHistoryNestedInput
+  test?: Prisma.TestUpdateOneWithoutTokenTransactionsNestedInput
+}
+
+export type TokenTransactionUncheckedUpdateWithoutAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
+  testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TokenTransactionUncheckedUpdateManyWithoutAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
+  testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TokenTransactionCreateManyTestInput = {
+  id?: string
+  userId: number
+  amount: number
+  balanceAfter: number
+  reason: $Enums.TokenTransactionReason
+  attemptId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TokenTransactionUpdateWithoutTestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTokenHistoryNestedInput
+  attempt?: Prisma.TestAttemptUpdateOneWithoutTokenTransactionsNestedInput
+}
+
+export type TokenTransactionUncheckedUpdateWithoutTestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
+  attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TokenTransactionUncheckedUpdateManyWithoutTestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
+  attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TokenTransactionCreateManyUserInput = {
@@ -553,6 +850,7 @@ export type TokenTransactionCreateManyUserInput = {
   testId?: string | null
   attemptId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TokenTransactionUpdateWithoutUserInput = {
@@ -560,9 +858,10 @@ export type TokenTransactionUpdateWithoutUserInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.EnumTokenTransactionReasonFieldUpdateOperationsInput | $Enums.TokenTransactionReason
-  testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  test?: Prisma.TestUpdateOneWithoutTokenTransactionsNestedInput
+  attempt?: Prisma.TestAttemptUpdateOneWithoutTokenTransactionsNestedInput
 }
 
 export type TokenTransactionUncheckedUpdateWithoutUserInput = {
@@ -573,6 +872,7 @@ export type TokenTransactionUncheckedUpdateWithoutUserInput = {
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TokenTransactionUncheckedUpdateManyWithoutUserInput = {
@@ -583,6 +883,7 @@ export type TokenTransactionUncheckedUpdateManyWithoutUserInput = {
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -596,7 +897,10 @@ export type TokenTransactionSelect<ExtArgs extends runtime.Types.Extensions.Inte
   testId?: boolean
   attemptId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  test?: boolean | Prisma.TokenTransaction$testArgs<ExtArgs>
+  attempt?: boolean | Prisma.TokenTransaction$attemptArgs<ExtArgs>
 }, ExtArgs["result"]["tokenTransaction"]>
 
 export type TokenTransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -608,7 +912,10 @@ export type TokenTransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   testId?: boolean
   attemptId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  test?: boolean | Prisma.TokenTransaction$testArgs<ExtArgs>
+  attempt?: boolean | Prisma.TokenTransaction$attemptArgs<ExtArgs>
 }, ExtArgs["result"]["tokenTransaction"]>
 
 export type TokenTransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -620,7 +927,10 @@ export type TokenTransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   testId?: boolean
   attemptId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  test?: boolean | Prisma.TokenTransaction$testArgs<ExtArgs>
+  attempt?: boolean | Prisma.TokenTransaction$attemptArgs<ExtArgs>
 }, ExtArgs["result"]["tokenTransaction"]>
 
 export type TokenTransactionSelectScalar = {
@@ -632,33 +942,49 @@ export type TokenTransactionSelectScalar = {
   testId?: boolean
   attemptId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type TokenTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "amount" | "balanceAfter" | "reason" | "testId" | "attemptId" | "createdAt", ExtArgs["result"]["tokenTransaction"]>
+export type TokenTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "amount" | "balanceAfter" | "reason" | "testId" | "attemptId" | "createdAt" | "updatedAt", ExtArgs["result"]["tokenTransaction"]>
 export type TokenTransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  test?: boolean | Prisma.TokenTransaction$testArgs<ExtArgs>
+  attempt?: boolean | Prisma.TokenTransaction$attemptArgs<ExtArgs>
 }
 export type TokenTransactionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  test?: boolean | Prisma.TokenTransaction$testArgs<ExtArgs>
+  attempt?: boolean | Prisma.TokenTransaction$attemptArgs<ExtArgs>
 }
 export type TokenTransactionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  test?: boolean | Prisma.TokenTransaction$testArgs<ExtArgs>
+  attempt?: boolean | Prisma.TokenTransaction$attemptArgs<ExtArgs>
 }
 
 export type $TokenTransactionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TokenTransaction"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    test: Prisma.$TestPayload<ExtArgs> | null
+    attempt: Prisma.$TestAttemptPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: number
+    /**
+     * Change in tokens (positive for rewards, negative for purchases)
+     */
     amount: number
+    /**
+     * Running balance snapshot after this transaction
+     */
     balanceAfter: number
     reason: $Enums.TokenTransactionReason
     testId: string | null
     attemptId: string | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["tokenTransaction"]>
   composites: {}
 }
@@ -1054,6 +1380,8 @@ readonly fields: TokenTransactionFieldRefs;
 export interface Prisma__TokenTransactionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  test<T extends Prisma.TokenTransaction$testArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TokenTransaction$testArgs<ExtArgs>>): Prisma.Prisma__TestClient<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  attempt<T extends Prisma.TokenTransaction$attemptArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TokenTransaction$attemptArgs<ExtArgs>>): Prisma.Prisma__TestAttemptClient<runtime.Types.Result.GetResult<Prisma.$TestAttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1091,6 +1419,7 @@ export interface TokenTransactionFieldRefs {
   readonly testId: Prisma.FieldRef<"TokenTransaction", 'String'>
   readonly attemptId: Prisma.FieldRef<"TokenTransaction", 'String'>
   readonly createdAt: Prisma.FieldRef<"TokenTransaction", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"TokenTransaction", 'DateTime'>
 }
     
 
@@ -1489,6 +1818,44 @@ export type TokenTransactionDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many TokenTransactions to delete.
    */
   limit?: number
+}
+
+/**
+ * TokenTransaction.test
+ */
+export type TokenTransaction$testArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Test
+   */
+  select?: Prisma.TestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Test
+   */
+  omit?: Prisma.TestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestInclude<ExtArgs> | null
+  where?: Prisma.TestWhereInput
+}
+
+/**
+ * TokenTransaction.attempt
+ */
+export type TokenTransaction$attemptArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestAttempt
+   */
+  select?: Prisma.TestAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestAttempt
+   */
+  omit?: Prisma.TestAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestAttemptInclude<ExtArgs> | null
+  where?: Prisma.TestAttemptWhereInput
 }
 
 /**

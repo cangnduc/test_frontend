@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model ClassEnrollment
- * 
+ * Link record representing a user's participation in a class
  */
 export type ClassEnrollmentModel = runtime.Types.Result.DefaultSelection<Prisma.$ClassEnrollmentPayload>
 
@@ -39,7 +39,10 @@ export type ClassEnrollmentMinAggregateOutputType = {
   classId: string | null
   userId: number | null
   role: $Enums.ClassRole | null
+  isActive: boolean | null
   joinedAt: Date | null
+  leftAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ClassEnrollmentMaxAggregateOutputType = {
@@ -47,7 +50,10 @@ export type ClassEnrollmentMaxAggregateOutputType = {
   classId: string | null
   userId: number | null
   role: $Enums.ClassRole | null
+  isActive: boolean | null
   joinedAt: Date | null
+  leftAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ClassEnrollmentCountAggregateOutputType = {
@@ -55,7 +61,10 @@ export type ClassEnrollmentCountAggregateOutputType = {
   classId: number
   userId: number
   role: number
+  isActive: number
   joinedAt: number
+  leftAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -73,7 +82,10 @@ export type ClassEnrollmentMinAggregateInputType = {
   classId?: true
   userId?: true
   role?: true
+  isActive?: true
   joinedAt?: true
+  leftAt?: true
+  updatedAt?: true
 }
 
 export type ClassEnrollmentMaxAggregateInputType = {
@@ -81,7 +93,10 @@ export type ClassEnrollmentMaxAggregateInputType = {
   classId?: true
   userId?: true
   role?: true
+  isActive?: true
   joinedAt?: true
+  leftAt?: true
+  updatedAt?: true
 }
 
 export type ClassEnrollmentCountAggregateInputType = {
@@ -89,7 +104,10 @@ export type ClassEnrollmentCountAggregateInputType = {
   classId?: true
   userId?: true
   role?: true
+  isActive?: true
   joinedAt?: true
+  leftAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -184,7 +202,10 @@ export type ClassEnrollmentGroupByOutputType = {
   classId: string
   userId: number
   role: $Enums.ClassRole
+  isActive: boolean
   joinedAt: Date
+  leftAt: Date | null
+  updatedAt: Date
   _count: ClassEnrollmentCountAggregateOutputType | null
   _avg: ClassEnrollmentAvgAggregateOutputType | null
   _sum: ClassEnrollmentSumAggregateOutputType | null
@@ -215,7 +236,10 @@ export type ClassEnrollmentWhereInput = {
   classId?: Prisma.StringFilter<"ClassEnrollment"> | string
   userId?: Prisma.IntFilter<"ClassEnrollment"> | number
   role?: Prisma.EnumClassRoleFilter<"ClassEnrollment"> | $Enums.ClassRole
+  isActive?: Prisma.BoolFilter<"ClassEnrollment"> | boolean
   joinedAt?: Prisma.DateTimeFilter<"ClassEnrollment"> | Date | string
+  leftAt?: Prisma.DateTimeNullableFilter<"ClassEnrollment"> | Date | string | null
+  updatedAt?: Prisma.DateTimeFilter<"ClassEnrollment"> | Date | string
   class?: Prisma.XOR<Prisma.ClassScalarRelationFilter, Prisma.ClassWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -225,7 +249,10 @@ export type ClassEnrollmentOrderByWithRelationInput = {
   classId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  leftAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   class?: Prisma.ClassOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -239,7 +266,10 @@ export type ClassEnrollmentWhereUniqueInput = Prisma.AtLeast<{
   classId?: Prisma.StringFilter<"ClassEnrollment"> | string
   userId?: Prisma.IntFilter<"ClassEnrollment"> | number
   role?: Prisma.EnumClassRoleFilter<"ClassEnrollment"> | $Enums.ClassRole
+  isActive?: Prisma.BoolFilter<"ClassEnrollment"> | boolean
   joinedAt?: Prisma.DateTimeFilter<"ClassEnrollment"> | Date | string
+  leftAt?: Prisma.DateTimeNullableFilter<"ClassEnrollment"> | Date | string | null
+  updatedAt?: Prisma.DateTimeFilter<"ClassEnrollment"> | Date | string
   class?: Prisma.XOR<Prisma.ClassScalarRelationFilter, Prisma.ClassWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "classId_userId">
@@ -249,7 +279,10 @@ export type ClassEnrollmentOrderByWithAggregationInput = {
   classId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  leftAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ClassEnrollmentCountOrderByAggregateInput
   _avg?: Prisma.ClassEnrollmentAvgOrderByAggregateInput
   _max?: Prisma.ClassEnrollmentMaxOrderByAggregateInput
@@ -265,13 +298,19 @@ export type ClassEnrollmentScalarWhereWithAggregatesInput = {
   classId?: Prisma.StringWithAggregatesFilter<"ClassEnrollment"> | string
   userId?: Prisma.IntWithAggregatesFilter<"ClassEnrollment"> | number
   role?: Prisma.EnumClassRoleWithAggregatesFilter<"ClassEnrollment"> | $Enums.ClassRole
+  isActive?: Prisma.BoolWithAggregatesFilter<"ClassEnrollment"> | boolean
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"ClassEnrollment"> | Date | string
+  leftAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClassEnrollment"> | Date | string | null
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ClassEnrollment"> | Date | string
 }
 
 export type ClassEnrollmentCreateInput = {
   id?: string
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
   class: Prisma.ClassCreateNestedOneWithoutEnrollmentsInput
   user: Prisma.UserCreateNestedOneWithoutClassEnrollmentsInput
 }
@@ -281,13 +320,19 @@ export type ClassEnrollmentUncheckedCreateInput = {
   classId: string
   userId: number
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type ClassEnrollmentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   class?: Prisma.ClassUpdateOneRequiredWithoutEnrollmentsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutClassEnrollmentsNestedInput
 }
@@ -297,7 +342,10 @@ export type ClassEnrollmentUncheckedUpdateInput = {
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClassEnrollmentCreateManyInput = {
@@ -305,13 +353,19 @@ export type ClassEnrollmentCreateManyInput = {
   classId: string
   userId: number
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type ClassEnrollmentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClassEnrollmentUncheckedUpdateManyInput = {
@@ -319,7 +373,10 @@ export type ClassEnrollmentUncheckedUpdateManyInput = {
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClassEnrollmentListRelationFilter = {
@@ -342,7 +399,10 @@ export type ClassEnrollmentCountOrderByAggregateInput = {
   classId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  leftAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ClassEnrollmentAvgOrderByAggregateInput = {
@@ -354,7 +414,10 @@ export type ClassEnrollmentMaxOrderByAggregateInput = {
   classId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  leftAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ClassEnrollmentMinOrderByAggregateInput = {
@@ -362,7 +425,10 @@ export type ClassEnrollmentMinOrderByAggregateInput = {
   classId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+  leftAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ClassEnrollmentSumOrderByAggregateInput = {
@@ -415,6 +481,10 @@ export type EnumClassRoleFieldUpdateOperationsInput = {
   set?: $Enums.ClassRole
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type ClassEnrollmentCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.ClassEnrollmentCreateWithoutUserInput, Prisma.ClassEnrollmentUncheckedCreateWithoutUserInput> | Prisma.ClassEnrollmentCreateWithoutUserInput[] | Prisma.ClassEnrollmentUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.ClassEnrollmentCreateOrConnectWithoutUserInput | Prisma.ClassEnrollmentCreateOrConnectWithoutUserInput[]
@@ -460,7 +530,10 @@ export type ClassEnrollmentUncheckedUpdateManyWithoutUserNestedInput = {
 export type ClassEnrollmentCreateWithoutClassInput = {
   id?: string
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutClassEnrollmentsInput
 }
 
@@ -468,7 +541,10 @@ export type ClassEnrollmentUncheckedCreateWithoutClassInput = {
   id?: string
   userId: number
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type ClassEnrollmentCreateOrConnectWithoutClassInput = {
@@ -505,13 +581,19 @@ export type ClassEnrollmentScalarWhereInput = {
   classId?: Prisma.StringFilter<"ClassEnrollment"> | string
   userId?: Prisma.IntFilter<"ClassEnrollment"> | number
   role?: Prisma.EnumClassRoleFilter<"ClassEnrollment"> | $Enums.ClassRole
+  isActive?: Prisma.BoolFilter<"ClassEnrollment"> | boolean
   joinedAt?: Prisma.DateTimeFilter<"ClassEnrollment"> | Date | string
+  leftAt?: Prisma.DateTimeNullableFilter<"ClassEnrollment"> | Date | string | null
+  updatedAt?: Prisma.DateTimeFilter<"ClassEnrollment"> | Date | string
 }
 
 export type ClassEnrollmentCreateWithoutUserInput = {
   id?: string
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
   class: Prisma.ClassCreateNestedOneWithoutEnrollmentsInput
 }
 
@@ -519,7 +601,10 @@ export type ClassEnrollmentUncheckedCreateWithoutUserInput = {
   id?: string
   classId: string
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type ClassEnrollmentCreateOrConnectWithoutUserInput = {
@@ -552,13 +637,19 @@ export type ClassEnrollmentCreateManyClassInput = {
   id?: string
   userId: number
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type ClassEnrollmentUpdateWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutClassEnrollmentsNestedInput
 }
 
@@ -566,27 +657,39 @@ export type ClassEnrollmentUncheckedUpdateWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClassEnrollmentUncheckedUpdateManyWithoutClassInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClassEnrollmentCreateManyUserInput = {
   id?: string
   classId: string
   role?: $Enums.ClassRole
+  isActive?: boolean
   joinedAt?: Date | string
+  leftAt?: Date | string | null
+  updatedAt?: Date | string
 }
 
 export type ClassEnrollmentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   class?: Prisma.ClassUpdateOneRequiredWithoutEnrollmentsNestedInput
 }
 
@@ -594,14 +697,20 @@ export type ClassEnrollmentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClassEnrollmentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   classId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumClassRoleFieldUpdateOperationsInput | $Enums.ClassRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leftAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -611,7 +720,10 @@ export type ClassEnrollmentSelect<ExtArgs extends runtime.Types.Extensions.Inter
   classId?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
   joinedAt?: boolean
+  leftAt?: boolean
+  updatedAt?: boolean
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classEnrollment"]>
@@ -621,7 +733,10 @@ export type ClassEnrollmentSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   classId?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
   joinedAt?: boolean
+  leftAt?: boolean
+  updatedAt?: boolean
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classEnrollment"]>
@@ -631,7 +746,10 @@ export type ClassEnrollmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   classId?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
   joinedAt?: boolean
+  leftAt?: boolean
+  updatedAt?: boolean
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classEnrollment"]>
@@ -641,10 +759,13 @@ export type ClassEnrollmentSelectScalar = {
   classId?: boolean
   userId?: boolean
   role?: boolean
+  isActive?: boolean
   joinedAt?: boolean
+  leftAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ClassEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "classId" | "userId" | "role" | "joinedAt", ExtArgs["result"]["classEnrollment"]>
+export type ClassEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "classId" | "userId" | "role" | "isActive" | "joinedAt" | "leftAt" | "updatedAt", ExtArgs["result"]["classEnrollment"]>
 export type ClassEnrollmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   class?: boolean | Prisma.ClassDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -668,8 +789,17 @@ export type $ClassEnrollmentPayload<ExtArgs extends runtime.Types.Extensions.Int
     id: string
     classId: string
     userId: number
+    /**
+     * Role within the class (e.g., STUDENT, AUDITOR)
+     */
     role: $Enums.ClassRole
+    isActive: boolean
     joinedAt: Date
+    /**
+     * Optional timestamp for when the user left the class
+     */
+    leftAt: Date | null
+    updatedAt: Date
   }, ExtArgs["result"]["classEnrollment"]>
   composites: {}
 }
@@ -1099,7 +1229,10 @@ export interface ClassEnrollmentFieldRefs {
   readonly classId: Prisma.FieldRef<"ClassEnrollment", 'String'>
   readonly userId: Prisma.FieldRef<"ClassEnrollment", 'Int'>
   readonly role: Prisma.FieldRef<"ClassEnrollment", 'ClassRole'>
+  readonly isActive: Prisma.FieldRef<"ClassEnrollment", 'Boolean'>
   readonly joinedAt: Prisma.FieldRef<"ClassEnrollment", 'DateTime'>
+  readonly leftAt: Prisma.FieldRef<"ClassEnrollment", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ClassEnrollment", 'DateTime'>
 }
     
 

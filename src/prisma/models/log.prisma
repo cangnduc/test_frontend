@@ -1,16 +1,18 @@
+/// Internal system logs for debugging and observability
 model SystemLog {
   id        String   @id @default(uuid())
   level     String   // "INFO", "WARN", "ERROR"
   message   String
   stack     String?  @db.Text
-  context   Json?    // Store input args, path, etc.
-  traceId   String?  @map("trace_id") // ID to trace a single request flow
-  
-  // Link to User
+  /// JSON context for structured logging (e.g., request parameters)
+  context   Json?
+  /// Trace ID to correlate logs across different services or request flows
+  traceId   String?  @map("trace_id")
   userId    Int?     @map("user_id")
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([level])
   @@index([userId]) 
@@ -19,17 +21,23 @@ model SystemLog {
   @@map("system_log")
 }
 
+/// Security and compliance audit trail for sensitive actions
 model AuditLog {
   id         String   @id @default(uuid())
   actorId    Int?     @map("actor_id")
-  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
-  action     String   // e.g., "question.update", "test.publish"
+  /// Action performed (e.g., "test.publish", "user.ban")
+  action     String
   resource   String   // table name
-  resourceId String   @map("resource_id") // affected record id
+  resourceId String   @map("resource_id")
+  /// Snapshot of the record before the change
   before     Json?
+  /// Snapshot of the record after the change
   after      Json?
   ip         String?
   createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
 
   @@index([resource, resourceId])
   @@index([actorId, createdAt])

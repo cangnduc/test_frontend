@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model AttemptAnswer
- * 
+ * A student's specific response to an attempt question
  */
 export type AttemptAnswerModel = runtime.Types.Result.DefaultSelection<Prisma.$AttemptAnswerPayload>
 
@@ -591,14 +591,6 @@ export type AttemptAnswerUncheckedUpdateManyWithoutAttemptQuestionNestedInput = 
   deleteMany?: Prisma.AttemptAnswerScalarWhereInput | Prisma.AttemptAnswerScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type AttemptAnswerCreateNestedOneWithoutManualGradeInput = {
   create?: Prisma.XOR<Prisma.AttemptAnswerCreateWithoutManualGradeInput, Prisma.AttemptAnswerUncheckedCreateWithoutManualGradeInput>
   connectOrCreate?: Prisma.AttemptAnswerCreateOrConnectWithoutManualGradeInput
@@ -1071,6 +1063,9 @@ export type $AttemptAnswerPayload<ExtArgs extends runtime.Types.Extensions.Inter
     attemptId: string
     attemptQuestionId: string
     questionVersionId: string
+    /**
+     * The student's response (e.g., selected option ID, text, etc.)
+     */
     response: runtime.JsonValue
     pointsAwarded: number
     isCorrect: boolean | null

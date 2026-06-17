@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model UserTestProgress
- * 
+ * Historical tracking of student performance on specific tests
  */
 export type UserTestProgressModel = runtime.Types.Result.DefaultSelection<Prisma.$UserTestProgressPayload>
 
@@ -50,6 +50,7 @@ export type UserTestProgressMinAggregateOutputType = {
   percentage: number | null
   lastAttemptId: string | null
   lastActivityAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserTestProgressMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type UserTestProgressMaxAggregateOutputType = {
   percentage: number | null
   lastAttemptId: string | null
   lastActivityAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserTestProgressCountAggregateOutputType = {
@@ -74,6 +76,7 @@ export type UserTestProgressCountAggregateOutputType = {
   percentage: number
   lastAttemptId: number
   lastActivityAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -102,6 +105,7 @@ export type UserTestProgressMinAggregateInputType = {
   percentage?: true
   lastAttemptId?: true
   lastActivityAt?: true
+  updatedAt?: true
 }
 
 export type UserTestProgressMaxAggregateInputType = {
@@ -114,6 +118,7 @@ export type UserTestProgressMaxAggregateInputType = {
   percentage?: true
   lastAttemptId?: true
   lastActivityAt?: true
+  updatedAt?: true
 }
 
 export type UserTestProgressCountAggregateInputType = {
@@ -126,6 +131,7 @@ export type UserTestProgressCountAggregateInputType = {
   percentage?: true
   lastAttemptId?: true
   lastActivityAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -225,6 +231,7 @@ export type UserTestProgressGroupByOutputType = {
   percentage: number | null
   lastAttemptId: string | null
   lastActivityAt: Date
+  updatedAt: Date
   _count: UserTestProgressCountAggregateOutputType | null
   _avg: UserTestProgressAvgAggregateOutputType | null
   _sum: UserTestProgressSumAggregateOutputType | null
@@ -260,6 +267,7 @@ export type UserTestProgressWhereInput = {
   percentage?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
   lastAttemptId?: Prisma.StringNullableFilter<"UserTestProgress"> | string | null
   lastActivityAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
   lastAttempt?: Prisma.XOR<Prisma.TestAttemptNullableScalarRelationFilter, Prisma.TestAttemptWhereInput> | null
@@ -275,6 +283,7 @@ export type UserTestProgressOrderByWithRelationInput = {
   percentage?: Prisma.SortOrderInput | Prisma.SortOrder
   lastAttemptId?: Prisma.SortOrderInput | Prisma.SortOrder
   lastActivityAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   test?: Prisma.TestOrderByWithRelationInput
   lastAttempt?: Prisma.TestAttemptOrderByWithRelationInput
@@ -294,6 +303,7 @@ export type UserTestProgressWhereUniqueInput = Prisma.AtLeast<{
   percentage?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
   lastAttemptId?: Prisma.StringNullableFilter<"UserTestProgress"> | string | null
   lastActivityAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
   lastAttempt?: Prisma.XOR<Prisma.TestAttemptNullableScalarRelationFilter, Prisma.TestAttemptWhereInput> | null
@@ -309,6 +319,7 @@ export type UserTestProgressOrderByWithAggregationInput = {
   percentage?: Prisma.SortOrderInput | Prisma.SortOrder
   lastAttemptId?: Prisma.SortOrderInput | Prisma.SortOrder
   lastActivityAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserTestProgressCountOrderByAggregateInput
   _avg?: Prisma.UserTestProgressAvgOrderByAggregateInput
   _max?: Prisma.UserTestProgressMaxOrderByAggregateInput
@@ -329,6 +340,7 @@ export type UserTestProgressScalarWhereWithAggregatesInput = {
   percentage?: Prisma.FloatNullableWithAggregatesFilter<"UserTestProgress"> | number | null
   lastAttemptId?: Prisma.StringNullableWithAggregatesFilter<"UserTestProgress"> | string | null
   lastActivityAt?: Prisma.DateTimeWithAggregatesFilter<"UserTestProgress"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UserTestProgress"> | Date | string
 }
 
 export type UserTestProgressCreateInput = {
@@ -338,6 +350,7 @@ export type UserTestProgressCreateInput = {
   maxScore?: number | null
   percentage?: number | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestProgressInput
   test: Prisma.TestCreateNestedOneWithoutProgressInput
   lastAttempt?: Prisma.TestAttemptCreateNestedOneWithoutProgressInput
@@ -353,6 +366,7 @@ export type UserTestProgressUncheckedCreateInput = {
   percentage?: number | null
   lastAttemptId?: string | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressUpdateInput = {
@@ -362,6 +376,7 @@ export type UserTestProgressUpdateInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestProgressNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutProgressNestedInput
   lastAttempt?: Prisma.TestAttemptUpdateOneWithoutProgressNestedInput
@@ -377,6 +392,7 @@ export type UserTestProgressUncheckedUpdateInput = {
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressCreateManyInput = {
@@ -389,6 +405,7 @@ export type UserTestProgressCreateManyInput = {
   percentage?: number | null
   lastAttemptId?: string | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressUpdateManyMutationInput = {
@@ -398,6 +415,7 @@ export type UserTestProgressUpdateManyMutationInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressUncheckedUpdateManyInput = {
@@ -410,6 +428,7 @@ export type UserTestProgressUncheckedUpdateManyInput = {
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressListRelationFilter = {
@@ -437,6 +456,7 @@ export type UserTestProgressCountOrderByAggregateInput = {
   percentage?: Prisma.SortOrder
   lastAttemptId?: Prisma.SortOrder
   lastActivityAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserTestProgressAvgOrderByAggregateInput = {
@@ -456,6 +476,7 @@ export type UserTestProgressMaxOrderByAggregateInput = {
   percentage?: Prisma.SortOrder
   lastAttemptId?: Prisma.SortOrder
   lastActivityAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserTestProgressMinOrderByAggregateInput = {
@@ -468,6 +489,7 @@ export type UserTestProgressMinOrderByAggregateInput = {
   percentage?: Prisma.SortOrder
   lastAttemptId?: Prisma.SortOrder
   lastActivityAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserTestProgressSumOrderByAggregateInput = {
@@ -610,6 +632,7 @@ export type UserTestProgressCreateWithoutLastAttemptInput = {
   maxScore?: number | null
   percentage?: number | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestProgressInput
   test: Prisma.TestCreateNestedOneWithoutProgressInput
 }
@@ -623,6 +646,7 @@ export type UserTestProgressUncheckedCreateWithoutLastAttemptInput = {
   maxScore?: number | null
   percentage?: number | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressCreateOrConnectWithoutLastAttemptInput = {
@@ -664,6 +688,7 @@ export type UserTestProgressScalarWhereInput = {
   percentage?: Prisma.FloatNullableFilter<"UserTestProgress"> | number | null
   lastAttemptId?: Prisma.StringNullableFilter<"UserTestProgress"> | string | null
   lastActivityAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"UserTestProgress"> | Date | string
 }
 
 export type UserTestProgressCreateWithoutTestInput = {
@@ -673,6 +698,7 @@ export type UserTestProgressCreateWithoutTestInput = {
   maxScore?: number | null
   percentage?: number | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestProgressInput
   lastAttempt?: Prisma.TestAttemptCreateNestedOneWithoutProgressInput
 }
@@ -686,6 +712,7 @@ export type UserTestProgressUncheckedCreateWithoutTestInput = {
   percentage?: number | null
   lastAttemptId?: string | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressCreateOrConnectWithoutTestInput = {
@@ -721,6 +748,7 @@ export type UserTestProgressCreateWithoutUserInput = {
   maxScore?: number | null
   percentage?: number | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutProgressInput
   lastAttempt?: Prisma.TestAttemptCreateNestedOneWithoutProgressInput
 }
@@ -734,6 +762,7 @@ export type UserTestProgressUncheckedCreateWithoutUserInput = {
   percentage?: number | null
   lastAttemptId?: string | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressCreateOrConnectWithoutUserInput = {
@@ -771,6 +800,7 @@ export type UserTestProgressCreateManyLastAttemptInput = {
   maxScore?: number | null
   percentage?: number | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressUpdateWithoutLastAttemptInput = {
@@ -780,6 +810,7 @@ export type UserTestProgressUpdateWithoutLastAttemptInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestProgressNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutProgressNestedInput
 }
@@ -793,6 +824,7 @@ export type UserTestProgressUncheckedUpdateWithoutLastAttemptInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressUncheckedUpdateManyWithoutLastAttemptInput = {
@@ -804,6 +836,7 @@ export type UserTestProgressUncheckedUpdateManyWithoutLastAttemptInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressCreateManyTestInput = {
@@ -815,6 +848,7 @@ export type UserTestProgressCreateManyTestInput = {
   percentage?: number | null
   lastAttemptId?: string | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressUpdateWithoutTestInput = {
@@ -824,6 +858,7 @@ export type UserTestProgressUpdateWithoutTestInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestProgressNestedInput
   lastAttempt?: Prisma.TestAttemptUpdateOneWithoutProgressNestedInput
 }
@@ -837,6 +872,7 @@ export type UserTestProgressUncheckedUpdateWithoutTestInput = {
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressUncheckedUpdateManyWithoutTestInput = {
@@ -848,6 +884,7 @@ export type UserTestProgressUncheckedUpdateManyWithoutTestInput = {
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressCreateManyUserInput = {
@@ -859,6 +896,7 @@ export type UserTestProgressCreateManyUserInput = {
   percentage?: number | null
   lastAttemptId?: string | null
   lastActivityAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserTestProgressUpdateWithoutUserInput = {
@@ -868,6 +906,7 @@ export type UserTestProgressUpdateWithoutUserInput = {
   maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutProgressNestedInput
   lastAttempt?: Prisma.TestAttemptUpdateOneWithoutProgressNestedInput
 }
@@ -881,6 +920,7 @@ export type UserTestProgressUncheckedUpdateWithoutUserInput = {
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserTestProgressUncheckedUpdateManyWithoutUserInput = {
@@ -892,6 +932,7 @@ export type UserTestProgressUncheckedUpdateManyWithoutUserInput = {
   percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   lastAttemptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastActivityAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -906,6 +947,7 @@ export type UserTestProgressSelect<ExtArgs extends runtime.Types.Extensions.Inte
   percentage?: boolean
   lastAttemptId?: boolean
   lastActivityAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
@@ -921,6 +963,7 @@ export type UserTestProgressSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   percentage?: boolean
   lastAttemptId?: boolean
   lastActivityAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
@@ -936,6 +979,7 @@ export type UserTestProgressSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   percentage?: boolean
   lastAttemptId?: boolean
   lastActivityAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   lastAttempt?: boolean | Prisma.UserTestProgress$lastAttemptArgs<ExtArgs>
@@ -951,9 +995,10 @@ export type UserTestProgressSelectScalar = {
   percentage?: boolean
   lastAttemptId?: boolean
   lastActivityAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserTestProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "testId" | "status" | "score" | "maxScore" | "percentage" | "lastAttemptId" | "lastActivityAt", ExtArgs["result"]["userTestProgress"]>
+export type UserTestProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "testId" | "status" | "score" | "maxScore" | "percentage" | "lastAttemptId" | "lastActivityAt" | "updatedAt", ExtArgs["result"]["userTestProgress"]>
 export type UserTestProgressInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
@@ -987,6 +1032,7 @@ export type $UserTestProgressPayload<ExtArgs extends runtime.Types.Extensions.In
     percentage: number | null
     lastAttemptId: string | null
     lastActivityAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["userTestProgress"]>
   composites: {}
 }
@@ -1422,6 +1468,7 @@ export interface UserTestProgressFieldRefs {
   readonly percentage: Prisma.FieldRef<"UserTestProgress", 'Float'>
   readonly lastAttemptId: Prisma.FieldRef<"UserTestProgress", 'String'>
   readonly lastActivityAt: Prisma.FieldRef<"UserTestProgress", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"UserTestProgress", 'DateTime'>
 }
     
 

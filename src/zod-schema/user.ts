@@ -1,6 +1,12 @@
 import { z } from "zod";
-import { UserRole, Gender } from "./common";
+import {
+  UserRole, Gender, NotificationType,
+  TokenTransactionReason, AttemptStatus
+} from "./common";
 
+// ─── Model Schemas (match Prisma models) ─────────────────────
+
+/** Core User model */
 export const UserSchema = z.object({
   id: z.number().int(),
   name: z.string().nullable(),
@@ -9,10 +15,53 @@ export const UserSchema = z.object({
   image: z.string().url().nullable(),
   banned: z.boolean(),
   role: UserRole,
+  phone: z.string().nullable(),
+  lastLoginAt: z.date().nullable(),
+  deletedAt: z.date().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
 
+/** Authentication account linked to a User (e.g., Google, Email/Password) */
+export const AccountSchema = z.object({
+  id: z.number().int(),
+  accountId: z.string(),
+  providerId: z.string(),
+  userId: z.number().int(),
+  accessToken: z.string().nullable(),
+  refreshToken: z.string().nullable(),
+  idToken: z.string().nullable(),
+  accessTokenExpiresAt: z.date().nullable(),
+  refreshTokenExpiresAt: z.date().nullable(),
+  scope: z.string().nullable(),
+  password: z.string().nullable(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+/** Active user session for authentication tracking */
+export const SessionSchema = z.object({
+  id: z.string().uuid(),
+  expiresAt: z.date(),
+  token: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  ipAddress: z.string().nullable(),
+  userAgent: z.string().nullable(),
+  userId: z.number().int(),
+});
+
+/** Email or phone verification tokens */
+export const VerificationSchema = z.object({
+  id: z.string().uuid(),
+  identifier: z.string(),
+  value: z.string(),
+  expiresAt: z.date(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+/** Extended user profile */
 export const ProfileSchema = z.object({
   id: z.string().uuid(),
   bio: z.string().nullable(),
@@ -27,6 +76,7 @@ export const ProfileSchema = z.object({
   updatedAt: z.date(),
 });
 
+/** Gamification and activity statistics */
 export const UserStatsSchema = z.object({
   id: z.string().uuid(),
   userId: z.number().int(),
@@ -42,7 +92,59 @@ export const UserStatsSchema = z.object({
   updatedAt: z.date(),
 });
 
-// Request schemas
+/** In-app notification */
+export const NotificationSchema = z.object({
+  id: z.string().uuid(),
+  userId: z.number().int(),
+  type: NotificationType,
+  title: z.string(),
+  body: z.string(),
+  isRead: z.boolean(),
+  actionUrl: z.string().nullable(),
+  metadata: z.any().nullable(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  expiresAt: z.date().nullable(),
+});
+
+/** Token balance change record */
+export const TokenTransactionSchema = z.object({
+  id: z.string().uuid(),
+  userId: z.number().int(),
+  amount: z.number().int(),
+  balanceAfter: z.number().int(),
+  reason: TokenTransactionReason,
+  testId: z.string().nullable(),
+  attemptId: z.string().nullable(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+/** Historical student performance on a test */
+export const UserTestProgressSchema = z.object({
+  id: z.string().uuid(),
+  userId: z.number().int(),
+  testId: z.string().uuid(),
+  status: AttemptStatus,
+  score: z.number().nullable(),
+  maxScore: z.number().nullable(),
+  percentage: z.number().nullable(),
+  lastAttemptId: z.string().uuid().nullable(),
+  lastActivityAt: z.date(),
+  updatedAt: z.date(),
+});
+
+/** Parent-student link */
+export const ParentStudentLinkSchema = z.object({
+  id: z.string().uuid(),
+  parentId: z.number().int(),
+  studentId: z.number().int(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+// ─── Request Schemas ─────────────────────────────────────────
+
 export const CreateUserSchema = z.object({
   name: z.string().optional(),
   email: z.string().email(),

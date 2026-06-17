@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model TestVersionSection
- * 
+ * A structural block within a TestVersion (e.g., Reading Section 1)
  */
 export type TestVersionSectionModel = runtime.Types.Result.DefaultSelection<Prisma.$TestVersionSectionPayload>
 
@@ -49,6 +49,7 @@ export type TestVersionSectionMinAggregateOutputType = {
   questionSelectionMode: $Enums.SelectionMode | null
   questionToSelect: number | null
   passageVersionId: string | null
+  updatedAt: Date | null
 }
 
 export type TestVersionSectionMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type TestVersionSectionMaxAggregateOutputType = {
   questionSelectionMode: $Enums.SelectionMode | null
   questionToSelect: number | null
   passageVersionId: string | null
+  updatedAt: Date | null
 }
 
 export type TestVersionSectionCountAggregateOutputType = {
@@ -75,6 +77,7 @@ export type TestVersionSectionCountAggregateOutputType = {
   questionSelectionMode: number
   questionToSelect: number
   passageVersionId: number
+  updatedAt: number
   _all: number
 }
 
@@ -102,6 +105,7 @@ export type TestVersionSectionMinAggregateInputType = {
   questionSelectionMode?: true
   questionToSelect?: true
   passageVersionId?: true
+  updatedAt?: true
 }
 
 export type TestVersionSectionMaxAggregateInputType = {
@@ -115,6 +119,7 @@ export type TestVersionSectionMaxAggregateInputType = {
   questionSelectionMode?: true
   questionToSelect?: true
   passageVersionId?: true
+  updatedAt?: true
 }
 
 export type TestVersionSectionCountAggregateInputType = {
@@ -128,6 +133,7 @@ export type TestVersionSectionCountAggregateInputType = {
   questionSelectionMode?: true
   questionToSelect?: true
   passageVersionId?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -228,6 +234,7 @@ export type TestVersionSectionGroupByOutputType = {
   questionSelectionMode: $Enums.SelectionMode
   questionToSelect: number | null
   passageVersionId: string | null
+  updatedAt: Date
   _count: TestVersionSectionCountAggregateOutputType | null
   _avg: TestVersionSectionAvgAggregateOutputType | null
   _sum: TestVersionSectionSumAggregateOutputType | null
@@ -264,6 +271,7 @@ export type TestVersionSectionWhereInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFilter<"TestVersionSection"> | $Enums.SelectionMode
   questionToSelect?: Prisma.IntNullableFilter<"TestVersionSection"> | number | null
   passageVersionId?: Prisma.StringNullableFilter<"TestVersionSection"> | string | null
+  updatedAt?: Prisma.DateTimeFilter<"TestVersionSection"> | Date | string
   testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
   passageVersion?: Prisma.XOR<Prisma.PassageVersionNullableScalarRelationFilter, Prisma.PassageVersionWhereInput> | null
   questions?: Prisma.TestVersionQuestionListRelationFilter
@@ -281,6 +289,7 @@ export type TestVersionSectionOrderByWithRelationInput = {
   questionSelectionMode?: Prisma.SortOrder
   questionToSelect?: Prisma.SortOrderInput | Prisma.SortOrder
   passageVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   testVersion?: Prisma.TestVersionOrderByWithRelationInput
   passageVersion?: Prisma.PassageVersionOrderByWithRelationInput
   questions?: Prisma.TestVersionQuestionOrderByRelationAggregateInput
@@ -301,6 +310,7 @@ export type TestVersionSectionWhereUniqueInput = Prisma.AtLeast<{
   questionSelectionMode?: Prisma.EnumSelectionModeFilter<"TestVersionSection"> | $Enums.SelectionMode
   questionToSelect?: Prisma.IntNullableFilter<"TestVersionSection"> | number | null
   passageVersionId?: Prisma.StringNullableFilter<"TestVersionSection"> | string | null
+  updatedAt?: Prisma.DateTimeFilter<"TestVersionSection"> | Date | string
   testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
   passageVersion?: Prisma.XOR<Prisma.PassageVersionNullableScalarRelationFilter, Prisma.PassageVersionWhereInput> | null
   questions?: Prisma.TestVersionQuestionListRelationFilter
@@ -318,6 +328,7 @@ export type TestVersionSectionOrderByWithAggregationInput = {
   questionSelectionMode?: Prisma.SortOrder
   questionToSelect?: Prisma.SortOrderInput | Prisma.SortOrder
   passageVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TestVersionSectionCountOrderByAggregateInput
   _avg?: Prisma.TestVersionSectionAvgOrderByAggregateInput
   _max?: Prisma.TestVersionSectionMaxOrderByAggregateInput
@@ -339,6 +350,7 @@ export type TestVersionSectionScalarWhereWithAggregatesInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeWithAggregatesFilter<"TestVersionSection"> | $Enums.SelectionMode
   questionToSelect?: Prisma.IntNullableWithAggregatesFilter<"TestVersionSection"> | number | null
   passageVersionId?: Prisma.StringNullableWithAggregatesFilter<"TestVersionSection"> | string | null
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TestVersionSection"> | Date | string
 }
 
 export type TestVersionSectionCreateInput = {
@@ -350,6 +362,7 @@ export type TestVersionSectionCreateInput = {
   timeLimit?: number | null
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
+  updatedAt?: Date | string
   testVersion: Prisma.TestVersionCreateNestedOneWithoutSectionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutTestSectionsInput
   questions?: Prisma.TestVersionQuestionCreateNestedManyWithoutTestVersionSectionInput
@@ -367,6 +380,7 @@ export type TestVersionSectionUncheckedCreateInput = {
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
   passageVersionId?: string | null
+  updatedAt?: Date | string
   questions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutTestVersionSectionInput
   attemptSections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutTestVersionSectionInput
 }
@@ -380,6 +394,7 @@ export type TestVersionSectionUpdateInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutSectionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutTestSectionsNestedInput
   questions?: Prisma.TestVersionQuestionUpdateManyWithoutTestVersionSectionNestedInput
@@ -397,6 +412,7 @@ export type TestVersionSectionUncheckedUpdateInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
   attemptSections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
 }
@@ -412,6 +428,7 @@ export type TestVersionSectionCreateManyInput = {
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
   passageVersionId?: string | null
+  updatedAt?: Date | string
 }
 
 export type TestVersionSectionUpdateManyMutationInput = {
@@ -423,6 +440,7 @@ export type TestVersionSectionUpdateManyMutationInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionSectionUncheckedUpdateManyInput = {
@@ -436,6 +454,7 @@ export type TestVersionSectionUncheckedUpdateManyInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionSectionListRelationFilter = {
@@ -464,6 +483,7 @@ export type TestVersionSectionCountOrderByAggregateInput = {
   questionSelectionMode?: Prisma.SortOrder
   questionToSelect?: Prisma.SortOrder
   passageVersionId?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionSectionAvgOrderByAggregateInput = {
@@ -483,6 +503,7 @@ export type TestVersionSectionMaxOrderByAggregateInput = {
   questionSelectionMode?: Prisma.SortOrder
   questionToSelect?: Prisma.SortOrder
   passageVersionId?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionSectionMinOrderByAggregateInput = {
@@ -496,6 +517,7 @@ export type TestVersionSectionMinOrderByAggregateInput = {
   questionSelectionMode?: Prisma.SortOrder
   questionToSelect?: Prisma.SortOrder
   passageVersionId?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionSectionSumOrderByAggregateInput = {
@@ -633,6 +655,7 @@ export type TestVersionSectionCreateWithoutPassageVersionInput = {
   timeLimit?: number | null
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
+  updatedAt?: Date | string
   testVersion: Prisma.TestVersionCreateNestedOneWithoutSectionsInput
   questions?: Prisma.TestVersionQuestionCreateNestedManyWithoutTestVersionSectionInput
   attemptSections?: Prisma.AttemptSectionCreateNestedManyWithoutTestVersionSectionInput
@@ -648,6 +671,7 @@ export type TestVersionSectionUncheckedCreateWithoutPassageVersionInput = {
   timeLimit?: number | null
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
+  updatedAt?: Date | string
   questions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutTestVersionSectionInput
   attemptSections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutTestVersionSectionInput
 }
@@ -692,6 +716,7 @@ export type TestVersionSectionScalarWhereInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFilter<"TestVersionSection"> | $Enums.SelectionMode
   questionToSelect?: Prisma.IntNullableFilter<"TestVersionSection"> | number | null
   passageVersionId?: Prisma.StringNullableFilter<"TestVersionSection"> | string | null
+  updatedAt?: Prisma.DateTimeFilter<"TestVersionSection"> | Date | string
 }
 
 export type TestVersionSectionCreateWithoutAttemptSectionsInput = {
@@ -703,6 +728,7 @@ export type TestVersionSectionCreateWithoutAttemptSectionsInput = {
   timeLimit?: number | null
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
+  updatedAt?: Date | string
   testVersion: Prisma.TestVersionCreateNestedOneWithoutSectionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutTestSectionsInput
   questions?: Prisma.TestVersionQuestionCreateNestedManyWithoutTestVersionSectionInput
@@ -719,6 +745,7 @@ export type TestVersionSectionUncheckedCreateWithoutAttemptSectionsInput = {
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
   passageVersionId?: string | null
+  updatedAt?: Date | string
   questions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutTestVersionSectionInput
 }
 
@@ -747,6 +774,7 @@ export type TestVersionSectionUpdateWithoutAttemptSectionsInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutSectionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutTestSectionsNestedInput
   questions?: Prisma.TestVersionQuestionUpdateManyWithoutTestVersionSectionNestedInput
@@ -763,6 +791,7 @@ export type TestVersionSectionUncheckedUpdateWithoutAttemptSectionsInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
 }
 
@@ -775,6 +804,7 @@ export type TestVersionSectionCreateWithoutTestVersionInput = {
   timeLimit?: number | null
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
+  updatedAt?: Date | string
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutTestSectionsInput
   questions?: Prisma.TestVersionQuestionCreateNestedManyWithoutTestVersionSectionInput
   attemptSections?: Prisma.AttemptSectionCreateNestedManyWithoutTestVersionSectionInput
@@ -790,6 +820,7 @@ export type TestVersionSectionUncheckedCreateWithoutTestVersionInput = {
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
   passageVersionId?: string | null
+  updatedAt?: Date | string
   questions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutTestVersionSectionInput
   attemptSections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutTestVersionSectionInput
 }
@@ -829,6 +860,7 @@ export type TestVersionSectionCreateWithoutQuestionsInput = {
   timeLimit?: number | null
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
+  updatedAt?: Date | string
   testVersion: Prisma.TestVersionCreateNestedOneWithoutSectionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutTestSectionsInput
   attemptSections?: Prisma.AttemptSectionCreateNestedManyWithoutTestVersionSectionInput
@@ -845,6 +877,7 @@ export type TestVersionSectionUncheckedCreateWithoutQuestionsInput = {
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
   passageVersionId?: string | null
+  updatedAt?: Date | string
   attemptSections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutTestVersionSectionInput
 }
 
@@ -873,6 +906,7 @@ export type TestVersionSectionUpdateWithoutQuestionsInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutSectionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutTestSectionsNestedInput
   attemptSections?: Prisma.AttemptSectionUpdateManyWithoutTestVersionSectionNestedInput
@@ -889,6 +923,7 @@ export type TestVersionSectionUncheckedUpdateWithoutQuestionsInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attemptSections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
 }
 
@@ -902,6 +937,7 @@ export type TestVersionSectionCreateManyPassageVersionInput = {
   timeLimit?: number | null
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
+  updatedAt?: Date | string
 }
 
 export type TestVersionSectionUpdateWithoutPassageVersionInput = {
@@ -913,6 +949,7 @@ export type TestVersionSectionUpdateWithoutPassageVersionInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutSectionsNestedInput
   questions?: Prisma.TestVersionQuestionUpdateManyWithoutTestVersionSectionNestedInput
   attemptSections?: Prisma.AttemptSectionUpdateManyWithoutTestVersionSectionNestedInput
@@ -928,6 +965,7 @@ export type TestVersionSectionUncheckedUpdateWithoutPassageVersionInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
   attemptSections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
 }
@@ -942,6 +980,7 @@ export type TestVersionSectionUncheckedUpdateManyWithoutPassageVersionInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionSectionCreateManyTestVersionInput = {
@@ -954,6 +993,7 @@ export type TestVersionSectionCreateManyTestVersionInput = {
   questionSelectionMode?: $Enums.SelectionMode
   questionToSelect?: number | null
   passageVersionId?: string | null
+  updatedAt?: Date | string
 }
 
 export type TestVersionSectionUpdateWithoutTestVersionInput = {
@@ -965,6 +1005,7 @@ export type TestVersionSectionUpdateWithoutTestVersionInput = {
   timeLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutTestSectionsNestedInput
   questions?: Prisma.TestVersionQuestionUpdateManyWithoutTestVersionSectionNestedInput
   attemptSections?: Prisma.AttemptSectionUpdateManyWithoutTestVersionSectionNestedInput
@@ -980,6 +1021,7 @@ export type TestVersionSectionUncheckedUpdateWithoutTestVersionInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
   attemptSections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutTestVersionSectionNestedInput
 }
@@ -994,6 +1036,7 @@ export type TestVersionSectionUncheckedUpdateManyWithoutTestVersionInput = {
   questionSelectionMode?: Prisma.EnumSelectionModeFieldUpdateOperationsInput | $Enums.SelectionMode
   questionToSelect?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1047,6 +1090,7 @@ export type TestVersionSectionSelect<ExtArgs extends runtime.Types.Extensions.In
   questionSelectionMode?: boolean
   questionToSelect?: boolean
   passageVersionId?: boolean
+  updatedAt?: boolean
   testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.TestVersionSection$passageVersionArgs<ExtArgs>
   questions?: boolean | Prisma.TestVersionSection$questionsArgs<ExtArgs>
@@ -1065,6 +1109,7 @@ export type TestVersionSectionSelectCreateManyAndReturn<ExtArgs extends runtime.
   questionSelectionMode?: boolean
   questionToSelect?: boolean
   passageVersionId?: boolean
+  updatedAt?: boolean
   testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.TestVersionSection$passageVersionArgs<ExtArgs>
 }, ExtArgs["result"]["testVersionSection"]>
@@ -1080,6 +1125,7 @@ export type TestVersionSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.
   questionSelectionMode?: boolean
   questionToSelect?: boolean
   passageVersionId?: boolean
+  updatedAt?: boolean
   testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.TestVersionSection$passageVersionArgs<ExtArgs>
 }, ExtArgs["result"]["testVersionSection"]>
@@ -1095,9 +1141,10 @@ export type TestVersionSectionSelectScalar = {
   questionSelectionMode?: boolean
   questionToSelect?: boolean
   passageVersionId?: boolean
+  updatedAt?: boolean
 }
 
-export type TestVersionSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testVersionId" | "type" | "title" | "order" | "description" | "timeLimit" | "questionSelectionMode" | "questionToSelect" | "passageVersionId", ExtArgs["result"]["testVersionSection"]>
+export type TestVersionSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testVersionId" | "type" | "title" | "order" | "description" | "timeLimit" | "questionSelectionMode" | "questionToSelect" | "passageVersionId" | "updatedAt", ExtArgs["result"]["testVersionSection"]>
 export type TestVersionSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.TestVersionSection$passageVersionArgs<ExtArgs>
@@ -1129,10 +1176,23 @@ export type $TestVersionSectionPayload<ExtArgs extends runtime.Types.Extensions.
     title: string
     order: number
     description: string | null
+    /**
+     * Time limit for this specific section in minutes (-1 for unlimited)
+     */
     timeLimit: number | null
+    /**
+     * Rule for selecting questions within this section (e.g., ALL, RANDOM_N)
+     */
     questionSelectionMode: $Enums.SelectionMode
+    /**
+     * Number of questions to select if mode is CHOOSE_N or RANDOM_N
+     */
     questionToSelect: number | null
+    /**
+     * Link to a passage if this section is built around a single piece of content
+     */
     passageVersionId: string | null
+    updatedAt: Date
   }, ExtArgs["result"]["testVersionSection"]>
   composites: {}
 }
@@ -1570,6 +1630,7 @@ export interface TestVersionSectionFieldRefs {
   readonly questionSelectionMode: Prisma.FieldRef<"TestVersionSection", 'SelectionMode'>
   readonly questionToSelect: Prisma.FieldRef<"TestVersionSection", 'Int'>
   readonly passageVersionId: Prisma.FieldRef<"TestVersionSection", 'String'>
+  readonly updatedAt: Prisma.FieldRef<"TestVersionSection", 'DateTime'>
 }
     
 

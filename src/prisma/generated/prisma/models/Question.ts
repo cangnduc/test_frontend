@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Question
- * 
+ * Logical container for a question. References the active version.
  */
 export type QuestionModel = runtime.Types.Result.DefaultSelection<Prisma.$QuestionPayload>
 
@@ -39,6 +39,7 @@ export type QuestionMinAggregateOutputType = {
   subjectId: string | null
   createdById: number | null
   currentVersionId: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,6 +49,7 @@ export type QuestionMaxAggregateOutputType = {
   subjectId: string | null
   createdById: number | null
   currentVersionId: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -57,6 +59,7 @@ export type QuestionCountAggregateOutputType = {
   subjectId: number
   createdById: number
   currentVersionId: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -76,6 +79,7 @@ export type QuestionMinAggregateInputType = {
   subjectId?: true
   createdById?: true
   currentVersionId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -85,6 +89,7 @@ export type QuestionMaxAggregateInputType = {
   subjectId?: true
   createdById?: true
   currentVersionId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type QuestionCountAggregateInputType = {
   subjectId?: true
   createdById?: true
   currentVersionId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -190,6 +196,7 @@ export type QuestionGroupByOutputType = {
   subjectId: string
   createdById: number | null
   currentVersionId: string | null
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: QuestionCountAggregateOutputType | null
@@ -222,6 +229,7 @@ export type QuestionWhereInput = {
   subjectId?: Prisma.StringFilter<"Question"> | string
   createdById?: Prisma.IntNullableFilter<"Question"> | number | null
   currentVersionId?: Prisma.StringNullableFilter<"Question"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Question"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
@@ -236,6 +244,7 @@ export type QuestionOrderByWithRelationInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   subject?: Prisma.SubjectOrderByWithRelationInput
@@ -253,6 +262,7 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.QuestionWhereInput | Prisma.QuestionWhereInput[]
   subjectId?: Prisma.StringFilter<"Question"> | string
   createdById?: Prisma.IntNullableFilter<"Question"> | number | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Question"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
@@ -267,6 +277,7 @@ export type QuestionOrderByWithAggregationInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuestionCountOrderByAggregateInput
@@ -284,12 +295,14 @@ export type QuestionScalarWhereWithAggregatesInput = {
   subjectId?: Prisma.StringWithAggregatesFilter<"Question"> | string
   createdById?: Prisma.IntNullableWithAggregatesFilter<"Question"> | number | null
   currentVersionId?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Question"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
 }
 
 export type QuestionCreateInput = {
   id?: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutQuestionsInput
@@ -304,6 +317,7 @@ export type QuestionUncheckedCreateInput = {
   subjectId: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   versions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutQuestionInput
@@ -312,6 +326,7 @@ export type QuestionUncheckedCreateInput = {
 
 export type QuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutQuestionsNestedInput
@@ -326,6 +341,7 @@ export type QuestionUncheckedUpdateInput = {
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionNestedInput
@@ -337,12 +353,14 @@ export type QuestionCreateManyInput = {
   subjectId: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type QuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -352,18 +370,9 @@ export type QuestionUncheckedUpdateManyInput = {
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type QuestionListRelationFilter = {
-  every?: Prisma.QuestionWhereInput
-  some?: Prisma.QuestionWhereInput
-  none?: Prisma.QuestionWhereInput
-}
-
-export type QuestionOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type QuestionCountOrderByAggregateInput = {
@@ -371,6 +380,7 @@ export type QuestionCountOrderByAggregateInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -384,6 +394,7 @@ export type QuestionMaxOrderByAggregateInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -393,6 +404,7 @@ export type QuestionMinOrderByAggregateInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -411,46 +423,14 @@ export type QuestionNullableScalarRelationFilter = {
   isNot?: Prisma.QuestionWhereInput | null
 }
 
-export type QuestionCreateNestedManyWithoutSubjectInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
-  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+export type QuestionListRelationFilter = {
+  every?: Prisma.QuestionWhereInput
+  some?: Prisma.QuestionWhereInput
+  none?: Prisma.QuestionWhereInput
 }
 
-export type QuestionUncheckedCreateNestedManyWithoutSubjectInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
-  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-}
-
-export type QuestionUpdateManyWithoutSubjectNestedInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
-  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput[]
-  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
-  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput[]
-  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput | Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput[]
-  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
-}
-
-export type QuestionUncheckedUpdateManyWithoutSubjectNestedInput = {
-  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
-  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput[]
-  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
-  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
-  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput[]
-  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput | Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput[]
-  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+export type QuestionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type QuestionCreateNestedOneWithoutVersionsInput = {
@@ -497,6 +477,48 @@ export type QuestionUncheckedUpdateOneWithoutCurrentVersionNestedInput = {
   delete?: Prisma.QuestionWhereInput | boolean
   connect?: Prisma.QuestionWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.QuestionUpdateWithoutCurrentVersionInput>, Prisma.QuestionUncheckedUpdateWithoutCurrentVersionInput>
+}
+
+export type QuestionCreateNestedManyWithoutSubjectInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
+  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUncheckedCreateNestedManyWithoutSubjectInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
+  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+}
+
+export type QuestionUpdateManyWithoutSubjectNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput[]
+  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput | Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
+}
+
+export type QuestionUncheckedUpdateManyWithoutSubjectNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutSubjectInput, Prisma.QuestionUncheckedCreateWithoutSubjectInput> | Prisma.QuestionCreateWithoutSubjectInput[] | Prisma.QuestionUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutSubjectInput | Prisma.QuestionCreateOrConnectWithoutSubjectInput[]
+  upsert?: Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpsertWithWhereUniqueWithoutSubjectInput[]
+  createMany?: Prisma.QuestionCreateManySubjectInputEnvelope
+  set?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  delete?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  connect?: Prisma.QuestionWhereUniqueInput | Prisma.QuestionWhereUniqueInput[]
+  update?: Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput | Prisma.QuestionUpdateWithWhereUniqueWithoutSubjectInput[]
+  updateMany?: Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput | Prisma.QuestionUpdateManyWithWhereWithoutSubjectInput[]
+  deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
 }
 
 export type QuestionCreateNestedOneWithoutTestsInput = {
@@ -555,8 +577,129 @@ export type QuestionUncheckedUpdateManyWithoutCreatedByNestedInput = {
   deleteMany?: Prisma.QuestionScalarWhereInput | Prisma.QuestionScalarWhereInput[]
 }
 
+export type QuestionCreateWithoutVersionsInput = {
+  id?: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutQuestionsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionsInput
+  currentVersion?: Prisma.QuestionVersionCreateNestedOneWithoutCurrentVersionOfInput
+  tests?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionUncheckedCreateWithoutVersionsInput = {
+  id?: string
+  subjectId: string
+  createdById?: number | null
+  currentVersionId?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tests?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionCreateOrConnectWithoutVersionsInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutVersionsInput, Prisma.QuestionUncheckedCreateWithoutVersionsInput>
+}
+
+export type QuestionCreateWithoutCurrentVersionInput = {
+  id?: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutQuestionsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionsInput
+  versions?: Prisma.QuestionVersionCreateNestedManyWithoutQuestionInput
+  tests?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionUncheckedCreateWithoutCurrentVersionInput = {
+  id?: string
+  subjectId: string
+  createdById?: number | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  versions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutQuestionInput
+  tests?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionCreateOrConnectWithoutCurrentVersionInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutCurrentVersionInput, Prisma.QuestionUncheckedCreateWithoutCurrentVersionInput>
+}
+
+export type QuestionUpsertWithoutVersionsInput = {
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutVersionsInput, Prisma.QuestionUncheckedUpdateWithoutVersionsInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutVersionsInput, Prisma.QuestionUncheckedCreateWithoutVersionsInput>
+  where?: Prisma.QuestionWhereInput
+}
+
+export type QuestionUpdateToOneWithWhereWithoutVersionsInput = {
+  where?: Prisma.QuestionWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutVersionsInput, Prisma.QuestionUncheckedUpdateWithoutVersionsInput>
+}
+
+export type QuestionUpdateWithoutVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutQuestionsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutQuestionsNestedInput
+  currentVersion?: Prisma.QuestionVersionUpdateOneWithoutCurrentVersionOfNestedInput
+  tests?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateWithoutVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tests?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUpsertWithoutCurrentVersionInput = {
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutCurrentVersionInput, Prisma.QuestionUncheckedUpdateWithoutCurrentVersionInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutCurrentVersionInput, Prisma.QuestionUncheckedCreateWithoutCurrentVersionInput>
+  where?: Prisma.QuestionWhereInput
+}
+
+export type QuestionUpdateToOneWithWhereWithoutCurrentVersionInput = {
+  where?: Prisma.QuestionWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutCurrentVersionInput, Prisma.QuestionUncheckedUpdateWithoutCurrentVersionInput>
+}
+
+export type QuestionUpdateWithoutCurrentVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutQuestionsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutQuestionsNestedInput
+  versions?: Prisma.QuestionVersionUpdateManyWithoutQuestionNestedInput
+  tests?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateWithoutCurrentVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  versions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionNestedInput
+  tests?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+}
+
 export type QuestionCreateWithoutSubjectInput = {
   id?: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: Prisma.UserCreateNestedOneWithoutQuestionsInput
@@ -569,6 +712,7 @@ export type QuestionUncheckedCreateWithoutSubjectInput = {
   id?: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   versions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutQuestionInput
@@ -609,124 +753,14 @@ export type QuestionScalarWhereInput = {
   subjectId?: Prisma.StringFilter<"Question"> | string
   createdById?: Prisma.IntNullableFilter<"Question"> | number | null
   currentVersionId?: Prisma.StringNullableFilter<"Question"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Question"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Question"> | Date | string
 }
 
-export type QuestionCreateWithoutVersionsInput = {
-  id?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutQuestionsInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionsInput
-  currentVersion?: Prisma.QuestionVersionCreateNestedOneWithoutCurrentVersionOfInput
-  tests?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionInput
-}
-
-export type QuestionUncheckedCreateWithoutVersionsInput = {
-  id?: string
-  subjectId: string
-  createdById?: number | null
-  currentVersionId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  tests?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionInput
-}
-
-export type QuestionCreateOrConnectWithoutVersionsInput = {
-  where: Prisma.QuestionWhereUniqueInput
-  create: Prisma.XOR<Prisma.QuestionCreateWithoutVersionsInput, Prisma.QuestionUncheckedCreateWithoutVersionsInput>
-}
-
-export type QuestionCreateWithoutCurrentVersionInput = {
-  id?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutQuestionsInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionsInput
-  versions?: Prisma.QuestionVersionCreateNestedManyWithoutQuestionInput
-  tests?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionInput
-}
-
-export type QuestionUncheckedCreateWithoutCurrentVersionInput = {
-  id?: string
-  subjectId: string
-  createdById?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  versions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutQuestionInput
-  tests?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionInput
-}
-
-export type QuestionCreateOrConnectWithoutCurrentVersionInput = {
-  where: Prisma.QuestionWhereUniqueInput
-  create: Prisma.XOR<Prisma.QuestionCreateWithoutCurrentVersionInput, Prisma.QuestionUncheckedCreateWithoutCurrentVersionInput>
-}
-
-export type QuestionUpsertWithoutVersionsInput = {
-  update: Prisma.XOR<Prisma.QuestionUpdateWithoutVersionsInput, Prisma.QuestionUncheckedUpdateWithoutVersionsInput>
-  create: Prisma.XOR<Prisma.QuestionCreateWithoutVersionsInput, Prisma.QuestionUncheckedCreateWithoutVersionsInput>
-  where?: Prisma.QuestionWhereInput
-}
-
-export type QuestionUpdateToOneWithWhereWithoutVersionsInput = {
-  where?: Prisma.QuestionWhereInput
-  data: Prisma.XOR<Prisma.QuestionUpdateWithoutVersionsInput, Prisma.QuestionUncheckedUpdateWithoutVersionsInput>
-}
-
-export type QuestionUpdateWithoutVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutQuestionsNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutQuestionsNestedInput
-  currentVersion?: Prisma.QuestionVersionUpdateOneWithoutCurrentVersionOfNestedInput
-  tests?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionNestedInput
-}
-
-export type QuestionUncheckedUpdateWithoutVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tests?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionNestedInput
-}
-
-export type QuestionUpsertWithoutCurrentVersionInput = {
-  update: Prisma.XOR<Prisma.QuestionUpdateWithoutCurrentVersionInput, Prisma.QuestionUncheckedUpdateWithoutCurrentVersionInput>
-  create: Prisma.XOR<Prisma.QuestionCreateWithoutCurrentVersionInput, Prisma.QuestionUncheckedCreateWithoutCurrentVersionInput>
-  where?: Prisma.QuestionWhereInput
-}
-
-export type QuestionUpdateToOneWithWhereWithoutCurrentVersionInput = {
-  where?: Prisma.QuestionWhereInput
-  data: Prisma.XOR<Prisma.QuestionUpdateWithoutCurrentVersionInput, Prisma.QuestionUncheckedUpdateWithoutCurrentVersionInput>
-}
-
-export type QuestionUpdateWithoutCurrentVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutQuestionsNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutQuestionsNestedInput
-  versions?: Prisma.QuestionVersionUpdateManyWithoutQuestionNestedInput
-  tests?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionNestedInput
-}
-
-export type QuestionUncheckedUpdateWithoutCurrentVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  versions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionNestedInput
-  tests?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionNestedInput
-}
-
 export type QuestionCreateWithoutTestsInput = {
   id?: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutQuestionsInput
@@ -740,6 +774,7 @@ export type QuestionUncheckedCreateWithoutTestsInput = {
   subjectId: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   versions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutQuestionInput
@@ -763,6 +798,7 @@ export type QuestionUpdateToOneWithWhereWithoutTestsInput = {
 
 export type QuestionUpdateWithoutTestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutQuestionsNestedInput
@@ -776,6 +812,7 @@ export type QuestionUncheckedUpdateWithoutTestsInput = {
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionNestedInput
@@ -783,6 +820,7 @@ export type QuestionUncheckedUpdateWithoutTestsInput = {
 
 export type QuestionCreateWithoutCreatedByInput = {
   id?: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutQuestionsInput
@@ -795,6 +833,7 @@ export type QuestionUncheckedCreateWithoutCreatedByInput = {
   id?: string
   subjectId: string
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   versions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutQuestionInput
@@ -831,12 +870,14 @@ export type QuestionCreateManySubjectInput = {
   id?: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type QuestionUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneWithoutQuestionsNestedInput
@@ -849,6 +890,7 @@ export type QuestionUncheckedUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionNestedInput
@@ -859,6 +901,7 @@ export type QuestionUncheckedUpdateManyWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -867,12 +910,14 @@ export type QuestionCreateManyCreatedByInput = {
   id?: string
   subjectId: string
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type QuestionUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutQuestionsNestedInput
@@ -885,6 +930,7 @@ export type QuestionUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionNestedInput
@@ -895,6 +941,7 @@ export type QuestionUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -944,6 +991,7 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -959,6 +1007,7 @@ export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -971,6 +1020,7 @@ export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -983,11 +1033,12 @@ export type QuestionSelectScalar = {
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subjectId" | "createdById" | "currentVersionId" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subjectId" | "createdById" | "currentVersionId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.Question$createdByArgs<ExtArgs>
@@ -1020,7 +1071,14 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     subjectId: string
     createdById: number | null
+    /**
+     * Points to the version currently live in the system
+     */
     currentVersionId: string | null
+    /**
+     * Timestamp for soft deletion
+     */
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["question"]>
@@ -1455,6 +1513,7 @@ export interface QuestionFieldRefs {
   readonly subjectId: Prisma.FieldRef<"Question", 'String'>
   readonly createdById: Prisma.FieldRef<"Question", 'Int'>
   readonly currentVersionId: Prisma.FieldRef<"Question", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"Question", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Question", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Question", 'DateTime'>
 }

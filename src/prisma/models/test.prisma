@@ -1,61 +1,75 @@
+/// Logical container for an assessment. References the active version.
 model Test {
   id          String        @id @default(uuid())
   title       String
   description String?
-  
+  isArchived  Boolean       @default(false) @map("is_archived")
   subjectId   String        @map("subject_id")
-  subject     Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-
   createdById Int           @map("created_by_id")
-  createdBy   User          @relation("UserCreatedTests", fields: [createdById], references: [id])
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
 
-  versions         TestVersion[]
-  classAssignments ClassTestAssignment[]
-  attempts         TestAttempt[]
-  progress         UserTestProgress[]
-  createdAt        DateTime      @default(now()) @map("created_at")
-  updatedAt        DateTime      @updatedAt @map("updated_at")
+  subject     Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  createdBy   User          @relation("UserCreatedTests", fields: [createdById], references: [id])
+  versions          TestVersion[]
+  classAssignments  ClassTestAssignment[]
+  attempts          TestAttempt[]
+  progress          UserTestProgress[]
+  tokenTransactions TokenTransaction[]
 
   @@index([subjectId])
   @@index([createdById])
   @@map("test")
 }
 
+/// Immutable snapshot of a test's configuration, sections, and questions
 model TestVersion {
   id            String        @id @default(uuid())
   testId        String        @map("test_id")
-  test          Test          @relation(fields: [testId], references: [id], onDelete: Cascade)
-  version       Int           // 1, 2, 3... per test
+  /// Incremental version number for this specific test
+  version       Int
   status        PublishStatus @default(DRAFT)
-  
   // Snapshot of test-level metadata
+  /// Cost in tokens required to start this test version
   tokenRequired     Int             @default(0) @map("token_required")
-  tags              String[]        @default([])
-  difficulty        DifficultyLevel @default(DL_1)
+  difficulty        Int             @default(1) @db.SmallInt
   coverMediaId      String?         @unique @map("cover_media_id")
-  coverMedia        Media?          @relation("TestVersionCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
-  
   createdById   Int           @map("created_by_id")
-  createdBy     User          @relation("UserCreatedTestVersions", fields: [createdById], references: [id])
-
-  // Settings (merged from old TestSetting)
-  availableFrom         DateTime? @default(now()) @map("available_from")
+  // Settings
+  /// Timestamp after which the test is accessible
+  availableFrom         DateTime @default(now()) @map("available_from")
+  /// Optional expiration timestamp for the test
   availableTo           DateTime? @map("available_to")
-  duration             Int?     // Total test duration (minutes)
+  /// Total duration in minutes (-1 or null for unlimited)
+  duration             Int?
+  /// Maximum number of attempts allowed per student (-1 for unlimited)
   maxAttempts          Int?      @default(-1) @map("max_attempts")
   shuffleQuestions     Boolean?  @default(false) @map("shuffle_questions")
   showResultImmediately Boolean? @default(true) @map("show_result_immediately")
   requirePassword      String?   @map("require_password")
   ipRestriction        String?   @map("ip_restriction")
+  /// If true, prevents leaving the test window or switching tabs
   strictMode             Boolean?  @default(false) @map("strict_mode")
+  /// If true, prevents going back to previous questions
   forwardOnly            Boolean?  @default(false) @map("forward_only")
   passingPercentage      Int?      @default(50) @map("passing_percentage")
   resultView           ResultViewType? @default(IMMEDIATE) @map("result_view")
+  /// Timestamp when this version was officially published
+  publishedAt   DateTime?     @map("published_at")
+  /// Timestamp when this version was retired
+  archivedAt    DateTime?     @map("archived_at")
+  /// Summary of changes from the previous version
+  changelog     String?       @db.Text
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
 
+  test          Test          @relation(fields: [testId], references: [id], onDelete: Cascade)
+  coverMedia        Media?          @relation("TestVersionCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
+  createdBy     User          @relation("UserCreatedTestVersions", fields: [createdById], references: [id])
+  tags             TestTag[]
   sections         TestVersionSection[]
   classAssignments ClassTestAssignment[] 
   attempts         TestAttempt[]
-  createdAt        DateTime      @default(now()) @map("created_at")
 
   @@unique([testId, version])
   @@index([testId, status])
@@ -63,42 +77,49 @@ model TestVersion {
   @@map("test_version")
 }
 
+/// A structural block within a TestVersion (e.g., Reading Section 1)
 model TestVersionSection {
   id                    String          @id @default(uuid())
   testVersionId         String          @map("test_version_id")
-  testVersion           TestVersion     @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
   type                  SectionType
   title                 String
   order                 Int
   description           String?
+  /// Time limit for this specific section in minutes (-1 for unlimited)
   timeLimit             Int?            @default(-1) @map("time_limit")
+  /// Rule for selecting questions within this section (e.g., ALL, RANDOM_N)
   questionSelectionMode SelectionMode   @default(ALL_REQUIRED) @map("question_selection_mode")
+  /// Number of questions to select if mode is CHOOSE_N or RANDOM_N
   questionToSelect      Int?            @default(-1) @map("question_to_select")
-  passageVersionId      String?         @map("passage_version_id") // ✅ for passage‑based sections
-  passageVersion        PassageVersion? @relation(fields: [passageVersionId], references: [id])
+  /// Link to a passage if this section is built around a single piece of content
+  passageVersionId      String?         @map("passage_version_id")
+  updatedAt       DateTime              @updatedAt @map("updated_at")
 
+  testVersion           TestVersion     @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
+  passageVersion        PassageVersion? @relation(fields: [passageVersionId], references: [id])
   questions TestVersionQuestion[]
-  attemptSections AttemptSection[]      // now references this versioned section
+  attemptSections AttemptSection[]
 
   @@index([testVersionId, order])
   @@map("test_version_section")
 }
 
+/// Link record placing a specific QuestionVersion into a TestVersionSection
 model TestVersionQuestion {
   id                   String            @id @default(uuid())
   testVersionSectionId String            @map("test_version_section_id")
-  testVersionSection   TestVersionSection @relation(fields: [testVersionSectionId], references: [id], onDelete: Cascade)
-  
-  questionId          String            @map("question_id") // Container ID
-  question            Question          @relation(fields: [questionId], references: [id])
-  
-  questionVersionId    String            @map("question_version_id") // ✅ links to immutable question version
-  questionVersion      QuestionVersion   @relation(fields: [questionVersionId], references: [id])
-  
+  questionId          String            @map("question_id")
+  questionVersionId    String            @map("question_version_id")
   order                Int
-  point                Int               @default(1)   // override per test
+  /// Points awarded for correctly answering this question in this specific test
+  point                Int               @default(1)
+  updatedAt        DateTime          @updatedAt @map("updated_at")
 
+  testVersionSection   TestVersionSection @relation(fields: [testVersionSectionId], references: [id], onDelete: Cascade)
+  question            Question          @relation(fields: [questionId], references: [id])
+  questionVersion      QuestionVersion   @relation(fields: [questionVersionId], references: [id])
   attemptQuestions AttemptQuestion[]
+
   @@unique([testVersionSectionId, questionVersionId])
   @@index([testVersionSectionId, order])
   @@map("test_version_question")

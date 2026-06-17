@@ -1,0 +1,62 @@
+/// Centralized tag vocabulary for classifying content
+model Tag {
+  id          String   @id @default(uuid())
+  /// Human-readable name of the tag
+  name        String   @unique
+  /// Optional HEX color for UI display
+  color       String?
+  /// Optional description of the tag's purpose
+  description String?
+  /// Optional category (e.g., Topic, Skill, Difficulty)
+  type        String?
+  /// ID of the user who created this tag
+  createdById Int?     @map("created_by_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdBy User? @relation("UserCreatedTags", fields: [createdById], references: [id])
+  questions QuestionTag[]
+  tests     TestTag[]
+  passages  PassageTag[]
+
+  @@map("tag")
+}
+
+/// Junction table linking QuestionVersion to Tag
+model QuestionTag {
+  tagId             String          @map("tag_id")
+  questionVersionId String          @map("question_version_id")
+
+  tag               Tag             @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  questionVersion   QuestionVersion @relation(fields: [questionVersionId], references: [id], onDelete: Cascade)
+
+  @@id([tagId, questionVersionId])
+  @@index([questionVersionId])
+  @@map("question_tag")
+}
+
+/// Junction table linking TestVersion to Tag
+model TestTag {
+  tagId         String      @map("tag_id")
+  testVersionId String      @map("test_version_id")
+
+  tag           Tag         @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  testVersion   TestVersion @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
+
+  @@id([tagId, testVersionId])
+  @@index([testVersionId])
+  @@map("test_tag")
+}
+
+/// Junction table linking PassageVersion to Tag
+model PassageTag {
+  tagId            String         @map("tag_id")
+  passageVersionId String         @map("passage_version_id")
+
+  tag              Tag            @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  passageVersion   PassageVersion @relation(fields: [passageVersionId], references: [id], onDelete: Cascade)
+
+  @@id([tagId, passageVersionId])
+  @@index([passageVersionId])
+  @@map("passage_tag")
+}

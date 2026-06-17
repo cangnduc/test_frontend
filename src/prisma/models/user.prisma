@@ -1,9 +1,9 @@
+/// Authentication account linked to a User (e.g., Google, Email/Password)
 model Account {
   id                    Int       @id @default(autoincrement())
   accountId             String    @map("account_id")
   providerId            String    @map("provider_id")
   userId                Int       @map("user_id")
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?   @map("access_token")
   refreshToken          String?   @map("refresh_token")
   idToken               String?   @map("id_token")
@@ -14,10 +14,13 @@ model Account {
   createdAt             DateTime  @default(now()) @map("created_at")
   updatedAt             DateTime  @updatedAt @map("updated_at")
 
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
   @@map("account")
 }
 
+/// Active user session for authentication tracking
 model Session {
   id        String   @id @default(uuid())
   expiresAt DateTime @map("expires_at")
@@ -27,6 +30,7 @@ model Session {
   ipAddress String?  @map("ip_address")
   userAgent String?  @map("user_agent")
   userId    Int      @map("user_id")
+
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
@@ -34,6 +38,7 @@ model Session {
   @@map("session")
 }
 
+/// Core User model representing students, teachers, and admins
 model User {
   id            Int       @id @default(autoincrement())
   name          String?
@@ -42,40 +47,64 @@ model User {
   image         String?
   banned        Boolean   @default(false)
   role          UserRole  @default(USER)
+  phone         String?
+  lastLoginAt   DateTime? @map("last_login_at")
+  /// Timestamp for soft deletion
+  deletedAt     DateTime? @map("deleted_at")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
+
   sessions      Session[]
   accounts      Account[]
   stats         UserStats?
-  tests         Test[]     @relation("UserCreatedTests")
-  testVersions  TestVersion[] @relation("UserCreatedTestVersions")
-  questions     Question[] @relation("UserCreatedQuestions")
+  /// Tests created/owned by this user
+  tests         Test[]              @relation("UserCreatedTests")
+  /// Specific test versions authored by this user
+  testVersions  TestVersion[]       @relation("UserCreatedTestVersions")
+  questions     Question[]          @relation("UserCreatedQuestions")
   questionVersions QuestionVersion[] @relation("UserCreatedQuestionVersions")
-  passages      Passage[]  @relation("UserCreatedPassages")
+  passages      Passage[]           @relation("UserCreatedPassages")
   passageVersions PassageVersion[] @relation("UserCreatedPassageVersions")
-  media         Media[]    @relation("UserCreatedMedia")
+  media         Media[]             @relation("UserCreatedMedia")
   profile       Profile?
+  /// Transaction history for the user's token balance
   tokenHistory  TokenTransaction[]
-
   systemLogs   SystemLog[]
   testAttempts TestAttempt[]
+  /// Aggregated progress across different tests
   testProgress UserTestProgress[]
-
   notifications Notification[]
   auditLogs     AuditLog[]
-  manualGrades  ManualGrade[] @relation("GradedBy")
-
-  parentLinks  ParentStudentLink[] @relation("ParentLinks")
-  studentLinks ParentStudentLink[] @relation("StudentLinks")
-
-  classes          Class[]               @relation("TeacherClasses")
+  manualGrades  ManualGrade[]        @relation("GradedBy")
+  /// Links to students (if this user is a parent)
+  parentLinks  ParentStudentLink[]   @relation("ParentLinks")
+  /// Links to parents (if this user is a student)
+  studentLinks ParentStudentLink[]   @relation("StudentLinks")
+  /// Classes where this user is the primary teacher
+  classes          Class[]           @relation("TeacherClasses")
+  /// Enrollment records in various classes
   classEnrollments ClassEnrollment[]
+  /// Assignments created by this user
   classAssignments ClassTestAssignment[] @relation("AssignedBy")
+  // E1 Relations
+  /// Homework tasks created by this user
+  homeworkAssignments HomeworkAssignment[]
+  /// Homework submissions made by this user (as a student)
+  homeworkSubmissions HomeworkSubmission[] @relation("StudentSubmissions")
+  /// Homework submissions graded by this user (as a teacher)
+  gradedSubmissions   HomeworkSubmission[] @relation("GraderSubmissions")
+  achievements        AchievementUnlock[]
+  leaderboardEntries  Leaderboard[]
+  attendances         Attendance[]
+   recordedAttendances Attendance[]       @relation("RecordedAttendance")
+  gradeBooks          GradeBook[]
+  tags                Tag[]              @relation("UserCreatedTags")
 
   @@unique([email])
   @@map("user")
 }
 
+/// Email or phone verification tokens
 model Verification {
   id         String   @id @default(uuid())
   identifier String
@@ -88,6 +117,7 @@ model Verification {
   @@map("verification")
 }
 
+/// Extended user information and social data
 model Profile {
   id          String    @id @default(uuid())
   bio         String?
@@ -97,103 +127,115 @@ model Profile {
   gender      Gender?
   language    String?   @default("en")
   timezone    String?   @default("UTC")
-
   userId    Int      @unique @map("user_id")
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("profile")
 }
 
+/// Junction table linking parents to their students
 model ParentStudentLink {
   id        String   @id @default(uuid())
   parentId  Int      @map("parent_id")
-  parent    User     @relation("ParentLinks", fields: [parentId], references: [id], onDelete: Cascade)
   studentId Int      @map("student_id")
-  student   User     @relation("StudentLinks", fields: [studentId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  parent    User     @relation("ParentLinks", fields: [parentId], references: [id], onDelete: Cascade)
+  student   User     @relation("StudentLinks", fields: [studentId], references: [id], onDelete: Cascade)
 
   @@unique([parentId, studentId])
   @@index([studentId])
   @@map("parent_student_link")
 }
 
+/// In-app notification records for users
 model Notification {
   id        String           @id @default(uuid())
   userId    Int              @map("user_id")
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   type      NotificationType
   title     String
   body      String
   isRead    Boolean          @default(false) @map("is_read")
+  /// Deep link or target URL for the notification action
+  actionUrl String?          @map("action_url")
   metadata  Json?
   createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
+  /// Timestamp for automatic notification cleanup
+  expiresAt DateTime?        @map("expires_at")
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, isRead])
   @@index([createdAt])
   @@map("notification")
 }
 
+/// Gamification and activity statistics for a user
 model UserStats {
   id        String   @id @default(uuid())
   userId    Int      @unique @map("user_id")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // Gamification
-  tokens    Int      @default(0)
+  /// Current spendable currency balance
+  tokens    Int      @default(0)                 
+  /// Total experience points earned
   xp        Int      @default(0)
+  /// User's calculated level based on XP
   level     Int      @default(1)
+  /// Current consecutive days of activity
   streak    Int      @default(0)
-
   // Progress summary
   testsTaken     Int @default(0) @map("tests_taken")
   testsCompleted Int @default(0) @map("tests_completed")
   testsPassed    Int @default(0) @map("tests_passed")
-
   lastActiveAt DateTime @default(now()) @map("last_active_at")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@map("user_stats")
 }
 
+/// Audit trail for all changes to a user's token balance
 model TokenTransaction {
   id        String   @id @default(uuid())
-
   userId    Int      @map("user_id")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  amount    Int      // +10 reward, -5 test attempt
-  balanceAfter Int   @map("balance_after") // snapshot after transaction (important!)
+  amount    Int      /// Change in tokens (positive for rewards, negative for purchases)
+  balanceAfter Int   @map("balance_after")  /// Running balance snapshot after this transaction
   reason    TokenTransactionReason
-
-  testId    String?  @map("test_id") // context (optional)
-  attemptId String?  @map("attempt_id") // context (optional)
-
+  testId    String?  @map("test_id")
+  attemptId String?  @map("attempt_id")
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test      Test?    @relation(fields: [testId], references: [id], onDelete: SetNull)
+  attempt   TestAttempt? @relation(fields: [attemptId], references: [id], onDelete: SetNull)
 
   @@index([userId, createdAt])
   @@map("token_transaction")
 }
 
+/// Historical tracking of student performance on specific tests
 model UserTestProgress {
   id        String   @id @default(uuid())
-
   userId    Int      @map("user_id")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   testId    String   @map("test_id")
-  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
-
   status     AttemptStatus
-  score      Float?
+  score      Float?   //Highest score achieved so far
   maxScore   Float?   @map("max_score")
   percentage Float?
-
   lastAttemptId  String?      @map("last_attempt_id")
-  lastAttempt    TestAttempt? @relation(fields: [lastAttemptId], references: [id])
   lastActivityAt DateTime     @updatedAt @map("last_activity_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  lastAttempt    TestAttempt? @relation(fields: [lastAttemptId], references: [id])
 
   @@unique([userId, testId])
   @@index([userId, status])

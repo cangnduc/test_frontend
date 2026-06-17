@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model ManualGrade
- * 
+ * Record of a manual grading action by a teacher/admin
  */
 export type ManualGradeModel = runtime.Types.Result.DefaultSelection<Prisma.$ManualGradePayload>
 
@@ -710,6 +710,9 @@ export type $ManualGradePayload<ExtArgs extends runtime.Types.Extensions.Interna
     attemptAnswerId: string
     gradedById: number
     pointsAwarded: number
+    /**
+     * Qualitative feedback for the student
+     */
     feedback: string | null
     gradedAt: Date
     updatedAt: Date

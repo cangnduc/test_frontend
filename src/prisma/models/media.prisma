@@ -1,21 +1,31 @@
+/// Central repository for uploaded media files (images, audio, etc.)
 model Media {
   id      String    @id @default(cuid())
   type    MediaType
+  /// Storage URL or path for the asset
   url     String    @db.Text
   ownerId Int       @map("owner_id")
-  User    User      @relation("UserCreatedMedia", fields: [ownerId], references: [id])
-
-  questionVersions QuestionVersion[]
-  passageVersions  PassageVersion[]
-  testVersionCover TestVersion?      @relation("TestVersionCover")
-
   isDeleted Boolean @default(false) @map("is_deleted")
+  /// Accessible alternative text for images/media
   alt       String?
+  /// File size in bytes
   size      Int?
   mimeType  String? @map("mime_type")
-
+  /// Content hash for de-duplication
+  hash      String?
+  /// Width in pixels (for images/video)
+  width     Int?
+  /// Height in pixels (for images/video)
+  height    Int?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  User             User              @relation("UserCreatedMedia", fields: [ownerId], references: [id])
+  questionVersions QuestionVersion[]
+  passageVersions  PassageVersion[]
+  testVersionCover TestVersion?      @relation("TestVersionCover")
+  submissionFiles  SubmissionFile[]
+
+  @@index([ownerId])
   @@map("media")
 }

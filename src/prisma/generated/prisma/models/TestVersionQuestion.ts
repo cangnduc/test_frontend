@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model TestVersionQuestion
- * 
+ * Link record placing a specific QuestionVersion into a TestVersionSection
  */
 export type TestVersionQuestionModel = runtime.Types.Result.DefaultSelection<Prisma.$TestVersionQuestionPayload>
 
@@ -43,6 +43,7 @@ export type TestVersionQuestionMinAggregateOutputType = {
   questionVersionId: string | null
   order: number | null
   point: number | null
+  updatedAt: Date | null
 }
 
 export type TestVersionQuestionMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type TestVersionQuestionMaxAggregateOutputType = {
   questionVersionId: string | null
   order: number | null
   point: number | null
+  updatedAt: Date | null
 }
 
 export type TestVersionQuestionCountAggregateOutputType = {
@@ -61,6 +63,7 @@ export type TestVersionQuestionCountAggregateOutputType = {
   questionVersionId: number
   order: number
   point: number
+  updatedAt: number
   _all: number
 }
 
@@ -82,6 +85,7 @@ export type TestVersionQuestionMinAggregateInputType = {
   questionVersionId?: true
   order?: true
   point?: true
+  updatedAt?: true
 }
 
 export type TestVersionQuestionMaxAggregateInputType = {
@@ -91,6 +95,7 @@ export type TestVersionQuestionMaxAggregateInputType = {
   questionVersionId?: true
   order?: true
   point?: true
+  updatedAt?: true
 }
 
 export type TestVersionQuestionCountAggregateInputType = {
@@ -100,6 +105,7 @@ export type TestVersionQuestionCountAggregateInputType = {
   questionVersionId?: true
   order?: true
   point?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -196,6 +202,7 @@ export type TestVersionQuestionGroupByOutputType = {
   questionVersionId: string
   order: number
   point: number
+  updatedAt: Date
   _count: TestVersionQuestionCountAggregateOutputType | null
   _avg: TestVersionQuestionAvgAggregateOutputType | null
   _sum: TestVersionQuestionSumAggregateOutputType | null
@@ -228,6 +235,7 @@ export type TestVersionQuestionWhereInput = {
   questionVersionId?: Prisma.StringFilter<"TestVersionQuestion"> | string
   order?: Prisma.IntFilter<"TestVersionQuestion"> | number
   point?: Prisma.IntFilter<"TestVersionQuestion"> | number
+  updatedAt?: Prisma.DateTimeFilter<"TestVersionQuestion"> | Date | string
   testVersionSection?: Prisma.XOR<Prisma.TestVersionSectionScalarRelationFilter, Prisma.TestVersionSectionWhereInput>
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
   questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
@@ -241,6 +249,7 @@ export type TestVersionQuestionOrderByWithRelationInput = {
   questionVersionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   point?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   testVersionSection?: Prisma.TestVersionSectionOrderByWithRelationInput
   question?: Prisma.QuestionOrderByWithRelationInput
   questionVersion?: Prisma.QuestionVersionOrderByWithRelationInput
@@ -258,6 +267,7 @@ export type TestVersionQuestionWhereUniqueInput = Prisma.AtLeast<{
   questionVersionId?: Prisma.StringFilter<"TestVersionQuestion"> | string
   order?: Prisma.IntFilter<"TestVersionQuestion"> | number
   point?: Prisma.IntFilter<"TestVersionQuestion"> | number
+  updatedAt?: Prisma.DateTimeFilter<"TestVersionQuestion"> | Date | string
   testVersionSection?: Prisma.XOR<Prisma.TestVersionSectionScalarRelationFilter, Prisma.TestVersionSectionWhereInput>
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
   questionVersion?: Prisma.XOR<Prisma.QuestionVersionScalarRelationFilter, Prisma.QuestionVersionWhereInput>
@@ -271,6 +281,7 @@ export type TestVersionQuestionOrderByWithAggregationInput = {
   questionVersionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   point?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TestVersionQuestionCountOrderByAggregateInput
   _avg?: Prisma.TestVersionQuestionAvgOrderByAggregateInput
   _max?: Prisma.TestVersionQuestionMaxOrderByAggregateInput
@@ -288,12 +299,14 @@ export type TestVersionQuestionScalarWhereWithAggregatesInput = {
   questionVersionId?: Prisma.StringWithAggregatesFilter<"TestVersionQuestion"> | string
   order?: Prisma.IntWithAggregatesFilter<"TestVersionQuestion"> | number
   point?: Prisma.IntWithAggregatesFilter<"TestVersionQuestion"> | number
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TestVersionQuestion"> | Date | string
 }
 
 export type TestVersionQuestionCreateInput = {
   id?: string
   order: number
   point?: number
+  updatedAt?: Date | string
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutQuestionsInput
   question: Prisma.QuestionCreateNestedOneWithoutTestsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutTestVersionQuestionsInput
@@ -307,6 +320,7 @@ export type TestVersionQuestionUncheckedCreateInput = {
   questionVersionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutTestVersionQuestionInput
 }
 
@@ -314,6 +328,7 @@ export type TestVersionQuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutQuestionsNestedInput
   question?: Prisma.QuestionUpdateOneRequiredWithoutTestsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutTestVersionQuestionsNestedInput
@@ -327,6 +342,7 @@ export type TestVersionQuestionUncheckedUpdateInput = {
   questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionNestedInput
 }
 
@@ -337,12 +353,14 @@ export type TestVersionQuestionCreateManyInput = {
   questionVersionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
 }
 
 export type TestVersionQuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionQuestionUncheckedUpdateManyInput = {
@@ -352,6 +370,7 @@ export type TestVersionQuestionUncheckedUpdateManyInput = {
   questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionQuestionListRelationFilter = {
@@ -381,6 +400,7 @@ export type TestVersionQuestionCountOrderByAggregateInput = {
   questionVersionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   point?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionQuestionAvgOrderByAggregateInput = {
@@ -395,6 +415,7 @@ export type TestVersionQuestionMaxOrderByAggregateInput = {
   questionVersionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   point?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionQuestionMinOrderByAggregateInput = {
@@ -404,6 +425,7 @@ export type TestVersionQuestionMinOrderByAggregateInput = {
   questionVersionId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   point?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestVersionQuestionSumOrderByAggregateInput = {
@@ -557,6 +579,7 @@ export type TestVersionQuestionCreateWithoutQuestionInput = {
   id?: string
   order: number
   point?: number
+  updatedAt?: Date | string
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutQuestionsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutTestVersionQuestionsInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutTestVersionQuestionInput
@@ -568,6 +591,7 @@ export type TestVersionQuestionUncheckedCreateWithoutQuestionInput = {
   questionVersionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutTestVersionQuestionInput
 }
 
@@ -607,12 +631,14 @@ export type TestVersionQuestionScalarWhereInput = {
   questionVersionId?: Prisma.StringFilter<"TestVersionQuestion"> | string
   order?: Prisma.IntFilter<"TestVersionQuestion"> | number
   point?: Prisma.IntFilter<"TestVersionQuestion"> | number
+  updatedAt?: Prisma.DateTimeFilter<"TestVersionQuestion"> | Date | string
 }
 
 export type TestVersionQuestionCreateWithoutQuestionVersionInput = {
   id?: string
   order: number
   point?: number
+  updatedAt?: Date | string
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutQuestionsInput
   question: Prisma.QuestionCreateNestedOneWithoutTestsInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutTestVersionQuestionInput
@@ -624,6 +650,7 @@ export type TestVersionQuestionUncheckedCreateWithoutQuestionVersionInput = {
   questionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutTestVersionQuestionInput
 }
 
@@ -657,6 +684,7 @@ export type TestVersionQuestionCreateWithoutAttemptQuestionsInput = {
   id?: string
   order: number
   point?: number
+  updatedAt?: Date | string
   testVersionSection: Prisma.TestVersionSectionCreateNestedOneWithoutQuestionsInput
   question: Prisma.QuestionCreateNestedOneWithoutTestsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutTestVersionQuestionsInput
@@ -669,6 +697,7 @@ export type TestVersionQuestionUncheckedCreateWithoutAttemptQuestionsInput = {
   questionVersionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
 }
 
 export type TestVersionQuestionCreateOrConnectWithoutAttemptQuestionsInput = {
@@ -691,6 +720,7 @@ export type TestVersionQuestionUpdateWithoutAttemptQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutQuestionsNestedInput
   question?: Prisma.QuestionUpdateOneRequiredWithoutTestsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutTestVersionQuestionsNestedInput
@@ -703,12 +733,14 @@ export type TestVersionQuestionUncheckedUpdateWithoutAttemptQuestionsInput = {
   questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionQuestionCreateWithoutTestVersionSectionInput = {
   id?: string
   order: number
   point?: number
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutTestsInput
   questionVersion: Prisma.QuestionVersionCreateNestedOneWithoutTestVersionQuestionsInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutTestVersionQuestionInput
@@ -720,6 +752,7 @@ export type TestVersionQuestionUncheckedCreateWithoutTestVersionSectionInput = {
   questionVersionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutTestVersionQuestionInput
 }
 
@@ -755,12 +788,14 @@ export type TestVersionQuestionCreateManyQuestionInput = {
   questionVersionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
 }
 
 export type TestVersionQuestionUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutQuestionsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutTestVersionQuestionsNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutTestVersionQuestionNestedInput
@@ -772,6 +807,7 @@ export type TestVersionQuestionUncheckedUpdateWithoutQuestionInput = {
   questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionNestedInput
 }
 
@@ -781,6 +817,7 @@ export type TestVersionQuestionUncheckedUpdateManyWithoutQuestionInput = {
   questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionQuestionCreateManyQuestionVersionInput = {
@@ -789,12 +826,14 @@ export type TestVersionQuestionCreateManyQuestionVersionInput = {
   questionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
 }
 
 export type TestVersionQuestionUpdateWithoutQuestionVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testVersionSection?: Prisma.TestVersionSectionUpdateOneRequiredWithoutQuestionsNestedInput
   question?: Prisma.QuestionUpdateOneRequiredWithoutTestsNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutTestVersionQuestionNestedInput
@@ -806,6 +845,7 @@ export type TestVersionQuestionUncheckedUpdateWithoutQuestionVersionInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionNestedInput
 }
 
@@ -815,6 +855,7 @@ export type TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionInput = 
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestVersionQuestionCreateManyTestVersionSectionInput = {
@@ -823,12 +864,14 @@ export type TestVersionQuestionCreateManyTestVersionSectionInput = {
   questionVersionId: string
   order: number
   point?: number
+  updatedAt?: Date | string
 }
 
 export type TestVersionQuestionUpdateWithoutTestVersionSectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutTestsNestedInput
   questionVersion?: Prisma.QuestionVersionUpdateOneRequiredWithoutTestVersionQuestionsNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutTestVersionQuestionNestedInput
@@ -840,6 +883,7 @@ export type TestVersionQuestionUncheckedUpdateWithoutTestVersionSectionInput = {
   questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutTestVersionQuestionNestedInput
 }
 
@@ -849,6 +893,7 @@ export type TestVersionQuestionUncheckedUpdateManyWithoutTestVersionSectionInput
   questionVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   point?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -889,6 +934,7 @@ export type TestVersionQuestionSelect<ExtArgs extends runtime.Types.Extensions.I
   questionVersionId?: boolean
   order?: boolean
   point?: boolean
+  updatedAt?: boolean
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
   questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
@@ -903,6 +949,7 @@ export type TestVersionQuestionSelectCreateManyAndReturn<ExtArgs extends runtime
   questionVersionId?: boolean
   order?: boolean
   point?: boolean
+  updatedAt?: boolean
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
   questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
@@ -915,6 +962,7 @@ export type TestVersionQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime
   questionVersionId?: boolean
   order?: boolean
   point?: boolean
+  updatedAt?: boolean
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
   questionVersion?: boolean | Prisma.QuestionVersionDefaultArgs<ExtArgs>
@@ -927,9 +975,10 @@ export type TestVersionQuestionSelectScalar = {
   questionVersionId?: boolean
   order?: boolean
   point?: boolean
+  updatedAt?: boolean
 }
 
-export type TestVersionQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testVersionSectionId" | "questionId" | "questionVersionId" | "order" | "point", ExtArgs["result"]["testVersionQuestion"]>
+export type TestVersionQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testVersionSectionId" | "questionId" | "questionVersionId" | "order" | "point" | "updatedAt", ExtArgs["result"]["testVersionQuestion"]>
 export type TestVersionQuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   testVersionSection?: boolean | Prisma.TestVersionSectionDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
@@ -962,7 +1011,11 @@ export type $TestVersionQuestionPayload<ExtArgs extends runtime.Types.Extensions
     questionId: string
     questionVersionId: string
     order: number
+    /**
+     * Points awarded for correctly answering this question in this specific test
+     */
     point: number
+    updatedAt: Date
   }, ExtArgs["result"]["testVersionQuestion"]>
   composites: {}
 }
@@ -1396,6 +1449,7 @@ export interface TestVersionQuestionFieldRefs {
   readonly questionVersionId: Prisma.FieldRef<"TestVersionQuestion", 'String'>
   readonly order: Prisma.FieldRef<"TestVersionQuestion", 'Int'>
   readonly point: Prisma.FieldRef<"TestVersionQuestion", 'Int'>
+  readonly updatedAt: Prisma.FieldRef<"TestVersionQuestion", 'DateTime'>
 }
     
 

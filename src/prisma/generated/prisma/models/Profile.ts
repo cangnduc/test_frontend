@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Profile
- * 
+ * Extended user information and social data
  */
 export type ProfileModel = runtime.Types.Result.DefaultSelection<Prisma.$ProfilePayload>
 

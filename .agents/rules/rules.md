@@ -10,7 +10,7 @@ trigger: always_on
 - **Data Fetching:** Fetch in Server Components by default. Use `Suspense` for loading states.
 - **Server Actions:** Use `use server` for all mutations (forms, buttons). Place them in an `actions/` folder or within the component file if unique.
 
-## 🎨 UI & Styling (Tailwind, shadcn/ui)
+## 🎨 UI & Styling (Tailwind v4, shadcn/ui)
 
 -- **Design System:** Use shadcn/ui for all UI components. Do not invent new components if not necessary.
 -- **Rules:** Refer to [frontend/.agent/design.md](file:///d:/Web/FullStack_EnglishApp/frontend/.agent/design.md).

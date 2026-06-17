@@ -1,111 +1,66 @@
-model Subject {
-  id          String     @id @default(uuid())
-  code        String     @unique // e.g., MATH, ENG, SCI
-  name        String
-  description String?
-  type        SubjectType?
-  questions   Question[]
-  passages    Passage[]
-  tests       Test[]
-  classes     Class[]
-  createdAt   DateTime   @default(now()) @map("created_at")
-  updatedAt   DateTime   @updatedAt @map("updated_at")
 
-  @@map("subject")
-}
 
+/// Logical container for a question. References the active version.
 model Question {
   id               String            @id @default(uuid())
   subjectId        String            @map("subject_id")
-  subject          Subject           @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-  createdById      Int?              @map("created_at_id")
-  createdBy        User?             @relation("UserCreatedQuestions", fields: [createdById], references: [id])
-  currentVersionId String?           @unique @map("current_version_id") // unique for 1-to-1
-  currentVersion   QuestionVersion?  @relation("CurrentQuestionVersion", fields: [currentVersionId], references: [id])
-
-  versions        QuestionVersion[] @relation("QuestionToVersions")
-  tests           TestVersionQuestion[]
+  createdById      Int?              @map("created_by_id")
+  /// Points to the version currently live in the system
+  currentVersionId String?           @unique @map("current_version_id")
+  /// Timestamp for soft deletion
+  deletedAt     DateTime?         @map("deleted_at")
   createdAt       DateTime          @default(now()) @map("created_at")
   updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  subject          Subject           @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  createdBy        User?             @relation("UserCreatedQuestions", fields: [createdById], references: [id])
+  currentVersion   QuestionVersion?  @relation("CurrentQuestionVersion", fields: [currentVersionId], references: [id])
+  versions        QuestionVersion[] @relation("QuestionToVersions")
+  tests           TestVersionQuestion[]
 
   @@index([subjectId])
   @@index([createdById])
   @@map("question")
 }
 
+/// Immutable snapshot of a question's content and logic
 model QuestionVersion {
   id            String          @id @default(uuid())
   questionId    String          @map("question_id")
-  question      Question        @relation("QuestionToVersions", fields: [questionId], references: [id], onDelete: Cascade)
-  version       Int             // 1,2,3... per question
+  version       Int
   type          QuestionType
-  difficulty    DifficultyLevel @default(DL_1)
-  tags          String[]
+  /// Difficulty level (1-10)
+  difficulty    Int             @default(1) @db.SmallInt
+  /// The main text/prompt of the question
   text          String          @db.Text
-  data          Json?           // options, correct answers, etc.
+  /// Structured data for options, answers, and logic
+  data          Json?
   explanation   String?         @db.Text
+  /// Default points awarded for this question if not overridden by a test
   defaultPoint  Int             @default(1) @map("default_point")
   visibility    Visibility      @default(PUBLIC)
-  
-  passageVersionId String?       @map("passage_version_id") // ✅ points to specific passage version
-  passageVersion   PassageVersion? @relation(fields: [passageVersionId], references: [id])
-  
-  createdById   Int?             @map("created_by_id") // editor
-  createdBy     User?            @relation("UserCreatedQuestionVersions", fields: [createdById], references: [id])
-  media         Media[]          // many-to-many with Media (versioned)
+  /// Link to a specific passage version if this is a passage-based question
+  passageVersionId String?       @map("passage_version_id")
+  createdById   Int?             @map("created_by_id")
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
 
+  question      Question        @relation("QuestionToVersions", fields: [questionId], references: [id], onDelete: Cascade)
+  passageVersion   PassageVersion? @relation(fields: [passageVersionId], references: [id])
+  createdBy     User?            @relation("UserCreatedQuestionVersions", fields: [createdById], references: [id])
+  media         Media[]
+  tags                 QuestionTag[]
   testVersionQuestions TestVersionQuestion[]
   attemptQuestions     AttemptQuestion[]
   attemptAnswers       AttemptAnswer[]
-  
   currentVersionOf    Question?      @relation("CurrentQuestionVersion")
-  
-  createdAt            DateTime @default(now()) @map("created_at")
 
-  @@index([questionId, version])
+  @@unique([questionId, version])
+  @@index([type])
+  @@index([difficulty])
+  @@index([visibility])
+  @@index([passageVersionId])
+  @@index([createdAt])
   @@map("question_version")
 }
 
-model Passage {
-  id               String    @id @default(uuid())
-  subjectId        String    @map("subject_id")
-  subject          Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-  createdById      Int?      @map("created_by_id")
-  createdBy        User?     @relation("UserCreatedPassages", fields: [createdById], references: [id])
-  currentVersionId String?   @unique @map("current_version_id") // unique for 1-to-1
-  currentVersion   PassageVersion? @relation("CurrentPassageVersion", fields: [currentVersionId], references: [id])
-
-  versions        PassageVersion[] @relation("PassageToVersions")
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime  @updatedAt @map("updated_at")
-
-  @@map("passage")
-}
-
-model PassageVersion {
-  id           String       @id @default(uuid())
-  passageId    String       @map("passage_id")
-  passage      Passage      @relation("PassageToVersions", fields: [passageId], references: [id], onDelete: Cascade)
-  version      Int
-  type         PassageType
-  title        String
-  content      String       @db.Text
-  difficulty   DifficultyLevel @default(DL_1)
-  visibility   Visibility   @default(PUBLIC)
-  tags         String[]
-  explanation  String?      @db.Text
-  createdById  Int?         @map("created_by_id")
-  createdBy    User?        @relation("UserCreatedPassageVersions", fields: [createdById], references: [id])
-  media         Media[]      // many-to-many with media (versioned)
-
-  questions     QuestionVersion[]  // Questions that use this passage
-  testSections  TestVersionSection[] // link to versioned passage
-  
-  currentVersionOf Passage?       @relation("CurrentPassageVersion")
-  
-  createdAt     DateTime @default(now()) @map("created_at")
-
-  @@index([passageId, version])
-  @@index([createdById])
-  @@map("passage_version")
-}

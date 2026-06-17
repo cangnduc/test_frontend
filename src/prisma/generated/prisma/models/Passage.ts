@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Passage
- * 
+ * Logical container for a reading/listening passage. References active version.
  */
 export type PassageModel = runtime.Types.Result.DefaultSelection<Prisma.$PassagePayload>
 
@@ -39,6 +39,7 @@ export type PassageMinAggregateOutputType = {
   subjectId: string | null
   createdById: number | null
   currentVersionId: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,6 +49,7 @@ export type PassageMaxAggregateOutputType = {
   subjectId: string | null
   createdById: number | null
   currentVersionId: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -57,6 +59,7 @@ export type PassageCountAggregateOutputType = {
   subjectId: number
   createdById: number
   currentVersionId: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -76,6 +79,7 @@ export type PassageMinAggregateInputType = {
   subjectId?: true
   createdById?: true
   currentVersionId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -85,6 +89,7 @@ export type PassageMaxAggregateInputType = {
   subjectId?: true
   createdById?: true
   currentVersionId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type PassageCountAggregateInputType = {
   subjectId?: true
   createdById?: true
   currentVersionId?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -190,6 +196,7 @@ export type PassageGroupByOutputType = {
   subjectId: string
   createdById: number | null
   currentVersionId: string | null
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PassageCountAggregateOutputType | null
@@ -222,6 +229,7 @@ export type PassageWhereInput = {
   subjectId?: Prisma.StringFilter<"Passage"> | string
   createdById?: Prisma.IntNullableFilter<"Passage"> | number | null
   currentVersionId?: Prisma.StringNullableFilter<"Passage"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Passage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
@@ -235,6 +243,7 @@ export type PassageOrderByWithRelationInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   subject?: Prisma.SubjectOrderByWithRelationInput
@@ -251,6 +260,7 @@ export type PassageWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PassageWhereInput | Prisma.PassageWhereInput[]
   subjectId?: Prisma.StringFilter<"Passage"> | string
   createdById?: Prisma.IntNullableFilter<"Passage"> | number | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Passage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
@@ -264,6 +274,7 @@ export type PassageOrderByWithAggregationInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PassageCountOrderByAggregateInput
@@ -281,12 +292,14 @@ export type PassageScalarWhereWithAggregatesInput = {
   subjectId?: Prisma.StringWithAggregatesFilter<"Passage"> | string
   createdById?: Prisma.IntNullableWithAggregatesFilter<"Passage"> | number | null
   currentVersionId?: Prisma.StringNullableWithAggregatesFilter<"Passage"> | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Passage"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Passage"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Passage"> | Date | string
 }
 
 export type PassageCreateInput = {
   id?: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
@@ -300,6 +313,7 @@ export type PassageUncheckedCreateInput = {
   subjectId: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
@@ -307,6 +321,7 @@ export type PassageUncheckedCreateInput = {
 
 export type PassageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
@@ -320,6 +335,7 @@ export type PassageUncheckedUpdateInput = {
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
@@ -330,12 +346,14 @@ export type PassageCreateManyInput = {
   subjectId: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PassageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -345,18 +363,9 @@ export type PassageUncheckedUpdateManyInput = {
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type PassageListRelationFilter = {
-  every?: Prisma.PassageWhereInput
-  some?: Prisma.PassageWhereInput
-  none?: Prisma.PassageWhereInput
-}
-
-export type PassageOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type PassageCountOrderByAggregateInput = {
@@ -364,6 +373,7 @@ export type PassageCountOrderByAggregateInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -377,6 +387,7 @@ export type PassageMaxOrderByAggregateInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -386,6 +397,7 @@ export type PassageMinOrderByAggregateInput = {
   subjectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -404,46 +416,14 @@ export type PassageNullableScalarRelationFilter = {
   isNot?: Prisma.PassageWhereInput | null
 }
 
-export type PassageCreateNestedManyWithoutSubjectInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
-  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+export type PassageListRelationFilter = {
+  every?: Prisma.PassageWhereInput
+  some?: Prisma.PassageWhereInput
+  none?: Prisma.PassageWhereInput
 }
 
-export type PassageUncheckedCreateNestedManyWithoutSubjectInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
-  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-}
-
-export type PassageUpdateManyWithoutSubjectNestedInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
-  upsert?: Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput[]
-  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
-  set?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  disconnect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  delete?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  update?: Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput[]
-  updateMany?: Prisma.PassageUpdateManyWithWhereWithoutSubjectInput | Prisma.PassageUpdateManyWithWhereWithoutSubjectInput[]
-  deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
-}
-
-export type PassageUncheckedUpdateManyWithoutSubjectNestedInput = {
-  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
-  upsert?: Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput[]
-  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
-  set?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  disconnect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  delete?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
-  update?: Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput[]
-  updateMany?: Prisma.PassageUpdateManyWithWhereWithoutSubjectInput | Prisma.PassageUpdateManyWithWhereWithoutSubjectInput[]
-  deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
+export type PassageOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type PassageCreateNestedOneWithoutVersionsInput = {
@@ -492,6 +472,48 @@ export type PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PassageUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.PassageUpdateWithoutCurrentVersionInput>, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
 }
 
+export type PassageCreateNestedManyWithoutSubjectInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
+  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
+  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+}
+
+export type PassageUncheckedCreateNestedManyWithoutSubjectInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
+  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
+  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+}
+
+export type PassageUpdateManyWithoutSubjectNestedInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
+  upsert?: Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput[]
+  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
+  set?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  disconnect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  delete?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  update?: Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput[]
+  updateMany?: Prisma.PassageUpdateManyWithWhereWithoutSubjectInput | Prisma.PassageUpdateManyWithWhereWithoutSubjectInput[]
+  deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
+}
+
+export type PassageUncheckedUpdateManyWithoutSubjectNestedInput = {
+  create?: Prisma.XOR<Prisma.PassageCreateWithoutSubjectInput, Prisma.PassageUncheckedCreateWithoutSubjectInput> | Prisma.PassageCreateWithoutSubjectInput[] | Prisma.PassageUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.PassageCreateOrConnectWithoutSubjectInput | Prisma.PassageCreateOrConnectWithoutSubjectInput[]
+  upsert?: Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpsertWithWhereUniqueWithoutSubjectInput[]
+  createMany?: Prisma.PassageCreateManySubjectInputEnvelope
+  set?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  disconnect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  delete?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  connect?: Prisma.PassageWhereUniqueInput | Prisma.PassageWhereUniqueInput[]
+  update?: Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput | Prisma.PassageUpdateWithWhereUniqueWithoutSubjectInput[]
+  updateMany?: Prisma.PassageUpdateManyWithWhereWithoutSubjectInput | Prisma.PassageUpdateManyWithWhereWithoutSubjectInput[]
+  deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
+}
+
 export type PassageCreateNestedManyWithoutCreatedByInput = {
   create?: Prisma.XOR<Prisma.PassageCreateWithoutCreatedByInput, Prisma.PassageUncheckedCreateWithoutCreatedByInput> | Prisma.PassageCreateWithoutCreatedByInput[] | Prisma.PassageUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.PassageCreateOrConnectWithoutCreatedByInput | Prisma.PassageCreateOrConnectWithoutCreatedByInput[]
@@ -534,8 +556,121 @@ export type PassageUncheckedUpdateManyWithoutCreatedByNestedInput = {
   deleteMany?: Prisma.PassageScalarWhereInput | Prisma.PassageScalarWhereInput[]
 }
 
+export type PassageCreateWithoutVersionsInput = {
+  id?: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
+  currentVersion?: Prisma.PassageVersionCreateNestedOneWithoutCurrentVersionOfInput
+}
+
+export type PassageUncheckedCreateWithoutVersionsInput = {
+  id?: string
+  subjectId: string
+  createdById?: number | null
+  currentVersionId?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PassageCreateOrConnectWithoutVersionsInput = {
+  where: Prisma.PassageWhereUniqueInput
+  create: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
+}
+
+export type PassageCreateWithoutCurrentVersionInput = {
+  id?: string
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
+  versions?: Prisma.PassageVersionCreateNestedManyWithoutPassageInput
+}
+
+export type PassageUncheckedCreateWithoutCurrentVersionInput = {
+  id?: string
+  subjectId: string
+  createdById?: number | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
+}
+
+export type PassageCreateOrConnectWithoutCurrentVersionInput = {
+  where: Prisma.PassageWhereUniqueInput
+  create: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
+}
+
+export type PassageUpsertWithoutVersionsInput = {
+  update: Prisma.XOR<Prisma.PassageUpdateWithoutVersionsInput, Prisma.PassageUncheckedUpdateWithoutVersionsInput>
+  create: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
+  where?: Prisma.PassageWhereInput
+}
+
+export type PassageUpdateToOneWithWhereWithoutVersionsInput = {
+  where?: Prisma.PassageWhereInput
+  data: Prisma.XOR<Prisma.PassageUpdateWithoutVersionsInput, Prisma.PassageUncheckedUpdateWithoutVersionsInput>
+}
+
+export type PassageUpdateWithoutVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
+  currentVersion?: Prisma.PassageVersionUpdateOneWithoutCurrentVersionOfNestedInput
+}
+
+export type PassageUncheckedUpdateWithoutVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PassageUpsertWithoutCurrentVersionInput = {
+  update: Prisma.XOR<Prisma.PassageUpdateWithoutCurrentVersionInput, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
+  create: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
+  where?: Prisma.PassageWhereInput
+}
+
+export type PassageUpdateToOneWithWhereWithoutCurrentVersionInput = {
+  where?: Prisma.PassageWhereInput
+  data: Prisma.XOR<Prisma.PassageUpdateWithoutCurrentVersionInput, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
+}
+
+export type PassageUpdateWithoutCurrentVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
+  versions?: Prisma.PassageVersionUpdateManyWithoutPassageNestedInput
+}
+
+export type PassageUncheckedUpdateWithoutCurrentVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
+}
+
 export type PassageCreateWithoutSubjectInput = {
   id?: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
@@ -547,6 +682,7 @@ export type PassageUncheckedCreateWithoutSubjectInput = {
   id?: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
@@ -586,116 +722,14 @@ export type PassageScalarWhereInput = {
   subjectId?: Prisma.StringFilter<"Passage"> | string
   createdById?: Prisma.IntNullableFilter<"Passage"> | number | null
   currentVersionId?: Prisma.StringNullableFilter<"Passage"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Passage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Passage"> | Date | string
 }
 
-export type PassageCreateWithoutVersionsInput = {
-  id?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
-  currentVersion?: Prisma.PassageVersionCreateNestedOneWithoutCurrentVersionOfInput
-}
-
-export type PassageUncheckedCreateWithoutVersionsInput = {
-  id?: string
-  subjectId: string
-  createdById?: number | null
-  currentVersionId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type PassageCreateOrConnectWithoutVersionsInput = {
-  where: Prisma.PassageWhereUniqueInput
-  create: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
-}
-
-export type PassageCreateWithoutCurrentVersionInput = {
-  id?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutPassagesInput
-  versions?: Prisma.PassageVersionCreateNestedManyWithoutPassageInput
-}
-
-export type PassageUncheckedCreateWithoutCurrentVersionInput = {
-  id?: string
-  subjectId: string
-  createdById?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
-}
-
-export type PassageCreateOrConnectWithoutCurrentVersionInput = {
-  where: Prisma.PassageWhereUniqueInput
-  create: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
-}
-
-export type PassageUpsertWithoutVersionsInput = {
-  update: Prisma.XOR<Prisma.PassageUpdateWithoutVersionsInput, Prisma.PassageUncheckedUpdateWithoutVersionsInput>
-  create: Prisma.XOR<Prisma.PassageCreateWithoutVersionsInput, Prisma.PassageUncheckedCreateWithoutVersionsInput>
-  where?: Prisma.PassageWhereInput
-}
-
-export type PassageUpdateToOneWithWhereWithoutVersionsInput = {
-  where?: Prisma.PassageWhereInput
-  data: Prisma.XOR<Prisma.PassageUpdateWithoutVersionsInput, Prisma.PassageUncheckedUpdateWithoutVersionsInput>
-}
-
-export type PassageUpdateWithoutVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
-  currentVersion?: Prisma.PassageVersionUpdateOneWithoutCurrentVersionOfNestedInput
-}
-
-export type PassageUncheckedUpdateWithoutVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type PassageUpsertWithoutCurrentVersionInput = {
-  update: Prisma.XOR<Prisma.PassageUpdateWithoutCurrentVersionInput, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
-  create: Prisma.XOR<Prisma.PassageCreateWithoutCurrentVersionInput, Prisma.PassageUncheckedCreateWithoutCurrentVersionInput>
-  where?: Prisma.PassageWhereInput
-}
-
-export type PassageUpdateToOneWithWhereWithoutCurrentVersionInput = {
-  where?: Prisma.PassageWhereInput
-  data: Prisma.XOR<Prisma.PassageUpdateWithoutCurrentVersionInput, Prisma.PassageUncheckedUpdateWithoutCurrentVersionInput>
-}
-
-export type PassageUpdateWithoutCurrentVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
-  versions?: Prisma.PassageVersionUpdateManyWithoutPassageNestedInput
-}
-
-export type PassageUncheckedUpdateWithoutCurrentVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
-}
-
 export type PassageCreateWithoutCreatedByInput = {
   id?: string
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutPassagesInput
@@ -707,6 +741,7 @@ export type PassageUncheckedCreateWithoutCreatedByInput = {
   id?: string
   subjectId: string
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   versions?: Prisma.PassageVersionUncheckedCreateNestedManyWithoutPassageInput
@@ -742,12 +777,14 @@ export type PassageCreateManySubjectInput = {
   id?: string
   createdById?: number | null
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PassageUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneWithoutPassagesNestedInput
@@ -759,6 +796,7 @@ export type PassageUncheckedUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
@@ -768,6 +806,7 @@ export type PassageUncheckedUpdateManyWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -776,12 +815,14 @@ export type PassageCreateManyCreatedByInput = {
   id?: string
   subjectId: string
   currentVersionId?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PassageUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutPassagesNestedInput
@@ -793,6 +834,7 @@ export type PassageUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.PassageVersionUncheckedUpdateManyWithoutPassageNestedInput
@@ -802,6 +844,7 @@ export type PassageUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -842,6 +885,7 @@ export type PassageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -856,6 +900,7 @@ export type PassageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -868,6 +913,7 @@ export type PassageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -880,11 +926,12 @@ export type PassageSelectScalar = {
   subjectId?: boolean
   createdById?: boolean
   currentVersionId?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PassageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subjectId" | "createdById" | "currentVersionId" | "createdAt" | "updatedAt", ExtArgs["result"]["passage"]>
+export type PassageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "subjectId" | "createdById" | "currentVersionId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["passage"]>
 export type PassageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.Passage$createdByArgs<ExtArgs>
@@ -916,6 +963,10 @@ export type $PassagePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     subjectId: string
     createdById: number | null
     currentVersionId: string | null
+    /**
+     * Timestamp for soft deletion
+     */
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["passage"]>
@@ -1349,6 +1400,7 @@ export interface PassageFieldRefs {
   readonly subjectId: Prisma.FieldRef<"Passage", 'String'>
   readonly createdById: Prisma.FieldRef<"Passage", 'Int'>
   readonly currentVersionId: Prisma.FieldRef<"Passage", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"Passage", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Passage", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Passage", 'DateTime'>
 }

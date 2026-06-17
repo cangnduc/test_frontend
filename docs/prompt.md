@@ -4,6 +4,8 @@ I am building the frontend for a Question Route in a Next.js application.
 
 Create documentation and implementation planning for the Question Routes, including:
 
+- Display Question list (with pagination and filtering, useSearchParams() to handle query params, use URLSearchParams to construct new query params)
+- Display Question Detail (with all details, and history)
 - Create Question
 - Edit Question
 - Update Question
@@ -16,8 +18,8 @@ The backend integration via Server Actions will be implemented later, so for now
 
 I will provide:
 
-- Database schema
-- Zod validators (located in `/zod-schema` folder)
+- Database schema (located in `/frontend/src/prisma/models`)
+- Zod validators (located in `/frontend/src/zod-schema`)
 
 Use those as the source of truth for types, validation, and form structure.
 
@@ -27,12 +29,12 @@ Use those as the source of truth for types, validation, and form structure.
 
 Use:
 
-- Next.js (App Router)
+- Next.js 16 (App Router)
 - TypeScript
 - React Hook Form
 - Zod Resolver
 - Zustand (for temporary draft state persistence)
-- TailwindCSS (if UI examples are needed)
+- TailwindCSS v4 (if UI examples are needed)
 
 ---
 
@@ -46,6 +48,7 @@ A Question can contain:
 - Multiple question types
 - Dynamic sections depending on question type
 - Reusable substructures
+- A passage for listening or reading (which may contain many sub-questions), split into another route, consider re-use the question component or making a new one for passage based questions, rule of thumb is simple first, then complex if needed.
 
 Because of this complexity:
 
@@ -62,13 +65,64 @@ Provide a complete frontend implementation plan covering:
 
 ### 1. Folder Structure
 
-Suggest scalable structure for:
+Suggest scalable structure for `questions` folder and route:
 
-- `/app/questions/create`
-- `/app/questions/[id]/edit`
-- `/components/question-form/*`
-- `/stores/*`
-- `/lib/*`
+questions/ # question root directory
+├─ create/ # create question
+│ └─ page.tsx
+├─ [questionId]/ # question id
+│ ├─ edit/
+│ │ └─ page.tsx
+│ └─ page.tsx # preview
+├─ page.tsx # list
+├─ components/
+│ ├─ common/ # Buttons, inputs, badges, …
+│ ├─ editors/ # Rich text, LaTeX, formula integration
+│ ├─ media/ # Uploader, progress, preview
+│ ├─ question-types/ # One directory per type
+│ │ ├─ choice/ # Single & Multiple Choice
+│ │ ├─ true-false/
+│ │ ├─ fill-blank/
+│ │ ├─ matching/
+│ │ ├─ ordering/
+│ │ ├─ open-ended/
+│ │ ├─ essay/
+│ │ ├─ coding/
+│ │ └─ renderer/ # Dynamic switch + cache
+│ ├─ autosave/ # Status indicator, retry button
+│ ├─ draft/ # Recovery dialog, conflict resolution
+│ ├─ validation/ # FieldError, SectionError, FormError
+│ └─ layout/ # Form shell, steps, sidebar
+├─ hooks/
+│ ├─ useQuestionForm.ts # RHF setup, submission, draft orchestration
+│ ├─ useAutoSave.ts
+│ ├─ useDraftManager.ts
+│ ├─ useQuestionTypeCache.ts
+│ ├─ useUnsavedChangesWarning.ts
+│ ├─ useMediaUpload.ts
+│ └─ useRichTextSerialization.ts
+├─ schemas/ # Zod schemas (mirror provided structure)
+│ ├─ question.ts
+│ ├─ version.ts
+│ ├─ data/ # Type‑specific schemas
+│ ├─ mutations.ts # Create, Update, Duplicate
+│ └─ responses.ts
+├─ services/ # API layer (fetch/axios)
+│ ├─ questions.api.ts
+│ ├─ media.api.ts
+│ └─ draft.api.ts
+├─ store/ # Zustand stores
+│ ├─ questionForm.store.ts # Draft cache, auto‑save state, UI flags
+│ ├─ questionTypeCache.store.ts # persist middleware, per‑type cache
+│ └─ mediaUpload.store.ts
+├─ utils/
+│ ├─ normalizers.ts # API → form, form → API
+│ ├─ type-defaults.ts # Default data per question type
+│ └─ conflict-resolution.ts
+├─ types/
+│ └─ index.ts # Only manual types, otherwise Zod inferred
+└─ config/
+└─ constants.ts # Limits, intervals, media restrictions
 
 ### 2. Form Architecture
 

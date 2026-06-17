@@ -1,0 +1,61 @@
+/// Defines a badge or milestone that can be earned by users
+model Achievement {
+  id          String   @id @default(uuid())
+  /// Display name of the achievement
+  name        String   @unique
+  description String?
+  /// Icon identifier or URL
+  icon        String?
+  /// Functional grouping (e.g., "social", "mastery")
+  category    String?
+  /// Machine-readable trigger logic (e.g., {"tests_passed": 10})
+  condition   Json
+  xpReward    Int      @default(0) @map("xp_reward")
+  tokenReward Int      @default(0) @map("token_reward")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  unlocks     AchievementUnlock[]
+
+  @@map("achievement")
+}
+
+/// Link record representing a specific user earning an achievement
+model AchievementUnlock {
+  id            String      @id @default(uuid())
+  userId        Int         @map("user_id")
+  achievementId String      @map("achievement_id")
+  unlockedAt    DateTime    @default(now()) @map("unlocked_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+  @@map("achievement_unlock")
+}
+
+/// Denormalized/cached ranking table for various contexts
+model Leaderboard {
+  id        String   @id @default(uuid())
+  userId    Int      @map("user_id")
+  /// Whether this is global, class-specific, or subject-specific
+  scope     LeaderboardScope
+  /// ID of the class or subject (null if global)
+  scopeId   String?  @map("scope_id")
+  /// Computed position
+  rank      Int
+  /// XP, score, or other metric being ranked
+  score     Float
+  /// The time period bucket (e.g., "2026-W17", "all-time")
+  period    String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, scope, scopeId, period])
+  @@index([scope, scopeId, period])
+  @@map("leaderboard")
+}

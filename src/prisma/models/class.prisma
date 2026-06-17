@@ -1,54 +1,73 @@
+/// Represents a virtual or physical classroom group
 model Class {
   id          String   @id @default(uuid())
   name        String
   description String?
-  code        String   @unique // join code for students
+  /// Unique code shared with students for self-enrollment
+  code        String   @unique
   isActive    Boolean  @default(true) @map("is_active")
+  teacherId   Int      @map("teacher_id")
+  subjectId   String?  @map("subject_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
-  teacherId Int   @map("teacher_id")
-  teacher   User  @relation("TeacherClasses", fields: [teacherId], references: [id])
-
+  teacher     User                  @relation("TeacherClasses", fields: [teacherId], references: [id])
   enrollments ClassEnrollment[]
   assignments ClassTestAssignment[]
-
-  subjectId String?  @map("subject_id")
-  subject   Subject? @relation(fields: [subjectId], references: [id])
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  homeworks   HomeworkAssignment[]
+  attendances Attendance[]
+  gradeBooks  GradeBook[]
+  subject     Subject?              @relation(fields: [subjectId], references: [id])
 
   @@map("class")
 }
 
+/// Link record representing a user's participation in a class
 model ClassEnrollment {
-  id       String    @id @default(uuid())
-  classId  String    @map("class_id")
-  class    Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
-  userId   Int       @map("user_id")
-  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  role     ClassRole @default(STUDENT)
-  joinedAt DateTime  @default(now()) @map("joined_at")
+  id        String    @id @default(uuid())
+  classId   String    @map("class_id")
+  userId    Int       @map("user_id")
+  /// Role within the class (e.g., STUDENT, AUDITOR)
+  role      ClassRole @default(STUDENT)
+  isActive  Boolean   @default(true) @map("is_active")
+  joinedAt  DateTime  @default(now()) @map("joined_at")
+  /// Optional timestamp for when the user left the class
+  leftAt    DateTime? @map("left_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  class     Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([classId, userId])
   @@index([userId])
   @@map("class_enrollment")
 }
 
+/// A specific test version assigned to a class with a deadline
 model ClassTestAssignment {
   id            String      @id @default(uuid())
   classId       String      @map("class_id")
-  class         Class       @relation(fields: [classId], references: [id], onDelete: Cascade)
-  
   testId        String      @map("test_id")
-  test          Test        @relation(fields: [testId], references: [id], onDelete: Cascade)
-  
-  testVersionId String      @map("test_version_id") // ✅ specific version assigned
-  testVersion   TestVersion @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
-  
-  dueAt        DateTime?    @map("due_at")
+  /// The exact version of the test to be taken by this class
+  testVersionId String      @map("test_version_id")
+  /// Class-specific start window (overrides test-level availableFrom)
+  availableFrom DateTime?   @map("available_from")
+  /// Optional deadline for the assignment
+  availableTo   DateTime?   @map("available_to")
+  dueAt         DateTime?   @map("due_at") // Keeping for compatibility or specific display
+  /// Instructions or teacher notes specific to this assignment
+  instructions  String?     @db.Text
+  isLateAllowed Boolean     @default(true) @map("is_late_allowed")
+  /// Score reduction percentage for submissions after dueAt/availableTo
+  latePenaltyPercent Int?   @map("late_penalty_percent")
   assignedById Int          @map("assigned_by_id")
-  assignedBy   User         @relation("AssignedBy", fields: [assignedById], references: [id])
   createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  class         Class       @relation(fields: [classId], references: [id], onDelete: Cascade)
+  test          Test        @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testVersion   TestVersion @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
+  assignedBy    User        @relation("AssignedBy", fields: [assignedById], references: [id])
 
   @@unique([classId, testVersionId])
   @@index([classId])

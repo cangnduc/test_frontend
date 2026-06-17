@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model SystemLog
- * 
+ * Internal system logs for debugging and observability
  */
 export type SystemLogModel = runtime.Types.Result.DefaultSelection<Prisma.$SystemLogPayload>
 
@@ -42,6 +42,7 @@ export type SystemLogMinAggregateOutputType = {
   traceId: string | null
   userId: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SystemLogMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type SystemLogMaxAggregateOutputType = {
   traceId: string | null
   userId: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SystemLogCountAggregateOutputType = {
@@ -63,6 +65,7 @@ export type SystemLogCountAggregateOutputType = {
   traceId: number
   userId: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -83,6 +86,7 @@ export type SystemLogMinAggregateInputType = {
   traceId?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type SystemLogMaxAggregateInputType = {
@@ -93,6 +97,7 @@ export type SystemLogMaxAggregateInputType = {
   traceId?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type SystemLogCountAggregateInputType = {
@@ -104,6 +109,7 @@ export type SystemLogCountAggregateInputType = {
   traceId?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -202,6 +208,7 @@ export type SystemLogGroupByOutputType = {
   traceId: string | null
   userId: number | null
   createdAt: Date
+  updatedAt: Date
   _count: SystemLogCountAggregateOutputType | null
   _avg: SystemLogAvgAggregateOutputType | null
   _sum: SystemLogSumAggregateOutputType | null
@@ -236,6 +243,7 @@ export type SystemLogWhereInput = {
   traceId?: Prisma.StringNullableFilter<"SystemLog"> | string | null
   userId?: Prisma.IntNullableFilter<"SystemLog"> | number | null
   createdAt?: Prisma.DateTimeFilter<"SystemLog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"SystemLog"> | Date | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
@@ -248,6 +256,7 @@ export type SystemLogOrderByWithRelationInput = {
   traceId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -263,6 +272,7 @@ export type SystemLogWhereUniqueInput = Prisma.AtLeast<{
   traceId?: Prisma.StringNullableFilter<"SystemLog"> | string | null
   userId?: Prisma.IntNullableFilter<"SystemLog"> | number | null
   createdAt?: Prisma.DateTimeFilter<"SystemLog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"SystemLog"> | Date | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
@@ -275,6 +285,7 @@ export type SystemLogOrderByWithAggregationInput = {
   traceId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.SystemLogCountOrderByAggregateInput
   _avg?: Prisma.SystemLogAvgOrderByAggregateInput
   _max?: Prisma.SystemLogMaxOrderByAggregateInput
@@ -294,6 +305,7 @@ export type SystemLogScalarWhereWithAggregatesInput = {
   traceId?: Prisma.StringNullableWithAggregatesFilter<"SystemLog"> | string | null
   userId?: Prisma.IntNullableWithAggregatesFilter<"SystemLog"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SystemLog"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SystemLog"> | Date | string
 }
 
 export type SystemLogCreateInput = {
@@ -304,6 +316,7 @@ export type SystemLogCreateInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutSystemLogsInput
 }
 
@@ -316,6 +329,7 @@ export type SystemLogUncheckedCreateInput = {
   traceId?: string | null
   userId?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SystemLogUpdateInput = {
@@ -326,6 +340,7 @@ export type SystemLogUpdateInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutSystemLogsNestedInput
 }
 
@@ -338,6 +353,7 @@ export type SystemLogUncheckedUpdateInput = {
   traceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SystemLogCreateManyInput = {
@@ -349,6 +365,7 @@ export type SystemLogCreateManyInput = {
   traceId?: string | null
   userId?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SystemLogUpdateManyMutationInput = {
@@ -359,6 +376,7 @@ export type SystemLogUpdateManyMutationInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SystemLogUncheckedUpdateManyInput = {
@@ -370,6 +388,7 @@ export type SystemLogUncheckedUpdateManyInput = {
   traceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SystemLogCountOrderByAggregateInput = {
@@ -381,6 +400,7 @@ export type SystemLogCountOrderByAggregateInput = {
   traceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SystemLogAvgOrderByAggregateInput = {
@@ -395,6 +415,7 @@ export type SystemLogMaxOrderByAggregateInput = {
   traceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SystemLogMinOrderByAggregateInput = {
@@ -405,6 +426,7 @@ export type SystemLogMinOrderByAggregateInput = {
   traceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SystemLogSumOrderByAggregateInput = {
@@ -419,14 +441,6 @@ export type SystemLogListRelationFilter = {
 
 export type SystemLogOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type SystemLogCreateNestedManyWithoutUserInput = {
@@ -479,6 +493,7 @@ export type SystemLogCreateWithoutUserInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SystemLogUncheckedCreateWithoutUserInput = {
@@ -489,6 +504,7 @@ export type SystemLogUncheckedCreateWithoutUserInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SystemLogCreateOrConnectWithoutUserInput = {
@@ -529,6 +545,7 @@ export type SystemLogScalarWhereInput = {
   traceId?: Prisma.StringNullableFilter<"SystemLog"> | string | null
   userId?: Prisma.IntNullableFilter<"SystemLog"> | number | null
   createdAt?: Prisma.DateTimeFilter<"SystemLog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"SystemLog"> | Date | string
 }
 
 export type SystemLogCreateManyUserInput = {
@@ -539,6 +556,7 @@ export type SystemLogCreateManyUserInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SystemLogUpdateWithoutUserInput = {
@@ -549,6 +567,7 @@ export type SystemLogUpdateWithoutUserInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SystemLogUncheckedUpdateWithoutUserInput = {
@@ -559,6 +578,7 @@ export type SystemLogUncheckedUpdateWithoutUserInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SystemLogUncheckedUpdateManyWithoutUserInput = {
@@ -569,6 +589,7 @@ export type SystemLogUncheckedUpdateManyWithoutUserInput = {
   context?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   traceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -582,6 +603,7 @@ export type SystemLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   traceId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.SystemLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["systemLog"]>
 
@@ -594,6 +616,7 @@ export type SystemLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   traceId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.SystemLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["systemLog"]>
 
@@ -606,6 +629,7 @@ export type SystemLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   traceId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.SystemLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["systemLog"]>
 
@@ -618,9 +642,10 @@ export type SystemLogSelectScalar = {
   traceId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type SystemLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "level" | "message" | "stack" | "context" | "traceId" | "userId" | "createdAt", ExtArgs["result"]["systemLog"]>
+export type SystemLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "level" | "message" | "stack" | "context" | "traceId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["systemLog"]>
 export type SystemLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.SystemLog$userArgs<ExtArgs>
 }
@@ -641,10 +666,17 @@ export type $SystemLogPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     level: string
     message: string
     stack: string | null
+    /**
+     * JSON context for structured logging (e.g., request parameters)
+     */
     context: runtime.JsonValue | null
+    /**
+     * Trace ID to correlate logs across different services or request flows
+     */
     traceId: string | null
     userId: number | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["systemLog"]>
   composites: {}
 }
@@ -1077,6 +1109,7 @@ export interface SystemLogFieldRefs {
   readonly traceId: Prisma.FieldRef<"SystemLog", 'String'>
   readonly userId: Prisma.FieldRef<"SystemLog", 'Int'>
   readonly createdAt: Prisma.FieldRef<"SystemLog", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"SystemLog", 'DateTime'>
 }
     
 

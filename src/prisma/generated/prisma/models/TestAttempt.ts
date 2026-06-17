@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model TestAttempt
- * 
+ * Represents a student's instance of taking a specific test version
  */
 export type TestAttemptModel = runtime.Types.Result.DefaultSelection<Prisma.$TestAttemptPayload>
 
@@ -61,6 +61,10 @@ export type TestAttemptMinAggregateOutputType = {
   sessionToken: string | null
   clientFingerprint: string | null
   ipAddress: string | null
+  deviceType: string | null
+  browserInfo: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TestAttemptMaxAggregateOutputType = {
@@ -82,6 +86,10 @@ export type TestAttemptMaxAggregateOutputType = {
   sessionToken: string | null
   clientFingerprint: string | null
   ipAddress: string | null
+  deviceType: string | null
+  browserInfo: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TestAttemptCountAggregateOutputType = {
@@ -104,6 +112,10 @@ export type TestAttemptCountAggregateOutputType = {
   sessionToken: number
   clientFingerprint: number
   ipAddress: number
+  deviceType: number
+  browserInfo: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -143,6 +155,10 @@ export type TestAttemptMinAggregateInputType = {
   sessionToken?: true
   clientFingerprint?: true
   ipAddress?: true
+  deviceType?: true
+  browserInfo?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type TestAttemptMaxAggregateInputType = {
@@ -164,6 +180,10 @@ export type TestAttemptMaxAggregateInputType = {
   sessionToken?: true
   clientFingerprint?: true
   ipAddress?: true
+  deviceType?: true
+  browserInfo?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type TestAttemptCountAggregateInputType = {
@@ -186,6 +206,10 @@ export type TestAttemptCountAggregateInputType = {
   sessionToken?: true
   clientFingerprint?: true
   ipAddress?: true
+  deviceType?: true
+  browserInfo?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -295,6 +319,10 @@ export type TestAttemptGroupByOutputType = {
   sessionToken: string | null
   clientFingerprint: string | null
   ipAddress: string | null
+  deviceType: string | null
+  browserInfo: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: TestAttemptCountAggregateOutputType | null
   _avg: TestAttemptAvgAggregateOutputType | null
   _sum: TestAttemptSumAggregateOutputType | null
@@ -340,6 +368,10 @@ export type TestAttemptWhereInput = {
   sessionToken?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  deviceType?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  browserInfo?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
   testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
@@ -348,6 +380,7 @@ export type TestAttemptWhereInput = {
   questions?: Prisma.AttemptQuestionListRelationFilter
   answers?: Prisma.AttemptAnswerListRelationFilter
   progress?: Prisma.UserTestProgressListRelationFilter
+  tokenTransactions?: Prisma.TokenTransactionListRelationFilter
 }
 
 export type TestAttemptOrderByWithRelationInput = {
@@ -370,6 +403,10 @@ export type TestAttemptOrderByWithRelationInput = {
   sessionToken?: Prisma.SortOrderInput | Prisma.SortOrder
   clientFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceType?: Prisma.SortOrderInput | Prisma.SortOrder
+  browserInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   test?: Prisma.TestOrderByWithRelationInput
   testVersion?: Prisma.TestVersionOrderByWithRelationInput
@@ -378,6 +415,7 @@ export type TestAttemptOrderByWithRelationInput = {
   questions?: Prisma.AttemptQuestionOrderByRelationAggregateInput
   answers?: Prisma.AttemptAnswerOrderByRelationAggregateInput
   progress?: Prisma.UserTestProgressOrderByRelationAggregateInput
+  tokenTransactions?: Prisma.TokenTransactionOrderByRelationAggregateInput
 }
 
 export type TestAttemptWhereUniqueInput = Prisma.AtLeast<{
@@ -404,6 +442,10 @@ export type TestAttemptWhereUniqueInput = Prisma.AtLeast<{
   sessionToken?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  deviceType?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  browserInfo?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
   testVersion?: Prisma.XOR<Prisma.TestVersionScalarRelationFilter, Prisma.TestVersionWhereInput>
@@ -412,6 +454,7 @@ export type TestAttemptWhereUniqueInput = Prisma.AtLeast<{
   questions?: Prisma.AttemptQuestionListRelationFilter
   answers?: Prisma.AttemptAnswerListRelationFilter
   progress?: Prisma.UserTestProgressListRelationFilter
+  tokenTransactions?: Prisma.TokenTransactionListRelationFilter
 }, "id" | "userId_testId_attemptNumber">
 
 export type TestAttemptOrderByWithAggregationInput = {
@@ -434,6 +477,10 @@ export type TestAttemptOrderByWithAggregationInput = {
   sessionToken?: Prisma.SortOrderInput | Prisma.SortOrder
   clientFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceType?: Prisma.SortOrderInput | Prisma.SortOrder
+  browserInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TestAttemptCountOrderByAggregateInput
   _avg?: Prisma.TestAttemptAvgOrderByAggregateInput
   _max?: Prisma.TestAttemptMaxOrderByAggregateInput
@@ -464,6 +511,10 @@ export type TestAttemptScalarWhereWithAggregatesInput = {
   sessionToken?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
+  deviceType?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
+  browserInfo?: Prisma.StringNullableWithAggregatesFilter<"TestAttempt"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"TestAttempt"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TestAttempt"> | Date | string
 }
 
 export type TestAttemptCreateInput = {
@@ -482,6 +533,10 @@ export type TestAttemptCreateInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
@@ -490,6 +545,7 @@ export type TestAttemptCreateInput = {
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateInput = {
@@ -512,10 +568,15 @@ export type TestAttemptUncheckedCreateInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUpdateInput = {
@@ -534,6 +595,10 @@ export type TestAttemptUpdateInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
@@ -542,6 +607,7 @@ export type TestAttemptUpdateInput = {
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateInput = {
@@ -564,10 +630,15 @@ export type TestAttemptUncheckedUpdateInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptCreateManyInput = {
@@ -590,6 +661,10 @@ export type TestAttemptCreateManyInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestAttemptUpdateManyMutationInput = {
@@ -608,6 +683,10 @@ export type TestAttemptUpdateManyMutationInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestAttemptUncheckedUpdateManyInput = {
@@ -630,6 +709,10 @@ export type TestAttemptUncheckedUpdateManyInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestAttemptUserIdTestIdAttemptNumberCompoundUniqueInput = {
@@ -658,6 +741,10 @@ export type TestAttemptCountOrderByAggregateInput = {
   sessionToken?: Prisma.SortOrder
   clientFingerprint?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
+  deviceType?: Prisma.SortOrder
+  browserInfo?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestAttemptAvgOrderByAggregateInput = {
@@ -687,6 +774,10 @@ export type TestAttemptMaxOrderByAggregateInput = {
   sessionToken?: Prisma.SortOrder
   clientFingerprint?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
+  deviceType?: Prisma.SortOrder
+  browserInfo?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestAttemptMinOrderByAggregateInput = {
@@ -708,6 +799,10 @@ export type TestAttemptMinOrderByAggregateInput = {
   sessionToken?: Prisma.SortOrder
   clientFingerprint?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
+  deviceType?: Prisma.SortOrder
+  browserInfo?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TestAttemptSumOrderByAggregateInput = {
@@ -740,14 +835,6 @@ export type TestAttemptNullableScalarRelationFilter = {
 
 export type EnumAttemptStatusFieldUpdateOperationsInput = {
   set?: $Enums.AttemptStatus
-}
-
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type NullableBoolFieldUpdateOperationsInput = {
@@ -964,6 +1051,22 @@ export type TestAttemptUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.TestAttemptScalarWhereInput | Prisma.TestAttemptScalarWhereInput[]
 }
 
+export type TestAttemptCreateNestedOneWithoutTokenTransactionsInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutTokenTransactionsInput, Prisma.TestAttemptUncheckedCreateWithoutTokenTransactionsInput>
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutTokenTransactionsInput
+  connect?: Prisma.TestAttemptWhereUniqueInput
+}
+
+export type TestAttemptUpdateOneWithoutTokenTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutTokenTransactionsInput, Prisma.TestAttemptUncheckedCreateWithoutTokenTransactionsInput>
+  connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutTokenTransactionsInput
+  upsert?: Prisma.TestAttemptUpsertWithoutTokenTransactionsInput
+  disconnect?: Prisma.TestAttemptWhereInput | boolean
+  delete?: Prisma.TestAttemptWhereInput | boolean
+  connect?: Prisma.TestAttemptWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TestAttemptUpdateToOneWithWhereWithoutTokenTransactionsInput, Prisma.TestAttemptUpdateWithoutTokenTransactionsInput>, Prisma.TestAttemptUncheckedUpdateWithoutTokenTransactionsInput>
+}
+
 export type TestAttemptCreateNestedOneWithoutProgressInput = {
   create?: Prisma.XOR<Prisma.TestAttemptCreateWithoutProgressInput, Prisma.TestAttemptUncheckedCreateWithoutProgressInput>
   connectOrCreate?: Prisma.TestAttemptCreateOrConnectWithoutProgressInput
@@ -996,6 +1099,10 @@ export type TestAttemptCreateWithoutSectionsInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
@@ -1003,6 +1110,7 @@ export type TestAttemptCreateWithoutSectionsInput = {
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutSectionsInput = {
@@ -1025,9 +1133,14 @@ export type TestAttemptUncheckedCreateWithoutSectionsInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutSectionsInput = {
@@ -1051,6 +1164,10 @@ export type TestAttemptCreateWithoutCurrentSectionInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
@@ -1058,6 +1175,7 @@ export type TestAttemptCreateWithoutCurrentSectionInput = {
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutCurrentSectionInput = {
@@ -1079,10 +1197,15 @@ export type TestAttemptUncheckedCreateWithoutCurrentSectionInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutCurrentSectionInput = {
@@ -1122,6 +1245,10 @@ export type TestAttemptUpdateWithoutSectionsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
@@ -1129,6 +1256,7 @@ export type TestAttemptUpdateWithoutSectionsInput = {
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutSectionsInput = {
@@ -1151,9 +1279,14 @@ export type TestAttemptUncheckedUpdateWithoutSectionsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUpsertWithWhereUniqueWithoutCurrentSectionInput = {
@@ -1195,6 +1328,10 @@ export type TestAttemptScalarWhereInput = {
   sessionToken?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   clientFingerprint?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  deviceType?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  browserInfo?: Prisma.StringNullableFilter<"TestAttempt"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TestAttempt"> | Date | string
 }
 
 export type TestAttemptCreateWithoutQuestionsInput = {
@@ -1213,6 +1350,10 @@ export type TestAttemptCreateWithoutQuestionsInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
@@ -1220,6 +1361,7 @@ export type TestAttemptCreateWithoutQuestionsInput = {
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutQuestionsInput = {
@@ -1242,9 +1384,14 @@ export type TestAttemptUncheckedCreateWithoutQuestionsInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutQuestionsInput = {
@@ -1279,6 +1426,10 @@ export type TestAttemptUpdateWithoutQuestionsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
@@ -1286,6 +1437,7 @@ export type TestAttemptUpdateWithoutQuestionsInput = {
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutQuestionsInput = {
@@ -1308,9 +1460,14 @@ export type TestAttemptUncheckedUpdateWithoutQuestionsInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptCreateWithoutAnswersInput = {
@@ -1329,6 +1486,10 @@ export type TestAttemptCreateWithoutAnswersInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
@@ -1336,6 +1497,7 @@ export type TestAttemptCreateWithoutAnswersInput = {
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutAnswersInput = {
@@ -1358,9 +1520,14 @@ export type TestAttemptUncheckedCreateWithoutAnswersInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutAnswersInput = {
@@ -1395,6 +1562,10 @@ export type TestAttemptUpdateWithoutAnswersInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
@@ -1402,6 +1573,7 @@ export type TestAttemptUpdateWithoutAnswersInput = {
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutAnswersInput = {
@@ -1424,9 +1596,14 @@ export type TestAttemptUncheckedUpdateWithoutAnswersInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptCreateWithoutTestInput = {
@@ -1445,6 +1622,10 @@ export type TestAttemptCreateWithoutTestInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
@@ -1452,6 +1633,7 @@ export type TestAttemptCreateWithoutTestInput = {
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutTestInput = {
@@ -1473,10 +1655,15 @@ export type TestAttemptUncheckedCreateWithoutTestInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutTestInput = {
@@ -1521,6 +1708,10 @@ export type TestAttemptCreateWithoutTestVersionInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
@@ -1528,6 +1719,7 @@ export type TestAttemptCreateWithoutTestVersionInput = {
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutTestVersionInput = {
@@ -1549,10 +1741,15 @@ export type TestAttemptUncheckedCreateWithoutTestVersionInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutTestVersionInput = {
@@ -1597,6 +1794,10 @@ export type TestAttemptCreateWithoutUserInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
   currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
@@ -1604,6 +1805,7 @@ export type TestAttemptCreateWithoutUserInput = {
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutUserInput = {
@@ -1625,10 +1827,15 @@ export type TestAttemptUncheckedCreateWithoutUserInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
   progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutUserInput = {
@@ -1657,6 +1864,142 @@ export type TestAttemptUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.TestAttemptUpdateManyMutationInput, Prisma.TestAttemptUncheckedUpdateManyWithoutUserInput>
 }
 
+export type TestAttemptCreateWithoutTokenTransactionsInput = {
+  id?: string
+  status?: $Enums.AttemptStatus
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  completedAt?: Date | string | null
+  globalEndAt?: Date | string | null
+  totalScore?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  passed?: boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: string | null
+  clientFingerprint?: string | null
+  ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
+  test: Prisma.TestCreateNestedOneWithoutAttemptsInput
+  testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
+  currentSection?: Prisma.AttemptSectionCreateNestedOneWithoutCurrentAttemptsInput
+  sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
+  questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
+  answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressCreateNestedManyWithoutLastAttemptInput
+}
+
+export type TestAttemptUncheckedCreateWithoutTokenTransactionsInput = {
+  id?: string
+  userId: number
+  testId: string
+  testVersionId: string
+  status?: $Enums.AttemptStatus
+  attemptNumber: number
+  startedAt?: Date | string
+  submittedAt?: Date | string | null
+  completedAt?: Date | string | null
+  globalEndAt?: Date | string | null
+  currentSectionId?: string | null
+  totalScore?: number | null
+  maxScore?: number | null
+  percentage?: number | null
+  passed?: boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: string | null
+  clientFingerprint?: string | null
+  ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
+  questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
+  answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  progress?: Prisma.UserTestProgressUncheckedCreateNestedManyWithoutLastAttemptInput
+}
+
+export type TestAttemptCreateOrConnectWithoutTokenTransactionsInput = {
+  where: Prisma.TestAttemptWhereUniqueInput
+  create: Prisma.XOR<Prisma.TestAttemptCreateWithoutTokenTransactionsInput, Prisma.TestAttemptUncheckedCreateWithoutTokenTransactionsInput>
+}
+
+export type TestAttemptUpsertWithoutTokenTransactionsInput = {
+  update: Prisma.XOR<Prisma.TestAttemptUpdateWithoutTokenTransactionsInput, Prisma.TestAttemptUncheckedUpdateWithoutTokenTransactionsInput>
+  create: Prisma.XOR<Prisma.TestAttemptCreateWithoutTokenTransactionsInput, Prisma.TestAttemptUncheckedCreateWithoutTokenTransactionsInput>
+  where?: Prisma.TestAttemptWhereInput
+}
+
+export type TestAttemptUpdateToOneWithWhereWithoutTokenTransactionsInput = {
+  where?: Prisma.TestAttemptWhereInput
+  data: Prisma.XOR<Prisma.TestAttemptUpdateWithoutTokenTransactionsInput, Prisma.TestAttemptUncheckedUpdateWithoutTokenTransactionsInput>
+}
+
+export type TestAttemptUpdateWithoutTokenTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  globalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
+  test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
+  testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
+  currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
+  sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
+  questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
+  answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+}
+
+export type TestAttemptUncheckedUpdateWithoutTokenTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  testId?: Prisma.StringFieldUpdateOperationsInput | string
+  testVersionId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  globalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentSectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  maxScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  percentage?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  passed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  configSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
+  questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
+  answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+}
+
 export type TestAttemptCreateWithoutProgressInput = {
   id?: string
   status?: $Enums.AttemptStatus
@@ -1673,6 +2016,10 @@ export type TestAttemptCreateWithoutProgressInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestAttemptsInput
   test: Prisma.TestCreateNestedOneWithoutAttemptsInput
   testVersion: Prisma.TestVersionCreateNestedOneWithoutAttemptsInput
@@ -1680,6 +2027,7 @@ export type TestAttemptCreateWithoutProgressInput = {
   sections?: Prisma.AttemptSectionCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerCreateNestedManyWithoutAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptUncheckedCreateWithoutProgressInput = {
@@ -1702,9 +2050,14 @@ export type TestAttemptUncheckedCreateWithoutProgressInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sections?: Prisma.AttemptSectionUncheckedCreateNestedManyWithoutAttemptInput
   questions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutAttemptInput
   answers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutAttemptInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedCreateNestedManyWithoutAttemptInput
 }
 
 export type TestAttemptCreateOrConnectWithoutProgressInput = {
@@ -1739,6 +2092,10 @@ export type TestAttemptUpdateWithoutProgressInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
@@ -1746,6 +2103,7 @@ export type TestAttemptUpdateWithoutProgressInput = {
   sections?: Prisma.AttemptSectionUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutProgressInput = {
@@ -1768,9 +2126,14 @@ export type TestAttemptUncheckedUpdateWithoutProgressInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptCreateManyCurrentSectionInput = {
@@ -1792,6 +2155,10 @@ export type TestAttemptCreateManyCurrentSectionInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestAttemptUpdateWithoutCurrentSectionInput = {
@@ -1810,6 +2177,10 @@ export type TestAttemptUpdateWithoutCurrentSectionInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
@@ -1817,6 +2188,7 @@ export type TestAttemptUpdateWithoutCurrentSectionInput = {
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutCurrentSectionInput = {
@@ -1838,10 +2210,15 @@ export type TestAttemptUncheckedUpdateWithoutCurrentSectionInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateManyWithoutCurrentSectionInput = {
@@ -1863,6 +2240,10 @@ export type TestAttemptUncheckedUpdateManyWithoutCurrentSectionInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestAttemptCreateManyTestInput = {
@@ -1884,6 +2265,10 @@ export type TestAttemptCreateManyTestInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestAttemptUpdateWithoutTestInput = {
@@ -1902,6 +2287,10 @@ export type TestAttemptUpdateWithoutTestInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
@@ -1909,6 +2298,7 @@ export type TestAttemptUpdateWithoutTestInput = {
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutTestInput = {
@@ -1930,10 +2320,15 @@ export type TestAttemptUncheckedUpdateWithoutTestInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateManyWithoutTestInput = {
@@ -1955,6 +2350,10 @@ export type TestAttemptUncheckedUpdateManyWithoutTestInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestAttemptCreateManyTestVersionInput = {
@@ -1976,6 +2375,10 @@ export type TestAttemptCreateManyTestVersionInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestAttemptUpdateWithoutTestVersionInput = {
@@ -1994,6 +2397,10 @@ export type TestAttemptUpdateWithoutTestVersionInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestAttemptsNestedInput
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
@@ -2001,6 +2408,7 @@ export type TestAttemptUpdateWithoutTestVersionInput = {
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutTestVersionInput = {
@@ -2022,10 +2430,15 @@ export type TestAttemptUncheckedUpdateWithoutTestVersionInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateManyWithoutTestVersionInput = {
@@ -2047,6 +2460,10 @@ export type TestAttemptUncheckedUpdateManyWithoutTestVersionInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestAttemptCreateManyUserInput = {
@@ -2068,6 +2485,10 @@ export type TestAttemptCreateManyUserInput = {
   sessionToken?: string | null
   clientFingerprint?: string | null
   ipAddress?: string | null
+  deviceType?: string | null
+  browserInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TestAttemptUpdateWithoutUserInput = {
@@ -2086,6 +2507,10 @@ export type TestAttemptUpdateWithoutUserInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneRequiredWithoutAttemptsNestedInput
   testVersion?: Prisma.TestVersionUpdateOneRequiredWithoutAttemptsNestedInput
   currentSection?: Prisma.AttemptSectionUpdateOneWithoutCurrentAttemptsNestedInput
@@ -2093,6 +2518,7 @@ export type TestAttemptUpdateWithoutUserInput = {
   questions?: Prisma.AttemptQuestionUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateWithoutUserInput = {
@@ -2114,10 +2540,15 @@ export type TestAttemptUncheckedUpdateWithoutUserInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sections?: Prisma.AttemptSectionUncheckedUpdateManyWithoutAttemptNestedInput
   questions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutAttemptNestedInput
   answers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutAttemptNestedInput
   progress?: Prisma.UserTestProgressUncheckedUpdateManyWithoutLastAttemptNestedInput
+  tokenTransactions?: Prisma.TokenTransactionUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
 export type TestAttemptUncheckedUpdateManyWithoutUserInput = {
@@ -2139,6 +2570,10 @@ export type TestAttemptUncheckedUpdateManyWithoutUserInput = {
   sessionToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  browserInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -2151,6 +2586,7 @@ export type TestAttemptCountOutputType = {
   questions: number
   answers: number
   progress: number
+  tokenTransactions: number
 }
 
 export type TestAttemptCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2158,6 +2594,7 @@ export type TestAttemptCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   questions?: boolean | TestAttemptCountOutputTypeCountQuestionsArgs
   answers?: boolean | TestAttemptCountOutputTypeCountAnswersArgs
   progress?: boolean | TestAttemptCountOutputTypeCountProgressArgs
+  tokenTransactions?: boolean | TestAttemptCountOutputTypeCountTokenTransactionsArgs
 }
 
 /**
@@ -2198,6 +2635,13 @@ export type TestAttemptCountOutputTypeCountProgressArgs<ExtArgs extends runtime.
   where?: Prisma.UserTestProgressWhereInput
 }
 
+/**
+ * TestAttemptCountOutputType without action
+ */
+export type TestAttemptCountOutputTypeCountTokenTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TokenTransactionWhereInput
+}
+
 
 export type TestAttemptSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2219,6 +2663,10 @@ export type TestAttemptSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   sessionToken?: boolean
   clientFingerprint?: boolean
   ipAddress?: boolean
+  deviceType?: boolean
+  browserInfo?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
@@ -2227,6 +2675,7 @@ export type TestAttemptSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   questions?: boolean | Prisma.TestAttempt$questionsArgs<ExtArgs>
   answers?: boolean | Prisma.TestAttempt$answersArgs<ExtArgs>
   progress?: boolean | Prisma.TestAttempt$progressArgs<ExtArgs>
+  tokenTransactions?: boolean | Prisma.TestAttempt$tokenTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.TestAttemptCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testAttempt"]>
 
@@ -2250,6 +2699,10 @@ export type TestAttemptSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   sessionToken?: boolean
   clientFingerprint?: boolean
   ipAddress?: boolean
+  deviceType?: boolean
+  browserInfo?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
@@ -2276,6 +2729,10 @@ export type TestAttemptSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   sessionToken?: boolean
   clientFingerprint?: boolean
   ipAddress?: boolean
+  deviceType?: boolean
+  browserInfo?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   testVersion?: boolean | Prisma.TestVersionDefaultArgs<ExtArgs>
@@ -2302,9 +2759,13 @@ export type TestAttemptSelectScalar = {
   sessionToken?: boolean
   clientFingerprint?: boolean
   ipAddress?: boolean
+  deviceType?: boolean
+  browserInfo?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type TestAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "testId" | "testVersionId" | "status" | "attemptNumber" | "startedAt" | "submittedAt" | "completedAt" | "globalEndAt" | "currentSectionId" | "totalScore" | "maxScore" | "percentage" | "passed" | "configSnapshot" | "sessionToken" | "clientFingerprint" | "ipAddress", ExtArgs["result"]["testAttempt"]>
+export type TestAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "testId" | "testVersionId" | "status" | "attemptNumber" | "startedAt" | "submittedAt" | "completedAt" | "globalEndAt" | "currentSectionId" | "totalScore" | "maxScore" | "percentage" | "passed" | "configSnapshot" | "sessionToken" | "clientFingerprint" | "ipAddress" | "deviceType" | "browserInfo" | "createdAt" | "updatedAt", ExtArgs["result"]["testAttempt"]>
 export type TestAttemptInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
@@ -2314,6 +2775,7 @@ export type TestAttemptInclude<ExtArgs extends runtime.Types.Extensions.Internal
   questions?: boolean | Prisma.TestAttempt$questionsArgs<ExtArgs>
   answers?: boolean | Prisma.TestAttempt$answersArgs<ExtArgs>
   progress?: boolean | Prisma.TestAttempt$progressArgs<ExtArgs>
+  tokenTransactions?: boolean | Prisma.TestAttempt$tokenTransactionsArgs<ExtArgs>
   _count?: boolean | Prisma.TestAttemptCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TestAttemptIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2340,27 +2802,50 @@ export type $TestAttemptPayload<ExtArgs extends runtime.Types.Extensions.Interna
     questions: Prisma.$AttemptQuestionPayload<ExtArgs>[]
     answers: Prisma.$AttemptAnswerPayload<ExtArgs>[]
     progress: Prisma.$UserTestProgressPayload<ExtArgs>[]
+    tokenTransactions: Prisma.$TokenTransactionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: number
     testId: string
+    /**
+     * The exact version of the test being taken (pinned for historical accuracy)
+     */
     testVersionId: string
     status: $Enums.AttemptStatus
+    /**
+     * Attempt number for this specific user/test combination
+     */
     attemptNumber: number
     startedAt: Date
     submittedAt: Date | null
     completedAt: Date | null
+    /**
+     * The hard deadline for the entire attempt, calculated at start
+     */
     globalEndAt: Date | null
     currentSectionId: string | null
     totalScore: number | null
     maxScore: number | null
     percentage: number | null
     passed: boolean | null
+    /**
+     * Snapshot of test settings at the moment of start (e.g., duration)
+     */
     configSnapshot: runtime.JsonValue | null
     sessionToken: string | null
     clientFingerprint: string | null
     ipAddress: string | null
+    /**
+     * Type of device used (e.g., Mobile, Desktop, Tablet)
+     */
+    deviceType: string | null
+    /**
+     * Information about the browser/agent used
+     */
+    browserInfo: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["testAttempt"]>
   composites: {}
 }
@@ -2763,6 +3248,7 @@ export interface Prisma__TestAttemptClient<T, Null = never, ExtArgs extends runt
   questions<T extends Prisma.TestAttempt$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   answers<T extends Prisma.TestAttempt$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   progress<T extends Prisma.TestAttempt$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTestProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tokenTransactions<T extends Prisma.TestAttempt$tokenTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestAttempt$tokenTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TokenTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2811,6 +3297,10 @@ export interface TestAttemptFieldRefs {
   readonly sessionToken: Prisma.FieldRef<"TestAttempt", 'String'>
   readonly clientFingerprint: Prisma.FieldRef<"TestAttempt", 'String'>
   readonly ipAddress: Prisma.FieldRef<"TestAttempt", 'String'>
+  readonly deviceType: Prisma.FieldRef<"TestAttempt", 'String'>
+  readonly browserInfo: Prisma.FieldRef<"TestAttempt", 'String'>
+  readonly createdAt: Prisma.FieldRef<"TestAttempt", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"TestAttempt", 'DateTime'>
 }
     
 
@@ -3324,6 +3814,30 @@ export type TestAttempt$progressArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.UserTestProgressScalarFieldEnum | Prisma.UserTestProgressScalarFieldEnum[]
+}
+
+/**
+ * TestAttempt.tokenTransactions
+ */
+export type TestAttempt$tokenTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TokenTransaction
+   */
+  select?: Prisma.TokenTransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TokenTransaction
+   */
+  omit?: Prisma.TokenTransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TokenTransactionInclude<ExtArgs> | null
+  where?: Prisma.TokenTransactionWhereInput
+  orderBy?: Prisma.TokenTransactionOrderByWithRelationInput | Prisma.TokenTransactionOrderByWithRelationInput[]
+  cursor?: Prisma.TokenTransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TokenTransactionScalarFieldEnum | Prisma.TokenTransactionScalarFieldEnum[]
 }
 
 /**

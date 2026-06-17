@@ -20,22 +20,6 @@ export const UserRole = {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
-export const DifficultyLevel = {
-  DL_1: 'DL_1',
-  DL_2: 'DL_2',
-  DL_3: 'DL_3',
-  DL_4: 'DL_4',
-  DL_5: 'DL_5',
-  DL_6: 'DL_6',
-  DL_7: 'DL_7',
-  DL_8: 'DL_8',
-  DL_9: 'DL_9',
-  DL_10: 'DL_10'
-} as const
-
-export type DifficultyLevel = (typeof DifficultyLevel)[keyof typeof DifficultyLevel]
-
-
 export const PublishStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
@@ -86,21 +70,6 @@ export const QuestionType = {
 } as const
 
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
-
-
-export const SubjectType = {
-  MATH: 'MATH',
-  ENGLISH: 'ENGLISH',
-  SCIENCE: 'SCIENCE',
-  HISTORY: 'HISTORY',
-  GEOGRAPHY: 'GEOGRAPHY',
-  ART: 'ART',
-  MUSIC: 'MUSIC',
-  PHYSICAL_EDUCATION: 'PHYSICAL_EDUCATION',
-  GENERAL_KNOWLEDGE: 'GENERAL_KNOWLEDGE'
-} as const
-
-export type SubjectType = (typeof SubjectType)[keyof typeof SubjectType]
 
 
 export const ResultViewType = {
@@ -190,3 +159,40 @@ export const NotificationType = {
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const HomeworkStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type HomeworkStatus = (typeof HomeworkStatus)[keyof typeof HomeworkStatus]
+
+
+export const SubmissionStatus = {
+  SUBMITTED: 'SUBMITTED',
+  GRADED: 'GRADED',
+  RETURNED: 'RETURNED'
+} as const
+
+export type SubmissionStatus = (typeof SubmissionStatus)[keyof typeof SubmissionStatus]
+
+
+export const LeaderboardScope = {
+  GLOBAL: 'GLOBAL',
+  CLASS: 'CLASS',
+  SUBJECT: 'SUBJECT'
+} as const
+
+export type LeaderboardScope = (typeof LeaderboardScope)[keyof typeof LeaderboardScope]
+
+
+export const AttendanceStatus = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT',
+  LATE: 'LATE',
+  EXCUSED: 'EXCUSED'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]

@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model PassageVersion
- * 
+ * Immutable snapshot of a passage's content
  */
 export type PassageVersionModel = runtime.Types.Result.DefaultSelection<Prisma.$PassageVersionPayload>
 
@@ -28,11 +28,13 @@ export type AggregatePassageVersion = {
 
 export type PassageVersionAvgAggregateOutputType = {
   version: number | null
+  difficulty: number | null
   createdById: number | null
 }
 
 export type PassageVersionSumAggregateOutputType = {
   version: number | null
+  difficulty: number | null
   createdById: number | null
 }
 
@@ -43,11 +45,12 @@ export type PassageVersionMinAggregateOutputType = {
   type: $Enums.PassageType | null
   title: string | null
   content: string | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: number | null
   visibility: $Enums.Visibility | null
   explanation: string | null
   createdById: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type PassageVersionMaxAggregateOutputType = {
@@ -57,11 +60,12 @@ export type PassageVersionMaxAggregateOutputType = {
   type: $Enums.PassageType | null
   title: string | null
   content: string | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: number | null
   visibility: $Enums.Visibility | null
   explanation: string | null
   createdById: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type PassageVersionCountAggregateOutputType = {
@@ -73,21 +77,23 @@ export type PassageVersionCountAggregateOutputType = {
   content: number
   difficulty: number
   visibility: number
-  tags: number
   explanation: number
   createdById: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type PassageVersionAvgAggregateInputType = {
   version?: true
+  difficulty?: true
   createdById?: true
 }
 
 export type PassageVersionSumAggregateInputType = {
   version?: true
+  difficulty?: true
   createdById?: true
 }
 
@@ -103,6 +109,7 @@ export type PassageVersionMinAggregateInputType = {
   explanation?: true
   createdById?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type PassageVersionMaxAggregateInputType = {
@@ -117,6 +124,7 @@ export type PassageVersionMaxAggregateInputType = {
   explanation?: true
   createdById?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type PassageVersionCountAggregateInputType = {
@@ -128,10 +136,10 @@ export type PassageVersionCountAggregateInputType = {
   content?: true
   difficulty?: true
   visibility?: true
-  tags?: true
   explanation?: true
   createdById?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -228,12 +236,12 @@ export type PassageVersionGroupByOutputType = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty: $Enums.DifficultyLevel
+  difficulty: number
   visibility: $Enums.Visibility
-  tags: string[]
   explanation: string | null
   createdById: number | null
   createdAt: Date
+  updatedAt: Date
   _count: PassageVersionCountAggregateOutputType | null
   _avg: PassageVersionAvgAggregateOutputType | null
   _sum: PassageVersionSumAggregateOutputType | null
@@ -266,15 +274,16 @@ export type PassageVersionWhereInput = {
   type?: Prisma.EnumPassageTypeFilter<"PassageVersion"> | $Enums.PassageType
   title?: Prisma.StringFilter<"PassageVersion"> | string
   content?: Prisma.StringFilter<"PassageVersion"> | string
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"PassageVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFilter<"PassageVersion"> | number
   visibility?: Prisma.EnumVisibilityFilter<"PassageVersion"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"PassageVersion">
   explanation?: Prisma.StringNullableFilter<"PassageVersion"> | string | null
   createdById?: Prisma.IntNullableFilter<"PassageVersion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"PassageVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PassageVersion"> | Date | string
   passage?: Prisma.XOR<Prisma.PassageScalarRelationFilter, Prisma.PassageWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   media?: Prisma.MediaListRelationFilter
+  tags?: Prisma.PassageTagListRelationFilter
   questions?: Prisma.QuestionVersionListRelationFilter
   testSections?: Prisma.TestVersionSectionListRelationFilter
   currentVersionOf?: Prisma.XOR<Prisma.PassageNullableScalarRelationFilter, Prisma.PassageWhereInput> | null
@@ -289,13 +298,14 @@ export type PassageVersionOrderByWithRelationInput = {
   content?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   passage?: Prisma.PassageOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   media?: Prisma.MediaOrderByRelationAggregateInput
+  tags?: Prisma.PassageTagOrderByRelationAggregateInput
   questions?: Prisma.QuestionVersionOrderByRelationAggregateInput
   testSections?: Prisma.TestVersionSectionOrderByRelationAggregateInput
   currentVersionOf?: Prisma.PassageOrderByWithRelationInput
@@ -303,6 +313,7 @@ export type PassageVersionOrderByWithRelationInput = {
 
 export type PassageVersionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  passageId_version?: Prisma.PassageVersionPassageIdVersionCompoundUniqueInput
   AND?: Prisma.PassageVersionWhereInput | Prisma.PassageVersionWhereInput[]
   OR?: Prisma.PassageVersionWhereInput[]
   NOT?: Prisma.PassageVersionWhereInput | Prisma.PassageVersionWhereInput[]
@@ -311,19 +322,20 @@ export type PassageVersionWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumPassageTypeFilter<"PassageVersion"> | $Enums.PassageType
   title?: Prisma.StringFilter<"PassageVersion"> | string
   content?: Prisma.StringFilter<"PassageVersion"> | string
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"PassageVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFilter<"PassageVersion"> | number
   visibility?: Prisma.EnumVisibilityFilter<"PassageVersion"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"PassageVersion">
   explanation?: Prisma.StringNullableFilter<"PassageVersion"> | string | null
   createdById?: Prisma.IntNullableFilter<"PassageVersion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"PassageVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PassageVersion"> | Date | string
   passage?: Prisma.XOR<Prisma.PassageScalarRelationFilter, Prisma.PassageWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   media?: Prisma.MediaListRelationFilter
+  tags?: Prisma.PassageTagListRelationFilter
   questions?: Prisma.QuestionVersionListRelationFilter
   testSections?: Prisma.TestVersionSectionListRelationFilter
   currentVersionOf?: Prisma.XOR<Prisma.PassageNullableScalarRelationFilter, Prisma.PassageWhereInput> | null
-}, "id">
+}, "id" | "passageId_version">
 
 export type PassageVersionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -334,10 +346,10 @@ export type PassageVersionOrderByWithAggregationInput = {
   content?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.PassageVersionCountOrderByAggregateInput
   _avg?: Prisma.PassageVersionAvgOrderByAggregateInput
   _max?: Prisma.PassageVersionMaxOrderByAggregateInput
@@ -355,12 +367,12 @@ export type PassageVersionScalarWhereWithAggregatesInput = {
   type?: Prisma.EnumPassageTypeWithAggregatesFilter<"PassageVersion"> | $Enums.PassageType
   title?: Prisma.StringWithAggregatesFilter<"PassageVersion"> | string
   content?: Prisma.StringWithAggregatesFilter<"PassageVersion"> | string
-  difficulty?: Prisma.EnumDifficultyLevelWithAggregatesFilter<"PassageVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntWithAggregatesFilter<"PassageVersion"> | number
   visibility?: Prisma.EnumVisibilityWithAggregatesFilter<"PassageVersion"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"PassageVersion">
   explanation?: Prisma.StringNullableWithAggregatesFilter<"PassageVersion"> | string | null
   createdById?: Prisma.IntNullableWithAggregatesFilter<"PassageVersion"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PassageVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PassageVersion"> | Date | string
 }
 
 export type PassageVersionCreateInput = {
@@ -369,14 +381,15 @@ export type PassageVersionCreateInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
@@ -389,13 +402,14 @@ export type PassageVersionUncheckedCreateInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagUncheckedCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
@@ -407,14 +421,15 @@ export type PassageVersionUpdateInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
@@ -427,13 +442,14 @@ export type PassageVersionUncheckedUpdateInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUncheckedUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
@@ -446,12 +462,12 @@ export type PassageVersionCreateManyInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PassageVersionUpdateManyMutationInput = {
@@ -460,11 +476,11 @@ export type PassageVersionUpdateManyMutationInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PassageVersionUncheckedUpdateManyInput = {
@@ -474,12 +490,12 @@ export type PassageVersionUncheckedUpdateManyInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PassageVersionListRelationFilter = {
@@ -497,6 +513,11 @@ export type PassageVersionNullableScalarRelationFilter = {
   isNot?: Prisma.PassageVersionWhereInput | null
 }
 
+export type PassageVersionPassageIdVersionCompoundUniqueInput = {
+  passageId: string
+  version: number
+}
+
 export type PassageVersionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   passageId?: Prisma.SortOrder
@@ -506,14 +527,15 @@ export type PassageVersionCountOrderByAggregateInput = {
   content?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PassageVersionAvgOrderByAggregateInput = {
   version?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
 }
 
@@ -529,6 +551,7 @@ export type PassageVersionMaxOrderByAggregateInput = {
   explanation?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PassageVersionMinOrderByAggregateInput = {
@@ -543,11 +566,18 @@ export type PassageVersionMinOrderByAggregateInput = {
   explanation?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PassageVersionSumOrderByAggregateInput = {
   version?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+}
+
+export type PassageVersionScalarRelationFilter = {
+  is?: Prisma.PassageVersionWhereInput
+  isNot?: Prisma.PassageVersionWhereInput
 }
 
 export type PassageVersionCreateNestedManyWithoutMediaInput = {
@@ -586,22 +616,6 @@ export type PassageVersionUncheckedUpdateManyWithoutMediaNestedInput = {
   update?: Prisma.PassageVersionUpdateWithWhereUniqueWithoutMediaInput | Prisma.PassageVersionUpdateWithWhereUniqueWithoutMediaInput[]
   updateMany?: Prisma.PassageVersionUpdateManyWithWhereWithoutMediaInput | Prisma.PassageVersionUpdateManyWithWhereWithoutMediaInput[]
   deleteMany?: Prisma.PassageVersionScalarWhereInput | Prisma.PassageVersionScalarWhereInput[]
-}
-
-export type PassageVersionCreateNestedOneWithoutQuestionsInput = {
-  create?: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
-  connectOrCreate?: Prisma.PassageVersionCreateOrConnectWithoutQuestionsInput
-  connect?: Prisma.PassageVersionWhereUniqueInput
-}
-
-export type PassageVersionUpdateOneWithoutQuestionsNestedInput = {
-  create?: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
-  connectOrCreate?: Prisma.PassageVersionCreateOrConnectWithoutQuestionsInput
-  upsert?: Prisma.PassageVersionUpsertWithoutQuestionsInput
-  disconnect?: Prisma.PassageVersionWhereInput | boolean
-  delete?: Prisma.PassageVersionWhereInput | boolean
-  connect?: Prisma.PassageVersionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageVersionUpdateToOneWithWhereWithoutQuestionsInput, Prisma.PassageVersionUpdateWithoutQuestionsInput>, Prisma.PassageVersionUncheckedUpdateWithoutQuestionsInput>
 }
 
 export type PassageVersionCreateNestedOneWithoutCurrentVersionOfInput = {
@@ -662,17 +676,38 @@ export type PassageVersionUncheckedUpdateManyWithoutPassageNestedInput = {
   deleteMany?: Prisma.PassageVersionScalarWhereInput | Prisma.PassageVersionScalarWhereInput[]
 }
 
-export type PassageVersionCreatetagsInput = {
-  set: string[]
-}
-
 export type EnumPassageTypeFieldUpdateOperationsInput = {
   set?: $Enums.PassageType
 }
 
-export type PassageVersionUpdatetagsInput = {
-  set?: string[]
-  push?: string | string[]
+export type PassageVersionCreateNestedOneWithoutQuestionsInput = {
+  create?: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.PassageVersionCreateOrConnectWithoutQuestionsInput
+  connect?: Prisma.PassageVersionWhereUniqueInput
+}
+
+export type PassageVersionUpdateOneWithoutQuestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.PassageVersionCreateOrConnectWithoutQuestionsInput
+  upsert?: Prisma.PassageVersionUpsertWithoutQuestionsInput
+  disconnect?: Prisma.PassageVersionWhereInput | boolean
+  delete?: Prisma.PassageVersionWhereInput | boolean
+  connect?: Prisma.PassageVersionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageVersionUpdateToOneWithWhereWithoutQuestionsInput, Prisma.PassageVersionUpdateWithoutQuestionsInput>, Prisma.PassageVersionUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type PassageVersionCreateNestedOneWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.PassageVersionCreateWithoutTagsInput, Prisma.PassageVersionUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.PassageVersionCreateOrConnectWithoutTagsInput
+  connect?: Prisma.PassageVersionWhereUniqueInput
+}
+
+export type PassageVersionUpdateOneRequiredWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.PassageVersionCreateWithoutTagsInput, Prisma.PassageVersionUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.PassageVersionCreateOrConnectWithoutTagsInput
+  upsert?: Prisma.PassageVersionUpsertWithoutTagsInput
+  connect?: Prisma.PassageVersionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PassageVersionUpdateToOneWithWhereWithoutTagsInput, Prisma.PassageVersionUpdateWithoutTagsInput>, Prisma.PassageVersionUncheckedUpdateWithoutTagsInput>
 }
 
 export type PassageVersionCreateNestedOneWithoutTestSectionsInput = {
@@ -739,13 +774,14 @@ export type PassageVersionCreateWithoutMediaInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
@@ -758,12 +794,13 @@ export type PassageVersionUncheckedCreateWithoutMediaInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.PassageTagUncheckedCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
@@ -800,100 +837,12 @@ export type PassageVersionScalarWhereInput = {
   type?: Prisma.EnumPassageTypeFilter<"PassageVersion"> | $Enums.PassageType
   title?: Prisma.StringFilter<"PassageVersion"> | string
   content?: Prisma.StringFilter<"PassageVersion"> | string
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"PassageVersion"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFilter<"PassageVersion"> | number
   visibility?: Prisma.EnumVisibilityFilter<"PassageVersion"> | $Enums.Visibility
-  tags?: Prisma.StringNullableListFilter<"PassageVersion">
   explanation?: Prisma.StringNullableFilter<"PassageVersion"> | string | null
   createdById?: Prisma.IntNullableFilter<"PassageVersion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"PassageVersion"> | Date | string
-}
-
-export type PassageVersionCreateWithoutQuestionsInput = {
-  id?: string
-  version: number
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
-  explanation?: string | null
-  createdAt?: Date | string
-  passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
-  media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
-  testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
-  currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
-}
-
-export type PassageVersionUncheckedCreateWithoutQuestionsInput = {
-  id?: string
-  passageId: string
-  version: number
-  type: $Enums.PassageType
-  title: string
-  content: string
-  difficulty?: $Enums.DifficultyLevel
-  visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
-  explanation?: string | null
-  createdById?: number | null
-  createdAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
-  testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
-  currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
-}
-
-export type PassageVersionCreateOrConnectWithoutQuestionsInput = {
-  where: Prisma.PassageVersionWhereUniqueInput
-  create: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
-}
-
-export type PassageVersionUpsertWithoutQuestionsInput = {
-  update: Prisma.XOR<Prisma.PassageVersionUpdateWithoutQuestionsInput, Prisma.PassageVersionUncheckedUpdateWithoutQuestionsInput>
-  create: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
-  where?: Prisma.PassageVersionWhereInput
-}
-
-export type PassageVersionUpdateToOneWithWhereWithoutQuestionsInput = {
-  where?: Prisma.PassageVersionWhereInput
-  data: Prisma.XOR<Prisma.PassageVersionUpdateWithoutQuestionsInput, Prisma.PassageVersionUncheckedUpdateWithoutQuestionsInput>
-}
-
-export type PassageVersionUpdateWithoutQuestionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
-  media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
-  testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
-  currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
-}
-
-export type PassageVersionUncheckedUpdateWithoutQuestionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  passageId?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
-  testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
-  currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  updatedAt?: Prisma.DateTimeFilter<"PassageVersion"> | Date | string
 }
 
 export type PassageVersionCreateWithoutCurrentVersionOfInput = {
@@ -902,14 +851,15 @@ export type PassageVersionCreateWithoutCurrentVersionOfInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
 }
@@ -921,13 +871,14 @@ export type PassageVersionUncheckedCreateWithoutCurrentVersionOfInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagUncheckedCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
 }
@@ -943,13 +894,14 @@ export type PassageVersionCreateWithoutPassageInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
@@ -961,13 +913,14 @@ export type PassageVersionUncheckedCreateWithoutPassageInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagUncheckedCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
@@ -1000,14 +953,15 @@ export type PassageVersionUpdateWithoutCurrentVersionOfInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
 }
@@ -1019,13 +973,14 @@ export type PassageVersionUncheckedUpdateWithoutCurrentVersionOfInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUncheckedUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
 }
@@ -1046,20 +1001,205 @@ export type PassageVersionUpdateManyWithWhereWithoutPassageInput = {
   data: Prisma.XOR<Prisma.PassageVersionUpdateManyMutationInput, Prisma.PassageVersionUncheckedUpdateManyWithoutPassageInput>
 }
 
+export type PassageVersionCreateWithoutQuestionsInput = {
+  id?: string
+  version: number
+  type: $Enums.PassageType
+  title: string
+  content: string
+  difficulty?: number
+  visibility?: $Enums.Visibility
+  explanation?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
+  media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagCreateNestedManyWithoutPassageVersionInput
+  testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
+  currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type PassageVersionUncheckedCreateWithoutQuestionsInput = {
+  id?: string
+  passageId: string
+  version: number
+  type: $Enums.PassageType
+  title: string
+  content: string
+  difficulty?: number
+  visibility?: $Enums.Visibility
+  explanation?: string | null
+  createdById?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagUncheckedCreateNestedManyWithoutPassageVersionInput
+  testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
+  currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type PassageVersionCreateOrConnectWithoutQuestionsInput = {
+  where: Prisma.PassageVersionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
+}
+
+export type PassageVersionUpsertWithoutQuestionsInput = {
+  update: Prisma.XOR<Prisma.PassageVersionUpdateWithoutQuestionsInput, Prisma.PassageVersionUncheckedUpdateWithoutQuestionsInput>
+  create: Prisma.XOR<Prisma.PassageVersionCreateWithoutQuestionsInput, Prisma.PassageVersionUncheckedCreateWithoutQuestionsInput>
+  where?: Prisma.PassageVersionWhereInput
+}
+
+export type PassageVersionUpdateToOneWithWhereWithoutQuestionsInput = {
+  where?: Prisma.PassageVersionWhereInput
+  data: Prisma.XOR<Prisma.PassageVersionUpdateWithoutQuestionsInput, Prisma.PassageVersionUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type PassageVersionUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
+  media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUpdateManyWithoutPassageVersionNestedInput
+  testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
+  currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
+}
+
+export type PassageVersionUncheckedUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  passageId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUncheckedUpdateManyWithoutPassageVersionNestedInput
+  testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
+  currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
+}
+
+export type PassageVersionCreateWithoutTagsInput = {
+  id?: string
+  version: number
+  type: $Enums.PassageType
+  title: string
+  content: string
+  difficulty?: number
+  visibility?: $Enums.Visibility
+  explanation?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
+  media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
+  questions?: Prisma.QuestionVersionCreateNestedManyWithoutPassageVersionInput
+  testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
+  currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type PassageVersionUncheckedCreateWithoutTagsInput = {
+  id?: string
+  passageId: string
+  version: number
+  type: $Enums.PassageType
+  title: string
+  content: string
+  difficulty?: number
+  visibility?: $Enums.Visibility
+  explanation?: string | null
+  createdById?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
+  questions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput
+  testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
+  currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type PassageVersionCreateOrConnectWithoutTagsInput = {
+  where: Prisma.PassageVersionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PassageVersionCreateWithoutTagsInput, Prisma.PassageVersionUncheckedCreateWithoutTagsInput>
+}
+
+export type PassageVersionUpsertWithoutTagsInput = {
+  update: Prisma.XOR<Prisma.PassageVersionUpdateWithoutTagsInput, Prisma.PassageVersionUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.PassageVersionCreateWithoutTagsInput, Prisma.PassageVersionUncheckedCreateWithoutTagsInput>
+  where?: Prisma.PassageVersionWhereInput
+}
+
+export type PassageVersionUpdateToOneWithWhereWithoutTagsInput = {
+  where?: Prisma.PassageVersionWhereInput
+  data: Prisma.XOR<Prisma.PassageVersionUpdateWithoutTagsInput, Prisma.PassageVersionUncheckedUpdateWithoutTagsInput>
+}
+
+export type PassageVersionUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
+  media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
+  questions?: Prisma.QuestionVersionUpdateManyWithoutPassageVersionNestedInput
+  testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
+  currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
+}
+
+export type PassageVersionUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  passageId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
+  questions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput
+  testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
+  currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
+}
+
 export type PassageVersionCreateWithoutTestSectionsInput = {
   id?: string
   version: number
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutPassageVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
 }
@@ -1071,13 +1211,14 @@ export type PassageVersionUncheckedCreateWithoutTestSectionsInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagUncheckedCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
 }
@@ -1104,14 +1245,15 @@ export type PassageVersionUpdateWithoutTestSectionsInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
 }
@@ -1123,13 +1265,14 @@ export type PassageVersionUncheckedUpdateWithoutTestSectionsInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUncheckedUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
 }
@@ -1140,13 +1283,14 @@ export type PassageVersionCreateWithoutCreatedByInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   passage: Prisma.PassageCreateNestedOneWithoutVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageCreateNestedOneWithoutCurrentVersionInput
@@ -1159,12 +1303,13 @@ export type PassageVersionUncheckedCreateWithoutCreatedByInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutPassageVersionsInput
+  tags?: Prisma.PassageTagUncheckedCreateNestedManyWithoutPassageVersionInput
   questions?: Prisma.QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput
   testSections?: Prisma.TestVersionSectionUncheckedCreateNestedManyWithoutPassageVersionInput
   currentVersionOf?: Prisma.PassageUncheckedCreateNestedOneWithoutCurrentVersionInput
@@ -1202,13 +1347,14 @@ export type PassageVersionUpdateWithoutMediaInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
@@ -1221,12 +1367,13 @@ export type PassageVersionUncheckedUpdateWithoutMediaInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.PassageTagUncheckedUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
@@ -1239,12 +1386,12 @@ export type PassageVersionUncheckedUpdateManyWithoutMediaInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PassageVersionCreateManyPassageInput = {
@@ -1253,12 +1400,12 @@ export type PassageVersionCreateManyPassageInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PassageVersionUpdateWithoutPassageInput = {
@@ -1267,13 +1414,14 @@ export type PassageVersionUpdateWithoutPassageInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneWithoutPassageVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
@@ -1285,13 +1433,14 @@ export type PassageVersionUncheckedUpdateWithoutPassageInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUncheckedUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
@@ -1303,12 +1452,12 @@ export type PassageVersionUncheckedUpdateManyWithoutPassageInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PassageVersionCreateManyCreatedByInput = {
@@ -1318,11 +1467,11 @@ export type PassageVersionCreateManyCreatedByInput = {
   type: $Enums.PassageType
   title: string
   content: string
-  difficulty?: $Enums.DifficultyLevel
+  difficulty?: number
   visibility?: $Enums.Visibility
-  tags?: Prisma.PassageVersionCreatetagsInput | string[]
   explanation?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PassageVersionUpdateWithoutCreatedByInput = {
@@ -1331,13 +1480,14 @@ export type PassageVersionUpdateWithoutCreatedByInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passage?: Prisma.PassageUpdateOneRequiredWithoutVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUpdateOneWithoutCurrentVersionNestedInput
@@ -1350,12 +1500,13 @@ export type PassageVersionUncheckedUpdateWithoutCreatedByInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutPassageVersionsNestedInput
+  tags?: Prisma.PassageTagUncheckedUpdateManyWithoutPassageVersionNestedInput
   questions?: Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput
   testSections?: Prisma.TestVersionSectionUncheckedUpdateManyWithoutPassageVersionNestedInput
   currentVersionOf?: Prisma.PassageUncheckedUpdateOneWithoutCurrentVersionNestedInput
@@ -1368,11 +1519,11 @@ export type PassageVersionUncheckedUpdateManyWithoutCreatedByInput = {
   type?: Prisma.EnumPassageTypeFieldUpdateOperationsInput | $Enums.PassageType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  tags?: Prisma.PassageVersionUpdatetagsInput | string[]
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1382,12 +1533,14 @@ export type PassageVersionUncheckedUpdateManyWithoutCreatedByInput = {
 
 export type PassageVersionCountOutputType = {
   media: number
+  tags: number
   questions: number
   testSections: number
 }
 
 export type PassageVersionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   media?: boolean | PassageVersionCountOutputTypeCountMediaArgs
+  tags?: boolean | PassageVersionCountOutputTypeCountTagsArgs
   questions?: boolean | PassageVersionCountOutputTypeCountQuestionsArgs
   testSections?: boolean | PassageVersionCountOutputTypeCountTestSectionsArgs
 }
@@ -1407,6 +1560,13 @@ export type PassageVersionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
  */
 export type PassageVersionCountOutputTypeCountMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MediaWhereInput
+}
+
+/**
+ * PassageVersionCountOutputType without action
+ */
+export type PassageVersionCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PassageTagWhereInput
 }
 
 /**
@@ -1433,13 +1593,14 @@ export type PassageVersionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   content?: boolean
   difficulty?: boolean
   visibility?: boolean
-  tags?: boolean
   explanation?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   passage?: boolean | Prisma.PassageDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.PassageVersion$createdByArgs<ExtArgs>
   media?: boolean | Prisma.PassageVersion$mediaArgs<ExtArgs>
+  tags?: boolean | Prisma.PassageVersion$tagsArgs<ExtArgs>
   questions?: boolean | Prisma.PassageVersion$questionsArgs<ExtArgs>
   testSections?: boolean | Prisma.PassageVersion$testSectionsArgs<ExtArgs>
   currentVersionOf?: boolean | Prisma.PassageVersion$currentVersionOfArgs<ExtArgs>
@@ -1455,10 +1616,10 @@ export type PassageVersionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   content?: boolean
   difficulty?: boolean
   visibility?: boolean
-  tags?: boolean
   explanation?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   passage?: boolean | Prisma.PassageDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.PassageVersion$createdByArgs<ExtArgs>
 }, ExtArgs["result"]["passageVersion"]>
@@ -1472,10 +1633,10 @@ export type PassageVersionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   content?: boolean
   difficulty?: boolean
   visibility?: boolean
-  tags?: boolean
   explanation?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   passage?: boolean | Prisma.PassageDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.PassageVersion$createdByArgs<ExtArgs>
 }, ExtArgs["result"]["passageVersion"]>
@@ -1489,17 +1650,18 @@ export type PassageVersionSelectScalar = {
   content?: boolean
   difficulty?: boolean
   visibility?: boolean
-  tags?: boolean
   explanation?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type PassageVersionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "passageId" | "version" | "type" | "title" | "content" | "difficulty" | "visibility" | "tags" | "explanation" | "createdById" | "createdAt", ExtArgs["result"]["passageVersion"]>
+export type PassageVersionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "passageId" | "version" | "type" | "title" | "content" | "difficulty" | "visibility" | "explanation" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["passageVersion"]>
 export type PassageVersionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   passage?: boolean | Prisma.PassageDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.PassageVersion$createdByArgs<ExtArgs>
   media?: boolean | Prisma.PassageVersion$mediaArgs<ExtArgs>
+  tags?: boolean | Prisma.PassageVersion$tagsArgs<ExtArgs>
   questions?: boolean | Prisma.PassageVersion$questionsArgs<ExtArgs>
   testSections?: boolean | Prisma.PassageVersion$testSectionsArgs<ExtArgs>
   currentVersionOf?: boolean | Prisma.PassageVersion$currentVersionOfArgs<ExtArgs>
@@ -1520,6 +1682,7 @@ export type $PassageVersionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     passage: Prisma.$PassagePayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     media: Prisma.$MediaPayload<ExtArgs>[]
+    tags: Prisma.$PassageTagPayload<ExtArgs>[]
     questions: Prisma.$QuestionVersionPayload<ExtArgs>[]
     testSections: Prisma.$TestVersionSectionPayload<ExtArgs>[]
     currentVersionOf: Prisma.$PassagePayload<ExtArgs> | null
@@ -1530,13 +1693,16 @@ export type $PassageVersionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     version: number
     type: $Enums.PassageType
     title: string
+    /**
+     * Full content/transcript of the passage
+     */
     content: string
-    difficulty: $Enums.DifficultyLevel
+    difficulty: number
     visibility: $Enums.Visibility
-    tags: string[]
     explanation: string | null
     createdById: number | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["passageVersion"]>
   composites: {}
 }
@@ -1934,6 +2100,7 @@ export interface Prisma__PassageVersionClient<T, Null = never, ExtArgs extends r
   passage<T extends Prisma.PassageDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassageDefaultArgs<ExtArgs>>): Prisma.Prisma__PassageClient<runtime.Types.Result.GetResult<Prisma.$PassagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.PassageVersion$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassageVersion$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   media<T extends Prisma.PassageVersion$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassageVersion$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tags<T extends Prisma.PassageVersion$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassageVersion$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassageTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questions<T extends Prisma.PassageVersion$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassageVersion$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testSections<T extends Prisma.PassageVersion$testSectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassageVersion$testSectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestVersionSectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   currentVersionOf<T extends Prisma.PassageVersion$currentVersionOfArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassageVersion$currentVersionOfArgs<ExtArgs>>): Prisma.Prisma__PassageClient<runtime.Types.Result.GetResult<Prisma.$PassagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1972,12 +2139,12 @@ export interface PassageVersionFieldRefs {
   readonly type: Prisma.FieldRef<"PassageVersion", 'PassageType'>
   readonly title: Prisma.FieldRef<"PassageVersion", 'String'>
   readonly content: Prisma.FieldRef<"PassageVersion", 'String'>
-  readonly difficulty: Prisma.FieldRef<"PassageVersion", 'DifficultyLevel'>
+  readonly difficulty: Prisma.FieldRef<"PassageVersion", 'Int'>
   readonly visibility: Prisma.FieldRef<"PassageVersion", 'Visibility'>
-  readonly tags: Prisma.FieldRef<"PassageVersion", 'String[]'>
   readonly explanation: Prisma.FieldRef<"PassageVersion", 'String'>
   readonly createdById: Prisma.FieldRef<"PassageVersion", 'Int'>
   readonly createdAt: Prisma.FieldRef<"PassageVersion", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"PassageVersion", 'DateTime'>
 }
     
 
@@ -2419,6 +2586,30 @@ export type PassageVersion$mediaArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.MediaScalarFieldEnum | Prisma.MediaScalarFieldEnum[]
+}
+
+/**
+ * PassageVersion.tags
+ */
+export type PassageVersion$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PassageTag
+   */
+  select?: Prisma.PassageTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PassageTag
+   */
+  omit?: Prisma.PassageTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PassageTagInclude<ExtArgs> | null
+  where?: Prisma.PassageTagWhereInput
+  orderBy?: Prisma.PassageTagOrderByWithRelationInput | Prisma.PassageTagOrderByWithRelationInput[]
+  cursor?: Prisma.PassageTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PassageTagScalarFieldEnum | Prisma.PassageTagScalarFieldEnum[]
 }
 
 /**

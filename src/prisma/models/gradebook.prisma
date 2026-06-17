@@ -1,0 +1,60 @@
+/// Represents an academic time period (e.g., "Fall 2026")
+model Term {
+  id        String   @id @default(uuid())
+  name      String
+  startDate DateTime @map("start_date")
+  endDate   DateTime @map("end_date")
+  /// Only one term is typically active in a given context
+  isActive  Boolean  @default(false) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  gradeBooks GradeBook[]
+
+  @@map("term")
+}
+
+/// Record of a student's presence in a specific class on a specific date
+model Attendance {
+  id        String   @id @default(uuid())
+  classId   String   @map("class_id")
+  studentId Int      @map("student_id")
+  date      DateTime @db.Date
+  status    AttendanceStatus
+  /// Teacher's optional comment about the attendance
+  note      String?
+  recordedById Int   @map("recorded_by_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  recordedBy User    @relation("RecordedAttendance", fields: [recordedById], references: [id])
+
+  @@unique([classId, studentId, date])
+  @@index([classId, date])
+  @@index([studentId])
+  @@map("attendance")
+}
+
+/// Aggregated performance metrics for a student in a class/term
+model GradeBook {
+  id        String   @id @default(uuid())
+  studentId Int      @map("student_id")
+  classId   String   @map("class_id")
+  termId    String?  @map("term_id")
+  totalScore Float?  @map("total_score")
+  maxScore   Float?  @map("max_score")
+  percentage Float?
+  /// Final letter or summary grade (e.g., "A", "Pass")
+  grade      String?
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  term      Term?    @relation(fields: [termId], references: [id])
+
+  @@unique([studentId, classId, termId])
+  @@index([classId, termId])
+  @@map("grade_book")
+}

@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model QuestionVersion
- * 
+ * Immutable snapshot of a question's content and logic
  */
 export type QuestionVersionModel = runtime.Types.Result.DefaultSelection<Prisma.$QuestionVersionPayload>
 
@@ -28,12 +28,14 @@ export type AggregateQuestionVersion = {
 
 export type QuestionVersionAvgAggregateOutputType = {
   version: number | null
+  difficulty: number | null
   defaultPoint: number | null
   createdById: number | null
 }
 
 export type QuestionVersionSumAggregateOutputType = {
   version: number | null
+  difficulty: number | null
   defaultPoint: number | null
   createdById: number | null
 }
@@ -43,7 +45,7 @@ export type QuestionVersionMinAggregateOutputType = {
   questionId: string | null
   version: number | null
   type: $Enums.QuestionType | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: number | null
   text: string | null
   explanation: string | null
   defaultPoint: number | null
@@ -51,6 +53,7 @@ export type QuestionVersionMinAggregateOutputType = {
   passageVersionId: string | null
   createdById: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type QuestionVersionMaxAggregateOutputType = {
@@ -58,7 +61,7 @@ export type QuestionVersionMaxAggregateOutputType = {
   questionId: string | null
   version: number | null
   type: $Enums.QuestionType | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: number | null
   text: string | null
   explanation: string | null
   defaultPoint: number | null
@@ -66,6 +69,7 @@ export type QuestionVersionMaxAggregateOutputType = {
   passageVersionId: string | null
   createdById: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type QuestionVersionCountAggregateOutputType = {
@@ -74,7 +78,6 @@ export type QuestionVersionCountAggregateOutputType = {
   version: number
   type: number
   difficulty: number
-  tags: number
   text: number
   data: number
   explanation: number
@@ -83,18 +86,21 @@ export type QuestionVersionCountAggregateOutputType = {
   passageVersionId: number
   createdById: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type QuestionVersionAvgAggregateInputType = {
   version?: true
+  difficulty?: true
   defaultPoint?: true
   createdById?: true
 }
 
 export type QuestionVersionSumAggregateInputType = {
   version?: true
+  difficulty?: true
   defaultPoint?: true
   createdById?: true
 }
@@ -112,6 +118,7 @@ export type QuestionVersionMinAggregateInputType = {
   passageVersionId?: true
   createdById?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type QuestionVersionMaxAggregateInputType = {
@@ -127,6 +134,7 @@ export type QuestionVersionMaxAggregateInputType = {
   passageVersionId?: true
   createdById?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type QuestionVersionCountAggregateInputType = {
@@ -135,7 +143,6 @@ export type QuestionVersionCountAggregateInputType = {
   version?: true
   type?: true
   difficulty?: true
-  tags?: true
   text?: true
   data?: true
   explanation?: true
@@ -144,6 +151,7 @@ export type QuestionVersionCountAggregateInputType = {
   passageVersionId?: true
   createdById?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -238,8 +246,7 @@ export type QuestionVersionGroupByOutputType = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty: $Enums.DifficultyLevel
-  tags: string[]
+  difficulty: number
   text: string
   data: runtime.JsonValue | null
   explanation: string | null
@@ -248,6 +255,7 @@ export type QuestionVersionGroupByOutputType = {
   passageVersionId: string | null
   createdById: number | null
   createdAt: Date
+  updatedAt: Date
   _count: QuestionVersionCountAggregateOutputType | null
   _avg: QuestionVersionAvgAggregateOutputType | null
   _sum: QuestionVersionSumAggregateOutputType | null
@@ -278,8 +286,7 @@ export type QuestionVersionWhereInput = {
   questionId?: Prisma.StringFilter<"QuestionVersion"> | string
   version?: Prisma.IntFilter<"QuestionVersion"> | number
   type?: Prisma.EnumQuestionTypeFilter<"QuestionVersion"> | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"QuestionVersion"> | $Enums.DifficultyLevel
-  tags?: Prisma.StringNullableListFilter<"QuestionVersion">
+  difficulty?: Prisma.IntFilter<"QuestionVersion"> | number
   text?: Prisma.StringFilter<"QuestionVersion"> | string
   data?: Prisma.JsonNullableFilter<"QuestionVersion">
   explanation?: Prisma.StringNullableFilter<"QuestionVersion"> | string | null
@@ -288,10 +295,12 @@ export type QuestionVersionWhereInput = {
   passageVersionId?: Prisma.StringNullableFilter<"QuestionVersion"> | string | null
   createdById?: Prisma.IntNullableFilter<"QuestionVersion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"QuestionVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"QuestionVersion"> | Date | string
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
   passageVersion?: Prisma.XOR<Prisma.PassageVersionNullableScalarRelationFilter, Prisma.PassageVersionWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   media?: Prisma.MediaListRelationFilter
+  tags?: Prisma.QuestionTagListRelationFilter
   testVersionQuestions?: Prisma.TestVersionQuestionListRelationFilter
   attemptQuestions?: Prisma.AttemptQuestionListRelationFilter
   attemptAnswers?: Prisma.AttemptAnswerListRelationFilter
@@ -304,7 +313,6 @@ export type QuestionVersionOrderByWithRelationInput = {
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   text?: Prisma.SortOrder
   data?: Prisma.SortOrderInput | Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -313,10 +321,12 @@ export type QuestionVersionOrderByWithRelationInput = {
   passageVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   question?: Prisma.QuestionOrderByWithRelationInput
   passageVersion?: Prisma.PassageVersionOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   media?: Prisma.MediaOrderByRelationAggregateInput
+  tags?: Prisma.QuestionTagOrderByRelationAggregateInput
   testVersionQuestions?: Prisma.TestVersionQuestionOrderByRelationAggregateInput
   attemptQuestions?: Prisma.AttemptQuestionOrderByRelationAggregateInput
   attemptAnswers?: Prisma.AttemptAnswerOrderByRelationAggregateInput
@@ -325,14 +335,14 @@ export type QuestionVersionOrderByWithRelationInput = {
 
 export type QuestionVersionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  questionId_version?: Prisma.QuestionVersionQuestionIdVersionCompoundUniqueInput
   AND?: Prisma.QuestionVersionWhereInput | Prisma.QuestionVersionWhereInput[]
   OR?: Prisma.QuestionVersionWhereInput[]
   NOT?: Prisma.QuestionVersionWhereInput | Prisma.QuestionVersionWhereInput[]
   questionId?: Prisma.StringFilter<"QuestionVersion"> | string
   version?: Prisma.IntFilter<"QuestionVersion"> | number
   type?: Prisma.EnumQuestionTypeFilter<"QuestionVersion"> | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"QuestionVersion"> | $Enums.DifficultyLevel
-  tags?: Prisma.StringNullableListFilter<"QuestionVersion">
+  difficulty?: Prisma.IntFilter<"QuestionVersion"> | number
   text?: Prisma.StringFilter<"QuestionVersion"> | string
   data?: Prisma.JsonNullableFilter<"QuestionVersion">
   explanation?: Prisma.StringNullableFilter<"QuestionVersion"> | string | null
@@ -341,15 +351,17 @@ export type QuestionVersionWhereUniqueInput = Prisma.AtLeast<{
   passageVersionId?: Prisma.StringNullableFilter<"QuestionVersion"> | string | null
   createdById?: Prisma.IntNullableFilter<"QuestionVersion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"QuestionVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"QuestionVersion"> | Date | string
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
   passageVersion?: Prisma.XOR<Prisma.PassageVersionNullableScalarRelationFilter, Prisma.PassageVersionWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   media?: Prisma.MediaListRelationFilter
+  tags?: Prisma.QuestionTagListRelationFilter
   testVersionQuestions?: Prisma.TestVersionQuestionListRelationFilter
   attemptQuestions?: Prisma.AttemptQuestionListRelationFilter
   attemptAnswers?: Prisma.AttemptAnswerListRelationFilter
   currentVersionOf?: Prisma.XOR<Prisma.QuestionNullableScalarRelationFilter, Prisma.QuestionWhereInput> | null
-}, "id">
+}, "id" | "questionId_version">
 
 export type QuestionVersionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -357,7 +369,6 @@ export type QuestionVersionOrderByWithAggregationInput = {
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   text?: Prisma.SortOrder
   data?: Prisma.SortOrderInput | Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -366,6 +377,7 @@ export type QuestionVersionOrderByWithAggregationInput = {
   passageVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuestionVersionCountOrderByAggregateInput
   _avg?: Prisma.QuestionVersionAvgOrderByAggregateInput
   _max?: Prisma.QuestionVersionMaxOrderByAggregateInput
@@ -381,8 +393,7 @@ export type QuestionVersionScalarWhereWithAggregatesInput = {
   questionId?: Prisma.StringWithAggregatesFilter<"QuestionVersion"> | string
   version?: Prisma.IntWithAggregatesFilter<"QuestionVersion"> | number
   type?: Prisma.EnumQuestionTypeWithAggregatesFilter<"QuestionVersion"> | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelWithAggregatesFilter<"QuestionVersion"> | $Enums.DifficultyLevel
-  tags?: Prisma.StringNullableListFilter<"QuestionVersion">
+  difficulty?: Prisma.IntWithAggregatesFilter<"QuestionVersion"> | number
   text?: Prisma.StringWithAggregatesFilter<"QuestionVersion"> | string
   data?: Prisma.JsonNullableWithAggregatesFilter<"QuestionVersion">
   explanation?: Prisma.StringNullableWithAggregatesFilter<"QuestionVersion"> | string | null
@@ -391,24 +402,26 @@ export type QuestionVersionScalarWhereWithAggregatesInput = {
   passageVersionId?: Prisma.StringNullableWithAggregatesFilter<"QuestionVersion"> | string | null
   createdById?: Prisma.IntNullableWithAggregatesFilter<"QuestionVersion"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuestionVersion"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"QuestionVersion"> | Date | string
 }
 
 export type QuestionVersionCreateInput = {
   id?: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
   defaultPoint?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
@@ -420,8 +433,7 @@ export type QuestionVersionUncheckedCreateInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -430,7 +442,9 @@ export type QuestionVersionUncheckedCreateInput = {
   passageVersionId?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
@@ -441,18 +455,19 @@ export type QuestionVersionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
@@ -464,8 +479,7 @@ export type QuestionVersionUncheckedUpdateInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -474,7 +488,9 @@ export type QuestionVersionUncheckedUpdateInput = {
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
@@ -486,8 +502,7 @@ export type QuestionVersionCreateManyInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -496,20 +511,21 @@ export type QuestionVersionCreateManyInput = {
   passageVersionId?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionVersionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionVersionUncheckedUpdateManyInput = {
@@ -517,8 +533,7 @@ export type QuestionVersionUncheckedUpdateManyInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -527,6 +542,7 @@ export type QuestionVersionUncheckedUpdateManyInput = {
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionVersionListRelationFilter = {
@@ -544,12 +560,9 @@ export type QuestionVersionNullableScalarRelationFilter = {
   isNot?: Prisma.QuestionVersionWhereInput | null
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
+export type QuestionVersionQuestionIdVersionCompoundUniqueInput = {
+  questionId: string
+  version: number
 }
 
 export type QuestionVersionCountOrderByAggregateInput = {
@@ -558,7 +571,6 @@ export type QuestionVersionCountOrderByAggregateInput = {
   version?: Prisma.SortOrder
   type?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   text?: Prisma.SortOrder
   data?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
@@ -567,10 +579,12 @@ export type QuestionVersionCountOrderByAggregateInput = {
   passageVersionId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionVersionAvgOrderByAggregateInput = {
   version?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   defaultPoint?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
 }
@@ -588,6 +602,7 @@ export type QuestionVersionMaxOrderByAggregateInput = {
   passageVersionId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionVersionMinOrderByAggregateInput = {
@@ -603,10 +618,12 @@ export type QuestionVersionMinOrderByAggregateInput = {
   passageVersionId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type QuestionVersionSumOrderByAggregateInput = {
   version?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   defaultPoint?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
 }
@@ -651,6 +668,48 @@ export type QuestionVersionUncheckedUpdateManyWithoutMediaNestedInput = {
   connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
   update?: Prisma.QuestionVersionUpdateWithWhereUniqueWithoutMediaInput | Prisma.QuestionVersionUpdateWithWhereUniqueWithoutMediaInput[]
   updateMany?: Prisma.QuestionVersionUpdateManyWithWhereWithoutMediaInput | Prisma.QuestionVersionUpdateManyWithWhereWithoutMediaInput[]
+  deleteMany?: Prisma.QuestionVersionScalarWhereInput | Prisma.QuestionVersionScalarWhereInput[]
+}
+
+export type QuestionVersionCreateNestedManyWithoutPassageVersionInput = {
+  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
+  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
+  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
+  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+}
+
+export type QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput = {
+  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
+  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
+  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
+  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+}
+
+export type QuestionVersionUpdateManyWithoutPassageVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
+  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
+  upsert?: Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput[]
+  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
+  set?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  delete?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  update?: Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput[]
+  updateMany?: Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput | Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput[]
+  deleteMany?: Prisma.QuestionVersionScalarWhereInput | Prisma.QuestionVersionScalarWhereInput[]
+}
+
+export type QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
+  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
+  upsert?: Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput[]
+  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
+  set?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  disconnect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  delete?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
+  update?: Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput[]
+  updateMany?: Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput | Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput[]
   deleteMany?: Prisma.QuestionVersionScalarWhereInput | Prisma.QuestionVersionScalarWhereInput[]
 }
 
@@ -712,67 +771,22 @@ export type QuestionVersionUncheckedUpdateManyWithoutQuestionNestedInput = {
   deleteMany?: Prisma.QuestionVersionScalarWhereInput | Prisma.QuestionVersionScalarWhereInput[]
 }
 
-export type QuestionVersionCreatetagsInput = {
-  set: string[]
-}
-
 export type EnumQuestionTypeFieldUpdateOperationsInput = {
   set?: $Enums.QuestionType
 }
 
-export type EnumDifficultyLevelFieldUpdateOperationsInput = {
-  set?: $Enums.DifficultyLevel
+export type QuestionVersionCreateNestedOneWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutTagsInput, Prisma.QuestionVersionUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutTagsInput
+  connect?: Prisma.QuestionVersionWhereUniqueInput
 }
 
-export type QuestionVersionUpdatetagsInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type EnumVisibilityFieldUpdateOperationsInput = {
-  set?: $Enums.Visibility
-}
-
-export type QuestionVersionCreateNestedManyWithoutPassageVersionInput = {
-  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
-  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
-  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
-  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-}
-
-export type QuestionVersionUncheckedCreateNestedManyWithoutPassageVersionInput = {
-  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
-  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
-  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
-  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-}
-
-export type QuestionVersionUpdateManyWithoutPassageVersionNestedInput = {
-  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
-  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
-  upsert?: Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput[]
-  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
-  set?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  disconnect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  delete?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  update?: Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput[]
-  updateMany?: Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput | Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput[]
-  deleteMany?: Prisma.QuestionVersionScalarWhereInput | Prisma.QuestionVersionScalarWhereInput[]
-}
-
-export type QuestionVersionUncheckedUpdateManyWithoutPassageVersionNestedInput = {
-  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutPassageVersionInput, Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput> | Prisma.QuestionVersionCreateWithoutPassageVersionInput[] | Prisma.QuestionVersionUncheckedCreateWithoutPassageVersionInput[]
-  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput | Prisma.QuestionVersionCreateOrConnectWithoutPassageVersionInput[]
-  upsert?: Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpsertWithWhereUniqueWithoutPassageVersionInput[]
-  createMany?: Prisma.QuestionVersionCreateManyPassageVersionInputEnvelope
-  set?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  disconnect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  delete?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  connect?: Prisma.QuestionVersionWhereUniqueInput | Prisma.QuestionVersionWhereUniqueInput[]
-  update?: Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput | Prisma.QuestionVersionUpdateWithWhereUniqueWithoutPassageVersionInput[]
-  updateMany?: Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput | Prisma.QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput[]
-  deleteMany?: Prisma.QuestionVersionScalarWhereInput | Prisma.QuestionVersionScalarWhereInput[]
+export type QuestionVersionUpdateOneRequiredWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionVersionCreateWithoutTagsInput, Prisma.QuestionVersionUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.QuestionVersionCreateOrConnectWithoutTagsInput
+  upsert?: Prisma.QuestionVersionUpsertWithoutTagsInput
+  connect?: Prisma.QuestionVersionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionVersionUpdateToOneWithWhereWithoutTagsInput, Prisma.QuestionVersionUpdateWithoutTagsInput>, Prisma.QuestionVersionUncheckedUpdateWithoutTagsInput>
 }
 
 export type QuestionVersionCreateNestedOneWithoutAttemptQuestionsInput = {
@@ -863,17 +877,18 @@ export type QuestionVersionCreateWithoutMediaInput = {
   id?: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
   defaultPoint?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
@@ -885,8 +900,7 @@ export type QuestionVersionUncheckedCreateWithoutMediaInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -895,6 +909,8 @@ export type QuestionVersionUncheckedCreateWithoutMediaInput = {
   passageVersionId?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
@@ -930,8 +946,7 @@ export type QuestionVersionScalarWhereInput = {
   questionId?: Prisma.StringFilter<"QuestionVersion"> | string
   version?: Prisma.IntFilter<"QuestionVersion"> | number
   type?: Prisma.EnumQuestionTypeFilter<"QuestionVersion"> | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"QuestionVersion"> | $Enums.DifficultyLevel
-  tags?: Prisma.StringNullableListFilter<"QuestionVersion">
+  difficulty?: Prisma.IntFilter<"QuestionVersion"> | number
   text?: Prisma.StringFilter<"QuestionVersion"> | string
   data?: Prisma.JsonNullableFilter<"QuestionVersion">
   explanation?: Prisma.StringNullableFilter<"QuestionVersion"> | string | null
@@ -940,191 +955,25 @@ export type QuestionVersionScalarWhereInput = {
   passageVersionId?: Prisma.StringNullableFilter<"QuestionVersion"> | string | null
   createdById?: Prisma.IntNullableFilter<"QuestionVersion"> | number | null
   createdAt?: Prisma.DateTimeFilter<"QuestionVersion"> | Date | string
-}
-
-export type QuestionVersionCreateWithoutCurrentVersionOfInput = {
-  id?: string
-  version: number
-  type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
-  text: string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: string | null
-  defaultPoint?: number
-  visibility?: $Enums.Visibility
-  createdAt?: Date | string
-  question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
-  passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
-  media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
-  testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
-  attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
-  attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
-}
-
-export type QuestionVersionUncheckedCreateWithoutCurrentVersionOfInput = {
-  id?: string
-  questionId: string
-  version: number
-  type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
-  text: string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: string | null
-  defaultPoint?: number
-  visibility?: $Enums.Visibility
-  passageVersionId?: string | null
-  createdById?: number | null
-  createdAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
-  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
-  attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
-  attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
-}
-
-export type QuestionVersionCreateOrConnectWithoutCurrentVersionOfInput = {
-  where: Prisma.QuestionVersionWhereUniqueInput
-  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedCreateWithoutCurrentVersionOfInput>
-}
-
-export type QuestionVersionCreateWithoutQuestionInput = {
-  id?: string
-  version: number
-  type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
-  text: string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: string | null
-  defaultPoint?: number
-  visibility?: $Enums.Visibility
-  createdAt?: Date | string
-  passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
-  media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
-  testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
-  attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
-  attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
-  currentVersionOf?: Prisma.QuestionCreateNestedOneWithoutCurrentVersionInput
-}
-
-export type QuestionVersionUncheckedCreateWithoutQuestionInput = {
-  id?: string
-  version: number
-  type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
-  text: string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: string | null
-  defaultPoint?: number
-  visibility?: $Enums.Visibility
-  passageVersionId?: string | null
-  createdById?: number | null
-  createdAt?: Date | string
-  media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
-  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
-  attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
-  attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
-  currentVersionOf?: Prisma.QuestionUncheckedCreateNestedOneWithoutCurrentVersionInput
-}
-
-export type QuestionVersionCreateOrConnectWithoutQuestionInput = {
-  where: Prisma.QuestionVersionWhereUniqueInput
-  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutQuestionInput, Prisma.QuestionVersionUncheckedCreateWithoutQuestionInput>
-}
-
-export type QuestionVersionCreateManyQuestionInputEnvelope = {
-  data: Prisma.QuestionVersionCreateManyQuestionInput | Prisma.QuestionVersionCreateManyQuestionInput[]
-  skipDuplicates?: boolean
-}
-
-export type QuestionVersionUpsertWithoutCurrentVersionOfInput = {
-  update: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedUpdateWithoutCurrentVersionOfInput>
-  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedCreateWithoutCurrentVersionOfInput>
-  where?: Prisma.QuestionVersionWhereInput
-}
-
-export type QuestionVersionUpdateToOneWithWhereWithoutCurrentVersionOfInput = {
-  where?: Prisma.QuestionVersionWhereInput
-  data: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedUpdateWithoutCurrentVersionOfInput>
-}
-
-export type QuestionVersionUpdateWithoutCurrentVersionOfInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
-  text?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
-  passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
-  media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
-  testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
-  attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
-  attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
-}
-
-export type QuestionVersionUncheckedUpdateWithoutCurrentVersionOfInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
-  text?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
-  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
-  attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
-  attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
-}
-
-export type QuestionVersionUpsertWithWhereUniqueWithoutQuestionInput = {
-  where: Prisma.QuestionVersionWhereUniqueInput
-  update: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutQuestionInput, Prisma.QuestionVersionUncheckedUpdateWithoutQuestionInput>
-  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutQuestionInput, Prisma.QuestionVersionUncheckedCreateWithoutQuestionInput>
-}
-
-export type QuestionVersionUpdateWithWhereUniqueWithoutQuestionInput = {
-  where: Prisma.QuestionVersionWhereUniqueInput
-  data: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutQuestionInput, Prisma.QuestionVersionUncheckedUpdateWithoutQuestionInput>
-}
-
-export type QuestionVersionUpdateManyWithWhereWithoutQuestionInput = {
-  where: Prisma.QuestionVersionScalarWhereInput
-  data: Prisma.XOR<Prisma.QuestionVersionUpdateManyMutationInput, Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionInput>
+  updatedAt?: Prisma.DateTimeFilter<"QuestionVersion"> | Date | string
 }
 
 export type QuestionVersionCreateWithoutPassageVersionInput = {
   id?: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
   defaultPoint?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
@@ -1136,8 +985,7 @@ export type QuestionVersionUncheckedCreateWithoutPassageVersionInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -1145,7 +993,9 @@ export type QuestionVersionUncheckedCreateWithoutPassageVersionInput = {
   visibility?: $Enums.Visibility
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
@@ -1178,22 +1028,301 @@ export type QuestionVersionUpdateManyWithWhereWithoutPassageVersionInput = {
   data: Prisma.XOR<Prisma.QuestionVersionUpdateManyMutationInput, Prisma.QuestionVersionUncheckedUpdateManyWithoutPassageVersionInput>
 }
 
-export type QuestionVersionCreateWithoutAttemptQuestionsInput = {
+export type QuestionVersionCreateWithoutCurrentVersionOfInput = {
   id?: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
   defaultPoint?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
+  testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
+  attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
+  attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
+}
+
+export type QuestionVersionUncheckedCreateWithoutCurrentVersionOfInput = {
+  id?: string
+  questionId: string
+  version: number
+  type: $Enums.QuestionType
+  difficulty?: number
+  text: string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: string | null
+  defaultPoint?: number
+  visibility?: $Enums.Visibility
+  passageVersionId?: string | null
+  createdById?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
+  attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
+  attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
+}
+
+export type QuestionVersionCreateOrConnectWithoutCurrentVersionOfInput = {
+  where: Prisma.QuestionVersionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedCreateWithoutCurrentVersionOfInput>
+}
+
+export type QuestionVersionCreateWithoutQuestionInput = {
+  id?: string
+  version: number
+  type: $Enums.QuestionType
+  difficulty?: number
+  text: string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: string | null
+  defaultPoint?: number
+  visibility?: $Enums.Visibility
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
+  media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
+  testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
+  attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
+  attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
+  currentVersionOf?: Prisma.QuestionCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type QuestionVersionUncheckedCreateWithoutQuestionInput = {
+  id?: string
+  version: number
+  type: $Enums.QuestionType
+  difficulty?: number
+  text: string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: string | null
+  defaultPoint?: number
+  visibility?: $Enums.Visibility
+  passageVersionId?: string | null
+  createdById?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
+  attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
+  attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
+  currentVersionOf?: Prisma.QuestionUncheckedCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type QuestionVersionCreateOrConnectWithoutQuestionInput = {
+  where: Prisma.QuestionVersionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutQuestionInput, Prisma.QuestionVersionUncheckedCreateWithoutQuestionInput>
+}
+
+export type QuestionVersionCreateManyQuestionInputEnvelope = {
+  data: Prisma.QuestionVersionCreateManyQuestionInput | Prisma.QuestionVersionCreateManyQuestionInput[]
+  skipDuplicates?: boolean
+}
+
+export type QuestionVersionUpsertWithoutCurrentVersionOfInput = {
+  update: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedUpdateWithoutCurrentVersionOfInput>
+  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedCreateWithoutCurrentVersionOfInput>
+  where?: Prisma.QuestionVersionWhereInput
+}
+
+export type QuestionVersionUpdateToOneWithWhereWithoutCurrentVersionOfInput = {
+  where?: Prisma.QuestionVersionWhereInput
+  data: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutCurrentVersionOfInput, Prisma.QuestionVersionUncheckedUpdateWithoutCurrentVersionOfInput>
+}
+
+export type QuestionVersionUpdateWithoutCurrentVersionOfInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
+  passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
+  media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
+  attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
+  attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
+}
+
+export type QuestionVersionUncheckedUpdateWithoutCurrentVersionOfInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
+}
+
+export type QuestionVersionUpsertWithWhereUniqueWithoutQuestionInput = {
+  where: Prisma.QuestionVersionWhereUniqueInput
+  update: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutQuestionInput, Prisma.QuestionVersionUncheckedUpdateWithoutQuestionInput>
+  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutQuestionInput, Prisma.QuestionVersionUncheckedCreateWithoutQuestionInput>
+}
+
+export type QuestionVersionUpdateWithWhereUniqueWithoutQuestionInput = {
+  where: Prisma.QuestionVersionWhereUniqueInput
+  data: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutQuestionInput, Prisma.QuestionVersionUncheckedUpdateWithoutQuestionInput>
+}
+
+export type QuestionVersionUpdateManyWithWhereWithoutQuestionInput = {
+  where: Prisma.QuestionVersionScalarWhereInput
+  data: Prisma.XOR<Prisma.QuestionVersionUpdateManyMutationInput, Prisma.QuestionVersionUncheckedUpdateManyWithoutQuestionInput>
+}
+
+export type QuestionVersionCreateWithoutTagsInput = {
+  id?: string
+  version: number
+  type: $Enums.QuestionType
+  difficulty?: number
+  text: string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: string | null
+  defaultPoint?: number
+  visibility?: $Enums.Visibility
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
+  passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
+  media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
+  attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
+  attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
+  currentVersionOf?: Prisma.QuestionCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type QuestionVersionUncheckedCreateWithoutTagsInput = {
+  id?: string
+  questionId: string
+  version: number
+  type: $Enums.QuestionType
+  difficulty?: number
+  text: string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: string | null
+  defaultPoint?: number
+  visibility?: $Enums.Visibility
+  passageVersionId?: string | null
+  createdById?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
+  attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
+  attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
+  currentVersionOf?: Prisma.QuestionUncheckedCreateNestedOneWithoutCurrentVersionInput
+}
+
+export type QuestionVersionCreateOrConnectWithoutTagsInput = {
+  where: Prisma.QuestionVersionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutTagsInput, Prisma.QuestionVersionUncheckedCreateWithoutTagsInput>
+}
+
+export type QuestionVersionUpsertWithoutTagsInput = {
+  update: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutTagsInput, Prisma.QuestionVersionUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.QuestionVersionCreateWithoutTagsInput, Prisma.QuestionVersionUncheckedCreateWithoutTagsInput>
+  where?: Prisma.QuestionVersionWhereInput
+}
+
+export type QuestionVersionUpdateToOneWithWhereWithoutTagsInput = {
+  where?: Prisma.QuestionVersionWhereInput
+  data: Prisma.XOR<Prisma.QuestionVersionUpdateWithoutTagsInput, Prisma.QuestionVersionUncheckedUpdateWithoutTagsInput>
+}
+
+export type QuestionVersionUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
+  passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
+  media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
+  attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
+  attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
+  currentVersionOf?: Prisma.QuestionUpdateOneWithoutCurrentVersionNestedInput
+}
+
+export type QuestionVersionUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  currentVersionOf?: Prisma.QuestionUncheckedUpdateOneWithoutCurrentVersionNestedInput
+}
+
+export type QuestionVersionCreateWithoutAttemptQuestionsInput = {
+  id?: string
+  version: number
+  type: $Enums.QuestionType
+  difficulty?: number
+  text: string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: string | null
+  defaultPoint?: number
+  visibility?: $Enums.Visibility
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
+  passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
+  media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
   currentVersionOf?: Prisma.QuestionCreateNestedOneWithoutCurrentVersionInput
@@ -1204,8 +1333,7 @@ export type QuestionVersionUncheckedCreateWithoutAttemptQuestionsInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -1214,7 +1342,9 @@ export type QuestionVersionUncheckedCreateWithoutAttemptQuestionsInput = {
   passageVersionId?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
   currentVersionOf?: Prisma.QuestionUncheckedCreateNestedOneWithoutCurrentVersionInput
@@ -1240,18 +1370,19 @@ export type QuestionVersionUpdateWithoutAttemptQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
   currentVersionOf?: Prisma.QuestionUpdateOneWithoutCurrentVersionNestedInput
@@ -1262,8 +1393,7 @@ export type QuestionVersionUncheckedUpdateWithoutAttemptQuestionsInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1272,7 +1402,9 @@ export type QuestionVersionUncheckedUpdateWithoutAttemptQuestionsInput = {
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
   currentVersionOf?: Prisma.QuestionUncheckedUpdateOneWithoutCurrentVersionNestedInput
@@ -1282,18 +1414,19 @@ export type QuestionVersionCreateWithoutAttemptAnswersInput = {
   id?: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
   defaultPoint?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
   currentVersionOf?: Prisma.QuestionCreateNestedOneWithoutCurrentVersionInput
@@ -1304,8 +1437,7 @@ export type QuestionVersionUncheckedCreateWithoutAttemptAnswersInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -1314,7 +1446,9 @@ export type QuestionVersionUncheckedCreateWithoutAttemptAnswersInput = {
   passageVersionId?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   currentVersionOf?: Prisma.QuestionUncheckedCreateNestedOneWithoutCurrentVersionInput
@@ -1340,18 +1474,19 @@ export type QuestionVersionUpdateWithoutAttemptAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
   currentVersionOf?: Prisma.QuestionUpdateOneWithoutCurrentVersionNestedInput
@@ -1362,8 +1497,7 @@ export type QuestionVersionUncheckedUpdateWithoutAttemptAnswersInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1372,7 +1506,9 @@ export type QuestionVersionUncheckedUpdateWithoutAttemptAnswersInput = {
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   currentVersionOf?: Prisma.QuestionUncheckedUpdateOneWithoutCurrentVersionNestedInput
@@ -1382,18 +1518,19 @@ export type QuestionVersionCreateWithoutTestVersionQuestionsInput = {
   id?: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
   defaultPoint?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutQuestionVersionsInput
   media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
   currentVersionOf?: Prisma.QuestionCreateNestedOneWithoutCurrentVersionInput
@@ -1404,8 +1541,7 @@ export type QuestionVersionUncheckedCreateWithoutTestVersionQuestionsInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -1414,7 +1550,9 @@ export type QuestionVersionUncheckedCreateWithoutTestVersionQuestionsInput = {
   passageVersionId?: string | null
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
   currentVersionOf?: Prisma.QuestionUncheckedCreateNestedOneWithoutCurrentVersionInput
@@ -1440,18 +1578,19 @@ export type QuestionVersionUpdateWithoutTestVersionQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
   currentVersionOf?: Prisma.QuestionUpdateOneWithoutCurrentVersionNestedInput
@@ -1462,8 +1601,7 @@ export type QuestionVersionUncheckedUpdateWithoutTestVersionQuestionsInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1472,7 +1610,9 @@ export type QuestionVersionUncheckedUpdateWithoutTestVersionQuestionsInput = {
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
   currentVersionOf?: Prisma.QuestionUncheckedUpdateOneWithoutCurrentVersionNestedInput
@@ -1482,17 +1622,18 @@ export type QuestionVersionCreateWithoutCreatedByInput = {
   id?: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
   defaultPoint?: number
   visibility?: $Enums.Visibility
   createdAt?: Date | string
+  updatedAt?: Date | string
   question: Prisma.QuestionCreateNestedOneWithoutVersionsInput
   passageVersion?: Prisma.PassageVersionCreateNestedOneWithoutQuestionsInput
   media?: Prisma.MediaCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerCreateNestedManyWithoutQuestionVersionInput
@@ -1504,8 +1645,7 @@ export type QuestionVersionUncheckedCreateWithoutCreatedByInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -1513,7 +1653,9 @@ export type QuestionVersionUncheckedCreateWithoutCreatedByInput = {
   visibility?: $Enums.Visibility
   passageVersionId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   media?: Prisma.MediaUncheckedCreateNestedManyWithoutQuestionVersionsInput
+  tags?: Prisma.QuestionTagUncheckedCreateNestedManyWithoutQuestionVersionInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedCreateNestedManyWithoutQuestionVersionInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedCreateNestedManyWithoutQuestionVersionInput
@@ -1550,17 +1692,18 @@ export type QuestionVersionUpdateWithoutMediaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
@@ -1572,8 +1715,7 @@ export type QuestionVersionUncheckedUpdateWithoutMediaInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1582,6 +1724,8 @@ export type QuestionVersionUncheckedUpdateWithoutMediaInput = {
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
@@ -1593,8 +1737,7 @@ export type QuestionVersionUncheckedUpdateManyWithoutMediaInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1603,80 +1746,7 @@ export type QuestionVersionUncheckedUpdateManyWithoutMediaInput = {
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type QuestionVersionCreateManyQuestionInput = {
-  id?: string
-  version: number
-  type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
-  text: string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: string | null
-  defaultPoint?: number
-  visibility?: $Enums.Visibility
-  passageVersionId?: string | null
-  createdById?: number | null
-  createdAt?: Date | string
-}
-
-export type QuestionVersionUpdateWithoutQuestionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
-  text?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
-  media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
-  testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
-  attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
-  attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
-  currentVersionOf?: Prisma.QuestionUpdateOneWithoutCurrentVersionNestedInput
-}
-
-export type QuestionVersionUncheckedUpdateWithoutQuestionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
-  text?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
-  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
-  attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
-  attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
-  currentVersionOf?: Prisma.QuestionUncheckedUpdateOneWithoutCurrentVersionNestedInput
-}
-
-export type QuestionVersionUncheckedUpdateManyWithoutQuestionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
-  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
-  text?: Prisma.StringFieldUpdateOperationsInput | string
-  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionVersionCreateManyPassageVersionInput = {
@@ -1684,8 +1754,7 @@ export type QuestionVersionCreateManyPassageVersionInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -1693,23 +1762,25 @@ export type QuestionVersionCreateManyPassageVersionInput = {
   visibility?: $Enums.Visibility
   createdById?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionVersionUpdateWithoutPassageVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
@@ -1721,8 +1792,7 @@ export type QuestionVersionUncheckedUpdateWithoutPassageVersionInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1730,7 +1800,9 @@ export type QuestionVersionUncheckedUpdateWithoutPassageVersionInput = {
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
@@ -1742,8 +1814,7 @@ export type QuestionVersionUncheckedUpdateManyWithoutPassageVersionInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1751,6 +1822,83 @@ export type QuestionVersionUncheckedUpdateManyWithoutPassageVersionInput = {
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type QuestionVersionCreateManyQuestionInput = {
+  id?: string
+  version: number
+  type: $Enums.QuestionType
+  difficulty?: number
+  text: string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: string | null
+  defaultPoint?: number
+  visibility?: $Enums.Visibility
+  passageVersionId?: string | null
+  createdById?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type QuestionVersionUpdateWithoutQuestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutQuestionVersionsNestedInput
+  media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
+  attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
+  attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
+  currentVersionOf?: Prisma.QuestionUpdateOneWithoutCurrentVersionNestedInput
+}
+
+export type QuestionVersionUncheckedUpdateWithoutQuestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
+  currentVersionOf?: Prisma.QuestionUncheckedUpdateOneWithoutCurrentVersionNestedInput
+}
+
+export type QuestionVersionUncheckedUpdateManyWithoutQuestionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
+  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
+  passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type QuestionVersionCreateManyCreatedByInput = {
@@ -1758,8 +1906,7 @@ export type QuestionVersionCreateManyCreatedByInput = {
   questionId: string
   version: number
   type: $Enums.QuestionType
-  difficulty?: $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionCreatetagsInput | string[]
+  difficulty?: number
   text: string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: string | null
@@ -1767,23 +1914,25 @@ export type QuestionVersionCreateManyCreatedByInput = {
   visibility?: $Enums.Visibility
   passageVersionId?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type QuestionVersionUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPoint?: Prisma.IntFieldUpdateOperationsInput | number
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   question?: Prisma.QuestionUpdateOneRequiredWithoutVersionsNestedInput
   passageVersion?: Prisma.PassageVersionUpdateOneWithoutQuestionsNestedInput
   media?: Prisma.MediaUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUpdateManyWithoutQuestionVersionNestedInput
@@ -1795,8 +1944,7 @@ export type QuestionVersionUncheckedUpdateWithoutCreatedByInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1804,7 +1952,9 @@ export type QuestionVersionUncheckedUpdateWithoutCreatedByInput = {
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUncheckedUpdateManyWithoutQuestionVersionsNestedInput
+  tags?: Prisma.QuestionTagUncheckedUpdateManyWithoutQuestionVersionNestedInput
   testVersionQuestions?: Prisma.TestVersionQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptQuestions?: Prisma.AttemptQuestionUncheckedUpdateManyWithoutQuestionVersionNestedInput
   attemptAnswers?: Prisma.AttemptAnswerUncheckedUpdateManyWithoutQuestionVersionNestedInput
@@ -1816,8 +1966,7 @@ export type QuestionVersionUncheckedUpdateManyWithoutCreatedByInput = {
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
-  tags?: Prisma.QuestionVersionUpdatetagsInput | string[]
+  difficulty?: Prisma.IntFieldUpdateOperationsInput | number
   text?: Prisma.StringFieldUpdateOperationsInput | string
   data?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1825,6 +1974,7 @@ export type QuestionVersionUncheckedUpdateManyWithoutCreatedByInput = {
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   passageVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1834,6 +1984,7 @@ export type QuestionVersionUncheckedUpdateManyWithoutCreatedByInput = {
 
 export type QuestionVersionCountOutputType = {
   media: number
+  tags: number
   testVersionQuestions: number
   attemptQuestions: number
   attemptAnswers: number
@@ -1841,6 +1992,7 @@ export type QuestionVersionCountOutputType = {
 
 export type QuestionVersionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   media?: boolean | QuestionVersionCountOutputTypeCountMediaArgs
+  tags?: boolean | QuestionVersionCountOutputTypeCountTagsArgs
   testVersionQuestions?: boolean | QuestionVersionCountOutputTypeCountTestVersionQuestionsArgs
   attemptQuestions?: boolean | QuestionVersionCountOutputTypeCountAttemptQuestionsArgs
   attemptAnswers?: boolean | QuestionVersionCountOutputTypeCountAttemptAnswersArgs
@@ -1861,6 +2013,13 @@ export type QuestionVersionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
  */
 export type QuestionVersionCountOutputTypeCountMediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MediaWhereInput
+}
+
+/**
+ * QuestionVersionCountOutputType without action
+ */
+export type QuestionVersionCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestionTagWhereInput
 }
 
 /**
@@ -1891,7 +2050,6 @@ export type QuestionVersionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   version?: boolean
   type?: boolean
   difficulty?: boolean
-  tags?: boolean
   text?: boolean
   data?: boolean
   explanation?: boolean
@@ -1900,10 +2058,12 @@ export type QuestionVersionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   passageVersionId?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.QuestionVersion$passageVersionArgs<ExtArgs>
   createdBy?: boolean | Prisma.QuestionVersion$createdByArgs<ExtArgs>
   media?: boolean | Prisma.QuestionVersion$mediaArgs<ExtArgs>
+  tags?: boolean | Prisma.QuestionVersion$tagsArgs<ExtArgs>
   testVersionQuestions?: boolean | Prisma.QuestionVersion$testVersionQuestionsArgs<ExtArgs>
   attemptQuestions?: boolean | Prisma.QuestionVersion$attemptQuestionsArgs<ExtArgs>
   attemptAnswers?: boolean | Prisma.QuestionVersion$attemptAnswersArgs<ExtArgs>
@@ -1917,7 +2077,6 @@ export type QuestionVersionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   version?: boolean
   type?: boolean
   difficulty?: boolean
-  tags?: boolean
   text?: boolean
   data?: boolean
   explanation?: boolean
@@ -1926,6 +2085,7 @@ export type QuestionVersionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   passageVersionId?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.QuestionVersion$passageVersionArgs<ExtArgs>
   createdBy?: boolean | Prisma.QuestionVersion$createdByArgs<ExtArgs>
@@ -1937,7 +2097,6 @@ export type QuestionVersionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   version?: boolean
   type?: boolean
   difficulty?: boolean
-  tags?: boolean
   text?: boolean
   data?: boolean
   explanation?: boolean
@@ -1946,6 +2105,7 @@ export type QuestionVersionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   passageVersionId?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.QuestionVersion$passageVersionArgs<ExtArgs>
   createdBy?: boolean | Prisma.QuestionVersion$createdByArgs<ExtArgs>
@@ -1957,7 +2117,6 @@ export type QuestionVersionSelectScalar = {
   version?: boolean
   type?: boolean
   difficulty?: boolean
-  tags?: boolean
   text?: boolean
   data?: boolean
   explanation?: boolean
@@ -1966,14 +2125,16 @@ export type QuestionVersionSelectScalar = {
   passageVersionId?: boolean
   createdById?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type QuestionVersionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "questionId" | "version" | "type" | "difficulty" | "tags" | "text" | "data" | "explanation" | "defaultPoint" | "visibility" | "passageVersionId" | "createdById" | "createdAt", ExtArgs["result"]["questionVersion"]>
+export type QuestionVersionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "questionId" | "version" | "type" | "difficulty" | "text" | "data" | "explanation" | "defaultPoint" | "visibility" | "passageVersionId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["questionVersion"]>
 export type QuestionVersionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
   passageVersion?: boolean | Prisma.QuestionVersion$passageVersionArgs<ExtArgs>
   createdBy?: boolean | Prisma.QuestionVersion$createdByArgs<ExtArgs>
   media?: boolean | Prisma.QuestionVersion$mediaArgs<ExtArgs>
+  tags?: boolean | Prisma.QuestionVersion$tagsArgs<ExtArgs>
   testVersionQuestions?: boolean | Prisma.QuestionVersion$testVersionQuestionsArgs<ExtArgs>
   attemptQuestions?: boolean | Prisma.QuestionVersion$attemptQuestionsArgs<ExtArgs>
   attemptAnswers?: boolean | Prisma.QuestionVersion$attemptAnswersArgs<ExtArgs>
@@ -1998,6 +2159,7 @@ export type $QuestionVersionPayload<ExtArgs extends runtime.Types.Extensions.Int
     passageVersion: Prisma.$PassageVersionPayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     media: Prisma.$MediaPayload<ExtArgs>[]
+    tags: Prisma.$QuestionTagPayload<ExtArgs>[]
     testVersionQuestions: Prisma.$TestVersionQuestionPayload<ExtArgs>[]
     attemptQuestions: Prisma.$AttemptQuestionPayload<ExtArgs>[]
     attemptAnswers: Prisma.$AttemptAnswerPayload<ExtArgs>[]
@@ -2008,16 +2170,31 @@ export type $QuestionVersionPayload<ExtArgs extends runtime.Types.Extensions.Int
     questionId: string
     version: number
     type: $Enums.QuestionType
-    difficulty: $Enums.DifficultyLevel
-    tags: string[]
+    /**
+     * Difficulty level (1-10)
+     */
+    difficulty: number
+    /**
+     * The main text/prompt of the question
+     */
     text: string
+    /**
+     * Structured data for options, answers, and logic
+     */
     data: runtime.JsonValue | null
     explanation: string | null
+    /**
+     * Default points awarded for this question if not overridden by a test
+     */
     defaultPoint: number
     visibility: $Enums.Visibility
+    /**
+     * Link to a specific passage version if this is a passage-based question
+     */
     passageVersionId: string | null
     createdById: number | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["questionVersion"]>
   composites: {}
 }
@@ -2416,6 +2593,7 @@ export interface Prisma__QuestionVersionClient<T, Null = never, ExtArgs extends 
   passageVersion<T extends Prisma.QuestionVersion$passageVersionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersion$passageVersionArgs<ExtArgs>>): Prisma.Prisma__PassageVersionClient<runtime.Types.Result.GetResult<Prisma.$PassageVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.QuestionVersion$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersion$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   media<T extends Prisma.QuestionVersion$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersion$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tags<T extends Prisma.QuestionVersion$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersion$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testVersionQuestions<T extends Prisma.QuestionVersion$testVersionQuestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersion$testVersionQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestVersionQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attemptQuestions<T extends Prisma.QuestionVersion$attemptQuestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersion$attemptQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attemptAnswers<T extends Prisma.QuestionVersion$attemptAnswersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionVersion$attemptAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2453,8 +2631,7 @@ export interface QuestionVersionFieldRefs {
   readonly questionId: Prisma.FieldRef<"QuestionVersion", 'String'>
   readonly version: Prisma.FieldRef<"QuestionVersion", 'Int'>
   readonly type: Prisma.FieldRef<"QuestionVersion", 'QuestionType'>
-  readonly difficulty: Prisma.FieldRef<"QuestionVersion", 'DifficultyLevel'>
-  readonly tags: Prisma.FieldRef<"QuestionVersion", 'String[]'>
+  readonly difficulty: Prisma.FieldRef<"QuestionVersion", 'Int'>
   readonly text: Prisma.FieldRef<"QuestionVersion", 'String'>
   readonly data: Prisma.FieldRef<"QuestionVersion", 'Json'>
   readonly explanation: Prisma.FieldRef<"QuestionVersion", 'String'>
@@ -2463,6 +2640,7 @@ export interface QuestionVersionFieldRefs {
   readonly passageVersionId: Prisma.FieldRef<"QuestionVersion", 'String'>
   readonly createdById: Prisma.FieldRef<"QuestionVersion", 'Int'>
   readonly createdAt: Prisma.FieldRef<"QuestionVersion", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"QuestionVersion", 'DateTime'>
 }
     
 
@@ -2923,6 +3101,30 @@ export type QuestionVersion$mediaArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.MediaScalarFieldEnum | Prisma.MediaScalarFieldEnum[]
+}
+
+/**
+ * QuestionVersion.tags
+ */
+export type QuestionVersion$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestionTag
+   */
+  select?: Prisma.QuestionTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestionTag
+   */
+  omit?: Prisma.QuestionTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionTagInclude<ExtArgs> | null
+  where?: Prisma.QuestionTagWhereInput
+  orderBy?: Prisma.QuestionTagOrderByWithRelationInput | Prisma.QuestionTagOrderByWithRelationInput[]
+  cursor?: Prisma.QuestionTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestionTagScalarFieldEnum | Prisma.QuestionTagScalarFieldEnum[]
 }
 
 /**

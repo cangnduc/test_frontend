@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model ParentStudentLink
- * 
+ * Junction table linking parents to their students
  */
 export type ParentStudentLinkModel = runtime.Types.Result.DefaultSelection<Prisma.$ParentStudentLinkPayload>
 
@@ -41,6 +41,7 @@ export type ParentStudentLinkMinAggregateOutputType = {
   parentId: number | null
   studentId: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ParentStudentLinkMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type ParentStudentLinkMaxAggregateOutputType = {
   parentId: number | null
   studentId: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ParentStudentLinkCountAggregateOutputType = {
@@ -55,6 +57,7 @@ export type ParentStudentLinkCountAggregateOutputType = {
   parentId: number
   studentId: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -74,6 +77,7 @@ export type ParentStudentLinkMinAggregateInputType = {
   parentId?: true
   studentId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ParentStudentLinkMaxAggregateInputType = {
@@ -81,6 +85,7 @@ export type ParentStudentLinkMaxAggregateInputType = {
   parentId?: true
   studentId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ParentStudentLinkCountAggregateInputType = {
@@ -88,6 +93,7 @@ export type ParentStudentLinkCountAggregateInputType = {
   parentId?: true
   studentId?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -182,6 +188,7 @@ export type ParentStudentLinkGroupByOutputType = {
   parentId: number
   studentId: number
   createdAt: Date
+  updatedAt: Date
   _count: ParentStudentLinkCountAggregateOutputType | null
   _avg: ParentStudentLinkAvgAggregateOutputType | null
   _sum: ParentStudentLinkSumAggregateOutputType | null
@@ -212,6 +219,7 @@ export type ParentStudentLinkWhereInput = {
   parentId?: Prisma.IntFilter<"ParentStudentLink"> | number
   studentId?: Prisma.IntFilter<"ParentStudentLink"> | number
   createdAt?: Prisma.DateTimeFilter<"ParentStudentLink"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ParentStudentLink"> | Date | string
   parent?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -221,6 +229,7 @@ export type ParentStudentLinkOrderByWithRelationInput = {
   parentId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   parent?: Prisma.UserOrderByWithRelationInput
   student?: Prisma.UserOrderByWithRelationInput
 }
@@ -234,6 +243,7 @@ export type ParentStudentLinkWhereUniqueInput = Prisma.AtLeast<{
   parentId?: Prisma.IntFilter<"ParentStudentLink"> | number
   studentId?: Prisma.IntFilter<"ParentStudentLink"> | number
   createdAt?: Prisma.DateTimeFilter<"ParentStudentLink"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ParentStudentLink"> | Date | string
   parent?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "parentId_studentId">
@@ -243,6 +253,7 @@ export type ParentStudentLinkOrderByWithAggregationInput = {
   parentId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ParentStudentLinkCountOrderByAggregateInput
   _avg?: Prisma.ParentStudentLinkAvgOrderByAggregateInput
   _max?: Prisma.ParentStudentLinkMaxOrderByAggregateInput
@@ -258,11 +269,13 @@ export type ParentStudentLinkScalarWhereWithAggregatesInput = {
   parentId?: Prisma.IntWithAggregatesFilter<"ParentStudentLink"> | number
   studentId?: Prisma.IntWithAggregatesFilter<"ParentStudentLink"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ParentStudentLink"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ParentStudentLink"> | Date | string
 }
 
 export type ParentStudentLinkCreateInput = {
   id?: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   parent: Prisma.UserCreateNestedOneWithoutParentLinksInput
   student: Prisma.UserCreateNestedOneWithoutStudentLinksInput
 }
@@ -272,11 +285,13 @@ export type ParentStudentLinkUncheckedCreateInput = {
   parentId: number
   studentId: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ParentStudentLinkUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parent?: Prisma.UserUpdateOneRequiredWithoutParentLinksNestedInput
   student?: Prisma.UserUpdateOneRequiredWithoutStudentLinksNestedInput
 }
@@ -286,6 +301,7 @@ export type ParentStudentLinkUncheckedUpdateInput = {
   parentId?: Prisma.IntFieldUpdateOperationsInput | number
   studentId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParentStudentLinkCreateManyInput = {
@@ -293,11 +309,13 @@ export type ParentStudentLinkCreateManyInput = {
   parentId: number
   studentId: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ParentStudentLinkUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParentStudentLinkUncheckedUpdateManyInput = {
@@ -305,6 +323,7 @@ export type ParentStudentLinkUncheckedUpdateManyInput = {
   parentId?: Prisma.IntFieldUpdateOperationsInput | number
   studentId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParentStudentLinkListRelationFilter = {
@@ -327,6 +346,7 @@ export type ParentStudentLinkCountOrderByAggregateInput = {
   parentId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ParentStudentLinkAvgOrderByAggregateInput = {
@@ -339,6 +359,7 @@ export type ParentStudentLinkMaxOrderByAggregateInput = {
   parentId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ParentStudentLinkMinOrderByAggregateInput = {
@@ -346,6 +367,7 @@ export type ParentStudentLinkMinOrderByAggregateInput = {
   parentId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ParentStudentLinkSumOrderByAggregateInput = {
@@ -440,6 +462,7 @@ export type ParentStudentLinkUncheckedUpdateManyWithoutStudentNestedInput = {
 export type ParentStudentLinkCreateWithoutParentInput = {
   id?: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   student: Prisma.UserCreateNestedOneWithoutStudentLinksInput
 }
 
@@ -447,6 +470,7 @@ export type ParentStudentLinkUncheckedCreateWithoutParentInput = {
   id?: string
   studentId: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ParentStudentLinkCreateOrConnectWithoutParentInput = {
@@ -462,6 +486,7 @@ export type ParentStudentLinkCreateManyParentInputEnvelope = {
 export type ParentStudentLinkCreateWithoutStudentInput = {
   id?: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   parent: Prisma.UserCreateNestedOneWithoutParentLinksInput
 }
 
@@ -469,6 +494,7 @@ export type ParentStudentLinkUncheckedCreateWithoutStudentInput = {
   id?: string
   parentId: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ParentStudentLinkCreateOrConnectWithoutStudentInput = {
@@ -505,6 +531,7 @@ export type ParentStudentLinkScalarWhereInput = {
   parentId?: Prisma.IntFilter<"ParentStudentLink"> | number
   studentId?: Prisma.IntFilter<"ParentStudentLink"> | number
   createdAt?: Prisma.DateTimeFilter<"ParentStudentLink"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ParentStudentLink"> | Date | string
 }
 
 export type ParentStudentLinkUpsertWithWhereUniqueWithoutStudentInput = {
@@ -527,17 +554,20 @@ export type ParentStudentLinkCreateManyParentInput = {
   id?: string
   studentId: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ParentStudentLinkCreateManyStudentInput = {
   id?: string
   parentId: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ParentStudentLinkUpdateWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.UserUpdateOneRequiredWithoutStudentLinksNestedInput
 }
 
@@ -545,17 +575,20 @@ export type ParentStudentLinkUncheckedUpdateWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParentStudentLinkUncheckedUpdateManyWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParentStudentLinkUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parent?: Prisma.UserUpdateOneRequiredWithoutParentLinksNestedInput
 }
 
@@ -563,12 +596,14 @@ export type ParentStudentLinkUncheckedUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParentStudentLinkUncheckedUpdateManyWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   parentId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -578,6 +613,7 @@ export type ParentStudentLinkSelect<ExtArgs extends runtime.Types.Extensions.Int
   parentId?: boolean
   studentId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   parent?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["parentStudentLink"]>
@@ -587,6 +623,7 @@ export type ParentStudentLinkSelectCreateManyAndReturn<ExtArgs extends runtime.T
   parentId?: boolean
   studentId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   parent?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["parentStudentLink"]>
@@ -596,6 +633,7 @@ export type ParentStudentLinkSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   parentId?: boolean
   studentId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   parent?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["parentStudentLink"]>
@@ -605,9 +643,10 @@ export type ParentStudentLinkSelectScalar = {
   parentId?: boolean
   studentId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ParentStudentLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "parentId" | "studentId" | "createdAt", ExtArgs["result"]["parentStudentLink"]>
+export type ParentStudentLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "parentId" | "studentId" | "createdAt" | "updatedAt", ExtArgs["result"]["parentStudentLink"]>
 export type ParentStudentLinkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parent?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -632,6 +671,7 @@ export type $ParentStudentLinkPayload<ExtArgs extends runtime.Types.Extensions.I
     parentId: number
     studentId: number
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["parentStudentLink"]>
   composites: {}
 }
@@ -1061,6 +1101,7 @@ export interface ParentStudentLinkFieldRefs {
   readonly parentId: Prisma.FieldRef<"ParentStudentLink", 'Int'>
   readonly studentId: Prisma.FieldRef<"ParentStudentLink", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ParentStudentLink", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ParentStudentLink", 'DateTime'>
 }
     
 

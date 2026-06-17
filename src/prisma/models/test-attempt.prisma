@@ -1,41 +1,44 @@
+/// Represents a student's instance of taking a specific test version
 model TestAttempt {
   id String @id @default(uuid())
-
   userId Int  @map("user_id")
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   testId String @map("test_id")
-  test   Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
-
-  testVersionId   String      @map("test_version_id") // ✅ immutable version taken
-  testVersion     TestVersion @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
-
+  /// The exact version of the test being taken (pinned for historical accuracy)
+  testVersionId   String      @map("test_version_id")
   status        AttemptStatus @default(IN_PROGRESS)
+  /// Attempt number for this specific user/test combination
   attemptNumber Int           @map("attempt_number")
-
   startedAt   DateTime  @default(now()) @map("started_at")
   submittedAt DateTime? @map("submitted_at")
   completedAt DateTime? @map("completed_at")
-
+  /// The hard deadline for the entire attempt, calculated at start
   globalEndAt DateTime? @map("global_end_at")
-
   currentSectionId String?         @map("current_section_id")
-  currentSection   AttemptSection? @relation("CurrentSection", fields: [currentSectionId], references: [id], onDelete: SetNull)
-
   totalScore Float?   @default(0) @map("total_score")
   maxScore   Float?   @map("max_score")
   percentage Float?
   passed     Boolean?
-
-  configSnapshot    Json? @map("config_snapshot") // redundant but kept if requested, made optional
+  /// Snapshot of test settings at the moment of start (e.g., duration)
+  configSnapshot    Json? @map("config_snapshot")
   sessionToken      String? @map("session_token")
   clientFingerprint String? @map("client_fingerprint")
   ipAddress         String? @map("ip_address")
+  /// Type of device used (e.g., Mobile, Desktop, Tablet)
+  deviceType        String? @map("device_type")
+  /// Information about the browser/agent used
+  browserInfo       String? @map("browser_info")
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @updatedAt @map("updated_at")
 
-  sections  AttemptSection[]  @relation("AttemptSections")
-  questions AttemptQuestion[]
-  answers   AttemptAnswer[]
-  progress  UserTestProgress[]
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test   Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testVersion     TestVersion @relation(fields: [testVersionId], references: [id], onDelete: Cascade)
+  currentSection   AttemptSection? @relation("CurrentSection", fields: [currentSectionId], references: [id], onDelete: SetNull)
+  sections          AttemptSection[]  @relation("AttemptSections")
+  questions         AttemptQuestion[]
+  answers           AttemptAnswer[]
+  progress          UserTestProgress[]
+  tokenTransactions TokenTransaction[]
 
   @@unique([userId, testId, attemptNumber])
   @@index([userId, testId, status])
@@ -43,48 +46,45 @@ model TestAttempt {
   @@map("test_attempt")
 }
 
+/// Tracking record for a student's progress through a specific test section
 model AttemptSection {
   id                    String           @id @default(uuid())
   attemptId             String           @map("attempt_id")
-  attempt               TestAttempt      @relation("AttemptSections", fields: [attemptId], references: [id], onDelete: Cascade)
-  
-  testVersionSectionId  String           @map("test_version_section_id") // ✅ versioned section
-  testVersionSection    TestVersionSection @relation(fields: [testVersionSectionId], references: [id], onDelete: Cascade)
-  
-  order               Int
-  title               String
-  timeLimit           Int?              @map("time_limit")
-  selectionMode       SelectionMode?    @map("selection_mode") // ALL_REQUIRED, CHOOSE_N, RANDOM_N
-  requiredAnswerCount Int?              @map("required_answer_count")
+  testVersionSectionId  String           @map("test_version_section_id")
   status              SectionStatus     @default(LOCKED)
   startedAt           DateTime?         @map("started_at")
+  /// Deadline for this specific section (if timed)
   sectionEndAt        DateTime?         @map("section_end_at")
   completedAt         DateTime?         @map("completed_at")
-  
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  attempt               TestAttempt      @relation("AttemptSections", fields: [attemptId], references: [id], onDelete: Cascade)
+  testVersionSection    TestVersionSection @relation(fields: [testVersionSectionId], references: [id], onDelete: Cascade)
   currentAttempts TestAttempt[]     @relation("CurrentSection")
   questions       AttemptQuestion[]
     
   @@unique([attemptId, testVersionSectionId])
-  @@index([attemptId, order])
   @@map("attempt_section")
 }
 
+/// Link record representing a specific question served to a student in an attempt
 model AttemptQuestion {
   id                   String          @id @default(uuid())
   attemptId            String          @map("attempt_id")
-  attempt              TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   attemptSectionId     String          @map("attempt_section_id")
-  attemptSection       AttemptSection  @relation(fields: [attemptSectionId], references: [id], onDelete: Cascade)
-  
-  questionVersionId    String          @map("question_version_id") // ✅ versioned question answered
-  questionVersion      QuestionVersion @relation(fields: [questionVersionId], references: [id], onDelete: Cascade)
-  
-  testVersionQuestionId String?        @map("test_version_question_id") // ✅ backlink to the test’s question definition
-  testVersionQuestion   TestVersionQuestion? @relation(fields: [testVersionQuestionId], references: [id], onDelete: SetNull)
-  
+  questionVersionId    String          @map("question_version_id")
+  testVersionQuestionId String?        @map("test_version_question_id")
+  /// The order in which this question was displayed to the student (supports shuffling)
   displayOrder         Int             @map("display_order")
+  /// Points possible for this question in this attempt
   point                Int
   isRequired           Boolean         @map("is_required")
+  updatedAt            DateTime        @updatedAt @map("updated_at")
+
+  attempt              TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  attemptSection       AttemptSection  @relation(fields: [attemptSectionId], references: [id], onDelete: Cascade)
+  questionVersion      QuestionVersion @relation(fields: [questionVersionId], references: [id], onDelete: Cascade)
+  testVersionQuestion   TestVersionQuestion? @relation(fields: [testVersionQuestionId], references: [id], onDelete: SetNull)
   answers              AttemptAnswer[]
 
   @@unique([attemptId, questionVersionId])
@@ -92,22 +92,22 @@ model AttemptQuestion {
   @@map("attempt_question")
 }
 
+/// A student's specific response to an attempt question
 model AttemptAnswer {
   id                String          @id @default(uuid())
   attemptId         String          @map("attempt_id")
-  attempt           TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   attemptQuestionId String          @map("attempt_question_id")
-  attemptQuestion   AttemptQuestion @relation(fields: [attemptQuestionId], references: [id], onDelete: Cascade)
-  
-  questionVersionId String          @map("question_version_id") // ✅ points to versioned question
-  questionVersion   QuestionVersion @relation(fields: [questionVersionId], references: [id], onDelete: Cascade)
-  
+  questionVersionId String          @map("question_version_id")
+  /// The student's response (e.g., selected option ID, text, etc.)
   response          Json
   pointsAwarded     Float           @default(0) @map("points_awarded")
   isCorrect         Boolean?        @map("is_correct")
   savedAt           DateTime        @default(now()) @map("saved_at")
   updatedAt         DateTime        @updatedAt @map("updated_at")
 
+  attempt           TestAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  attemptQuestion   AttemptQuestion @relation(fields: [attemptQuestionId], references: [id], onDelete: Cascade)
+  questionVersion   QuestionVersion @relation(fields: [questionVersionId], references: [id], onDelete: Cascade)
   manualGrade ManualGrade?
 
   @@unique([attemptId, attemptQuestionId])
@@ -116,18 +116,19 @@ model AttemptAnswer {
   @@map("attempt_answer")
 }
 
+/// Record of a manual grading action by a teacher/admin
 model ManualGrade {
   id              String        @id @default(uuid())
   attemptAnswerId String        @unique @map("attempt_answer_id")
-  attemptAnswer   AttemptAnswer @relation(fields: [attemptAnswerId], references: [id], onDelete: Cascade)
-
   gradedById    Int             @map("graded_by_id")
-  gradedBy      User            @relation("GradedBy", fields: [gradedById], references: [id])
   pointsAwarded Float           @map("points_awarded")
+  /// Qualitative feedback for the student
   feedback      String?         @db.Text
-
   gradedAt  DateTime @default(now()) @map("graded_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  attemptAnswer   AttemptAnswer @relation(fields: [attemptAnswerId], references: [id], onDelete: Cascade)
+  gradedBy      User            @relation("GradedBy", fields: [gradedById], references: [id])
 
   @@map("manual_grade")
 }

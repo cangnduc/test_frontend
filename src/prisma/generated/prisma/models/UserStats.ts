@@ -14,7 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model UserStats
- * 
+ * Gamification and activity statistics for a user
  */
 export type UserStatsModel = runtime.Types.Result.DefaultSelection<Prisma.$UserStatsPayload>
 
@@ -740,9 +740,21 @@ export type $UserStatsPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: number
+    /**
+     * Current spendable currency balance
+     */
     tokens: number
+    /**
+     * Total experience points earned
+     */
     xp: number
+    /**
+     * User's calculated level based on XP
+     */
     level: number
+    /**
+     * Current consecutive days of activity
+     */
     streak: number
     testsTaken: number
     testsCompleted: number
